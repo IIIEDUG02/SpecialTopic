@@ -1,3 +1,5 @@
 hibernate.cfg.xml
 .DS_Store
 *.class
+/build/
+/target/
