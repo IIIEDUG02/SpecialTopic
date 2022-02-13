@@ -73,5 +73,6 @@ git branch [Branch名稱(必填)]
 git branch -d [Branch名稱(必填)]
 ```
 
-
 ![](pictures/git.png)
+
+無法適應指令的同學可以參考[這個軟體(SourceTree)](https://www.sourcetreeapp.com)使用
