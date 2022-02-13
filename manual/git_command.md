@@ -6,11 +6,27 @@ git clone https://github.com/IIIEDUG02/SpecialTopic [資料夾名稱(資料將�
 git clone https://github.com/IIIEDUG02/SpecialTopic
 ```
 
-#### 更新本機專案
-因為我們是團隊開發，所以每天都會有人會push新的程式碼上來，每天至少執行一次，或push前系統有可能會要求使用前，留意當前Branch
+#### 更新Main Branch
+因為我們是團隊開發，所以每天都會有人會push新的程式碼上來，每天至少執行一次，或push前系統有可能會要求使用前，
 
 ```shell=
 git pull
+```
+
+#### 更新指定的Branch
+
+```shell=
+git pull origin other-branch
+```
+
+#### 回復到最新提交版本 
+```shell=
+git reset --hard HEAD
+```
+
+#### 回復到上n個提交版本 
+```shell=
+git reset --hard HEAD~n
 ```
 
 #### 檢查目前有哪些檔案異動且未add、commit
