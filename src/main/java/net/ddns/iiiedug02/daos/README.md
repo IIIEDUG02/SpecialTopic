@@ -1,1 +1,1 @@
-# 這裡是看Data Access Object(DAO)的地方
+# 這裡是放Data Access Object(DAO)的地方

@@ -1,4 +1,4 @@
-package net.ddns.iiideug02.utils;
+package net.ddns.iiiedug02.utils;
 
 public class TestUtil {
 

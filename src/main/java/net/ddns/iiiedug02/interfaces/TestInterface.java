@@ -1,4 +1,4 @@
-package net.ddns.iiideug02.interfaces;
+package net.ddns.iiiedug02.interfaces;
 
 public class TestInterface {
 
