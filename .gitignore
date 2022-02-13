@@ -1,6 +1,20 @@
+# 伺服器連線資訊
 hibernate.cfg.xml
-.DS_Store
-*.class
-/build/
 
+/.settings/
 /target/
+
+# 編譯後的檔案
+*.class
+*.jar
+
+# generated files
+bin/
+gen/
+
+# Eclipse 專案檔案
+.classpath
+.project
+
+# MacOS的檔案
+.DS_Store
