@@ -56,3 +56,6 @@ git branch [Branch名稱(必填)]
 ```shell=
 git branch -d [Branch名稱(必填)]
 ```
+
+
+![](pictures/git.png)
