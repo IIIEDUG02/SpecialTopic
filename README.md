@@ -35,4 +35,5 @@ git checkout -b [Branch名稱(必填)]
 |Tomcat|9|
 |Hibernate|5.6.5.Final|
 |MSSql-JDBC|10.2.0.jre11|
-[pom.xml](pom.xml)
+
+[Maven的pom.xml](pom.xml)
