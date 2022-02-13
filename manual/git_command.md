@@ -39,8 +39,20 @@ git commit -m “註解”
 git push
 ```
 
-#### 新增Branch，並切換過去
+#### 新增Branch，並切換
 
 ```shell=
 git checkout -b [Branch名稱(必填)]
+```
+
+#### 切換Branch
+
+```shell=
+git branch [Branch名稱(必填)]
+```
+
+#### 刪除Branch
+
+```shell=
+git branch -d [Branch名稱(必填)]
 ```
