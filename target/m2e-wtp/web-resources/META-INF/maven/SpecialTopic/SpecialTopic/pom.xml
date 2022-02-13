@@ -7,7 +7,7 @@
 	<description>咨策會JAVA班第２組期末專題</description>
 	<dependencies>
 		<!-- tomcat -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-i18n-ko</artifactId>
 			<version>9.0.58</version>
@@ -166,7 +166,7 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
 			<version>9.0.58</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- gson -->
 		<dependency>
