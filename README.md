@@ -7,3 +7,5 @@ hibernate.cfg.xml.tmp只是個範例，因考量安全問題hibernate.cfg.xml檔
 ### [開發環境](manual/dev_env.md)
 
 ### [推薦安裝的軟體及設定](manual/setups.md)
+
+### [會議記錄](manual/meeting_minutes.md)
