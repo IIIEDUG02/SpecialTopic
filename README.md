@@ -27,3 +27,12 @@ git checkout -b [Branch名稱(必填)]
 - ** [Google的Java Formating Rule](http://www.practicesofmastery.com/post/eclipse-google-java-style-guide/)
 - ** [設定存檔的時候，自動format](https://www.planetofbits.com/eclipse/how-to-enable-auto-formatting-in-eclipse/)
 - Darkest Dark-Eclipse深黑色主題(Marketplace)
+
+### 開發環境
+|系統|版本|
+|:-:|:-:|
+|Java|OpenJDK 11|
+|Tomcat|9|
+|Hibernate|5.6.5.Final|
+|MSSql-JDBC|10.2.0.jre11|
+[pom.xml](pom.xml)
