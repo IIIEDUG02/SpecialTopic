@@ -3,7 +3,7 @@ hibernate.cfg.xml
 
 /.settings/
 /target/
-
+/junit/
 # 編譯後的檔案
 *.class
 *.jar
