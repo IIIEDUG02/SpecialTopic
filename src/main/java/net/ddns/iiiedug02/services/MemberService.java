@@ -19,8 +19,13 @@ public class MemberService {
   public MemberBean selectByUsername(String username) {
     MemberBean encryptedBean = mdao.selectByUsername(username);
     MemberBean decryptedBean = new MemberBean();
-    decryptedBean.setUsername(encryptedBean.getUsername());
-    decryptedBean.setPassword(encryptorUtil.decrypt(encryptedBean.getPassword()));
+    if (null == encryptedBean) {
+      decryptedBean.setUsername("");
+      decryptedBean.setPassword("");
+    } else {
+      decryptedBean.setUsername(encryptedBean.getUsername());
+      decryptedBean.setPassword(encryptorUtil.decrypt(encryptedBean.getPassword()));
+    }
     return decryptedBean;
   }
 

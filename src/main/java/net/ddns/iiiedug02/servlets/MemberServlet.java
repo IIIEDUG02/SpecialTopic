@@ -31,7 +31,7 @@ public class MemberServlet extends HttpServlet {
     String method = request.getParameter("method");
 
     if ("selectByUsername".equals(method)) {
-      String username = request.getParameter("Username");
+      String username = request.getParameter("username");
       if (username == null) {
         response.sendError(HttpServletResponse.SC_NOT_FOUND);
         return;
@@ -50,6 +50,10 @@ public class MemberServlet extends HttpServlet {
       } finally {
         // HibernateUtil.closeSessionFactory(); //結束位置要研究
       }
+    } else if ("auth".equals(method)) {
+      String username = request.getParameter("username");
+      String password = request.getParameter("password");
+
     } else {
       response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
