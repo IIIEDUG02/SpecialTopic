@@ -8,7 +8,7 @@ public class JasyptUtil {
   public JasyptUtil() {
 
     String encryptorAlgorithm = "PBEWithMD5AndTripleDES";
-    String encryptorPassword = "X6nVP89KZ8Ar";
+    String encryptorPassword = "Dfsd125sDXX3ImHUSUnM13M94Mjdds9075";
 
     encryptor.setAlgorithm(encryptorAlgorithm);
     encryptor.setPassword(encryptorPassword);
