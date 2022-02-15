@@ -1,9 +1,9 @@
 # 伺服器連線資訊
 hibernate.cfg.xml
 
-.settings
-target
-junit
+.settings/
+target/
+junit/
 # 編譯後的檔案
 *.class
 *.jar
