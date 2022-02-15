@@ -4,6 +4,7 @@ hibernate.cfg.xml
 .settings/
 target/
 junit/
+context.xml
 # 編譯後的檔案
 *.class
 *.jar
