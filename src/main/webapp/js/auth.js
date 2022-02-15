@@ -10,19 +10,20 @@ $("input#login").click(function() {
 		alert("請輸入密碼");
 		return;
 	}
-	$.ajax({
-		type: 'POST',
-		url: "SpecialTopic/LoginAuth",
+	let jqxhr = $.getJSON({
+		type: 'GET',
+		url: "/SpecialTopic/LoginAuth",
 		data: {
-                username: $("input#usernametext").val(),
-                password: $("input#passwordtext").val()
-            },
-		success: function(result)
-            {
-                console.log("Sussesed!!");
-            }
+			username: $("input#usernametext").val(),
+			password: $("input#passwordtext").val()
+		}
+	}).done(function(resp) {
+		//alert('成功');
+		alert(resp.result);
+	}).fail(function() {
+		//alert('失敗');
+	}).always(function() {
+		//alert('結束');
 	});
-
-
 	console.log("Login");
 });
