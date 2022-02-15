@@ -1,7 +1,7 @@
 # 開發環境
 |系統|版本|
 |:-:|:-:|
-|Java|OpenJDK 11|
+|Java|[OpenJDK 11.0.2](https://jdk.java.net/archive/)|
 |Tomcat|9|
 |Hibernate|5.6.5.Final|
 |MSSql-JDBC|10.2.0.jre11|
