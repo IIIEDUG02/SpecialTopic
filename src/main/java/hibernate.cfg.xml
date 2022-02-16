@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    	<!-- 設定連線參數 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.connection.datasource">java:comp/env/connectSqlServerJdbc/SystemService</property>
+         
+        <!-- 效率相關設定 -->
+        <property name="hibernate.generate_statistics">true</property>
+        <property name="org.hibernate.stat">DEBUG</property>
+        <!-- 設定顯示SQL -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <!-- 一個Session一個Thread  -->
+        <property name="hibernate.current_session_context_class">thread</property>
+        
+         <!-- Mapping  -->
+        <mapping class="net.ddns.iiiedug02.beans.MemberBean"/>
+        <mapping class="net.ddns.iiiedug02.beans.MemberDetailsBean"/>
+        <mapping class="net.ddns.iiiedug02.beans.Stock"/>
+        <mapping class="net.ddns.iiiedug02.beans.StockTransaction"/>
+        <mapping class="net.ddns.iiiedug02.beans.Game"/>
+        <mapping class="net.ddns.iiiedug02.beans.Role"/>
+        
+    </session-factory>
+</hibernate-configuration>
