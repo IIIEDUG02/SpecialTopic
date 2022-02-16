@@ -20,10 +20,6 @@
          <!-- Mapping  -->
         <mapping class="net.ddns.iiiedug02.beans.MemberBean"/>
         <mapping class="net.ddns.iiiedug02.beans.MemberDetailsBean"/>
-        <mapping class="net.ddns.iiiedug02.beans.Stock"/>
-        <mapping class="net.ddns.iiiedug02.beans.StockTransaction"/>
-        <mapping class="net.ddns.iiiedug02.beans.Game"/>
-        <mapping class="net.ddns.iiiedug02.beans.Role"/>
         
     </session-factory>
 </hibernate-configuration>
