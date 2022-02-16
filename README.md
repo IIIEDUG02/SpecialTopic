@@ -14,3 +14,8 @@ hibernate.cfg.xml.tmp只是個範例，因考量安全問題hibernate.cfg.xml檔
 ## 附錄
 
 ### [SQLServer Container建立](manual/sql_container.md)
+
+## 各Branch說明
+|Branch名稱|說明|
+|:-:|:-:|
+|Hibernate|Hibernate上課期間的老師範例|
