@@ -1,13 +1,13 @@
 # 伺服器連線資訊
-hibernate.cfg.xml
+context.xml
 
 .settings/
-target/
+# Junit 測試程式
 junit/
-context.xml
 # 編譯後的檔案
 *.class
 *.jar
+target/
 
 # generated files
 bin/
