@@ -10,5 +10,7 @@
 |utils|放通用工具的地方|
 
 [hibernate.cfg.xml.tmp](hibernate.cfg.xml.tmp)保留資料庫連線方式
+
 2022/02/15:連線設定已改寫入Tomcat設定([context.xml](../../../manual/tomcat_config/context.xml.tmp))
+
 因考量伺服器安全，設定檔請同學用Line索取
