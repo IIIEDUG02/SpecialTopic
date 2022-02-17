@@ -32,24 +32,27 @@ public class MemberBean implements Serializable {
     return username;
   }
 
-  public void setUsername(String username) {
+  public MemberBean setUsername(String username) {
     this.username = username;
+    return this;
   }
 
   public String getPassword() {
     return password;
   }
 
-  public void setPassword(String password) {
+  public MemberBean setPassword(String password) {
     this.password = password;
+    return this;
   }
 
   public MemberDetailsBean getMemberDetail() {
     return memberDetail;
   }
 
-  public void setMemberDetail(MemberDetailsBean memberDetail) {
+  public MemberBean setMemberDetail(MemberDetailsBean memberDetail) {
     this.memberDetail = memberDetail;
+    return this;
   }
 
   @Override
@@ -57,6 +60,5 @@ public class MemberBean implements Serializable {
     return "username=" + username + ", password=" + password
         + (memberDetail == null ? "" : ", " + memberDetail.toString());
   }
-
 
 }
