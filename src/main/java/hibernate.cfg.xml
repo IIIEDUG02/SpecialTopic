@@ -5,8 +5,14 @@
 <hibernate-configuration>
     <session-factory>
     	<!-- 設定連線參數 -->
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://iiiedug02.ddns.net:1555;DatabaseName=db;encrypt=true;trustServerCertificate=true</property>
+        <property name="hibernate.connection.username">iiiedug02</property>
+        <property name="hibernate.connection.password">1113DU902db</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <!-- 
         <property name="hibernate.connection.datasource">java:comp/env/connectSqlServerJdbc/SystemService</property>
+         -->
          
         <!-- 效率相關設定 -->
         <property name="hibernate.generate_statistics">true</property>
