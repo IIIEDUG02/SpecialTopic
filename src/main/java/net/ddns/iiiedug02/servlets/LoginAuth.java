@@ -22,7 +22,6 @@ import net.ddns.iiiedug02.utils.JasyptUtil;
 public class LoginAuth extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-
   public LoginAuth() {
     super();
   }
@@ -30,9 +29,13 @@ public class LoginAuth extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    String jsessionid = "JSESSIONID";
+
     // 設定Response
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
+
+    JasyptUtil encryptUtil = new JasyptUtil();
 
     // 設定Hibernate Session
     SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -42,24 +45,24 @@ public class LoginAuth extends HttpServlet {
     String USERNAME = request.getParameter("username");
     String PASSWORD = request.getParameter("password");
 
-    // 載入加解密工具包
-    JasyptUtil encryptorUtil = new JasyptUtil();
-
     // 資料庫物查詢
     Query<MemberBean> query =
         hbsession.createQuery("from MemberBean where username = :un", MemberBean.class);
     query.setParameter("un", USERNAME);
-    MemberBean encryptedBean = query.uniqueResult();
+    MemberBean encryptBean = query.uniqueResult();
+
+    MemberBean memberBean = new MemberBean().setUsername(encryptBean.getUsername())
+        .setPassword(encryptUtil.decrypt(encryptBean.getPassword()));
 
     // 建立Session
     HttpSession httpsession = request.getSession(true);
     httpsession.setMaxInactiveInterval(180);// 單位為秒
 
-    // 假如帳號錯誤 encryptedBean = null
-    if (encryptedBean == null) {
+    // 假如帳號錯誤 memberBean = null
+    if (memberBean == null) {
       // 設定Session及ookie
       httpsession.setAttribute("message", "找不到帳號");
-      Cookie cookie = new Cookie("JSESSIONID", httpsession.getId());
+      Cookie cookie = new Cookie(jsessionid, httpsession.getId());
       cookie.setMaxAge(30 * 60);
       response.addCookie(cookie);
 
@@ -68,11 +71,14 @@ public class LoginAuth extends HttpServlet {
       return;
     }
 
-    String DECRYPTPWD = encryptorUtil.decrypt(encryptedBean.getPassword());
-    if (!DECRYPTPWD.equals(PASSWORD)) {
+    if (!memberBean.getPassword().equals(PASSWORD)) {
+      System.out.println("-----------------------");
+      System.out.println(memberBean.getPassword());
+      System.out.println("-----------------------");
+
       // 設定Session及ookie
       httpsession.setAttribute("message", "密碼錯誤");
-      Cookie cookie = new Cookie("JSESSIONID", httpsession.getId());
+      Cookie cookie = new Cookie(jsessionid, httpsession.getId());
       cookie.setMaxAge(30 * 60);
       response.addCookie(cookie);
 
@@ -83,7 +89,7 @@ public class LoginAuth extends HttpServlet {
 
     // 設定Session及ookie
     httpsession.setAttribute("username", USERNAME);
-    Cookie cookie = new Cookie("JSESSIONID", httpsession.getId());
+    Cookie cookie = new Cookie(jsessionid, httpsession.getId());
     cookie.setMaxAge(30 * 60);
     response.addCookie(cookie);
 

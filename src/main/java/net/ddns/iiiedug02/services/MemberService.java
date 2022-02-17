@@ -44,7 +44,8 @@ public class MemberService {
   public boolean addMember(MemberBean decryptedBean) {
     MemberBean encryptedBean = new MemberBean();
     encryptedBean.setUsername(decryptedBean.getUsername());
-    encryptedBean.setPassword(encryptorUtil.encrypt(decryptedBean.getPassword()));
+    String encryptPassword = encryptorUtil.encrypt(decryptedBean.getPassword());
+    encryptedBean.setPassword(encryptPassword);
     return mdao.addMember(encryptedBean);
   }
 }

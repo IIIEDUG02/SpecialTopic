@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import net.ddns.iiiedug02.beans.MemberBean;
 import net.ddns.iiiedug02.services.MemberService;
 import net.ddns.iiiedug02.utils.HibernateUtil;
-import net.ddns.iiiedug02.utils.JasyptUtil;
 
 /**
  * Servlet implementation class SignUp
@@ -42,13 +41,11 @@ public class SignUp extends HttpServlet {
     // 載入 MemberService
     MemberService ms = new MemberService(hbsession);
 
-    // 載入加解密工具包
-    JasyptUtil encryptorUtil = new JasyptUtil();
-
     // 新建MemberBean
     MemberBean signMember = new MemberBean();
     signMember.setUsername(username);
-    signMember.setPassword(encryptorUtil.encrypt(password));
+    System.out.println("Servlet:" + password);
+    signMember.setPassword(password);
     if (ms.addMember(signMember)) {
       System.out.println("成功");
     } else {
