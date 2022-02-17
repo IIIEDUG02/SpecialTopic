@@ -1,0 +1,5 @@
+# SQL Setup
+sqlserver.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+sqlserver.jdbcUrl=jdbc:sqlserver://[host]:[port];DatabaseName=[DBname];encrypt=true;trustServerCertificate=true
+sqlserver.username=[username]
+sqlserver.password=[password]
