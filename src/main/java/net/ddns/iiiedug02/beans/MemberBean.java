@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "members")
+@Table(name = "Members")
 public class MemberBean implements Serializable {
   /**
    * 
@@ -18,9 +18,9 @@ public class MemberBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name = "Username")
+  @Column(name = "username")
   private String username;
-  @Column(name = "Password")
+  @Column(name = "password")
   private String password;
 
 

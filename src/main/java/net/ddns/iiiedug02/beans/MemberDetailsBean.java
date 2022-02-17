@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "memberdetails")
+@Table(name = "MemberDetails")
 public class MemberDetailsBean implements Serializable {
 
   /**
@@ -24,12 +24,12 @@ public class MemberDetailsBean implements Serializable {
   @GenericGenerator(name = "generator", strategy = "foreign",
       parameters = @Parameter(name = "property", value = "members"))
   @Id
-  @Column(name = "Username")
+  @Column(name = "username")
   @GeneratedValue(generator = "generator")
   private String username;
-  @Column(name = "Address")
+  @Column(name = "address")
   private String address;
-  @Column(name = "Phone")
+  @Column(name = "phone")
   private String phone;
 
   @OneToOne(fetch = FetchType.LAZY)
