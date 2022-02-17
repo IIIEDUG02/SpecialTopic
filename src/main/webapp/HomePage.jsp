@@ -7,6 +7,7 @@ if (null == username) {
   response.sendRedirect("Login.jsp");
 }
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@ if (null == username) {
 <title>登入後</title>
 </head>
 <body>
-Hello <%= username %>
+Hello <%= username %> "${username}"
 <form action="Logout" method="get">
 <button type="submit">登出</button>
 </form>
