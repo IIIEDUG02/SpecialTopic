@@ -47,7 +47,7 @@ public class LoginAuth extends HttpServlet {
 
     // 資料庫物查詢
     Query<MemberBean> query =
-        hbsession.createQuery("from MemberBean where Username = :un", MemberBean.class);
+        hbsession.createQuery("from MemberBean where username = :un", MemberBean.class);
     query.setParameter("un", USERNAME);
     MemberBean encryptedBean = query.uniqueResult();
 
