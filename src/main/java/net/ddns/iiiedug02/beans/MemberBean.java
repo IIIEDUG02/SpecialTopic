@@ -12,9 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Members")
 public class MemberBean implements Serializable {
-  /**
-   * 
-   */
+
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -22,6 +20,10 @@ public class MemberBean implements Serializable {
   private String username;
   @Column(name = "password")
   private String password;
+  @Column(name = "auth")
+  private String auth = "nuser";
+  @Column(name = "activated")
+  private short activated = 1; // 0:true, 1:false
 
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
@@ -46,6 +48,24 @@ public class MemberBean implements Serializable {
     return this;
   }
 
+  public String getAuth() {
+    return auth;
+  }
+
+  public MemberBean setAuth(String auth) {
+    this.auth = auth;
+    return this;
+  }
+
+  public short getActivated() {
+    return activated;
+  }
+
+  public MemberBean setActivated(short activated) {
+    this.activated = activated;
+    return this;
+  }
+
   public MemberDetailsBean getMemberDetail() {
     return memberDetail;
   }
@@ -57,8 +77,8 @@ public class MemberBean implements Serializable {
 
   @Override
   public String toString() {
-    return "username=" + username + ", password=" + password
-        + (memberDetail == null ? "" : ", " + memberDetail.toString());
+    return "MemberBean [username=" + username + ", password=" + password + ", auth=" + auth
+        + ", activated=" + activated + "]";
   }
 
 }
