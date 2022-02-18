@@ -40,21 +40,16 @@ public class MemberDAO implements IMemberDAO {
   }
 
   @Override
-  public boolean updatePassword(String username, String password) {
-    Session session = sessionFactory.getCurrentSession();
-    MemberBean target = session.get(MemberBean.class, username);
-    if (target != null) {
-      target.setPassword(password);
-      session.update(target);
-      return true;
-    }
-    return false;
-  }
-
-  @Override
   public boolean addMember(MemberBean targetBean) {
     Session session = sessionFactory.getCurrentSession();
     session.save(targetBean);
     return true;
+  }
+
+  @Override
+  public boolean updateMember(MemberBean targetBean) {
+    Session session = sessionFactory.getCurrentSession();
+    session.update(targetBean);
+    return false;
   }
 }

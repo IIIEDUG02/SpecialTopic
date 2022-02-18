@@ -64,6 +64,7 @@ public class MemberSignUp extends HttpServlet {
     // signMember.setMemberDetail(signDetail);
 
     memberService.addMember(signMember);
+    response.sendRedirect("HomePage.jsp");
   }
 
   public java.sql.Date strToDate(String strDate) {

@@ -12,5 +12,5 @@ public interface IMemberDAO {
 
   public boolean delete(String username);
 
-  public boolean updatePassword(String username, String password);
+  public boolean updateMember(MemberBean targetBean);
 }

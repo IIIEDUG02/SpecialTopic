@@ -41,16 +41,8 @@ public class MemberDelete extends HttpServlet {
     if (null == mid) {
       // early return
     }
-
-    boolean result = memberService.delete(mid);
-
-    if (result) {
-      response.getWriter().println("Success");
-    } else {
-      response.getWriter().println("Failed");
-    }
-
-
+    memberService.delete(mid);
+    response.sendRedirect("HomePage.jsp");
   }
 
 }

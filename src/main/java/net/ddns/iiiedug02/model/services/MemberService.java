@@ -27,8 +27,8 @@ public class MemberService {
     return mdao.delete(username);
   }
 
-  public boolean updatePassword(String username, String password) {
-    return mdao.updatePassword(username, password);
+  public boolean updateMember(MemberBean targetdBean) {
+    return mdao.updateMember(targetdBean);
   }
 
   public boolean addMember(MemberBean targetdBean) {

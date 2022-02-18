@@ -60,10 +60,10 @@ for (MemberBean mb: mbs) {%>
 <%-- <td><%= mb.getMemberDetail().getAddress() %></td>
 <td><%= mb.getMemberDetail().getPhone() %></td> --%>
 <td>
-<% if (mb.getAuth() == "admin") { %>
+<% if (!mb.getAuth().equals("admin")) { %>
 <input type="button" onclick="javascript:location.href='DeleteMember?mid=<%= mb.getUsername() %>'" value="刪除">
 <% } %>
-<input type="button" onclick="javascript:location.href='?mid=<%= mb.getUsername() %>'" value="修改">
+<input type="button" onclick="javascript:location.href='MemberUpdate?action=showinfo&username=<%= mb.getUsername() %>'" value="修改">
 </td>
 </tr>
 <% } %>
