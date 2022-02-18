@@ -17,13 +17,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebFilter(urlPatterns = {"/Login.jsp"})
 public class LoginJSPFilter extends HttpFilter implements Filter {
-  /**
-   * 
-   */
+
   private static final long serialVersionUID = 1L;
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
+
     HttpServletRequest hsreq = (HttpServletRequest) request;
     HttpServletResponse hsresp = (HttpServletResponse) response;
     HttpSession httpsession = hsreq.getSession(false);
@@ -37,7 +36,4 @@ public class LoginJSPFilter extends HttpFilter implements Filter {
     }
     chain.doFilter(request, response);
   }
-
-
-
 }
