@@ -1,10 +1,10 @@
-package net.ddns.iiiedug02.services;
+package net.ddns.iiiedug02.model.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import net.ddns.iiiedug02.beans.MemberBean;
-import net.ddns.iiiedug02.daos.MemberDAO;
+import net.ddns.iiiedug02.model.beans.MemberBean;
+import net.ddns.iiiedug02.model.daos.MemberDAO;
 
 @Service("memberService")
 public class MemberService {

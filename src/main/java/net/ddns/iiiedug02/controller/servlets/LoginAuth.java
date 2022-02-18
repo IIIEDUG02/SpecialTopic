@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.servlets;
+package net.ddns.iiiedug02.controller.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletContext;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import net.ddns.iiiedug02.beans.MemberBean;
-import net.ddns.iiiedug02.services.MemberService;
+import net.ddns.iiiedug02.model.beans.MemberBean;
+import net.ddns.iiiedug02.model.services.MemberService;
 
 @WebServlet("/LoginAuth")
 public class LoginAuth extends HttpServlet {

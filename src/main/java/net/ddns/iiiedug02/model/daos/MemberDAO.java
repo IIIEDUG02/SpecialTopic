@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.daos;
+package net.ddns.iiiedug02.model.daos;
 
 import java.util.List;
 import org.hibernate.Session;
@@ -6,8 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import net.ddns.iiiedug02.beans.MemberBean;
 import net.ddns.iiiedug02.interfaces.IMemberDAO;
+import net.ddns.iiiedug02.model.beans.MemberBean;
 
 @Repository("memberDAO")
 public class MemberDAO implements IMemberDAO {

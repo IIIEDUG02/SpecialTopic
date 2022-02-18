@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@page import="org.hibernate.internal.build.AllowSysOut"%>
-<%@ page import="net.ddns.iiiedug02.services.MemberService" %>
-<%@ page import="net.ddns.iiiedug02.beans.MemberBean" %>
+<%@ page import="net.ddns.iiiedug02.model.services.MemberService" %>
+<%@ page import="net.ddns.iiiedug02.model.beans.MemberBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.hibernate.Session" %>
 <%@ page import="org.hibernate.SessionFactory" %>

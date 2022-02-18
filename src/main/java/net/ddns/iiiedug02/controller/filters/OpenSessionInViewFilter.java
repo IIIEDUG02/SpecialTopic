@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.filters;
+package net.ddns.iiiedug02.controller.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;

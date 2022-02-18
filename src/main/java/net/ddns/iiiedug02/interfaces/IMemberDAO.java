@@ -1,7 +1,7 @@
 package net.ddns.iiiedug02.interfaces;
 
 import java.util.List;
-import net.ddns.iiiedug02.beans.MemberBean;
+import net.ddns.iiiedug02.model.beans.MemberBean;
 
 public interface IMemberDAO {
   public boolean addMember(MemberBean targetBean);

@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.beans;
+package net.ddns.iiiedug02.model.beans;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;

@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.servlets;
+package net.ddns.iiiedug02.controller.servlets;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import net.ddns.iiiedug02.beans.MemberBean;
-import net.ddns.iiiedug02.beans.MemberDetailsBean;
-import net.ddns.iiiedug02.services.MemberService;
+import net.ddns.iiiedug02.model.beans.MemberBean;
+import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
+import net.ddns.iiiedug02.model.services.MemberService;
 
 @WebServlet("/SignUp")
 public class MemberSignUp extends HttpServlet {
