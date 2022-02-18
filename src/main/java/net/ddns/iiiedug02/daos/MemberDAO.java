@@ -2,31 +2,35 @@ package net.ddns.iiiedug02.daos;
 
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import net.ddns.iiiedug02.beans.MemberBean;
 import net.ddns.iiiedug02.interfaces.IMemberDAO;
 
+@Repository("memberDAO")
 public class MemberDAO implements IMemberDAO {
 
-  private Session session;
-
-  public MemberDAO() {}
-
-  public MemberDAO(Session session) {
-    this.session = session;
-  }
+  @Autowired
+  private SessionFactory sessionFactory;
 
   @Override
   public MemberBean selectByUsername(String username) {
-    return session.get(MemberBean.class, username);
+    Session session = sessionFactory.getCurrentSession();
+    return session.load(MemberBean.class, username);
   }
 
   @Override
   public List<MemberBean> selectAll() {
-    return session.createQuery("from MemberBean", MemberBean.class).list();
+    Session session = sessionFactory.getCurrentSession();
+    Query<MemberBean> all = session.createQuery("from MemberBean", MemberBean.class);
+    return all.list();
   }
 
   @Override
   public boolean delete(String username) {
+    Session session = sessionFactory.getCurrentSession();
     MemberBean target = session.get(MemberBean.class, username);
     if (target != null) {
       session.delete(target);
@@ -37,6 +41,7 @@ public class MemberDAO implements IMemberDAO {
 
   @Override
   public boolean updatePassword(String username, String password) {
+    Session session = sessionFactory.getCurrentSession();
     MemberBean target = session.get(MemberBean.class, username);
     if (target != null) {
       target.setPassword(password);
@@ -48,11 +53,8 @@ public class MemberDAO implements IMemberDAO {
 
   @Override
   public boolean addMember(MemberBean targetBean) {
-    MemberBean queryBean = session.get(MemberBean.class, targetBean.getUsername());
-    if (queryBean == null) {
-      session.save(targetBean);
-      return true;
-    }
-    return false;
+    Session session = sessionFactory.getCurrentSession();
+    session.save(targetBean);
+    return true;
   }
 }
