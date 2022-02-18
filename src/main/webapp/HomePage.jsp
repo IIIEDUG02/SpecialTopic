@@ -44,8 +44,8 @@ List<MemberBean> mbs = ms.selectAll();
 <td>密碼</td>
 <td>權限</td>
 <td>狀態</td>
-<td>住址</td>
-<td>電話</td>
+<!-- <td>住址</td>
+<td>電話</td> -->
 <td>操作</td>
 </tr>
 </thead>
@@ -57,8 +57,8 @@ for (MemberBean mb: mbs) {%>
 <td><%= mb.getPassword() %></td>
 <td><%= mb.getAuth() %></td>
 <td><%= mb.getActivated() == 0 ? "啟用" : "停用" %></td>
-<td><%= mb.getMemberDetail().getAddress() %></td>
-<td><%= mb.getMemberDetail().getPhone() %></td>
+<%-- <td><%= mb.getMemberDetail().getAddress() %></td>
+<td><%= mb.getMemberDetail().getPhone() %></td> --%>
 <td>
 <% if (mb.getAuth() == "admin") { %>
 <input type="button" onclick="javascript:location.href='DeleteMember?mid=<%= mb.getUsername() %>'" value="刪除">
