@@ -1,36 +1,26 @@
 package net.ddns.iiiedug02.services;
 
 import java.util.List;
-import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import net.ddns.iiiedug02.beans.MemberBean;
 import net.ddns.iiiedug02.daos.MemberDAO;
-import net.ddns.iiiedug02.utils.JasyptUtil;
 
+@Service("memberService")
 public class MemberService {
-  MemberDAO mdao;
-  JasyptUtil encryptorUtil = new JasyptUtil();
 
-  public MemberService() {}
+  @Autowired
+  private MemberDAO mdao;
 
-  public MemberService(Session session) {
-    mdao = new MemberDAO(session);
-  }
 
   public MemberBean selectByUsername(String username) {
-    MemberBean encryptedBean = mdao.selectByUsername(username);
-    MemberBean decryptedBean = new MemberBean();
-    if (null == encryptedBean) {
-      decryptedBean.setUsername("");
-      decryptedBean.setPassword("");
-    } else {
-      decryptedBean.setUsername(encryptedBean.getUsername());
-      decryptedBean.setPassword(encryptorUtil.decrypt(encryptedBean.getPassword()));
-    }
-    return decryptedBean;
+    MemberBean queryBean = mdao.selectByUsername(username);
+    return queryBean;
   }
 
   public List<MemberBean> selectAll() {
-    return mdao.selectAll();
+    List<MemberBean> all = mdao.selectAll();
+    return all;
   }
 
   public boolean delete(String username) {
@@ -41,11 +31,9 @@ public class MemberService {
     return mdao.updatePassword(username, password);
   }
 
-  public boolean addMember(MemberBean decryptedBean) {
-    MemberBean encryptedBean = new MemberBean();
-    encryptedBean.setUsername(decryptedBean.getUsername());
-    String encryptPassword = encryptorUtil.encrypt(decryptedBean.getPassword());
-    encryptedBean.setPassword(encryptPassword);
-    return mdao.addMember(encryptedBean);
+  public boolean addMember(MemberBean targetdBean) {
+    boolean result = mdao.addMember(targetdBean);
+    System.out.println("Service:成功新增使用者");
+    return result;
   }
 }
