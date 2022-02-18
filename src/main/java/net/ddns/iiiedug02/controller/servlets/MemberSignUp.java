@@ -60,8 +60,8 @@ public class MemberSignUp extends HttpServlet {
     signMember.setUsername(username);
     signMember.setPassword(password);
 
-    signDetail.setMember(signMember);
-    signMember.setMemberDetail(signDetail);
+    // signDetail.setMember(signMember);
+    // signMember.setMemberDetail(signDetail);
 
     memberService.addMember(signMember);
   }

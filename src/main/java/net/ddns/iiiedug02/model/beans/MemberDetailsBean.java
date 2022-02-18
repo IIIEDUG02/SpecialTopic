@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -23,8 +20,10 @@ public class MemberDetailsBean implements Serializable {
       parameters = @Parameter(name = "property", value = "members"))
   @Id
   @Column(name = "username")
-  @GeneratedValue(generator = "generator")
+  @GeneratedValue(generator = "SharedPrimaryKeyGenerator")
   private String username;
+
+
   @Column(name = "address")
   private String address;
   @Column(name = "phone")
@@ -39,10 +38,9 @@ public class MemberDetailsBean implements Serializable {
   private String job;
 
 
-  @OneToOne(fetch = FetchType.LAZY)
-
-  @PrimaryKeyJoinColumn
-  private MemberBean member;
+  // @OneToOne(fetch = FetchType.LAZY)
+  // @PrimaryKeyJoinColumn(name = "username", referencedColumnName = "username")
+  // private MemberBean member;
 
   public String getUsername() {
     return username;
@@ -68,13 +66,14 @@ public class MemberDetailsBean implements Serializable {
     this.phone = phone;
   }
 
-  public MemberBean getMember() {
-    return member;
-  }
-
-  public void setMember(MemberBean member) {
-    this.member = member;
-  }
+  // public MemberBean getMember() {
+  // return member;
+  // }
+  //
+  // public void setMember(MemberBean member) {
+  // this.username = member.getUsername();
+  // this.member = member;
+  // }
 
   public String getFullname() {
     return fullname;
