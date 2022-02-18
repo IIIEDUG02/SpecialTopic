@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.servlets;
 
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -8,22 +9,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.beans.MemberBean;
-import net.ddns.iiiedug02.utils.HibernateUtil;
-import net.ddns.iiiedug02.utils.JasyptUtil;
+import net.ddns.iiiedug02.services.MemberService;
 
-/**
- * Servlet implementation class LoginAuth
- */
 @WebServlet("/LoginAuth")
 public class LoginAuth extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   public LoginAuth() {
     super();
+  }
+
+  private MemberService memberService;
+
+  @Override
+  public void init() throws ServletException {
+    ServletContext application = getServletContext();
+    WebApplicationContext context =
+        WebApplicationContextUtils.getWebApplicationContext(application);
+    memberService = context.getBean("memberService", MemberService.class);
+    super.init();
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,31 +42,19 @@ public class LoginAuth extends HttpServlet {
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
 
-    JasyptUtil encryptUtil = new JasyptUtil();
-
-    // 設定Hibernate Session
-    SessionFactory sf = HibernateUtil.getSessionFactory();
-    Session hbsession = sf.getCurrentSession();
-
     // 取得Request的username跟password
-    String USERNAME = request.getParameter("username");
-    String PASSWORD = request.getParameter("password");
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
     // 資料庫物查詢
-    Query<MemberBean> query =
-        hbsession.createQuery("from MemberBean where username = :un", MemberBean.class);
-    query.setParameter("un", USERNAME);
-    MemberBean encryptBean = query.uniqueResult();
-
-    MemberBean memberBean = new MemberBean().setUsername(encryptBean.getUsername())
-        .setPassword(encryptUtil.decrypt(encryptBean.getPassword()));
+    MemberBean queryBean = memberService.selectByUsername(username);
 
     // 建立Session
     HttpSession httpsession = request.getSession(true);
     httpsession.setMaxInactiveInterval(180);// 單位為秒
 
     // 假如帳號錯誤 memberBean = null
-    if (memberBean == null) {
+    if (queryBean == null) {
       // 設定Session及ookie
       httpsession.setAttribute("message", "找不到帳號");
       Cookie cookie = new Cookie(jsessionid, httpsession.getId());
@@ -71,10 +66,7 @@ public class LoginAuth extends HttpServlet {
       return;
     }
 
-    if (!memberBean.getPassword().equals(PASSWORD)) {
-      System.out.println("-----------------------");
-      System.out.println(memberBean.getPassword());
-      System.out.println("-----------------------");
+    if (!queryBean.getPassword().equals(password)) {
 
       // 設定Session及ookie
       httpsession.setAttribute("message", "密碼錯誤");
@@ -88,7 +80,8 @@ public class LoginAuth extends HttpServlet {
     }
 
     // 設定Session及ookie
-    httpsession.setAttribute("username", USERNAME);
+    httpsession.setAttribute("username", username);
+    httpsession.setAttribute("auth", queryBean.getAuth());
     Cookie cookie = new Cookie(jsessionid, httpsession.getId());
     cookie.setMaxAge(30 * 60);
     response.addCookie(cookie);
