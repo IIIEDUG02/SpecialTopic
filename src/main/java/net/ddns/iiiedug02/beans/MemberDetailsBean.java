@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.beans;
 
 import java.io.Serializable;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +17,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "MemberDetails")
 public class MemberDetailsBean implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @GenericGenerator(name = "generator", strategy = "foreign",
       parameters = @Parameter(name = "property", value = "members"))
@@ -31,8 +29,18 @@ public class MemberDetailsBean implements Serializable {
   private String address;
   @Column(name = "phone")
   private String phone;
+  @Column(name = "fullname")
+  private String fullname;
+  @Column(name = "email")
+  private String email;
+  @Column(name = "birthday")
+  private Date birthday;
+  @Column(name = "job")
+  private String job;
+
 
   @OneToOne(fetch = FetchType.LAZY)
+
   @PrimaryKeyJoinColumn
   private MemberBean member;
 
@@ -68,10 +76,43 @@ public class MemberDetailsBean implements Serializable {
     this.member = member;
   }
 
-  @Override
-  public String toString() {
-    return "address=" + address + ", phone=" + phone;
+  public String getFullname() {
+    return fullname;
   }
 
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Date getBirthday() {
+    return birthday;
+  }
+
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+  }
+
+  public String getJob() {
+    return job;
+  }
+
+  public void setJob(String job) {
+    this.job = job;
+  }
+
+  @Override
+  public String toString() {
+    return "MemberDetailsBean [username=" + username + ", address=" + address + ", phone=" + phone
+        + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday + ", job=" + job
+        + "]";
+  }
 
 }
