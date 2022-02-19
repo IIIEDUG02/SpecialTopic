@@ -12,7 +12,6 @@ public class MemberService {
   @Autowired
   private MemberDAO mdao;
 
-
   public MemberBean selectByUsername(String username) {
     MemberBean queryBean = mdao.selectByUsername(username);
     return queryBean;
@@ -32,8 +31,10 @@ public class MemberService {
   }
 
   public boolean addMember(MemberBean targetdBean) {
+    if (targetdBean.getAuth() == null) {
+      targetdBean.setAuth("normal");
+    }
     boolean result = mdao.addMember(targetdBean);
-    System.out.println("Service:成功新增使用者");
     return result;
   }
 }
