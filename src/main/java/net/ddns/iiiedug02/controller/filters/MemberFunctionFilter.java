@@ -16,7 +16,7 @@ import net.ddns.iiiedug02.model.beans.MemberBean;
 /**
  * Servlet Filter implementation class MemberFunctionFilter
  */
-@WebFilter(urlPatterns = {"/MemberList.jsp", "/MemberAdd.jsp", "/MemberInfo.jsp"})
+@WebFilter(urlPatterns = {"/MemberList.jsp", "/MemberInfo.jsp"})
 public class MemberFunctionFilter extends HttpFilter implements Filter {
 
   private static final long serialVersionUID = 1L;
