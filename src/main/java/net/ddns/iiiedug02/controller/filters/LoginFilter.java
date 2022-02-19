@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 
 /**
- * Servlet Filter implementation class MainFilter
+ * 過濾Login.jsp檢查Session及登入狀態 若以登入，依據登入者權限跳轉指定功能頁面 若未登入，直通Login.jsp
  */
 @WebFilter(urlPatterns = {"/Login.jsp"})
 public class LoginFilter extends HttpFilter implements Filter {
