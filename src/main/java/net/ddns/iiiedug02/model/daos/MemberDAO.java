@@ -18,7 +18,10 @@ public class MemberDAO implements IMemberDAO {
   @Override
   public MemberBean selectByUsername(String username) {
     Session session = sessionFactory.getCurrentSession();
-    return session.load(MemberBean.class, username);
+    Query<MemberBean> query = session.createQuery("from MemberBean where username = ?1");
+    query.setParameter(1, username);
+    MemberBean resultBean = (MemberBean) query.uniqueResult();
+    return resultBean;
   }
 
   @Override
@@ -31,7 +34,7 @@ public class MemberDAO implements IMemberDAO {
   @Override
   public boolean delete(String username) {
     Session session = sessionFactory.getCurrentSession();
-    MemberBean target = session.get(MemberBean.class, username);
+    MemberBean target = selectByUsername(username);
     if (target != null) {
       session.delete(target);
       return true;
