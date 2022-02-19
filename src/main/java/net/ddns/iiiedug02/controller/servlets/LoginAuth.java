@@ -38,10 +38,6 @@ public class LoginAuth extends HttpServlet {
 
     String jsessionid = "JSESSIONID";
 
-    // 設定Response
-    response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-
     // 取得Request的username跟password
     String username = request.getParameter("username");
     String password = request.getParameter("password");
@@ -80,14 +76,13 @@ public class LoginAuth extends HttpServlet {
     }
 
     // 設定Session及ookie
-    httpsession.setAttribute("username", username);
-    httpsession.setAttribute("auth", queryBean.getAuth());
+    httpsession.setAttribute("loginBean", queryBean);
     Cookie cookie = new Cookie(jsessionid, httpsession.getId());
     cookie.setMaxAge(30 * 60);
     response.addCookie(cookie);
 
-    // 重新指向至HomePage
-    response.sendRedirect("HomePage.jsp");
+    // 重新指向至Login.jsp，讓Loginfilter引導
+    response.sendRedirect("Login.jsp");
 
   }
 }
