@@ -81,7 +81,7 @@ public class LoginAuth extends HttpServlet {
     cookie.setMaxAge(30 * 60);
     response.addCookie(cookie);
 
-    // 重新指向至Login.jsp，讓Loginfilter引導
+    // 重新指向至Login.jsp，讓LoginFilter引導
     response.sendRedirect("Login.jsp");
 
   }
