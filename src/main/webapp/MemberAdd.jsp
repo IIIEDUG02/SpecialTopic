@@ -18,7 +18,7 @@ E-mail：	<input id="" name="email" 		type="text" value="nilm987521@gmail.com"><
 地址：	<input id="" name="address" 	type="text" value="台灣好棒棒"><br>
 電話：	<input id="" name="phone" 		type="text" value="0987294379"><br>
 職業：	<input id="" name="job" 		type="text" value="程序猿、攻城獅"><br>
-<button type="submit">註冊</button>
+<button type="submit">註冊</button><button onclick="javascript:history.back()" >放棄</button>
 </form>
 </body>
 </html>
