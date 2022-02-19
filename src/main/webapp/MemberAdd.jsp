@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include   page="/WEB-INF/view/header.jsp" flush="true"/>
 <form action="SignUp" method="post">
 帳號：	<input id="" name="username" 	type="text" value="nilm987521"><br>
 密碼：	<input id="" name="password" 	type="password" value="abcd1234"><br>
