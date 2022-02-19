@@ -3,11 +3,12 @@ package net.ddns.iiiedug02.model.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import net.ddns.iiiedug02.interfaces.IMemberDAO;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 import net.ddns.iiiedug02.model.daos.MemberDAO;
 
 @Service("memberService")
-public class MemberService {
+public class MemberService implements IMemberDAO {
 
   @Autowired
   private MemberDAO mdao;
