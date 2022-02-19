@@ -34,15 +34,13 @@ public class MemberDelete extends HttpServlet {
     super.init();
   }
 
-
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    String mid = request.getParameter("mid");
-    if (null == mid) {
+    String username = request.getParameter("username");
+    if (null == username) {
       // early return
     }
-    memberService.delete(mid);
+    memberService.delete(username);
     response.sendRedirect("HomePage.jsp");
   }
-
 }
