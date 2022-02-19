@@ -48,6 +48,7 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
       System.out.println("OSIVF:Transaction Commit");
     } catch (Exception e) {
       session.getTransaction().rollback();
+      // TODO:報錯跳轉
       e.printStackTrace();
       System.out.println("OSIVF:Transaction Rollback");
     }
