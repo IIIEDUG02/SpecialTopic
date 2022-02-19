@@ -1,7 +1,6 @@
 package net.ddns.iiiedug02.controller.servlets;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +12,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
 import net.ddns.iiiedug02.model.services.MemberService;
+import net.ddns.iiiedug02.utils.SqlDateUtil;
 
 @WebServlet("/SignUp")
 public class MemberSignUp extends HttpServlet {
   private static final long serialVersionUID = 1L;
-
 
   public MemberSignUp() {
     super();
@@ -49,10 +48,9 @@ public class MemberSignUp extends HttpServlet {
     MemberBean signMember = new MemberBean();
     MemberDetailsBean signDetail = new MemberDetailsBean();
 
-    signDetail.setUsername(username);
     signDetail.setAddress(address);
     signDetail.setPhone(phone);
-    signDetail.setBirthday(strToDate(birthday));
+    signDetail.setBirthday(SqlDateUtil.strToDate(birthday));
     signDetail.setFullname(fullname);
     signDetail.setJob(job);
     signDetail.setEmail(email);
@@ -60,24 +58,11 @@ public class MemberSignUp extends HttpServlet {
     signMember.setUsername(username);
     signMember.setPassword(password);
 
-    // signDetail.setMember(signMember);
-    // signMember.setMemberDetail(signDetail);
+    signDetail.setMember(signMember);
+    signMember.setMemberDetail(signDetail);
 
     memberService.addMember(signMember);
     response.sendRedirect("HomePage.jsp");
-  }
-
-  public java.sql.Date strToDate(String strDate) {
-    String str = strDate;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    java.util.Date d = null;
-    try {
-      d = format.parse(str);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    java.sql.Date date = new java.sql.Date(d.getTime());
-    return date;
   }
 
 }
