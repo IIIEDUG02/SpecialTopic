@@ -19,3 +19,7 @@ hibernate.cfg.xml.tmp只是個範例，因考量安全問題hibernate.cfg.xml檔
 |Branch名稱|說明|
 |:-:|:-:|
 |Hibernate|Hibernate上課期間的老師範例|
+|Nilm|藍翊家|
+|Anna|李怡靜|
+|BackStage|陳宥峻|
+|RT|陳聰賢|
