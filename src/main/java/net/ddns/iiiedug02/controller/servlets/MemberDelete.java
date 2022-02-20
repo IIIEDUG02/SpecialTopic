@@ -12,7 +12,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.services.MemberService;
 
 /**
- * Servlet implementation class DeleteMember
+ * 執行資料庫資料刪除動作
  */
 @WebServlet("/DeleteMember")
 public class MemberDelete extends HttpServlet {

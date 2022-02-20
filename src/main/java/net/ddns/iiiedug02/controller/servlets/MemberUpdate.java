@@ -13,6 +13,9 @@ import net.ddns.iiiedug02.model.beans.MemberBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
+/**
+ * 執行資料庫資料更新動作
+ */
 @WebServlet("/MemberUpdate")
 public class MemberUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;

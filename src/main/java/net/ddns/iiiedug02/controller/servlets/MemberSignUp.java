@@ -14,6 +14,9 @@ import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
+/**
+ * 執行資料庫資料新增動作
+ */
 @WebServlet("/SignUp")
 public class MemberSignUp extends HttpServlet {
   private static final long serialVersionUID = 1L;
