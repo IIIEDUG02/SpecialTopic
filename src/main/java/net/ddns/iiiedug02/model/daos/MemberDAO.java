@@ -6,11 +6,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import net.ddns.iiiedug02.interfaces.IMemberDAO;
+import net.ddns.iiiedug02.interfaces.MemberInterface;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 
+/**
+ * DAO物件，針對MemberBean對資料庫做增刪改查
+ */
 @Repository("memberDAO")
-public class MemberDAO implements IMemberDAO {
+public class MemberDAO implements MemberInterface {
 
   @Autowired
   private SessionFactory sessionFactory;
