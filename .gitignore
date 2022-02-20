@@ -3,7 +3,7 @@ context.xml
 src/main/java/hibernate.cfg.xml
 .settings/
 # Junit 測試程式
-junit/
+test/
 # 編譯後的檔案
 *.class
 *.jar
