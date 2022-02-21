@@ -38,7 +38,15 @@ public class MemberService implements MemberInterface {
     if (targetdBean.getAuth() == null) {
       targetdBean.setAuth("normal");
     }
-    boolean result = mdao.addMember(targetdBean);
+
+    MemberBean queryBean = mdao.selectByUsername(targetdBean.getUsername());
+    boolean result;
+
+    if (queryBean == null) {
+      result = mdao.addMember(targetdBean);
+    } else {
+      result = false;
+    }
     return result;
   }
 }
