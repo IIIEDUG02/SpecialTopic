@@ -65,7 +65,7 @@ public class MemberSignUp extends HttpServlet {
     signMember.setMemberDetail(signDetail);
 
     memberService.addMember(signMember);
-    response.sendRedirect("HomePage.jsp");
+    response.sendRedirect("Login.jsp");
   }
 
 }
