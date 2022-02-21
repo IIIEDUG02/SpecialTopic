@@ -27,4 +27,5 @@
            </props>
         </property>
     </bean>	
+    <aop:aspectj-autoproxy />
 </beans>
