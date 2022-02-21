@@ -5,7 +5,7 @@
 <%
 String message = (String) request.getSession(false).getAttribute("message");
 MemberBean SignBena = (MemberBean) request.getSession(false).getAttribute("SignBean");
-session.invalidate();
+request.getSession(false).setAttribute("message", null);
 %>
 <!DOCTYPE html>
 <html>
