@@ -52,11 +52,12 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
       session.getTransaction().commit();
       System.out.println("OSIVF:Transaction Commit");
     } catch (Exception e) {
+      System.out.println("OSIVF:Transaction Rollback");
       session.getTransaction().rollback();
       // 報錯跳轉
-      hsresp.sendRedirect("Error.jsp");
       e.printStackTrace();
-      System.out.println("OSIVF:Transaction Rollback");
+      hsresp.sendRedirect("Error.jsp");
+
     }
   }
 
