@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.google.gson.JsonObject;
@@ -51,17 +50,11 @@ public class LoginAuthApi extends HttpServlet {
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     response.setHeader("Access-Control-Allow-Origin", "*");
-    PrintWriter out = response.getWriter();
-    String result;
+    JsonObject json = new JsonObject();
 
     if (header == null) {
       // Early Return Failed
-      result = "{\"result\" : \"Wrong Request\"}";
-      JSONParser parser = new JSONParser(result);
-      String json = parser.toString();
-      out.print(json);
-      out.flush();
-      return;
+      json.addProperty("result", "Bad Request");
     }
     if (header.equals("LoginAuth")) {
 
@@ -74,17 +67,9 @@ public class LoginAuthApi extends HttpServlet {
 
       // 假如帳號錯誤 memberBean = null
       if (queryBean == null) {
-        result = "{\"result\" : \"null\"}";
-        JsonObject json = new JsonObject();
         json.addProperty("result", "User Not Found");
-        out.print(json.toString());
-        out.flush();
-        return;
-      }
-
-      //
-      if (!queryBean.getPassword().equals(password)) {
-        result = "{\"result\" : \"WrongPassword\"}";
+      } else if (!queryBean.getPassword().equals(password)) {
+        json.addProperty("result", "Wrong Passwor");
       } else {
         // 建立Session
         HttpSession httpsession = request.getSession(true);
@@ -95,11 +80,9 @@ public class LoginAuthApi extends HttpServlet {
         Cookie cookie = new Cookie("JSESSIONID", httpsession.getId());
         cookie.setMaxAge(30 * 60);
         response.addCookie(cookie);
-
-        result = "{\"result\" : \"Success\"}";
+        json.addProperty("result", "Success Loggin");
       }
-      JsonObject json = new JsonObject();
-      json.addProperty("result", "User Not Found");
+      PrintWriter out = response.getWriter();
       out.print(json.toString());
       out.flush();
     }
