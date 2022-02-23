@@ -1,12 +1,14 @@
 package net.ddns.iiiedug02.controller.servlets;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
@@ -24,15 +26,18 @@ public class MemberUpdate extends HttpServlet {
     super();
   }
 
+  @Autowired
   private MemberService memberService;
 
+  private WebApplicationContext springContext;
+
   @Override
-  public void init() throws ServletException {
-    ServletContext application = getServletContext();
-    WebApplicationContext context =
-        WebApplicationContextUtils.getWebApplicationContext(application);
-    memberService = context.getBean("memberService", MemberService.class);
-    super.init();
+  public void init(final ServletConfig config) throws ServletException {
+    super.init(config);
+    springContext =
+        WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+    final AutowireCapableBeanFactory beanFactory = springContext.getAutowireCapableBeanFactory();
+    beanFactory.autowireBean(this);
   }
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

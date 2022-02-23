@@ -1,13 +1,15 @@
 package net.ddns.iiiedug02.controller.servlets;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
@@ -18,7 +20,7 @@ import net.ddns.iiiedug02.utils.SqlDateUtil;
 /**
  * 執行資料庫資料新增動作
  */
-@WebServlet("/MemberFunction/MemberAdd")
+@WebServlet("/MemberAdd")
 public class MemberAdd extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -26,21 +28,23 @@ public class MemberAdd extends HttpServlet {
     super();
   }
 
+  @Autowired
   private MemberService memberService;
 
+  private WebApplicationContext springContext;
+
   @Override
-  public void init() throws ServletException {
-    ServletContext application = getServletContext();
-    WebApplicationContext context =
-        WebApplicationContextUtils.getWebApplicationContext(application);
-    memberService = context.getBean("memberService", MemberService.class);
-    super.init();
+  public void init(final ServletConfig config) throws ServletException {
+    super.init(config);
+    springContext =
+        WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext());
+    final AutowireCapableBeanFactory beanFactory = springContext.getAutowireCapableBeanFactory();
+    beanFactory.autowireBean(this);
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    String jsessionid = "JSESSIONID";
     HttpSession httpsession = request.getSession(true);
 
     String username = request.getParameter("username");
