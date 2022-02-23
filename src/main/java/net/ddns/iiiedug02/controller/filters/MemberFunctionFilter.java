@@ -16,7 +16,7 @@ import net.ddns.iiiedug02.model.beans.MemberBean;
 /**
  * 過濾至MemberList.jsp及MemberInfo.jsp的Request，檢查是否為登入狀態，若非登入狀態則導向Login.jsp，若為登入狀態則chain.doFilter
  */
-@WebFilter(urlPatterns = {"/MemberList.jsp", "/MemberInfo.jsp"})
+@WebFilter(urlPatterns = {"/MemberFunction/*"})
 public class MemberFunctionFilter extends HttpFilter implements Filter {
 
   private static final long serialVersionUID = 1L;
