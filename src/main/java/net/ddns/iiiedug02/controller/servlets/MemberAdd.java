@@ -18,11 +18,11 @@ import net.ddns.iiiedug02.utils.SqlDateUtil;
 /**
  * 執行資料庫資料新增動作
  */
-@WebServlet("/SignUp")
-public class MemberSignUp extends HttpServlet {
+@WebServlet("/MemberFunction/MemberAdd")
+public class MemberAdd extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public MemberSignUp() {
+  public MemberAdd() {
     super();
   }
 
@@ -74,7 +74,7 @@ public class MemberSignUp extends HttpServlet {
     } else {
       httpsession.setAttribute("message", "帳號已註冊");
       httpsession.setAttribute("SignBean", signMember);
-      response.sendRedirect("MemberAdd.jsp");
+      response.sendRedirect("MemberFunction/MemberAdd.jsp");
     }
 
   }

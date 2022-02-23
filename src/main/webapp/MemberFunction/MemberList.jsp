@@ -53,7 +53,7 @@ for (MemberBean mb: mbs) {%>
 <td><%= mb.getMemberDetail().getPhone() %></td>
 <td>
 <% if (!mb.getAuth().equals("admin")) { %>
-<input type="button" onclick="javascript:location.href='DeleteMember?username=<%= mb.getUsername() %>'" value="刪除">
+<input type="button" onclick="javascript:location.href='MemberDelete?username=<%= mb.getUsername() %>'" value="刪除">
 <% } %>
 <input type="button" onclick="javascript:location.href='MemberInfo.jsp?username=<%= mb.getUsername() %>'" value="修改">
 </td>
@@ -61,6 +61,5 @@ for (MemberBean mb: mbs) {%>
 <% } %>
 </tbody>
 </Table>
-
 </body>
 </html>

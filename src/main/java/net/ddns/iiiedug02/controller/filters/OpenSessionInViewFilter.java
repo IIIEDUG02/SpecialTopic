@@ -56,7 +56,7 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
       session.getTransaction().rollback();
       // 報錯跳轉
       e.printStackTrace();
-      hsresp.sendRedirect("Error.jsp");
+      hsresp.sendRedirect("/SpecialTopic/Error.jsp");
 
     }
   }

@@ -16,7 +16,7 @@ import net.ddns.iiiedug02.utils.SqlDateUtil;
 /**
  * 執行資料庫資料更新動作
  */
-@WebServlet("/MemberUpdate")
+@WebServlet("/MemberFunction/MemberUpdate")
 public class MemberUpdate extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -64,6 +64,6 @@ public class MemberUpdate extends HttpServlet {
     mb.getMemberDetail().setEmail(email);
 
     memberService.updateMember(mb);
-    response.sendRedirect("Login.jsp");
+    response.sendRedirect("/SpecialTopic/Login.jsp");
   }
 }

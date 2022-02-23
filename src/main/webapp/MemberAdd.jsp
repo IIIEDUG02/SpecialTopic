@@ -15,7 +15,7 @@ request.getSession(false).setAttribute("message", null);
 </head>
 <body>
 	<jsp:include page="/WEB-INF/view/header.jsp" flush="true" />
-	<form action="SignUp" method="post">
+	<form action="MemberAdd" method="post">
 		帳號： <input id="" name="username" type="text" 
 			value=<%= SignBena == null ? "nilm987521" : SignBena.getUsername() %>>
 			<%
