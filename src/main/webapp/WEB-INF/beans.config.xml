@@ -10,13 +10,15 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="net.ddns.iiiedug02"/>
-    
+    <!-- 設定使用JNDI 取得 datasource(連線池)物件-->
     <bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/connectSqlServerJdbc/SystemService"/>
     </bean>
-    
+    <!-- 設定使用 datasource物件 取得 hibernate的SessionFectory-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    	<!-- ref為上面的<bean id="datasource" -->
         <property name="dataSource" ref="datasource"/>
+        <!-- 掃描 net.ddns.iiiedug02 *.java中的 @annotation-->
         <property name="packagesToScan" value="net.ddns.iiiedug02"/>
         <property name="hibernateProperties">
            <props>
@@ -27,5 +29,6 @@
            </props>
         </property>
     </bean>	
+    <!-- AOP -->
     <aop:aspectj-autoproxy />
 </beans>
