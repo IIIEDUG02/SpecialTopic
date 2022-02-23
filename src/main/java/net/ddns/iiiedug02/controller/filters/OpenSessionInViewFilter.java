@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
+import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.web.context.WebApplicationContext;
@@ -41,7 +42,7 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
       throws IOException, ServletException {
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
-
+    HttpServletResponse hsresp = (HttpServletResponse) response;
 
     Session session = sessionFactory.getCurrentSession();
     try {
@@ -51,10 +52,12 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
       session.getTransaction().commit();
       System.out.println("OSIVF:Transaction Commit");
     } catch (Exception e) {
-      session.getTransaction().rollback();
-      // TODO:報錯跳轉
-      e.printStackTrace();
       System.out.println("OSIVF:Transaction Rollback");
+      session.getTransaction().rollback();
+      // 報錯跳轉
+      e.printStackTrace();
+      hsresp.sendRedirect("Error.jsp");
+
     }
   }
 

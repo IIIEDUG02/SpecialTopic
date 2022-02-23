@@ -3,7 +3,7 @@ package net.ddns.iiiedug02.utils;
 import java.text.SimpleDateFormat;
 
 /**
- * DAO物件，針對MemberBean對資料庫做增刪改查
+ * 工具物件，將yyyy-MM-dd的日期格式轉換成SQL的Date物件
  */
 public class SqlDateUtil {
   public static java.sql.Date strToDate(String strDate) {
