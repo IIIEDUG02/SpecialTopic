@@ -19,7 +19,7 @@ request.getSession(false).setAttribute("message", null);
 		帳號： <input id="" name="username" type="text" 
 			value=<%= SignBena == null ? "nilm987521" : SignBena.getUsername() %>>
 			<%
-			if (message != null) { %> <a style="color:red"><%= message %></a> <% }%>
+			if (message != null) { %> <a style="color:red"><%= message %></a> <% } %>
 			<br>
 		密碼： <input id="" name="password" type="password" 
 			value=<%= SignBena == null ? "abcd1234" : SignBena.getPassword() %>><br>
