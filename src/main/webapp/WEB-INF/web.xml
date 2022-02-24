@@ -16,13 +16,4 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-<!--   <filter>
-    <display-name>MemberFunction</display-name>
-    <filter-name>MemberFunction</filter-name>
-    <filter-class>net.ddns.iiiedug02.controller.filters.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>MemberFunction</filter-name>
-    <url-pattern>/MemberFunction</url-pattern>
-  </filter-mapping> -->
 </web-app>
