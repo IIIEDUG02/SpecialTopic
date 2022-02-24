@@ -19,12 +19,6 @@
 			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- jasypt -->
-		<dependency>
-			<groupId>org.jasypt</groupId>
-			<artifactId>jasypt</artifactId>
-			<version>1.9.3</version>
-		</dependency>
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
