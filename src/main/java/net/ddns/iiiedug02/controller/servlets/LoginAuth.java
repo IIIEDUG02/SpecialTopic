@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,6 +31,9 @@ public class LoginAuth extends HttpServlet {
   @Autowired
   private MemberService memberService;
 
+  @Autowired
+  private StandardPBEStringEncryptor strongEncryptor;
+
   private WebApplicationContext springContext;
 
   @Override
@@ -49,6 +53,7 @@ public class LoginAuth extends HttpServlet {
     // 取得Request的username跟password
     String username = request.getParameter("username");
     String password = request.getParameter("password");
+    String autoLogin = request.getParameter("autoLogin");
 
     // 資料庫物查詢
     MemberBean queryBean = memberService.selectByUsername(username);
@@ -85,9 +90,17 @@ public class LoginAuth extends HttpServlet {
 
     // 設定Session及ookie
     httpsession.setAttribute("loginBean", queryBean);
-    Cookie cookie = new Cookie(jsessionid, httpsession.getId());
-    cookie.setMaxAge(30 * 60);
-    response.addCookie(cookie);
+    Cookie sessionCookie = new Cookie(jsessionid, httpsession.getId());
+    Cookie autoLoginCookie;
+    if (autoLogin != null) {
+      if (autoLogin.equals("on")) {
+        autoLoginCookie = new Cookie("username", strongEncryptor.encrypt(queryBean.getUsername()));
+        autoLoginCookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(autoLoginCookie);
+      }
+    }
+    sessionCookie.setMaxAge(30 * 60);
+    response.addCookie(sessionCookie);
 
     // 重新指向至Login.jsp，讓LoginFilter引導
     response.sendRedirect("Login.jsp");
