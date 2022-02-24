@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="net.ddns.iiiedug02.model.services.MemberService" %>
 <%@ page import="net.ddns.iiiedug02.model.beans.MemberBean" %>
+<%@ page import="net.ddns.iiiedug02.controller.listeners.OnlineUsers" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.hibernate.Session" %>
 <%@ page import="org.hibernate.SessionFactory" %>
@@ -29,6 +30,7 @@ List<MemberBean> mbs = ms.selectAll();
 </head>
 <body>
 <jsp:include   page="/WEB-INF/view/header.jsp" flush="true"/>
+線上人數: <%= OnlineUsers.count %> 人
 <Table>
 <thead>
 <tr>
