@@ -8,12 +8,8 @@
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page import="org.springframework.web.context.WebApplicationContext" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="net.ddns.iiiedug02.controller.listeners.OnlineUsers" %>
 <% 
-MemberBean mb = (MemberBean)request.getSession().getAttribute("loginBean");
-if (mb != null ) { 
-	String fullname = mb.getMemberDetail().getFullname();
-	String username = mb.getUsername();
-	String auth = mb.getAuth();
-	%>
-  Hi <%= fullname %>(<%= username %>)<input type="button" value="登出" onclick="javascript:location.href='/SpecialTopic/Logout'"><hr>
-<% } %>
+String username = (String)request.getSession().getAttribute("username");
+%>
+Hi <%= username %>(線上人數: <%= OnlineUsers.count %> 人)<input type="button" value="登出" onclick="javascript:location.href='/SpecialTopic/Logout'"><hr>
