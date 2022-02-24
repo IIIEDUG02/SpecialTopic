@@ -8,37 +8,58 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:annotation-config/>
-    <context:component-scan base-package="net.ddns.iiiedug02"/>
-    <!-- 設定使用JNDI 取得 datasource(連線池)物件-->
-    <bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/connectSqlServerJdbc/SystemService"/>
-    </bean>
-    <!-- 設定使用 datasource物件 取得 hibernate的SessionFectory-->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-    	<!-- ref為上面的<bean id="datasource" -->
-        <property name="dataSource" ref="datasource"/>
-        <!-- 掃描 net.ddns.iiiedug02 *.java中的 @annotation-->
-        <property name="packagesToScan" value="net.ddns.iiiedug02"/>
-        <property name="hibernateProperties">
-           <props>
-              <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
-              <prop key="hibernate.show_sql">true</prop>
-              <prop key="hibernate.format_sql">true</prop>
-              <prop key="hibernate.current_session_context_class">thread</prop>
-           </props>
-        </property>
-    </bean>	
-    <!-- AOP -->
-    <aop:aspectj-autoproxy />
-    <!-- jasypt 加/解密工具 -->
-    <bean id="strongEncryptor"
-    class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
-    <property name="algorithm">
-        <value>PBEWithMD5AndTripleDES</value>
-    </property>
-    <property name="password">
-        <value>IdS15qBbuGH582M</value>
-    </property>
-  </bean>
+	<context:annotation-config />
+	<context:component-scan
+		base-package="net.ddns.iiiedug02" />
+	<!-- 設定使用JNDI 取得 datasource(連線池)物件 -->
+	<bean id="datasource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"
+			value="java:comp/env/connectSqlServerJdbc/SystemService" />
+	</bean>
+	<!-- 設定使用 datasource物件 取得 hibernate的SessionFectory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- ref為上面的<bean id="datasource" -->
+		<property name="dataSource" ref="datasource" />
+		<!-- 掃描 net.ddns.iiiedug02 *.java中的 @annotation -->
+		<property name="packagesToScan" value="net.ddns.iiiedug02" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- AOP -->
+	<aop:aspectj-autoproxy />
+	<!-- jasypt 加/解密工具 -->
+	<bean id="strongEncryptor"
+		class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="algorithm">
+			<value>PBEWithMD5AndTripleDES</value>
+		</property>
+		<property name="password">
+			<value>IdS15qBbuGH582M</value>
+		</property>
+	</bean>
+	<!-- 預設的最高權限帳號 -->
+	<bean id="admin" class="net.ddns.iiiedug02.model.beans.MemberBean">
+		<property name="activated"><value>1</value></property>
+		<property name="auth"><value>admin</value></property>
+		<property name="memberDetail" ref="adminDetail" />
+		<property name="password"><value>abcd1234</value></property>
+		<property name="username"><value>admin</value></property>
+	</bean>
+	<bean id="adminDetail" class="net.ddns.iiiedug02.model.beans.MemberDetailsBean">
+		<property name="address"><value>1</value></property>
+		<!-- <property name="birthday"><value>1991-1-1</value></property> -->
+		<property name="email"><value>2</value></property>
+		<property name="fullname"><value>Administrator</value></property>
+		<property name="job"><value>admin</value></property>
+		<property name="member" ref="admin"/>
+		<property name="phone"><value>3</value></property>		
+	</bean>
 </beans>
