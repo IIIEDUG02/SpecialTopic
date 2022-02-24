@@ -3,6 +3,8 @@ package net.ddns.iiiedug02.controller.servlets;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,8 @@ import net.ddns.iiiedug02.model.services.MemberService;
 /**
  * 執行資料庫資料刪除動作
  */
-@WebServlet("/MemberFunction/MemberDelete")
+@WebServlet("/admin/MemberDelete")
+@ServletSecurity(@HttpConstraint(rolesAllowed = {"admin"}))
 public class MemberDelete extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

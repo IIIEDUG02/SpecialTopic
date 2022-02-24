@@ -21,6 +21,7 @@ public class Logout extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    request.logout();
     request.getSession().invalidate();
     Cookie[] cookies = request.getCookies();
     if (cookies != null)
@@ -29,6 +30,6 @@ public class Logout extends HttpServlet {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
       }
-    response.sendRedirect("Login.jsp");
+    response.sendRedirect("/SpecialTopic/Login.jsp");
   }
 }
