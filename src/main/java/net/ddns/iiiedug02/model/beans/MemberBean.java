@@ -33,7 +33,7 @@ public class MemberBean implements Serializable {
   @Column(name = "auth")
   private String auth;
   @Column(name = "activate")
-  private short activated = 1; // 0:true, 1:false
+  private short activated = 0; // 0:false, 1:true
 
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
