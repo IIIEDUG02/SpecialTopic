@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.springframework.beans.factory.annotation.Autowired;
+import net.ddns.iiiedug02.utils.MD5Util;
 
 /**
  * JavaBean物件，對應資料庫中的members資料表
@@ -19,6 +21,9 @@ import javax.persistence.Table;
 public class MemberBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
+  @Autowired
+  private MD5Util md5Util;
 
   @Id
   @Column(name = "uid")
@@ -35,6 +40,7 @@ public class MemberBean implements Serializable {
   @Column(name = "activate")
   private short activated = 0; // 0:false, 1:true
 
+  private String token = md5Util.StringToMD5(username);
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
   private MemberDetailsBean memberDetail;
@@ -89,6 +95,14 @@ public class MemberBean implements Serializable {
     this.activated = activated;
   }
 
+  public String getToken() {
+    return token;
+  }
+
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
   public MemberDetailsBean getMemberDetail() {
     return memberDetail;
