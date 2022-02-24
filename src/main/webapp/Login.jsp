@@ -22,7 +22,7 @@ if (cookies != null) {
 	  MemberBean cookieBean = memberService.selectByUsername(username);
 	  if (cookieBean != null) {
 	    session.setAttribute("loginBean", cookieBean);
-	    response.sendRedirect("/SpecialTopic/MemberFunction/MemberInfo.jsp");
+	    response.sendRedirect("/SpecialTopic/MemberFunction/");
 	  }
     }
   }
