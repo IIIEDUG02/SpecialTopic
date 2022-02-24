@@ -12,6 +12,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	<!-- 設定Spring設定檔位置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/beans.config.xml</param-value>
@@ -19,23 +20,21 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 設定系統使用者權限 admin role -->
+	<!-- 使用者的帳密 -> tomecat/tomcat-user.xml -->
 	<security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Admin</web-resource-name>
-            <url-pattern>/admin/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <login-config>
-        <auth-method>BASIC</auth-method>
-    </login-config>
-    <security-role>
-        <role-name>admin</role-name>
-    </security-role>
-    <security-role>
-        <role-name>manager</role-name>
-    </security-role>
+		<web-resource-collection>
+			<web-resource-name>Admin</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
 </web-app>
