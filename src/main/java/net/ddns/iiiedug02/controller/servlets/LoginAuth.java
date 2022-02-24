@@ -29,6 +29,9 @@ public class LoginAuth extends HttpServlet {
   }
 
   @Autowired
+  private MemberBean adminBean;
+
+  @Autowired
   private MemberService memberService;
 
   @Autowired
@@ -49,7 +52,6 @@ public class LoginAuth extends HttpServlet {
       throws ServletException, IOException {
 
     String jsessionid = "JSESSIONID";
-
     // 取得Request的username跟password
     String username = request.getParameter("username");
     String password = request.getParameter("password");
@@ -62,49 +64,70 @@ public class LoginAuth extends HttpServlet {
     HttpSession httpsession = request.getSession(true);
     httpsession.setMaxInactiveInterval(180);// 單位為秒
 
-    // 假如帳號錯誤 memberBean = null
-    if (queryBean == null) {
-      // 設定Session及ookie
-      httpsession.setAttribute("message", "找不到帳號");
-      Cookie cookie = new Cookie(jsessionid, httpsession.getId());
-      cookie.setMaxAge(30 * 60);
-      response.addCookie(cookie);
-
-      // 驗證失敗倒回Login.jsp
-      response.sendRedirect("Login.jsp");
-      return;
-    }
-
-    if (!queryBean.getPassword().equals(password)) {
-
-      // 設定Session及ookie
-      httpsession.setAttribute("message", "密碼錯誤");
-      Cookie cookie = new Cookie(jsessionid, httpsession.getId());
-      cookie.setMaxAge(30 * 60);
-      response.addCookie(cookie);
-
-      // 驗證失敗倒回Login.jsp
-      response.sendRedirect("Login.jsp");
-      return;
-    }
-
-    // 設定Session及ookie
-    httpsession.setAttribute("loginBean", queryBean);
-    Cookie sessionCookie = new Cookie(jsessionid, httpsession.getId());
-    Cookie autoLoginCookie;
-    if (autoLogin != null) {
-      if (autoLogin.equals("on")) {
-        autoLoginCookie = new Cookie("username", strongEncryptor.encrypt(queryBean.getUsername()));
-        autoLoginCookie.setMaxAge(24 * 60 * 60);
-        response.addCookie(autoLoginCookie);
+    // 假如等於最高權限 adminBean
+    if (username.contentEquals(adminBean.getUsername())
+        && password.contentEquals(adminBean.getPassword())) {
+      httpsession.setAttribute("loginBean", adminBean);
+      Cookie sessionCookie = new Cookie(jsessionid, httpsession.getId());
+      Cookie autoLoginCookie;
+      if (autoLogin != null) {
+        if (autoLogin.equals("on")) {
+          autoLoginCookie =
+              new Cookie("username", strongEncryptor.encrypt(adminBean.getUsername()));
+          autoLoginCookie.setMaxAge(24 * 60 * 60);
+          response.addCookie(autoLoginCookie);
+        }
       }
+      sessionCookie.setMaxAge(30 * 60);
+      response.addCookie(sessionCookie);
+
+      // 重新指向至Login.jsp，讓LoginFilter引導
+      response.sendRedirect("/SpecialTopic/MemberFunction/MemberList.jsp");
+    } else {
+      // 假如帳號錯誤 memberBean = null
+      if (queryBean == null) {
+        // 設定Session及ookie
+        httpsession.setAttribute("message", "找不到帳號");
+        Cookie cookie = new Cookie(jsessionid, httpsession.getId());
+        cookie.setMaxAge(30 * 60);
+        response.addCookie(cookie);
+
+        // 驗證失敗倒回Login.jsp
+        response.sendRedirect("Login.jsp");
+        return;
+      }
+
+      if (!queryBean.getPassword().equals(password)) {
+
+        // 設定Session及ookie
+        httpsession.setAttribute("message", "密碼錯誤");
+        Cookie cookie = new Cookie(jsessionid, httpsession.getId());
+        cookie.setMaxAge(30 * 60);
+        response.addCookie(cookie);
+
+        // 驗證失敗倒回Login.jsp
+        response.sendRedirect("Login.jsp");
+        return;
+      }
+
+      // 設定Session及ookie
+      httpsession.setAttribute("loginBean", queryBean);
+      Cookie sessionCookie = new Cookie(jsessionid, httpsession.getId());
+      Cookie autoLoginCookie;
+      if (autoLogin != null) {
+        if (autoLogin.equals("on")) {
+          autoLoginCookie =
+              new Cookie("username", strongEncryptor.encrypt(queryBean.getUsername()));
+          autoLoginCookie.setMaxAge(24 * 60 * 60);
+          response.addCookie(autoLoginCookie);
+        }
+      }
+      sessionCookie.setMaxAge(30 * 60);
+      response.addCookie(sessionCookie);
+
+      response.sendRedirect("/SpecialTopic/MemberFunction/MemberInfo.jsp");
+
     }
-    sessionCookie.setMaxAge(30 * 60);
-    response.addCookie(sessionCookie);
-
-    // 重新指向至Login.jsp，讓LoginFilter引導
-    response.sendRedirect("Login.jsp");
-
   }
 }
 

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import net.ddns.iiiedug02.model.beans.MemberBean;
+import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
 
 @Configuration
 public class InitJavaConfig {
@@ -36,6 +37,12 @@ public class InitJavaConfig {
     mb.setAuth("admin");
     mb.setPassword(ADMIN_PASSWORD);
     mb.setUsername(ADMIN_USERNAME);
+
+    MemberDetailsBean mbd = new MemberDetailsBean();
+    mbd.setFullname("最高權限");
+
+    mb.setMemberDetail(mbd);
+    mbd.setMember(mb);
     return mb;
   }
 
