@@ -2,15 +2,13 @@ package net.ddns.iiiedug02.javaconfigs;
 
 import java.util.Properties;
 import javax.sql.DataSource;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import net.ddns.iiiedug02.model.beans.MemberBean;
-import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
+import net.ddns.iiiedug02.utils.MD5Util;
 
 @Configuration
 @PropertySource("classpath:/net/ddns/iiiedug02/javaconfigs/init.properties")
@@ -42,22 +40,6 @@ public class InitJavaConfig {
   private String jasyptPassword;
 
   @Bean
-  public MemberBean adminBean() {
-    MemberBean mb = new MemberBean();
-    mb.setActivated((short) 1);
-    mb.setAuth("admin");
-    mb.setPassword(adminPassword);
-    mb.setUsername(adminUsername);
-
-    MemberDetailsBean mbd = new MemberDetailsBean();
-    mbd.setFullname("最高權限");
-
-    mb.setMemberDetail(mbd);
-    mbd.setMember(mb);
-    return mb;
-  }
-
-  @Bean
   public DataSource dataSource() {
     DriverManagerDataSource ds = new DriverManagerDataSource();
     ds.setDriverClassName(dbClassName);
@@ -82,10 +64,8 @@ public class InitJavaConfig {
   }
 
   @Bean
-  public StandardPBEStringEncryptor strongEncryptor() {
-    StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-    encryptor.setAlgorithm(jaspyptAlgorithm);
-    encryptor.setPassword(jasyptPassword);
-    return encryptor;
+  public MD5Util md5Util() {
+    MD5Util md5u = new MD5Util();
+    return md5u;
   }
 }
