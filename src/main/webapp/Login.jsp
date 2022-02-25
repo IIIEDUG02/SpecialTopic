@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="org.jasypt.encryption.pbe.StandardPBEStringEncryptor"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page
 	import="org.springframework.web.context.support.WebApplicationContextUtils"%>
@@ -10,15 +9,13 @@
 <%
 WebApplicationContext context =
     WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
-StandardPBEStringEncryptor strongEncryptor =
-    (StandardPBEStringEncryptor) context.getBean("strongEncryptor");
 MemberService memberService = (MemberService) context.getBean("memberService");
 String message = (String) session.getAttribute("message");
 Cookie[] cookies = request.getCookies();
 if (cookies != null) {
   for (Cookie cookie : cookies) {
     if ((cookie.getName()).equals("username")) {
-	  String username = strongEncryptor.decrypt(cookie.getValue());
+	  String username = cookie.getValue();
 	  MemberBean cookieBean = memberService.selectByUsername(username);
 	  if (cookieBean != null) {
 	    session.setAttribute("loginBean", cookieBean);
