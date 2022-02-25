@@ -13,7 +13,7 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
-import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
+import net.ddns.iiiedug02.model.beans.MemberDetailBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
@@ -58,7 +58,7 @@ public class MemberAdd extends HttpServlet {
 
     // 新建MemberBean
     MemberBean signMember = new MemberBean();
-    MemberDetailsBean signDetail = new MemberDetailsBean();
+    MemberDetailBean signDetail = new MemberDetailBean();
 
     signDetail.setAddress(address);
     signDetail.setPhone(phone);
