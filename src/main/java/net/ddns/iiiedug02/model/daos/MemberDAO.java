@@ -23,8 +23,7 @@ public class MemberDAO implements MemberInterface {
     Session session = sessionFactory.getCurrentSession();
     Query<MemberBean> query = session.createQuery("from MemberBean where username = ?1");
     query.setParameter(1, username);
-    MemberBean resultBean = (MemberBean) query.uniqueResult();
-    return resultBean;
+    return (MemberBean) query.uniqueResult();
   }
 
   @Override
