@@ -9,12 +9,12 @@ public class WebInitConfig extends AbstractAnnotationConfigDispatcherServletInit
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {WebAppBeans.class};
+    return new Class[] {RootConfig.class};
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {WebAppServlets.class};
+    return new Class[] {ServletConfig.class};
   }
 
   @Override
