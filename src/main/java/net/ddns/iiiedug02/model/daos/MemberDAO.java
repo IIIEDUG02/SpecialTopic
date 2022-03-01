@@ -1,60 +1,76 @@
 package net.ddns.iiiedug02.model.daos;
 
+import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import net.ddns.iiiedug02.interfaces.MemberInterface;
+import org.springframework.transaction.annotation.Transactional;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 
 /**
  * DAO物件，針對MemberBean對資料庫做增刪改查
  */
 @Repository("memberDAO")
-public class MemberDAO implements MemberInterface {
+@Transactional
+public class MemberDAO {
 
   @Autowired
   private SessionFactory sessionFactory;
 
-  @Override
+  @SuppressWarnings("unchecked")
+  @Transactional(readOnly = true)
   public MemberBean selectByUsername(String username) {
-    Session session = sessionFactory.getCurrentSession();
+    Session session = sessionFactory.openSession();
     Query<MemberBean> query = session.createQuery("from MemberBean where username = ?1");
     query.setParameter(1, username);
-    return (MemberBean) query.uniqueResult();
+    MemberBean qmb = query.uniqueResult();
+    session.close();
+    return qmb;
   }
 
-  @Override
+  @Transactional(readOnly = true)
   public List<MemberBean> selectAll() {
-    Session session = sessionFactory.getCurrentSession();
+    Session session = sessionFactory.openSession();
     Query<MemberBean> all = session.createQuery("from MemberBean", MemberBean.class);
+    session.close();
     return all.list();
   }
 
-  @Override
-  public boolean delete(String username) {
-    Session session = sessionFactory.getCurrentSession();
+  public boolean deleteByName(String username) {
+    Session session = sessionFactory.openSession();
     MemberBean target = selectByUsername(username);
-    if (target != null) {
-      session.delete(target);
-      return true;
-    }
-    return false;
-  }
-
-  @Override
-  public boolean addMember(MemberBean targetBean) {
-    Session session = sessionFactory.getCurrentSession();
-    session.save(targetBean);
+    session.delete(target);
+    session.close();
     return true;
   }
 
-  @Override
+  public Serializable addMember(MemberBean targetBean) {
+    Session session = sessionFactory.openSession();
+    Serializable s = session.save(targetBean);
+    session.close();
+    return s;
+  }
+
   public boolean updateMember(MemberBean targetBean) {
     Session session = sessionFactory.getCurrentSession();
     session.update(targetBean);
-    return false;
+    session.close();
+    return true;
+  }
+
+  @Transactional(readOnly = true)
+  public MemberBean selectByToken(String token) {
+    Session session = sessionFactory.getCurrentSession();
+    session.beginTransaction();
+    @SuppressWarnings("unchecked")
+    Query<MemberBean> query = (session.createQuery("from MemberBean where token = ?1"));
+    query.setParameter(1, token);
+    MemberBean qmb = query.uniqueResult();
+    session.getTransaction().commit();
+    session.close();
+    return qmb;
   }
 }
