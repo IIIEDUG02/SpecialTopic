@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import net.ddns.iiiedug02.utils.MD5Util;
 
 /**
  * JavaBean物件，對應資料庫中的members資料表
@@ -19,9 +20,6 @@ import javax.persistence.Table;
 public class MemberBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
-
-  // @Autowired
-  // private MD5Util md5Util;
 
   @Id
   @Column(name = "uid")
@@ -33,65 +31,61 @@ public class MemberBean implements Serializable {
   private String username;
   @Column(name = "password")
   private String password;
-  @Column(name = "auth")
-  private String auth;
-  @Column(name = "activate")
-  private short activated = 0; // 0:false, 1:true
-
-  // private String token = md5Util.StringToMD5(username);
-  private String token = username;
+  @Column(name = "roles")
+  private String roles = "normal";
+  @Column(name = "activated")
+  private short activated = 0;
+  @Column(name = "token")
+  private String token;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
   private MemberDetailBean memberDetail;
-
 
   public int getUid() {
     return uid;
   }
 
-
-  public void setUid(int uid) {
+  public MemberBean setUid(int uid) {
     this.uid = uid;
+    return this;
   }
-
 
   public String getUsername() {
     return username;
   }
 
-
-  public void setUsername(String username) {
+  public MemberBean setUsername(String username) {
+    MD5Util md5u = new MD5Util();
     this.username = username;
+    this.token = md5u.StringToMD5(username);
+    return this;
   }
-
 
   public String getPassword() {
     return password;
   }
 
-
-  public void setPassword(String password) {
+  public MemberBean setPassword(String password) {
     this.password = password;
+    return this;
   }
 
-
-  public String getAuth() {
-    return auth;
+  public String getRoles() {
+    return roles;
   }
 
-
-  public void setAuth(String auth) {
-    this.auth = auth;
+  public MemberBean setRoles(String roles) {
+    this.roles = roles;
+    return this;
   }
-
 
   public short getActivated() {
     return activated;
   }
 
-
-  public void setActivated(short activated) {
+  public MemberBean setActivated(short activated) {
     this.activated = activated;
+    return this;
   }
 
   public String getToken() {
@@ -99,8 +93,9 @@ public class MemberBean implements Serializable {
   }
 
 
-  public void setToken(String token) {
+  public MemberBean setToken(String token) {
     this.token = token;
+    return this;
   }
 
   public MemberDetailBean getMemberDetail() {
@@ -108,17 +103,16 @@ public class MemberBean implements Serializable {
   }
 
 
-  public void setMemberDetail(MemberDetailBean memberDetail) {
+  public MemberBean setMemberDetail(MemberDetailBean memberDetail) {
     this.memberDetail = memberDetail;
+    return this;
   }
 
 
   @Override
   public String toString() {
     return "MemberBean [uid=" + uid + ", username=" + username + ", password=" + password
-        + ", auth=" + auth + ", activated=" + activated + "]";
+        + ", roles=" + roles + ", activated=" + activated + ", token=" + token + "]";
   }
-
-
 
 }
