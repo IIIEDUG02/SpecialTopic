@@ -68,10 +68,10 @@ public class MemberController {
         return mav;
       } else {
         m.addAttribute("loginBean", qmb);
-        Cookie cookie = new Cookie("token", qmb.getToken());
+        // Cookie cookie = new Cookie("token", qmb.getToken());
         Cookie jsession = new Cookie("JSESSIONID", request.getSession().getId());
-        cookie.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie);
+        // cookie.setMaxAge(60 * 60 * 24);
+        // response.addCookie(cookie);
         response.addCookie(jsession);
       }
 
