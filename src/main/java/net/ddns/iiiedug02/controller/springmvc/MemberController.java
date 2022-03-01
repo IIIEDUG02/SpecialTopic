@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.JsonObject;
+import net.ddns.iiiedug02.model.beans.Mbs;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 import net.ddns.iiiedug02.model.beans.MemberDetailBean;
 import net.ddns.iiiedug02.model.services.MemberService;
@@ -111,4 +112,11 @@ public class MemberController {
     return jo.toString();
   }
 
+  @RequestMapping(path = "info", method = RequestMethod.GET)
+  public String Info(Model m) {
+    Mbs mbs = new Mbs("Dennis", "male", 18);
+    m.addAttribute("Mbs", mbs);
+    return "members";
+
+  }
 }
