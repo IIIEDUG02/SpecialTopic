@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * JavaBean物件，對應資料庫中的members資料表
+ */
 @Entity
 @Table(name = "members")
 public class MemberBean implements Serializable {

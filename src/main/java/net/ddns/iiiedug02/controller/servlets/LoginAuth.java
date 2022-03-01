@@ -14,6 +14,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 
+/**
+ * 執行登入驗證，並回饋是否帳號密碼錯誤，若驗證成功則藉由LoginFilter，執行頁面跳轉
+ */
 @WebServlet("/LoginAuth")
 public class LoginAuth extends HttpServlet {
   private static final long serialVersionUID = 1L;

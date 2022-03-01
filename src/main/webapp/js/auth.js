@@ -1,29 +1,102 @@
 /**
  * 用來登入驗證使用 By 1+
  */
-$("input#login").click(function() {
-	if ($("input#usernametext").val() == "") {
-		alert("請輸入帳號");
-		return;
-	}
-	if ($("input#passwordtext").val() == "") {
-		alert("請輸入密碼");
-		return;
-	}
-	let jqxhr = $.getJSON({
-		type: 'GET',
-		url: "/SpecialTopic/LoginAuth",
-		data: {
-			username: $("input#usernametext").val(),
-			password: $("input#passwordtext").val()
-		}
-	}).done(function(resp) {
-		//alert('成功');
-		alert(resp.result);
-	}).fail(function() {
-		//alert('失敗');
-	}).always(function() {
-		//alert('結束');
-	});
-	console.log("Login");
+
+
+/**
+let headers = {
+	"Content-Type": "application/json",
+	"Accept": "application/json",
+	"iiideug02": "LoginAuth"
+};
+
+const formData = new FormData(document.getElementById('loginForm'));
+formData.get('username');
+formData.get('password');
+
+let promise = fetch("http://localhost:8080/SpecialTopic/LoginAuthApi", {
+	method: "POST",
+	headers: headers,
+	body: formData
+}).then(function(response) {
+	console.log(headers);
+	return response.json();
+})
+	.then(function(myJson) {
+		console.log(myJson);
 });
+ */
+/*
+var xhr = new XMLHttpRequest();
+var data = "username=" + encodeURIComponent($('#usernametext').val())
+        + "&password=" + encodeURIComponent($('#passwordtext').val());
+xhr.open("POST", "http://localhost:8080/SpecialTopic/LoginAuthApi", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("Accept", "application/json");
+xhr.setRequestHeader("iiideug02", "LoginAuth");
+xhr.addEventListener("load", transferComplete);
+
+xhr.send(data);
+ 
+function transferComplete(evt) {
+  console.log(evt);
+  var jsonResponse = JSON.parse(evt.target.responseText);
+  console.log(jsonResponse['result']);
+  if (jsonResponse['result'] == "Success Loggin") {
+	window.location.replace("/SpecialTopic/MemberList.jsp")
+  }else {
+	alert('Failed Loggin');
+  }
+};
+ */
+ 
+ /**
+ * 用來登入驗證使用 By 1+
+ */
+
+
+/**
+let headers = {
+	"Content-Type": "application/json",
+	"Accept": "application/json",
+	"iiideug02": "LoginAuth"
+};
+
+const formData = new FormData(document.getElementById('loginForm'));
+formData.get('username');
+formData.get('password');
+
+let promise = fetch("http://localhost:8080/SpecialTopic/LoginAuthApi", {
+	method: "POST",
+	headers: headers,
+	body: formData
+}).then(function(response) {
+	console.log(headers);
+	return response.json();
+})
+	.then(function(myJson) {
+		console.log(myJson);
+});
+ */
+$('#loginForm').submit(function() {
+	var xhr = new XMLHttpRequest();
+	var data = "username=" + encodeURIComponent($('#usernametext').val())
+		+ "&password=" + encodeURIComponent($('#passwordtext').val());
+	xhr.open("POST", "http://localhost:8080/SpecialTopic/LoginAuthApi", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Accept", "application/json");
+	xhr.setRequestHeader("iiideug02", "LoginAuth");
+	xhr.addEventListener("load", function(evt) {
+		console.log(evt);
+		var jsonResponse = JSON.parse(evt.target.responseText);
+		console.log(jsonResponse['result']);
+		if (jsonResponse['result'] == "Success Loggin") {
+			window.location.replace("/SpecialTopic/MemberList.jsp")
+		} else {
+			alert('Failed Loggin');
+		}
+	});
+	xhr.send(data);
+});
+
+

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpSession;
 import net.ddns.iiiedug02.model.beans.MemberBean;
 
 /**
- * 過濾Login.jsp檢查Session及登入狀態 若以登入，依據登入者權限跳轉指定功能頁面 若未登入，直通Login.jsp
+ * 過濾至Login.jsp的Request，檢查是否為登入狀態，並依據登入者權限跳轉指定功能頁面，若未則chain.doFilter
  */
-@WebFilter(urlPatterns = {"/Login.jsp"})
+@WebFilter(urlPatterns = {"/Login.jsp", "/Login.html"})
 public class LoginFilter extends HttpFilter implements Filter {
 
   private static final long serialVersionUID = 1L;
@@ -44,10 +44,10 @@ public class LoginFilter extends HttpFilter implements Filter {
     // 假如loginBean的權限是admin
     String currentAuth = loginBean.getAuth();
     if (currentAuth.equals("admin")) {
-      hsresp.sendRedirect("MemberList.jsp");
+      hsresp.sendRedirect("MemberFunction/MemberList.jsp");
     } else {
       // 假如loginBean的權不是限是admin
-      hsresp.sendRedirect("MemberInfo.jsp");
+      hsresp.sendRedirect("MemberFunction/MemberInfo.jsp");
     }
 
   }

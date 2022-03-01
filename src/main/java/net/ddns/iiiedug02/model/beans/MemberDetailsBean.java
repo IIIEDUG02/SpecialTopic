@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+/**
+ * JavaBean物件，對應資料庫中的memberDetails資料表
+ */
 @Entity
 @Table(name = "memberDetails")
 public class MemberDetailsBean implements Serializable {

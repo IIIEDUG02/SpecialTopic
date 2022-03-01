@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.beans.MemberBean;
@@ -14,11 +15,14 @@ import net.ddns.iiiedug02.model.beans.MemberDetailsBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
-@WebServlet("/SignUp")
-public class MemberSignUp extends HttpServlet {
+/**
+ * 執行資料庫資料新增動作
+ */
+@WebServlet("/MemberFunction/MemberAdd")
+public class MemberAdd extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public MemberSignUp() {
+  public MemberAdd() {
     super();
   }
 
@@ -35,6 +39,10 @@ public class MemberSignUp extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    String jsessionid = "JSESSIONID";
+    HttpSession httpsession = request.getSession(true);
+
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String fullname = request.getParameter("fullname");
@@ -61,8 +69,14 @@ public class MemberSignUp extends HttpServlet {
     signDetail.setMember(signMember);
     signMember.setMemberDetail(signDetail);
 
-    memberService.addMember(signMember);
-    response.sendRedirect("HomePage.jsp");
+    if (memberService.addMember(signMember)) {
+      response.sendRedirect("Login.jsp");
+    } else {
+      httpsession.setAttribute("message", "帳號已註冊");
+      httpsession.setAttribute("SignBean", signMember);
+      response.sendRedirect("MemberFunction/MemberAdd.jsp");
+    }
+
   }
 
 }

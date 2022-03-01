@@ -2,6 +2,9 @@ package net.ddns.iiiedug02.utils;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * 工具物件，將yyyy-MM-dd的日期格式轉換成SQL的Date物件
+ */
 public class SqlDateUtil {
   public static java.sql.Date strToDate(String strDate) {
     String str = strDate;

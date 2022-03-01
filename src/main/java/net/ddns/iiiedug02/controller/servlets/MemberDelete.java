@@ -12,9 +12,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import net.ddns.iiiedug02.model.services.MemberService;
 
 /**
- * Servlet implementation class DeleteMember
+ * 執行資料庫資料刪除動作
  */
-@WebServlet("/DeleteMember")
+@WebServlet("/MemberFunction/MemberDelete")
 public class MemberDelete extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,6 @@ public class MemberDelete extends HttpServlet {
       // early return
     }
     memberService.delete(username);
-    response.sendRedirect("HomePage.jsp");
+    response.sendRedirect("MemberList.jsp");
   }
 }
