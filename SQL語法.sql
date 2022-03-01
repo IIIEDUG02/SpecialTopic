@@ -14,6 +14,9 @@ address nvarchar(50)not null,
 phone varchar(10)not null,
 birthday date not null,
 job nvarchar(20) not null,
+paypalacc int NULL,
+bankcord int NULL,
+bankacc int NULL,
 FOREIGN KEY (id) REFERENCES Members(id)
 );
 
