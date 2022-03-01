@@ -22,4 +22,4 @@ hibernate.cfg.xml.tmp只是個範例，因考量安全問題hibernate.cfg.xml檔
 |Anna|互動平台|[李怡靜](https://github.com/IIIEDUG02/SpecialTopic/tree/Anna)|
 |BackStage|後台統計|[陳宥峻](https://github.com/IIIEDUG02/SpecialTopic/tree/BackStage)|
 |RT|用戶管理|[陳聰賢](https://github.com/IIIEDUG02/SpecialTopic/tree/RT)|
-|scott|課程管理|[蕭旭峰](https://github.com/IIIEDUG02/SpecialTopic/tree/scott)|
+|scott|課程管理|[蕭旭峰](https://github.com/IIIEDUG02/SpecialTopic/tree/Scott)|
