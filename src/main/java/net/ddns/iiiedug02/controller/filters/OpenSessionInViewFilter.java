@@ -31,6 +31,7 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
     super();
   }
 
+  @Override
   public void init(FilterConfig fConfig) throws ServletException {
     ServletContext application = fConfig.getServletContext();
     WebApplicationContext context =
@@ -38,26 +39,26 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
     sessionFactory = context.getBean("sessionFactory", SessionFactory.class);
   }
 
+  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
-    HttpServletResponse hsresp = (HttpServletResponse) response;
+    ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
+    ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since");
+    ((HttpServletResponse) response).addHeader("Access-Control-Allow-Credentials", "true");
 
     Session session = sessionFactory.getCurrentSession();
     try {
       session.beginTransaction();
-      System.out.println("OSIVF:Begin Transaction");
+      System.out.println("---------- OSIVF:Begin Transaction ----------");
       chain.doFilter(request, response);
       session.getTransaction().commit();
-      System.out.println("OSIVF:Transaction Commit");
+      System.out.println("---------- OSIVF:Transaction Commit ----------");
     } catch (Exception e) {
-      System.out.println("OSIVF:Transaction Rollback");
+      System.out.println("---------- OSIVF:Transaction Rollback ----------");
       session.getTransaction().rollback();
       // 報錯跳轉
       e.printStackTrace();
-      hsresp.sendRedirect("/SpecialTopic/Error.jsp");
-
     }
   }
 
