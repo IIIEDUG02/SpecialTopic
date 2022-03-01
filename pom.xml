@@ -127,7 +127,13 @@
 			<artifactId>spring-aop</artifactId>
 			<version>5.3.16</version>
 		</dependency>
-		
+		<!-- spring-hibernate -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-hibernate</artifactId>
+			<version>1.2.9</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
