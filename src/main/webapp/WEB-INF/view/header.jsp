@@ -15,5 +15,5 @@ if (mb != null ) {
 	String username = mb.getUsername();
 	String auth = mb.getAuth();
 	%>
-  Hi <%= fullname %>(<%= username %>)<input type="button" value="登出" onclick="javascript:location.href='Logout'"><hr>
+  Hi <%= fullname %>(<%= username %>)<input type="button" value="登出" onclick="javascript:location.href='/SpecialTopic/Logout'"><hr>
 <% } %>

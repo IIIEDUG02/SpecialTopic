@@ -34,7 +34,7 @@ if (username == null) {
 </head>
 <body>
 	<jsp:include page="/WEB-INF/view/header.jsp" flush="true" />
-	<form method='get' action='/SpecialTopic/MemberUpdate'>
+	<form method='get' action='/SpecialTopic/MemberFunction/MemberUpdate'>
 		<!-- MemberBean -->
 		帳號:
 		<%=queryBean.getUsername()%>
