@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 /**
- * JavaBean物件，對應資料庫中的memberDetails資料表
+ * JavaBean物件，對應資料庫中的memberDetail資料表
  */
 @Entity
 @Table(name = "memberDetails")
@@ -53,81 +53,73 @@ public class MemberDetailBean implements Serializable {
     return uid;
   }
 
-
-  public void setUid(int uid) {
+  public MemberDetailBean setUid(int uid) {
     this.uid = uid;
+    return this;
   }
-
 
   public String getAddress() {
     return address;
   }
 
-
-  public void setAddress(String address) {
+  public MemberDetailBean setAddress(String address) {
     this.address = address;
+    return this;
   }
-
 
   public String getPhone() {
     return phone;
   }
 
-
-  public void setPhone(String phone) {
+  public MemberDetailBean setPhone(String phone) {
     this.phone = phone;
+    return this;
   }
-
 
   public String getFullname() {
     return fullname;
   }
 
-
-  public void setFullname(String fullname) {
+  public MemberDetailBean setFullname(String fullname) {
     this.fullname = fullname;
+    return this;
   }
-
 
   public String getEmail() {
     return email;
   }
 
-
-  public void setEmail(String email) {
+  public MemberDetailBean setEmail(String email) {
     this.email = email;
+    return this;
   }
-
 
   public Date getBirthday() {
     return birthday;
   }
 
-
-  public void setBirthday(Date birthday) {
+  public MemberDetailBean setBirthday(Date birthday) {
     this.birthday = birthday;
+    return this;
   }
-
 
   public String getJob() {
     return job;
   }
 
-
-  public void setJob(String job) {
+  public MemberDetailBean setJob(String job) {
     this.job = job;
+    return this;
   }
-
 
   public MemberBean getMember() {
     return member;
   }
 
-
-  public void setMember(MemberBean member) {
+  public MemberDetailBean setMember(MemberBean member) {
     this.member = member;
+    return this;
   }
-
 
   @Override
   public String toString() {
