@@ -21,6 +21,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 
   private static final long serialVersionUID = 1L;
 
+  @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
@@ -42,7 +43,7 @@ public class LoginFilter extends HttpFilter implements Filter {
     }
 
     // 假如loginBean的權限是admin
-    String currentAuth = loginBean.getAuth();
+    String currentAuth = loginBean.getRoles();
     if (currentAuth.equals("admin")) {
       hsresp.sendRedirect("MemberFunction/MemberList.jsp");
     } else {
