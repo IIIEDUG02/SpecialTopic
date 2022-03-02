@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import net.ddns.iiiedug02.utils.MD5Util;
 
 /**
  * JavaBean物件，對應資料庫中的members資料表
@@ -35,8 +34,8 @@ public class MemberBean implements Serializable {
   private String roles = "normal";
   @Column(name = "activated")
   private short activated = 0;
-  @Column(name = "token")
-  private String token;
+  // @Column(name = "token")
+  // private String token;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
   private MemberDetailBean memberDetail;
@@ -55,9 +54,9 @@ public class MemberBean implements Serializable {
   }
 
   public MemberBean setUsername(String username) {
-    MD5Util md5u = new MD5Util();
+    // MD5Util md5u = new MD5Util();
     this.username = username;
-    this.token = md5u.StringToMD5(username);
+    // this.token = md5u.StringToMD5(username);
     return this;
   }
 
@@ -88,15 +87,15 @@ public class MemberBean implements Serializable {
     return this;
   }
 
-  public String getToken() {
-    return token;
-  }
-
-
-  public MemberBean setToken(String token) {
-    this.token = token;
-    return this;
-  }
+  // public String getToken() {
+  // return token;
+  // }
+  //
+  //
+  // public MemberBean setToken(String token) {
+  // this.token = token;
+  // return this;
+  // }
 
   public MemberDetailBean getMemberDetail() {
     return memberDetail;
@@ -112,7 +111,7 @@ public class MemberBean implements Serializable {
   @Override
   public String toString() {
     return "MemberBean [uid=" + uid + ", username=" + username + ", password=" + password
-        + ", roles=" + roles + ", activated=" + activated + ", token=" + token + "]";
+        + ", roles=" + roles + ", activated=" + activated + /* ", token=" + token + */ "]";
   }
 
 }
