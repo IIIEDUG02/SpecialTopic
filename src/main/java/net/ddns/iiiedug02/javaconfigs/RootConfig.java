@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.javaconfigs;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
@@ -12,8 +13,13 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import net.ddns.iiiedug02.utils.MD5Util;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
@@ -93,4 +99,37 @@ public class RootConfig {
   public SqlDateUtil sqlDateUtil() {
     return new SqlDateUtil();
   }
+
+
+  @Bean
+  public CommonsMultipartResolver multipartResolver() {
+    CommonsMultipartResolver cmResolver = new CommonsMultipartResolver();
+    cmResolver.setDefaultEncoding("UTF-8");
+    return cmResolver;
+  }
+
+  @Bean
+  public MappingJackson2JsonView jsonView() {
+    MappingJackson2JsonView jv = new MappingJackson2JsonView();
+    jv.setPrettyPrint(true);
+    return jv;
+  }
+
+  @Bean
+  public Jaxb2Marshaller jaxb2() {
+    Jaxb2Marshaller jm = new Jaxb2Marshaller();
+    jm.setPackagesToScan("net.ddns.iiiedug02");
+    return jm;
+  }
+
+  @Bean
+  @Autowired
+  public ContentNegotiatingViewResolver cnvr() {
+    ContentNegotiatingViewResolver cnvr = new ContentNegotiatingViewResolver();
+    java.util.List<View> viewList = new ArrayList<>();
+    viewList.add(jsonView());
+    cnvr.setDefaultViews(viewList);
+    return cnvr;
+  }
+
 }
