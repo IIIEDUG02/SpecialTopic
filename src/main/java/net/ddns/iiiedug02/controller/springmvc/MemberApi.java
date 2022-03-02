@@ -74,11 +74,11 @@ public class MemberApi {
     } else {
       result = "Sucesse";
       m.addAttribute("loginBean", qmb);
-      Cookie cookie = new Cookie("token", qmb.getToken());
+      // Cookie cookie = new Cookie("token", qmb.getToken());
       Cookie jsession = new Cookie("JSESSIONID", request.getSession().getId());
       // jsession.setPath("http://localhost:5500/");
-      cookie.setMaxAge(60 * 60 * 24);
-      response.addCookie(cookie);
+      // cookie.setMaxAge(60 * 60 * 24);
+      // response.addCookie(cookie);
       response.addCookie(jsession);
     }
 

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +23,7 @@ import net.ddns.iiiedug02.model.beans.MemberDetailBean;
 import net.ddns.iiiedug02.model.services.MemberService;
 import net.ddns.iiiedug02.utils.SqlDateUtil;
 
-@Controller()
+@Controller
 public class MemberController {
 
   @Autowired
@@ -62,16 +64,14 @@ public class MemberController {
         return mav;
       } else if (!qmb.getPassword().equals(password)) {
         err.put("result", "密碼不對");
-        System.out.println("輸入：" + password);
-        System.out.println("資料庫：" + qmb.getPassword());
         mav.addObject("err", err);
         return mav;
       } else {
         m.addAttribute("loginBean", qmb);
-        Cookie cookie = new Cookie("token", qmb.getToken());
+        // Cookie cookie = new Cookie("token", qmb.getToken());
         Cookie jsession = new Cookie("JSESSIONID", request.getSession().getId());
-        cookie.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie);
+        // cookie.setMaxAge(60 * 60 * 24);
+        // response.addCookie(cookie);
         response.addCookie(jsession);
       }
 
@@ -112,11 +112,34 @@ public class MemberController {
     return jo.toString();
   }
 
+  // form:form 修改資料
   @RequestMapping(path = "info", method = RequestMethod.GET)
-  public String Info(Model m) {
+  public String Info(Model m, @ModelAttribute("loginBean") MemberBean loginBean) {
+    if (loginBean == null) {
+      return "error";
+    }
+    return "members";
+  }
+
+
+
+  // form:form 表單
+  @RequestMapping(path = "infoDemo", method = RequestMethod.GET)
+  public String InfoDemo(Model m) {
     Mbs mbs = new Mbs("Dennis", "male", 18);
     m.addAttribute("Mbs", mbs);
     return "members";
-
   }
+
+  @RequestMapping(path = "addMember", method = RequestMethod.POST)
+  public String processAction(@ModelAttribute("Mbs") Mbs mbs, BindingResult result, Model m2) {
+    if (result.hasErrors()) {
+      return "error";
+    }
+    m2.addAttribute("mName", mbs.getName());
+    m2.addAttribute("mGender", mbs.getGender());
+    m2.addAttribute("mAge", mbs.getAge());
+    return "memberResult";
+  }
+
 }
