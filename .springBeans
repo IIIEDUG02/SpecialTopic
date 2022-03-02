@@ -7,6 +7,10 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>src/main/webapp/META-INF/beans.config.xml.bak</config>
+		<config>src/main/webapp/META-INF/springmvc-servlet.xml.bak</config>
+		<config>java:net.ddns.iiiedug02.javarc.RootConfig</config>
+		<config>java:net.ddns.iiiedug02.javarc.ServletConfig</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
