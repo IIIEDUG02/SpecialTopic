@@ -15,9 +15,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
+ 
 /**
- * 過濾所有Request，實作1次瀏覽器的request及伺服器的response，只有1次Hibernate的commit(或rollback)
+ * ��蕪����equest嚗祕雿�1甈∠�汗���equest��撩����esponse嚗���1甈？ibernate��ommit(��ollback)
  */
 
 @WebFilter("/*")
@@ -54,7 +54,7 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
     } catch (Exception e) {
       System.out.println("OSIVF:Transaction Rollback");
       session.getTransaction().rollback();
-      // 報錯跳轉
+      // ��頝唾��
       e.printStackTrace();
       hsresp.sendRedirect("/SpecialTopic/Error.jsp");
 
