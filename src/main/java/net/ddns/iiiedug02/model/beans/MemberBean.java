@@ -30,82 +30,87 @@ public class MemberBean implements Serializable {
   private String username;
   @Column(name = "password")
   private String password;
-  @Column(name = "auth")
-  private String auth;
-  @Column(name = "activate")
-  private short activated = 1; // 0:true, 1:false
-
+  @Column(name = "roles")
+  private String roles = "normal";
+  @Column(name = "activated")
+  private short activated = 0;
+  // @Column(name = "token")
+  // private String token;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-  private MemberDetailsBean memberDetail;
-
+  private MemberDetailBean memberDetail;
 
   public int getUid() {
     return uid;
   }
 
-
-  public void setUid(int uid) {
+  public MemberBean setUid(int uid) {
     this.uid = uid;
+    return this;
   }
-
 
   public String getUsername() {
     return username;
   }
 
-
-  public void setUsername(String username) {
+  public MemberBean setUsername(String username) {
     this.username = username;
+    // this.token = md5u.StringToMD5(username);
+    return this;
   }
-
 
   public String getPassword() {
     return password;
   }
 
-
-  public void setPassword(String password) {
+  public MemberBean setPassword(String password) {
     this.password = password;
+    return this;
   }
 
-
-  public String getAuth() {
-    return auth;
+  public String getRoles() {
+    return roles;
   }
 
-
-  public void setAuth(String auth) {
-    this.auth = auth;
+  public MemberBean setRoles(String roles) {
+    this.roles = roles;
+    return this;
   }
-
 
   public short getActivated() {
     return activated;
   }
 
-
-  public void setActivated(short activated) {
+  public MemberBean setActivated(short activated) {
     this.activated = activated;
+    return this;
   }
 
+  // public String getToken() {
+  // return token;
+  // }
+  //
+  //
+  // public MemberBean setToken(String token) {
+  // this.token = token;
+  // return this;
+  // }
 
-  public MemberDetailsBean getMemberDetail() {
+  public MemberDetailBean getMemberDetail() {
     return memberDetail;
   }
 
 
-  public void setMemberDetail(MemberDetailsBean memberDetail) {
+  public MemberBean setMemberDetail(MemberDetailBean memberDetail) {
     this.memberDetail = memberDetail;
+    return this;
   }
 
 
   @Override
   public String toString() {
     return "MemberBean [uid=" + uid + ", username=" + username + ", password=" + password
-        + ", auth=" + auth + ", activated=" + activated + "]";
+        + ", roles=" + roles + ", activated=" + activated + "]";
   }
-
-
 
 }
