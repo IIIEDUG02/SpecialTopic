@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,64 +33,65 @@ public class MemberController {
   @Autowired
   private SqlDateUtil sqlDateUtil;
 
+  // 首頁 "/"
   @RequestMapping(method = RequestMethod.GET)
-  public String loginIndex() {
-    return "login";
+  public String index(HttpSession session, Model m) {
+    MemberBean loginBean = (MemberBean) session.getAttribute("loginBean");
+    if (null != loginBean)
+      m.addAttribute("username", loginBean.getUsername());
+    return "index";
   }
 
-  // 登入
+  // 登入 "/login"
   @RequestMapping(value = "login", method = RequestMethod.POST)
   public ModelAndView loging(Model m, @RequestParam String username, @RequestParam String password,
-      HttpServletResponse response, HttpServletRequest request) {
-    Map<String, String> err = new HashMap<String, String>();
+      HttpServletResponse response, HttpServletRequest request, HttpSession session) {
+
     ModelAndView mav = new ModelAndView();
 
+    // 帳密驗證
+    Map<String, String> err = new HashMap<String, String>();
     if (username == null || username.length() == 0) {
       err.put("username", "請輸入帳號");
     }
-
     if (password == null || password.length() == 0) {
       err.put("password", "請輸入密碼");
     }
-
     if (!err.isEmpty()) {
+      mav.setViewName("index");
       mav.addObject("err", err);
-      mav.setViewName("login");
-      return mav;
-    } else {
-      MemberBean qmb = ms.selectByUsername(username);
-      if (qmb == null) {
-        err.put("result", "帳號不存在");
-        mav.addObject("err", err);
-        return mav;
-      } else if (!qmb.getPassword().equals(password)) {
-        err.put("result", "密碼不對");
-        mav.addObject("err", err);
-        return mav;
-      } else {
-        m.addAttribute("loginBean", qmb);
-        // Cookie cookie = new Cookie("token", qmb.getToken());
-        Cookie jsession = new Cookie("JSESSIONID", request.getSession().getId());
-        // cookie.setMaxAge(60 * 60 * 24);
-        // response.addCookie(cookie);
-        response.addCookie(jsession);
-      }
-
-      mav.addObject("username", qmb.getUsername());
-      mav.setViewName("sucess");
       return mav;
     }
+
+    MemberBean qmb = ms.selectByUsername(username);
+    mav.setViewName("index");
+    if (qmb == null) {
+      err.put("result", "帳號不存在");
+      mav.addObject("err", err);
+    } else if (!qmb.getPassword().equals(password)) {
+      err.put("result", "密碼不對");
+      mav.addObject("err", err);
+    } else {
+      session.setAttribute("loginBean", qmb);
+      mav.addObject("username", qmb.getUsername());
+      // Cookie cookie = new Cookie("token", qmb.getToken());
+      Cookie jsession = new Cookie("JSESSIONID", request.getSession().getId());
+      // cookie.setMaxAge(60 * 60 * 24);
+      // response.addCookie(cookie);
+      response.addCookie(jsession);
+    }
+    return mav;
   }
 
-  // 登出
+  // 登出 "/logout"
   @RequestMapping(value = "logout", method = RequestMethod.GET)
   public String logout(SessionStatus status) {
     status.setComplete();
-    return "";
+    return "index";
   }
 
-  // 註冊 "result" : "Sucesse" / "Fail"
-  @RequestMapping(method = RequestMethod.POST, value = "signup")
+  // 註冊 "/register" "result" : "Sucesse" / "Fail"
+  @RequestMapping(method = RequestMethod.POST, value = "register")
   @ResponseBody
   public String signUp(@RequestParam String username, @RequestParam String password,
       @RequestParam String fullname, @RequestParam String email, @RequestParam String birthday,
