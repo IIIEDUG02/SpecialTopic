@@ -1,21 +1,24 @@
 package net.ddns.iiiedug02.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import net.ddns.iiiedug02.model.dao.C2BDao;
+import net.ddns.iiiedug02.model.bean.C2BBean;
+import net.ddns.iiiedug02.model.service.CashService;
 
 @Controller
 public class C2BController {
 
   @Autowired
-  private C2BDao c2bdao;
+  private CashService cashService;
 
-  @GetMapping(path = "c2b")
+  @GetMapping(path = "cashFLowListByUid/{uid}")
   @ResponseBody
-  public String c2bTest() {
-    return c2bdao.selectBySid(1).toString();
+  public List<C2BBean> c2bTest(@PathVariable("uid") int uid) {
+    return cashService.findByUid(uid);
   }
 
 
