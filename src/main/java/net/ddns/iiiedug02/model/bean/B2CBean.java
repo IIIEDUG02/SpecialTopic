@@ -2,38 +2,33 @@ package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
- * c2b : 客戶交易紀錄
+ * b2c : 公司支付紀錄
  */
 @Entity
-@Table(name = "c2b")
-@Component
-public class C2BBean implements Serializable {
+@Table(name = "b2c")
+public class B2CBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  @GenericGenerator(name = "generator", strategy = "foreign",
+      parameters = @Parameter(name = "property", value = "c2b"))
+
   @Id
   @Column(name = "tid")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(generator = "generator")
   private int tid;
-
-  @Column(name = "uid")
-  private int uid;
-
-  @Column(name = "cid")
-  private int cid;
 
   @Column(name = "order_date")
   private Date orderDate;
@@ -41,9 +36,9 @@ public class C2BBean implements Serializable {
   @Column(name = "completed")
   private short completed;
 
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "c2b", cascade = CascadeType.ALL)
-  @JoinColumn(name = "tid", referencedColumnName = "tid")
-  private B2CBean b2c;
+  @OneToOne(fetch = FetchType.LAZY)
+  @PrimaryKeyJoinColumn
+  private C2BBean c2b;
 
   public int getTid() {
     return tid;
@@ -51,22 +46,6 @@ public class C2BBean implements Serializable {
 
   public void setTid(int tid) {
     this.tid = tid;
-  }
-
-  public int getUid() {
-    return uid;
-  }
-
-  public void setUid(int uid) {
-    this.uid = uid;
-  }
-
-  public int getCid() {
-    return cid;
-  }
-
-  public void setCid(int cid) {
-    this.cid = cid;
   }
 
   public Date getOrderDate() {
@@ -85,14 +64,12 @@ public class C2BBean implements Serializable {
     this.completed = completed;
   }
 
-  public B2CBean getB2c() {
-    return b2c;
+  public C2BBean getC2b() {
+    return c2b;
   }
 
-  public void setB2c(B2CBean b2c) {
-    this.b2c = b2c;
+  public void setC2b(C2BBean c2b) {
+    this.c2b = c2b;
   }
-
-
 
 }
