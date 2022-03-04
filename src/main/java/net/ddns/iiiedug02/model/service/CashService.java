@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,17 @@ public class CashService {
   @Transactional(readOnly = true)
   public List<C2BBean> findByCid(int cid) {
     return cashRepository.findByCid(cid);
+  }
+
+  @Transactional(readOnly = true)
+  public boolean getCompletedByTid(int tid) {
+    Optional<C2BBean> optional = cashRepository.findById(tid);
+    if (optional.isEmpty()) {
+      return false;
+    } else if (optional.get().getB2c().getCompleted() == (short) 0) {
+      return false;
+    }
+    return true;
   }
 
 }
