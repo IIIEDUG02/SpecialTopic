@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.JsonObject;
-import net.ddns.iiiedug02.model.beans.Mbs;
-import net.ddns.iiiedug02.model.beans.MemberBean;
-import net.ddns.iiiedug02.model.beans.MemberDetailBean;
-import net.ddns.iiiedug02.model.services.MemberService;
-import net.ddns.iiiedug02.utils.SqlDateUtil;
+import net.ddns.iiiedug02.model.bean.MemberBean;
+import net.ddns.iiiedug02.model.bean.MemberDetailBean;
+import net.ddns.iiiedug02.model.bean.demo.Mbs;
+import net.ddns.iiiedug02.model.service.MemberService;
+import net.ddns.iiiedug02.util.SqlDateUtil;
+
 
 @Controller()
 public class MemberController {
@@ -55,7 +56,7 @@ public class MemberController {
       mav.setViewName("login");
       return mav;
     } else {
-      MemberBean qmb = ms.selectByUsername(username);
+      MemberBean qmb = ms.findByUsername(username);
       if (qmb == null) {
         err.put("result", "帳號不存在");
         mav.addObject("err", err);
@@ -98,13 +99,16 @@ public class MemberController {
     MemberBean mb = new MemberBean();
     MemberDetailBean mdb = new MemberDetailBean();
 
-    mb.setUsername(username).setPassword(password).setRoles("admin").setMemberDetail(mdb);
+    mb.setUsername(username);
+    mb.setPassword(password);
+    mb.setRoles("admin");
+    mb.setMemberDetail(mdb);
     mdb.setAddress(address).setBirthday(sqlDateUtil.strToDate(birthday)).setEmail(email)
         .setFullname(fullname).setJob(job).setPhone(phone).setMember(mb);
 
     JsonObject jo = new JsonObject();
 
-    if (ms.addMember(mb)) {
+    if (ms.insert(mb) != null) {
       jo.addProperty("result", "Sucesse");
     } else {
       jo.addProperty("result", "Fail");
