@@ -39,7 +39,8 @@ public class MemberBean implements Serializable {
   @Column(name = "activated")
   private short activated = 0;
 
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "member",
+      cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
   private MemberDetailBean memberDetail;
 
   public int getUid() {
