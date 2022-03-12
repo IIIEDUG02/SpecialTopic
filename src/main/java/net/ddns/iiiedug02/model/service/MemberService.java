@@ -1,8 +1,10 @@
 package net.ddns.iiiedug02.model.service;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,12 +41,20 @@ public class MemberService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) {
-    MemberBean user = this.findByUsername(username); // User類別第三參數為權限設定，目前先以List空值表示
+    MemberBean mb = this.findByUsername(username); // User類別第三參數為權限設定，目前先以List空值表示
 
-    if (null == user) {
+    if (null == mb) {
       throw new UserNotFoundException("User not found");
     }
-    return new User(user.getUsername(), user.getPassword(), Collections.emptyList());
+    String[] rl = mb.getRoles().split(",");
+
+    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    for (String r : rl) {
+      authorities.add(new SimpleGrantedAuthority(r));
+    }
+
+    return new User(mb.getUsername(), mb.getPassword(), authorities);
+
   }
 
 }
