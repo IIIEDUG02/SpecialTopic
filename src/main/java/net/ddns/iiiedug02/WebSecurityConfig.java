@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/perform_logout", "/welcome", "/registerPage1", "/registerPage2", "/getUsername", "/",
             "/js/**", "/css/**", "/userprofilesQueryByName.controller")
         .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
-        .permitAll().anyRequest().authenticated();
+        .permitAll().antMatchers("/cashflow/**").hasRole("admin").anyRequest().authenticated();
 
 
     http.formLogin().loginPage("/login_page").usernameParameter("username")
