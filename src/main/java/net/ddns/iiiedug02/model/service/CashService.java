@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import net.ddns.iiiedug02.model.bean.C2BBean;
-import net.ddns.iiiedug02.model.interfaces.CashRepository;
+import net.ddns.iiiedug02.model.repository.CashRepository;
 
 
 /**
