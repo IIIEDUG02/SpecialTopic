@@ -43,14 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
 
-    http.logout().deleteCookies("JESSIONID").logoutUrl("/logout_page");
-
-
-    // http.authorizeRequests().antMatchers(HttpMethod.GET, "/cashflow/**").authenticated()
-    // .antMatchers(HttpMethod.GET).permitAll().antMatchers(HttpMethod.POST, "/cashflow/**")
-    // .authenticated().antMatchers(HttpMethod.POST).permitAll().anyRequest().authenticated().and()
-    // .rememberMe().tokenValiditySeconds(86400).key("rememberMe-key").and().csrf().disable()
-    // .formLogin().loginPage("/login_page").defaultSuccessUrl("/welcome");
+    http.logout().deleteCookies("JESSIONID", "rememberMe-key").logoutUrl("/logout_page");
 
     http.cors().and().csrf().disable();
   }
