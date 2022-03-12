@@ -9,12 +9,30 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-class SenedMailTest {
 
-  public static void main(String[] args) {
 
+/*
+ * Google將於５／３０後修改登入驗證方式，屆時可能無法使用本工具寄信
+ */
+public class SenedMailUtil {
+
+  private String toAddress;
+
+  private String text;
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+  public void setToAddress(String toAddress) {
     // Recipient's email ID needs to be mentioned.
-    String to = "nilm987521@gmail.com";
+    this.toAddress = toAddress;
+  }
+
+  public void send() {
+    if (null == this.text || null == this.toAddress) {
+      return;
+    }
 
     // Sender's email ID needs to be mentioned
     String from = "noreplyiiiedug02@gmail.com";
@@ -35,7 +53,7 @@ class SenedMailTest {
     Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication("noreplyiiiedug02@gmail.com", "s5640434");
+        return new PasswordAuthentication("noreplyiiiedug02@gmail.com", "1113DU902");
       }
     });
 
@@ -50,13 +68,13 @@ class SenedMailTest {
       message.setFrom(new InternetAddress(from));
 
       // Set To: header field of the header.
-      message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+      message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
 
       // Set Subject: header field
       message.setSubject("HI,這是用JAVA記得信喔");
 
       // Now set the actual message
-      message.setText("這裡規劃寄帳號激活連結");
+      message.setText(text);
 
       System.out.println("sending...");
       // Send message
