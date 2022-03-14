@@ -12,14 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
-@Setter
-@Getter
 @Entity
 @Table(name = "member_roles")
-public class MemberRolesBean implements Serializable {
+public class MemberRole implements GrantedAuthority, Serializable {
 
   /**
    * 
@@ -42,5 +39,44 @@ public class MemberRolesBean implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "uid", referencedColumnName = "uid")
-  private MemberBean member;
+  private Member member;
+
+  @Override
+  public String getAuthority() {
+    return this.role;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getUid() {
+    return uid;
+  }
+
+  public void setUid(int uid) {
+    this.uid = uid;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public Member getMember() {
+    return member;
+  }
+
+  public void setMember(Member member) {
+    this.member = member;
+  }
+
+
 }
