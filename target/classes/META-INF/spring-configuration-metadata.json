@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "database",
+      "type": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties",
+      "sourceType": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "database.driverneme",
+      "type": "java.lang.String",
+      "sourceType": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties"
+    },
+    {
+      "name": "database.password",
+      "type": "java.lang.String",
+      "sourceType": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties"
+    },
+    {
+      "name": "database.url",
+      "type": "java.lang.String",
+      "sourceType": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties"
+    },
+    {
+      "name": "database.username",
+      "type": "java.lang.String",
+      "sourceType": "net.ddns.iiiedug02.model.bean.demo.DataBaseProperties"
+    }
+  ],
+  "hints": []
+}
