@@ -15,6 +15,8 @@ import net.ddns.iiiedug02.model.interfaces.CashRepository;
 public class CashService {
   @Autowired
   private CashRepository cashRepository;
+  
+
 
   @Transactional
   public C2BBean insert(C2BBean c2bBean) {
@@ -40,5 +42,6 @@ public class CashService {
   public List<C2BBean> findByCid(int cid) {
     return cashRepository.findByCid(cid);
   }
+  
 
 }
