@@ -31,13 +31,13 @@ public class ArticleController {
 		c.setPageViews(0);
 		c.setTitle("asd");
 		c.setUserid(1);
-		c.setPublicTime(dutil.strToDate("2002-01-20"));//如何輸入日期?
+		c.setPublishTime(dutil.strToDate("2002-01-20"));
 	    return articalService.insert(c);
 	  }
 	
 	@RequestMapping("/read")
 	public ArticleBean casb() {
-	    return articalService.getById(1);
+	    return articalService.getById(2);
 	  }
 	
 	@RequestMapping("/update")
@@ -48,7 +48,7 @@ public class ArticleController {
 		c.setPageViews(0);
 		c.setTitle("asd");
 		c.setUserid(1);
-		c.setPublicTime(null);
+		c.setPublishTime(null);
 	    return articalService.update(c);
 	  }
 	

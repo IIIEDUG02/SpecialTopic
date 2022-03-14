@@ -30,10 +30,10 @@ public class ArticleBean  {
 	  private String title;
 
 	  @Column(name = "Content")
-	  private String context; //text 型別?
+	  private String context; 
 
 	  @Column(name = "PublishTime")
-	  private Date publishTime; //型別?
+	  private Date publishTime; 
 
 	  @Column(name = "PageViews")
 	  private int pageViews;
@@ -65,12 +65,12 @@ public class ArticleBean  {
 		this.context = context;
 	}
 
-	public Date getPublicTime() {
+	public Date getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublicTime(Date publicTime) {
-		this.publishTime = publicTime;
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	public int getPageViews() {
