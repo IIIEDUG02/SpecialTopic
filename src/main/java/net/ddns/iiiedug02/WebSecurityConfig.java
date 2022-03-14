@@ -31,23 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/login_page", "/logout_page", "/perform_login",
-            "/perform_logout", "/welcome", "/registerPage1", "/registerPage2", "/getUsername", "/",
-            "/js/**", "/css/**", "/userprofilesQueryByName.controller")
+        .antMatchers(HttpMethod.GET, "/login_page", "/logout_page", "/welcome", "/registerPage1",
+            "/registerPage2", "/getUsername", "/", "/js/**", "/css/**")
         .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
-        .permitAll().antMatchers("/cashflow/**").hasRole("admin").anyRequest().authenticated();
+        .permitAll().antMatchers("/cashflow/**").hasRole("admin");
 
+    http.authorizeRequests().anyRequest().authenticated();
 
     http.formLogin().loginPage("/login_page").usernameParameter("username")
         .passwordParameter("password").defaultSuccessUrl("/").permitAll();
-
     http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
-
     http.logout().deleteCookies("JESSIONID", "rememberMe-key").logoutUrl("/logout_page");
 
     http.cors().and().csrf().disable();
   }
-
-
 
 }
