@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.model.service.ArticalService;
@@ -35,9 +36,9 @@ public class ArticleController {
 	    return articalService.insert(c);
 	  }
 	
-	@RequestMapping("/read")
+	@RequestMapping(path="/read")
 	public ArticleBean casb() {
-	    return articalService.getById(1);
+	    return articalService.getById(2);
 	  }
 	
 	@RequestMapping("/update")
