@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import net.ddns.iiiedug02.exception.UserNotFoundException;
-import net.ddns.iiiedug02.model.bean.MemberBean;
-import net.ddns.iiiedug02.model.bean.MemberRolesBean;
+import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.bean.MemberRole;
 import net.ddns.iiiedug02.model.repository.MemberRepository;
 
 @Service
@@ -23,30 +23,30 @@ public class MemberService implements UserDetailsService {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  public MemberBean findByUsername(String username) {
-    Optional<MemberBean> opt = memberRepository.findByUsername(username);
+  public Member findByUsername(String username) {
+    Optional<Member> opt = memberRepository.findByUsername(username);
     if (opt.isEmpty()) {
       return null;
     }
     return opt.get();
   }
 
-  public MemberBean createMemberBean(MemberBean mb) {
+  public Member createMemberBean(Member mb) {
 
     String encodedpassword = bCryptPasswordEncoder.encode(mb.getPassword());
     mb.setPassword(encodedpassword);
 
-    MemberRolesBean mrb = new MemberRolesBean();
+    MemberRole mrb = new MemberRole();
     mrb.setUid(mb.getUid());
     mrb.setRole("normal");
     mrb.setMember(mb);
 
-    MemberRolesBean mrb2 = new MemberRolesBean();
+    MemberRole mrb2 = new MemberRole();
     mrb2.setUid(mb.getUid());
     mrb2.setRole("admin");
     mrb2.setMember(mb);
 
-    HashSet<MemberRolesBean> rs = new HashSet<>();
+    HashSet<MemberRole> rs = new HashSet<>();
     rs.add(mrb);
     rs.add(mrb2);
 
@@ -58,14 +58,14 @@ public class MemberService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) {
-    MemberBean mb = this.findByUsername(username); // User類別第三參數為權限設定，目前先以List空值表示
+    Member mb = this.findByUsername(username); // User類別第三參數為權限設定，目前先以List空值表示
 
     if (null == mb) {
       throw new UserNotFoundException("User not found");
     }
     String[] ra = new String[mb.getRoles().size()];
     int i = 0;
-    for (MemberRolesBean rb : mb.getRoles()) {
+    for (MemberRole rb : mb.getRoles()) {
       ra[i] = rb.getRole();
       i++;
     }

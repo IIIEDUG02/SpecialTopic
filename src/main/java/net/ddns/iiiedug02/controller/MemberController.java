@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
-import net.ddns.iiiedug02.model.bean.MemberBean;
-import net.ddns.iiiedug02.model.bean.MemberDetailBean;
+import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.bean.MemberInfomation;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
@@ -45,7 +45,7 @@ public class MemberController {
 
   @PostMapping(value = "/registerAction1")
   @ResponseBody
-  public String registerAction1(@RequestBody MemberBean mb, HttpSession session) {
+  public String registerAction1(@RequestBody Member mb, HttpSession session) {
     System.out.println(mb);
     session.setAttribute("registerBean2", mb);
     JsonObject result = new JsonObject();
@@ -55,8 +55,8 @@ public class MemberController {
 
   @PostMapping(value = "/registerAction2")
   @ResponseBody
-  public String registerAction2(@RequestBody MemberDetailBean mdb, HttpSession session) {
-    MemberBean mb = (MemberBean) session.getAttribute("registerBean2");
+  public String registerAction2(@RequestBody MemberInfomation mdb, HttpSession session) {
+    Member mb = (Member) session.getAttribute("registerBean2");
     if (null == mb) {
       return "mb is null";
     }
