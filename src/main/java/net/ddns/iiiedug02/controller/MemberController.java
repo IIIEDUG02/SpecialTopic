@@ -35,6 +35,7 @@ public class MemberController {
   public String processPrincipalQuery(Principal p) {
     JsonObject result = new JsonObject();
     // 完成登入後 Principal 才會有物件，若未登入 Principal == null
+
     if (null == p) {
       result.addProperty("result", "null");
     } else {
