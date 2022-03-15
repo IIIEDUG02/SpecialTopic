@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>Members</h3>
-<form:form action="addMember" mehtod="POST" modelAttribute="Mbs">
+<form:form action="/SpecialTopic/addMember" mehtod="POST" modelAttribute="Mbs">
 <table>
 	<tr>
 		<td><form:label path="name">名字</form:label></td>
