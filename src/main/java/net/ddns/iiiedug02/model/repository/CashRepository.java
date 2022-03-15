@@ -25,4 +25,11 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
    */
   @Query(value = "from C2BBean where cid = ?1")
   public List<C2BBean> findByCid(int cid);
+
+  @Query(value = "SELECT top 5 count(cid) as count ,cid FROM c2b where completed = 1 GROUP BY cid",
+      nativeQuery = true)
+  public int getYearTop5Teacher(int year);
+
+
+
 }
