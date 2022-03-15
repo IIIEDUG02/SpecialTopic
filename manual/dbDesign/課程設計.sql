@@ -14,7 +14,7 @@ create table curriculum(
 	cuid int IDENTITY(1,1)PRIMARY KEY not null,
 	chapter nvarchar(50) not null,
 	videoPath varchar(200),
-	cuTitle bit default 1 not null,
+	cuTitle bit  not null,
 	cid int not null REFERENCES class(cid)
 
 );
