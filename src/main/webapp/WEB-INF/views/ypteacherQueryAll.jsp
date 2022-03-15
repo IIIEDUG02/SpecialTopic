@@ -21,8 +21,7 @@
 			<c:forEach var="mb" items="${memberList}">
 				<tr>
 					<td><c:out value="${mb.getMemberDetail().getFullname()}" /></td>
-					<td><c:out value="${mb.getMemberDetail().getJob()}" /></td>
-					
+					<td><c:out value="${mb.getMemberDetail().getJob()}" /></td>					
 				</tr>
 			</c:forEach>
 		</tbody>

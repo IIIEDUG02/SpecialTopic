@@ -51,6 +51,11 @@ public class YPteacherController {
 		for(Map<String, Integer> c : cList) {
 			ClassBean cbBean = classService.findById(c.get("cid"));
 			 Member mb = memberService.findByUid(cbBean.getUid());
+//			 YPteacher ypth = new YPteacher();
+//			 ypth.setTeacherID(mb.getUid());
+//			 ypth.setYear(2022);
+//			 ypth.setYearAmount(c.get("countcid"));
+//			 bService.insert(ypth);
 			 memberList.add(mb);					
 		}
 		

@@ -30,4 +30,8 @@ public class YPteacherService {
 	public List<YPteacher> findAll(){
 		return YPRepo.findAll();
 	}
+	
+	public void  insert(YPteacher yp){
+		YPRepo.save(yp);
+	}
 }

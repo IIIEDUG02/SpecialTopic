@@ -11,4 +11,6 @@ public interface YPteacherRepository extends JpaRepository<YPteacher, Integer> {
 	
 	@Query(value = "select * from Users", nativeQuery = true)
 	public List<YPteacher> findAll();
+	
+	
 }
