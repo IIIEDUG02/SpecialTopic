@@ -5,20 +5,24 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ddns.iiiedug02.model.bean.ClassBean;
+import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.YPteacher;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.YPteacherService;
 
 
 
 
-@RestController
+@Controller
 public class YPteacherController {
 	@Autowired
     private YPteacherService bService;
@@ -29,6 +33,9 @@ public class YPteacherController {
 	@Autowired
     private ClassBeanService classService;
 	
+	@Autowired
+    private MemberService memberService;
+	
 
 	
 	@GetMapping("/ypteacherquerybyid.controller")
@@ -36,17 +43,20 @@ public class YPteacherController {
 		return bService.findById(id);
 	}
 	
-	@GetMapping("/ypteacherfindAll.controller")
-	public List<YPteacher> processfindAll() {
+	@GetMapping("/ypteacherfindtop5")
+	public String processfindAll(Model m) {
 		List<Map<String, Integer>> cList = cashService.getYearTop5Class(2022);
-		List<ClassBean> cbList = new ArrayList<ClassBean>();
+		
+		List<Member> memberList = new ArrayList<Member>();
 		for(Map<String, Integer> c : cList) {
 			ClassBean cbBean = classService.findById(c.get("cid"));
-			cbList.add(cbBean);
+			 Member mb = memberService.findByUid(cbBean.getUid());
+			 memberList.add(mb);					
 		}
 		
-		
-		return bService.findAll();
+		System.out.println(memberList);
+		m.addAttribute("memberList", memberList);
+		return "ypteacherQueryAll";
 	}
 	
 	
