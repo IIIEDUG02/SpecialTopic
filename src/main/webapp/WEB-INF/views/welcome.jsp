@@ -14,8 +14,7 @@
     <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js" ></script>
     <script type="text/javascript" src="/SpecialTopic/js/loginjs.js" ></script>
   </head>
-  
-  
+    
   <body>
     <jsp:include page="header.jsp" />
 
