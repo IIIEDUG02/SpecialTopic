@@ -35,6 +35,7 @@ public class ClassController {
 	}
 	
 	//刪除課程
+	@GetMapping(value = "/deleteclass")
 	public void deleteClass() {
 		
 	}
