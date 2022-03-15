@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.repository;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import net.ddns.iiiedug02.model.bean.C2BBean;
@@ -25,4 +26,14 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
    */
   @Query(value = "from C2BBean where cid = ?1")
   public List<C2BBean> findByCid(int cid);
+
+
+  /**
+   * 輸入指定年份，回傳List<[統計, cid]>
+   */
+  @Query(
+      value = "SELECT top 5 count(cid) as count ,cid FROM c2b where completed = 1 and year(order_date) = ?1 GROUP BY cid ;",
+      nativeQuery = true)
+  public List<Map<String, Integer>> getYearTop5Class(int year);
+
 }
