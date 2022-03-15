@@ -7,7 +7,7 @@
 </head>
 <body>
 <h3>Logout</h3>
-<form action="/logout" method="post">
+<form action="/SpecialTopic/logout" method="post">
 <table> <tr>
 <td>Logout:</td>
 <td><button type="submit" value="Logout">Logout</button></td> </tr>

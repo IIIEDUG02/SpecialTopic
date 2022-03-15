@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "/getUsername",
+        url: "/SpecialTopic/getUsername",
         dataType: "json",
         contentType: "application/json",
         success: function (data) {
@@ -12,7 +12,7 @@ $(document).ready(function () {
                 var btn = $('<button/>', {
                     text: '登出',
                     click: function () {
-                        window.location = "/logout_page"
+                        window.location = "/SpecialTopic/logout_page"
                     }
                 });
                 $('#LoginDiv').append(btn);
@@ -20,13 +20,13 @@ $(document).ready(function () {
                 var lbtn = $('<button/>', {
                     text: '登入',
                     click: function () {
-                        window.location = "/login_page"
+                        window.location = "/SpecialTopic/login_page"
                     }
                 })
                 var rbtn = $('<button/>', {
                     text: '註冊',
                     click: function () {
-                        window.location = "/registerPage1"
+                        window.location = "/SpecialTopic/registerPage1"
                     }
                 });
                 $('#LoginDiv').append(lbtn);

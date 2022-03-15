@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/style01.css" />
+<link rel="stylesheet" href="/SpecialTopic/css/style01.css" />
 <title>Insert title here</title>
 </head>
 <body>
-<img alt="No Image" src="images/git.png">
+<img alt="No Image" src="/SpecialTopic/images/git.png">
 <a id="red" class="red">123456</a>
 </body>
 </html>

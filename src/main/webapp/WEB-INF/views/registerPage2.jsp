@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="js/jquery-3.6.0.js" ></script>
-<script type="text/javascript" src="js/registerjs.js" ></script>
+<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js" ></script>
+<script type="text/javascript" src="/SpecialTopic/js/registerjs.js" ></script>
 <title>帳號註冊</title>
 </head>
 <body>

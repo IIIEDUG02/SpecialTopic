@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="js/jquery-3.6.0.js" ></script>
-<script type="text/javascript" src="js/loginjs.js" ></script>
+<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js" ></script>
+<script type="text/javascript" src="/SpecialTopic/js/loginjs.js" ></script>
 <title>首頁</title>
 </head>
 

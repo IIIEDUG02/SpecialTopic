@@ -5,7 +5,7 @@ function register1() {
 	mb["email"]  =$("#email").val();
     $.ajax({
         type: "POST",
-        url: "/registerAction1",
+        url: "/SpecialTopic/registerAction1",
         dataType: "json",
         data: JSON.stringify(mb),
         contentType: "application/json",
@@ -13,7 +13,7 @@ function register1() {
             if (data == null) {
                 console.log("no data return");
             } else if (data.result == "ok") {
-                window.location = "/registerPage2"
+                window.location = "/SpecialTopic/registerPage2"
             } 
         }
     })
@@ -31,7 +31,7 @@ function register2() {
 	
     $.ajax({
         type: "POST",
-        url: "/registerAction2",
+        url: "/SpecialTopic/registerAction2",
         dataType: "json",
         data: JSON.stringify(mdb),
         contentType: "application/json",
@@ -39,7 +39,7 @@ function register2() {
             if (data == null) {
                 console.log("no data return");
             } else if (data.result == "ok") {
-                window.location = "/welcome"
+                window.location = "/SpecialTopic/"
             } 
         }
     })

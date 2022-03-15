@@ -8,6 +8,6 @@
 <title>首頁</title>
 </head>
 <body>
-<img src="/image/git.png" alt="git">
+<img src="/SpecialTopic/image/git.png" alt="git">
 </body>
 </html>

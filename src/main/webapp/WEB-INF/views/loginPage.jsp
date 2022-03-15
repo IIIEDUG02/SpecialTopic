@@ -5,7 +5,7 @@
 <c:choose>
 	<c:when test="${ empty username }">
 	<!-- action 一定要是自己 -->
-		<form action="/login_page" method="POST">
+		<form action="/SpecialTopic/login_page" method="POST">
 			帳號:<input type="text" name="username" placeholder="${ err.username }"> 
 			密碼:<input type="password" name="password" placeholder="${ err.password }">
 			<button type="submit">登入</button> <a style="color: red">${ result }</a>
