@@ -25,7 +25,7 @@ public class ClassController {
   @GetMapping(value = "/seeteacherclass")
   public String processShowClass(Principal p, Model m) {
     Member teacher = ms.findByUsername(p.getName());
-    List<ClassBean> teacherclass = cbs.findAllByCid(teacher.getUid());
+    List<ClassBean> teacherclass = cbs.findAllByUid(teacher.getUid());
     m.addAttribute("teacherclass", teacherclass);
 
     return "teacherpage";
