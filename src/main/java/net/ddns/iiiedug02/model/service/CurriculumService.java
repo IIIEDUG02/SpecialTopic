@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
-import net.ddns.iiiedug02.model.interfaces.CurriculumRepository;
+import net.ddns.iiiedug02.model.repository.CurriculumRepository;
 
 
 @Service

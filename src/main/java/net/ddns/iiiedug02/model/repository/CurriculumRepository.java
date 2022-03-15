@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.model.interfaces;
+package net.ddns.iiiedug02.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
