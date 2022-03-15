@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.model.service;
 
+
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import net.ddns.iiiedug02.model.repository.CashRepository;
 public class CashService {
   @Autowired
   private CashRepository cashRepository;
-  
+
 
 
   @Transactional
@@ -43,7 +45,7 @@ public class CashService {
   public List<C2BBean> findByCid(int cid) {
     return cashRepository.findByCid(cid);
   }
-  
+
 
   @Transactional(readOnly = true)
   public boolean getCompletedByTid(int tid) {
@@ -54,6 +56,17 @@ public class CashService {
       return false;
     }
     return true;
+  }
+
+  /**
+   * 輸入指定年份，回傳List<Map<統計, cid>> List<Map<String, Integer>> ol =
+   * cashRepository.getYearTop5Class(year); for (Map<String, Integer> o : ol) {
+   * System.out.println(o.get("cid")); }
+   * 
+   */
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getYearTop5Class(int year) {
+    return cashRepository.getYearTop5Class(year);
   }
 
 }
