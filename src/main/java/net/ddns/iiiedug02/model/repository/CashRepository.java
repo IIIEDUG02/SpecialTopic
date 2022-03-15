@@ -32,7 +32,7 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
    * 輸入指定年份，回傳List<[統計, cid]>
    */
   @Query(
-      value = "SELECT top 5 count(cid) as count ,cid FROM c2b where completed = 1 and year(order_date) = ?1 GROUP BY cid ;",
+      value = "select top 5 count(cid) as countcid, cid from c2b where year(order_date) = ?1 GROUP BY cid order by count(cid) DESC;",
       nativeQuery = true)
   public List<Map<String, Integer>> getYearTop5Class(int year);
 
