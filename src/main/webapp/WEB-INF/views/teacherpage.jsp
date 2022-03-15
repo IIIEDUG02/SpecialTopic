@@ -11,7 +11,6 @@
 <body>
 <table>
 <tr>
-<c:
 </tr>
 </table>
 </body>
