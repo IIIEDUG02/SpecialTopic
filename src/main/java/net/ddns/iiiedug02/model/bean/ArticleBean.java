@@ -2,6 +2,7 @@ package net.ddns.iiiedug02.model.bean;
 
 import java.sql.Date;
 
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +19,8 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Table(name = "article")
-public class ArticleBean {
-
+public class ArticleBean  {
+	
 	  @Id
 	  @Column(name = "Id")
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +30,10 @@ public class ArticleBean {
 	  private String title;
 
 	  @Column(name = "Content")
-	  private String context; //text 型別?
+	  private String context; 
 
 	  @Column(name = "PublishTime")
-	  private Date publishTime; //型別?
+	  private Date publishTime; 
 
 	  @Column(name = "PageViews")
 	  private int pageViews;
@@ -64,12 +65,12 @@ public class ArticleBean {
 		this.context = context;
 	}
 
-	public Date getPublicTime() {
+	public Date getPublishTime() {
 		return publishTime;
 	}
 
-	public void setPublicTime(Date publicTime) {
-		this.publishTime = publicTime;
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	public int getPageViews() {
