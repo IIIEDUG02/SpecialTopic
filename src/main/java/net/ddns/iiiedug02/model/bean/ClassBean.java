@@ -27,11 +27,11 @@ public class ClassBean {
 	private int cid;
 	@Column(name = "price")
 	private int price;
-	@Column(name = "id")
-	private int id;	
+	@Column(name = "uid")
+	private int uid;	
 	@Column(name = "title")
 	private String title;
-	@Column(name = "classtype")
+	@Column(name = "class_type")
 	private String classType;
 	@Column(name = "photo")
 	private byte[] photo;
@@ -63,11 +63,11 @@ public class ClassBean {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getId() {
-		return id;
+	public int getUid() {
+		return uid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 	public String getTitle() {
 		return title;

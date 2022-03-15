@@ -14,7 +14,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "classDetails")
+@Table(name = "class_details")
 @Component
 public class ClassDetailsBean {
 	
@@ -26,8 +26,8 @@ public class ClassDetailsBean {
 	private int cid;
 	@Column(name = "descript")
 	private String descript;
-	@Column(name = "need_tool")
-	private String need_tool;
+	@Column(name = "needed_tool")
+	private String needed_tool;
 	@Column(name = "stu_required")
 	private String stu_required;
 	@Column(name = "goal")
@@ -54,11 +54,11 @@ public class ClassDetailsBean {
 	public void setDescript(String descript) {
 		this.descript = descript;
 	}
-	public String getNeed_tool() {
-		return need_tool;
+	public String getNeeded_tool() {
+		return needed_tool;
 	}
-	public void setNeed_tool(String need_tool) {
-		this.need_tool = need_tool;
+	public void setNeed_tool(String needed_tool) {
+		this.needed_tool = needed_tool;
 	}
 	public String getStu_required() {
 		return stu_required;
