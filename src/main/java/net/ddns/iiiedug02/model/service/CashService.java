@@ -59,8 +59,10 @@ public class CashService {
   }
 
   /**
-   * 輸入指定年份，回傳List<Map<統計, cid>> List<Map<String, Integer>> ol =
-   * cashRepository.getYearTop5Class(year); for (Map<String, Integer> o : ol) {
+   * 輸入指定年份，回傳List<Map<統計, cid>> 
+   * List<Map<String, Integer>> ol =
+   * cashRepository.getYearTop5Class(year); 
+   * for (Map<String, Integer> o : ol) {
    * System.out.println(o.get("cid")); }
    * 
    */
