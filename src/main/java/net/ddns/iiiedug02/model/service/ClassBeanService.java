@@ -41,7 +41,7 @@ public class ClassBeanService {
 		return op1.get();
 	}
 	
-	public List<ClassBean> findAllByCid(Integer cid){
-		return cRepo.findAllByCid(cid);
+	public List<ClassBean> findAllByUid(Integer uid){
+		return cRepo.findAllByUid(uid);
 	}
 }
