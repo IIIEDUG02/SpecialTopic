@@ -9,6 +9,6 @@ import net.ddns.iiiedug02.model.bean.ClassBean;
 
 public interface ClassRepository extends JpaRepository<ClassBean, Integer> {
 
-	public List<ClassBean> findAllByCid(Integer cid);
+	public List<ClassBean> findAllByUid(Integer Uid);
 
 }

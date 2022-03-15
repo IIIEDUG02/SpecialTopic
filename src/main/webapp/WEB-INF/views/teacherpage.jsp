@@ -26,9 +26,7 @@
 			<c:forEach var="tc" items="${teacherclass}">
 				<tr>
 					<td><c:out value="${tc.getTitle()}" /></td>
-					<td><c:out value=" " /></td>
 					<td><c:out value="${tc.getClassType()}" /></td>
-					<td><c:out value="  " /></td>
 					<td><input type="button"
 						onclick="javascript:window.location = '/SpecialTopic/deleteclass/${tc.getCid()}'"
 						value="刪除課程" /></td>

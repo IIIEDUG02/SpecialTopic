@@ -21,12 +21,12 @@ public class CurriculumBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cuid;
 	private String chapter;
-	private String videoPath;
+	private String video_path;
 	
 	@Transient
 	private int cid;
 	
-	private int cuTitle;
+	private int cu_title;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cid")
@@ -38,11 +38,11 @@ public class CurriculumBean {
 	public void setChapter(String chapter) {
 		this.chapter = chapter;
 	}
-	public String getVideoPath() {
-		return videoPath;
+	public String getVideo_path() {
+		return video_path;
 	}
-	public void setVideoPath(String videoPath) {
-		this.videoPath = videoPath;
+	public void setVideo_path(String video_path) {
+		this.video_path = video_path;
 	}
 	public int getCid() {
 		return cid;
@@ -50,11 +50,11 @@ public class CurriculumBean {
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-	public int getCuTitle() {
-		return cuTitle;
+	public int getCu_title() {
+		return cu_title;
 	}
-	public void setCuTitle(int cuTitle) {
-		this.cuTitle = cuTitle;
+	public void setCu_title(int cu_title) {
+		this.cu_title = cu_title;
 	}
 	public ClassBean getClassbean() {
 		return classbean;
