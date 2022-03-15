@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 =======
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
         
     <wb-module deploy-name="SpecialTopic-0.0.1-SNAPSHOT">
                 
@@ -8,14 +9,46 @@
                 
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
                 
+=======
+            
+    
+    <wb-module deploy-name="SpecialTopic-0.0.1-SNAPSHOT">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                        
+        
+>>>>>>> a2dbb1aee2c8caefbd128224f7de9e9ef29c6b17
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+                        
+        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
                 
+<<<<<<< HEAD
         <property name="java-output-path" value="/SpecialTopic/build/classes"/>
                 
         <property name="context-root" value="SpecialTopic"/>
             
     </wb-module>
     
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated_tests"/>
+                        
+        
+        <property name="context-root" value="SpecialTopic"/>
+                        
+        
+        <property name="java-output-path" value="/SpecialTopic/target/classes"/>
+                    
+    
+    </wb-module>
+        
+
+>>>>>>> a2dbb1aee2c8caefbd128224f7de9e9ef29c6b17
 </project-modules>
 >>>>>>> ea5672f821bef5463f03932d2f47ad97a85c4ccf
