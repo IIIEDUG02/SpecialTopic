@@ -32,4 +32,10 @@ public class C2BController {
   }
 
 
+  @PostMapping(path = "yearTop5Teacher")
+  @ResponseBody
+  public C2BBean yearTop5Teacher(@RequestBody C2BBean c2bBean) {
+    return c2bBean;
+  }
+
 }
