@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -39,7 +40,7 @@
 </head>
 
 <body>
-  <!-- ======= Header ======= -->
+   <!-- ======= Header ======= -->
   <jsp:include page="incloud/header-section.jsp" />
 
   <!-- ======= Hero Section ======= -->
@@ -334,6 +335,11 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  
+  <!-- ======= errMsg ======= -->
+  <c:if test="${not empty errMsg}">
+	<script>alert("${errMsg}")</script>
+  </c:if>
 
 </body>
 
