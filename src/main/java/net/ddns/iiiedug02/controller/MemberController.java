@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
+import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInfomation;
 import net.ddns.iiiedug02.model.service.MemberService;
@@ -19,16 +20,6 @@ public class MemberController {
   @Autowired
   private MemberService ms;
 
-  @PostMapping("/welcome")
-  public String index() {
-    return "welcome";
-  }
-
-  @GetMapping("/welcome")
-  public String index2() {
-    return "welcome";
-  }
-
   // 取得登入成功後使用者名稱
   @GetMapping(value = "/getUsername")
   @ResponseBody
@@ -37,10 +28,10 @@ public class MemberController {
     // 完成登入後 Principal 才會有物件，若未登入 Principal == null
 
     if (null == p) {
-      result.addProperty("result", "null");
-    } else {
-      result.addProperty("result", p.getName());
+      throw new NotLoginException();
     }
+    result.addProperty("result", p.getName());
+
     return result.toString();
   }
 
