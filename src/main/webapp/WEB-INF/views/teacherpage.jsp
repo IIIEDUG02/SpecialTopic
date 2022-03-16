@@ -53,8 +53,12 @@
 								<td><c:out value="${tc.getTitle()}" /></td>
 								<td><c:out value="${tc.getClassType()}" /></td>
 								<td><input type="button"
+									onclick="javascript:window.location = '/SpecialTopic/update/${tc.getCid()}'"
+									value="編輯" />
+									<input type="button"
 									onclick="javascript:window.location = '/SpecialTopic/deleteclass/${tc.getCid()}'"
-									value="刪除課程" /></td>
+									value="刪除課程" />
+									</td>
 							</tr>
 						</c:forEach>
 					</tbody>
