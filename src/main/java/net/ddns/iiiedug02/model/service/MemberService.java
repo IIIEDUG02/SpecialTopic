@@ -73,4 +73,12 @@ public class MemberService implements UserDetailsService {
     return User.withUsername(mb.getUsername()).password(mb.getPassword()).roles(ra).build();
   }
 
+  public Member findByUid(int uid) {
+    Optional<Member> mb = memberRepository.findByUid(uid); // User類別第三參數為權限設定，目前先以List空值表示
+    if (mb.isEmpty()) {
+      throw new UserNotFoundException("User not found");
+    }
+    return mb.get();
+  }
+
 }
