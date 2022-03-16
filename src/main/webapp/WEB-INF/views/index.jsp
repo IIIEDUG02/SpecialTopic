@@ -21,6 +21,9 @@
 
   <!-- Head CSS -->
   <jsp:include page="incloud/head-css.jsp" />
+  
+  <!-- jQuery -->
+  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -31,7 +34,7 @@
 </head>
 
 <body>
-   <!-- ======= Header ======= -->
+  <!-- ======= Header ======= -->
   <jsp:include page="incloud/header-section.jsp" />
 
   <!-- ======= Hero Section ======= -->
@@ -62,10 +65,11 @@
           </div>
 
           <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
-            <p>門課程</p><!-- ======= TODO:旭峰 ======= -->
-          </div>
-
+            <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter" id="classcount"></span>
+            <p>門課程</p>
+          </div>        
+		  <script src="/SpecialTopic/js/count.js"></script>	
+			
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
             <p>個活動</p><!-- ======= TODO:？？？？ ======= -->

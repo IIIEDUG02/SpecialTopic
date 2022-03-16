@@ -1,92 +1,85 @@
 package net.ddns.iiiedug02.model.bean;
 
 import java.sql.Date;
-
-import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
 @Table(name = "article")
-public class ArticleBean  {
-	
-	  @Id
-	  @Column(name = "Id")
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  private int id;
-	  
-	  @Column(name = "Title")
-	  private String title;
+public class ArticleBean {
 
-	  @Column(name = "Content")
-	  private String context; 
+  @Id
+  @Column(name = "Id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-	  @Column(name = "PublishTime")
-	  private Date publishTime; 
+  @Column(name = "Title")
+  private String title;
 
-	  @Column(name = "PageViews")
-	  private int pageViews;
+  @Column(name = "Content")
+  private String context;
 
-	  @Column(name = "userid")
-	  private int userid;
+  @Column(name = "PublishTime")
+  private Date publishTime;
 
-	public int getId() {
-		return id;
-	}
+  @Column(name = "PageViews")
+  private int pageViews;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  @Column(name = "userid")
+  private int userid;
 
-	public String getTitle() {
-		return title;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public String getContext() {
-		return context;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public void setContext(String context) {
-		this.context = context;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public Date getPublishTime() {
-		return publishTime;
-	}
+  public String getContext() {
+    return context;
+  }
 
-	public void setPublishTime(Date publishTime) {
-		this.publishTime = publishTime;
-	}
+  public void setContext(String context) {
+    this.context = context;
+  }
 
-	public int getPageViews() {
-		return pageViews;
-	}
+  public Date getPublishTime() {
+    return publishTime;
+  }
 
-	public void setPageViews(int pageViews) {
-		this.pageViews = pageViews;
-	}
+  public void setPublishTime(Date publishTime) {
+    this.publishTime = publishTime;
+  }
 
-	public int getUserid() {
-		return userid;
-	}
+  public int getPageViews() {
+    return pageViews;
+  }
 
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-	 
+  public void setPageViews(int pageViews) {
+    this.pageViews = pageViews;
+  }
+
+  public int getUserid() {
+    return userid;
+  }
+
+  public void setUserid(int userid) {
+    this.userid = userid;
+  }
+
 }
