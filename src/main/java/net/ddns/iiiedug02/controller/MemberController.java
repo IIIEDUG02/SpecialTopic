@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.Member;
-import net.ddns.iiiedug02.model.bean.MemberInfomation;
+import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
@@ -47,13 +47,13 @@ public class MemberController {
 
   @PostMapping(value = "/registerAction2")
   @ResponseBody
-  public String registerAction2(@RequestBody MemberInfomation mdb, HttpSession session) {
+  public String registerAction2(@RequestBody MemberInformation mdb, HttpSession session) {
     Member mb = (Member) session.getAttribute("registerBean2");
     if (null == mb) {
       return "mb is null";
     }
     mdb.setMember(mb);
-    mb.setMemberDetail(mdb);
+    mb.setMemberInformation(mdb);
     ms.createMemberBean(mb);
     JsonObject result = new JsonObject();
     result.addProperty("result", "ok");

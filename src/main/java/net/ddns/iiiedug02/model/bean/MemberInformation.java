@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "member_details")
-public class MemberInfomation implements Serializable {
+public class MemberInformation implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
@@ -47,7 +47,7 @@ public class MemberInfomation implements Serializable {
         return uid;
     }
 
-    public MemberInfomation setUid(int uid) {
+    public MemberInformation setUid(int uid) {
         this.uid = uid;
         return this;
     }
@@ -56,7 +56,7 @@ public class MemberInfomation implements Serializable {
         return address;
     }
 
-    public MemberInfomation setAddress(String address) {
+    public MemberInformation setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -65,7 +65,7 @@ public class MemberInfomation implements Serializable {
         return phone;
     }
 
-    public MemberInfomation setPhone(String phone) {
+    public MemberInformation setPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -74,7 +74,7 @@ public class MemberInfomation implements Serializable {
         return fullname;
     }
 
-    public MemberInfomation setFullname(String fullname) {
+    public MemberInformation setFullname(String fullname) {
         this.fullname = fullname;
         return this;
     }
@@ -83,7 +83,7 @@ public class MemberInfomation implements Serializable {
         return email;
     }
 
-    public MemberInfomation setEmail(String email) {
+    public MemberInformation setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -92,7 +92,7 @@ public class MemberInfomation implements Serializable {
         return birthday;
     }
 
-    public MemberInfomation setBirthday(Date birthday) {
+    public MemberInformation setBirthday(Date birthday) {
         this.birthday = birthday;
         return this;
     }
@@ -101,7 +101,7 @@ public class MemberInfomation implements Serializable {
         return job;
     }
 
-    public MemberInfomation setJob(String job) {
+    public MemberInformation setJob(String job) {
         this.job = job;
         return this;
     }
@@ -110,7 +110,7 @@ public class MemberInfomation implements Serializable {
         return member;
     }
 
-    public MemberInfomation setMember(Member member) {
+    public MemberInformation setMember(Member member) {
         this.member = member;
         return this;
     }

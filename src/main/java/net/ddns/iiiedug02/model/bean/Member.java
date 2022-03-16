@@ -41,7 +41,7 @@ public class Member implements Serializable, UserDetails {
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-  private MemberInfomation memberDetail;
+  private MemberInformation memberInformation;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "member",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -81,12 +81,12 @@ public class Member implements Serializable, UserDetails {
     this.activated = activated;
   }
 
-  public MemberInfomation getMemberDetail() {
-    return memberDetail;
+  public MemberInformation getMemberInformation() {
+    return memberInformation;
   }
 
-  public void setMemberDetail(MemberInfomation memberDetail) {
-    this.memberDetail = memberDetail;
+  public void setMemberInformation(MemberInformation memberInformation) {
+    this.memberInformation = memberInformation;
   }
 
   public Set<MemberRole> getRoles() {
