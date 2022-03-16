@@ -39,6 +39,7 @@
       </nav><!-- .navbar -->
 
       <a href="login_page" class="get-started-btn">登入</a>
+      <a href="registerPage1" class="get-started-btn">註冊</a>
 
     </div>
   </header><!-- End Header -->
