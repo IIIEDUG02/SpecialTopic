@@ -5,7 +5,7 @@ $(document).ready(function () {
         dataType: "json",
         contentType: "application/json",
         success: function (data) {
-		$('span#countclass').attr("data-purecounter-end") = data;
+		$("span#classcount").attr("data-purecounter-end",data);
         },
         error: function (xhr, status) {
             console.log("Error")
