@@ -8,4 +8,7 @@ import net.ddns.iiiedug02.model.bean.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
   public Optional<Member> findByUsername(String username);
+
+  public Optional<Member> findByUid(int uid);
+
 }
