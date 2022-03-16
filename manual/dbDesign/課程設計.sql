@@ -4,17 +4,17 @@
 create table class(
 	cid int IDENTITY(1,1)PRIMARY KEY not null,
 	title nvarchar(50) not null,
-	classType nvarchar(50) not null,
+	class_type nvarchar(50) not null,
 	price int not null,
 	photo varbinary(max),
-	id int not null REFERENCES members(id)
+	uid int not null REFERENCES members(uid)
 );
 
 create table curriculum(
 	cuid int IDENTITY(1,1)PRIMARY KEY not null,
 	chapter nvarchar(50) not null,
-	videoPath varchar(200),
-	cuTitle bit  not null,
+	video_path varchar(200),
+	cu_title bit  not null,
 	cid int not null REFERENCES class(cid)
 
 );
