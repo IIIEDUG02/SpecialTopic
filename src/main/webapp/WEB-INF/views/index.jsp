@@ -50,12 +50,12 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="active" href="index">Home</a></li>
-          <li><a href="about">About</a></li>
-          <li><a href="courses">Courses</a></li>
-          <li><a href="trainers">Trainers</a></li>
-          <li><a href="events">Events</a></li>
-          <li><a href="pricing">Pricing</a></li>
+          <li><a class="active" href="index">首頁</a></li>
+          <li><a href="about">關於我們</a></li>
+          <li><a href="courses">課程</a></li>
+          <li><a href="trainers">教師</a></li>
+          <li><a href="events">活動</a></li>
+          <li><a href="pricing">價格</a></li>
 
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -74,7 +74,7 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact">聯絡我們</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -132,22 +132,22 @@
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Students</p><!-- ======= TODO:1232 ======= -->
+            <p>位學生</p><!-- ======= TODO:1232 ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Courses</p><!-- ======= TODO:64 ======= -->
+            <p>門課程</p><!-- ======= TODO:64 ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Events</p><!-- ======= TODO:42 ======= -->
+            <p>個活動</p><!-- ======= TODO:42 ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Trainers</p><!-- ======= TODO:15 ======= -->
+            <p>位老師</p><!-- ======= TODO:15 ======= -->
           </div>
 
         </div>
@@ -292,7 +292,7 @@
 
         <div class="section-title">
           <h2>Courses</h2>
-          <p>Popular Courses</p>
+          <p>熱門課程</p>
         </div>
 		<!-- ======= TODO ======= -->
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
@@ -381,8 +381,14 @@
     </section><!-- End Popular Courses Section -->
 
     <!-- ======= Trainers Section ======= -->
-    <section id="trainers" class="trainers">
+    <section id="trainers" class="trainers">   
       <div class="container" data-aos="fade-up">
+      
+      	<div class="section-title">
+          <h2>Teacher</h2>
+          <p>熱門教師</p>
+        </div>
+      
 		<!-- ======= TODO ======= -->
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
