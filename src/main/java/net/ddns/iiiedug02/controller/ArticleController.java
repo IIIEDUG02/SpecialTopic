@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,11 @@ import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.model.service.ArticalService;
 import net.ddns.iiiedug02.util.SqlDateUtil;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Controller
-@RequestMapping(path="/ac")
+@RequestMapping(path="/articles")
 @ResponseBody
 public class ArticleController {
 
@@ -28,7 +33,7 @@ public class ArticleController {
 	public ArticleBean ad() {
 		
 		ArticleBean c = new ArticleBean();
-		c.setContext("１２３");
+		c.setContent("１２３");
 		c.setPageViews(0);
 		c.setTitle("asd");
 		c.setUserid(1);
@@ -36,16 +41,48 @@ public class ArticleController {
 	    return articalService.insert(c);
 	  }
 	
+	@GetMapping("/createArticle")
+	public String createArticle(String title, String content) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+		System.out.println("現在時間:" + dtf.format(LocalDateTime.now()));
+		System.out.println("文章標題:" + title);
+		System.out.println("文章內容:" + content);
+		
+		
+		ArticleBean article = new ArticleBean();
+		article.setContent(content);
+		article.setPageViews(0);
+		article.setTitle(title);
+		article.setUserid(1);
+		article.setPublishTime(dutil.strToDate(dtf.format(LocalDateTime.now())));
+		articalService.insert(article);
+		
+		return "Success";
+	  }
+	
+	@GetMapping(path="/about")
+		public String about() {
+		   return "about";
+		  }
+
+	
 	@RequestMapping(path="/read")
 	public ArticleBean casb() {
-	    return articalService.getById(2);
+	    return articalService.getById(8);
+	  }
+	
+	@RequestMapping(path="/retrieve")
+	public String retrieve(int id) {
+		ArticleBean article = articalService.getById(id);
+	    return article.getContent();
 	  }
 	
 	@RequestMapping("/update")
 	public ArticleBean asd() {
 		ArticleBean c = new ArticleBean();
 		c.setId(1);
-		c.setContext("jhrtjkhsdjkfghdsfjkgdfjkg");
+		c.setContent("jhrtjkhsdjkfghdsfjkgdfjkg");
 		c.setPageViews(0);
 		c.setTitle("asd");
 		c.setUserid(1);
@@ -58,4 +95,11 @@ public class ArticleController {
 	    articalService.delete(1);
 	  }
 	
+
+	@RequestMapping("/all")
+	public List<ArticleBean> getAll() {
+		List<ArticleBean> articleList = articalService.getAll();
+				
+	    return articleList;
+	  }
 }

@@ -23,7 +23,7 @@ public class ArticleBean {
   private String title;
 
   @Column(name = "Content")
-  private String context;
+  private String content;
 
   @Column(name = "PublishTime")
   private Date publishTime;
@@ -50,12 +50,12 @@ public class ArticleBean {
     this.title = title;
   }
 
-  public String getContext() {
-    return context;
+  public String getContent() {
+    return content;
   }
 
-  public void setContext(String context) {
-    this.context = context;
+  public void setContent(String content) {
+    this.content = content;
   }
 
   public Date getPublishTime() {
