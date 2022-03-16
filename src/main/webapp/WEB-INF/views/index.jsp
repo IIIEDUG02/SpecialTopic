@@ -19,17 +19,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Head CSS -->
+  <jsp:include page="incloud/head-css.jsp" />
 
   <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -67,22 +58,22 @@
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1" class="purecounter"></span>
-            <p>位學生</p><!-- ======= TODO:1232 ======= -->
+            <p>位學生</p><!-- ======= TODO:聰賢 ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
-            <p>門課程</p><!-- ======= TODO:64 ======= -->
+            <p>門課程</p><!-- ======= TODO:旭峰 ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
-            <p>個活動</p><!-- ======= TODO:42 ======= -->
+            <p>個活動</p><!-- ======= TODO:？？？？ ======= -->
           </div>
 
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-            <p>位老師</p><!-- ======= TODO:15 ======= -->
+            <p>位老師</p><!-- ======= TODO:聰賢 ======= -->
           </div>
 
         </div>
@@ -142,7 +133,7 @@
     <!-- ======= Features Section ======= -->
     <section id="features" class="features">
       <div class="container" data-aos="fade-up">
-		<!-- ======= TDDO ======= -->
+		<!-- ======= TDDO: 課程標籤？？？？ ======= -->
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
           <div class="col-lg-3 col-md-4">
             <div class="icon-box">
@@ -229,7 +220,7 @@
           <h2>Courses</h2>
           <p>熱門課程</p>
         </div>
-		<!-- ======= TODO ======= -->
+		<!-- ======= TODO：宥竣 ======= -->
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
@@ -326,15 +317,8 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <!-- Templete JS -->
+  <jsp:include page="incloud/body-js.jsp" />
   
   <!-- ======= errMsg ======= -->
   <c:if test="${not empty errMsg}">
