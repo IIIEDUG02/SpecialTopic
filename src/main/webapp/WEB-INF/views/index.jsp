@@ -21,6 +21,9 @@
 
   <!-- Head CSS -->
   <jsp:include page="incloud/head-css.jsp" />
+  
+  <!-- jQuery -->
+  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -31,7 +34,7 @@
 </head>
 
 <body>
-   <!-- ======= Header ======= -->
+  <!-- ======= Header ======= -->
   <jsp:include page="incloud/header-section.jsp" />
 
   <!-- ======= Hero Section ======= -->
