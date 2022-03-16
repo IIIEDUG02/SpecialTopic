@@ -7,7 +7,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+<!-- jQuery -->
+  <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js">
   <title>OOXX線上教學平台</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -71,10 +72,11 @@
           </div>
 
           <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1" class="purecounter" id="classcount"></span>
             <p>門課程</p><!-- ======= TODO:64 ======= -->
-          </div>
-
+          </div>        
+			<script src="/SpecialTopic/js/count.js"></script>	
+			
           <div class="col-lg-3 col-6 text-center">
             <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1" class="purecounter"></span>
             <p>個活動</p><!-- ======= TODO:42 ======= -->
