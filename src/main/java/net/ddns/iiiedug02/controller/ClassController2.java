@@ -60,15 +60,13 @@ public class ClassController2 {
     ccb.setChapter("123");
     ccb.setClassbean(cb);
 
-    Set<CurriculumBean> ccbSet = new HashSet<CurriculumBean>();
+    Set<CurriculumBean> ccbSet = new HashSet<>();
     ccbSet.add(ccb);
 
     cb.setClassDetailsBean(cdb);
     cb.setCurriculumbean(ccbSet);
     cdb.setClassbean(cb);
-    System.out.println(cb);
 
-    // null point exception 作業Update就剩他了
     cbs.update(cb);
 
     return "redirect:/seeteacherclass";

@@ -2,19 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>課程內容編輯</title>
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
+
 </head>
 <body>
 	<!-- 頁首 -->
 	<jsp:include page="../incloud/header-section.jsp" />
+	
 	<div class="breadcrumbs" data-aos="fade-in">
 		<div class="container"></div>
 	</div>
