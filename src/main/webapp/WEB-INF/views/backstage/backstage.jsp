@@ -8,10 +8,10 @@
 </head>
 <body>
 <!-- 頁首 -->
-<jsp:include page="../header.jsp" />
+<jsp:include page="../incloud/header-section.jsp" />
 
 
 <!-- 頁尾 -->
-<jsp:include page="../footer.jsp" />
+<jsp:include page="../incloud/footer-section.jsp" />
 </body>
 </html>
