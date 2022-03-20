@@ -28,7 +28,7 @@ jobs:
       run: mvn package
       
     - name: Remove old file
-      run: echo $PA55W0RD | sudo -S rm -rf $TOMCAT_WEBAPPS_DIR/$SpecialTopic*
+      run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf $TOMCAT_WEBAPPS_DIR/$SpecialTopic*
       
     - name: Move new file
-      run: echo $PA55W0RD | sudo -S cp target/$SpecialTopic*.war $TOMCAT_WEBAPPS_DIR/$SpecialTopic.war
+      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/$SpecialTopic*.war $TOMCAT_WEBAPPS_DIR/$SpecialTopic.war
