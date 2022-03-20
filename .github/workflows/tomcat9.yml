@@ -13,6 +13,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+
+    - name: pwd
+      run: pwd
     
     - name: Change current directory to project path
       run: cd ${{ secrets.PROJECT_DIR }}
