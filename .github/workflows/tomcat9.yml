@@ -1,0 +1,31 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Change current directory to project path
+      run: cd ${{ secrets.PROJECT_PATH }}
+      
+    - name: Maven clean
+      run: mvn clean
+    
+    - name: Build war file
+      run: mvn package
+      
+    - name: Remove old file
+      run: echo $PA55W0RD | sudo rm -rf ${{ secrets.TOMCAT_WEBAPP_PATH }}/${{ secrets.PROJECT_NAME }}*
+      
+    - name: Move new file
+      run: echo $PA55W0RD | sudo cp target/${{ secrets.PROJECT_NAME }}*.war ${{ secrets.TOMCAT_WEBAPP_PATH }}/${{ secrets.PROJECT_NAME }}.war
