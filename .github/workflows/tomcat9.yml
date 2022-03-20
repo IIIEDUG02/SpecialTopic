@@ -16,9 +16,13 @@ jobs:
           
     - name: Build war file
       run: mvn package
+
+    - name: show target dir
+      run: pwd
+      run: ls target
             
     - name: Remove old file
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
       
     - name: Move new file
-      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpecialTopic.war /var/lib/tomcat9/webapps/
+      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpcialTopic.war /var/lib/tomcat9/webapps/
