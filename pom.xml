@@ -124,7 +124,7 @@
 	</dependencies>
 
 	<build>
-		<!-- <finalName>SpcialTopic</finalName> -->
+		<finalName>SpcialTopic</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
