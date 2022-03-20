@@ -16,7 +16,10 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Change current directory to project path
-      run: cd ${{ secrets.PROJECT_PATH }}
+      run: cd $PROJECT_DIR
+      
+    - name: Update project
+      run: git pull
       
     - name: Maven clean
       run: mvn clean
@@ -25,7 +28,7 @@ jobs:
       run: mvn package
       
     - name: Remove old file
-      run: echo $PA55W0RD | sudo rm -rf ${{ secrets.TOMCAT_WEBAPP_PATH }}/${{ secrets.PROJECT_NAME }}*
+      run: echo $PA55W0RD | sudo rm -rf $TOMCAT_WEBAPPS_DIR/$SpecialTopic*
       
     - name: Move new file
-      run: echo $PA55W0RD | sudo cp target/${{ secrets.PROJECT_NAME }}*.war ${{ secrets.TOMCAT_WEBAPP_PATH }}/${{ secrets.PROJECT_NAME }}.war
+      run: echo $PA55W0RD | sudo cp target/$SpecialTopic*.war $TOMCAT_WEBAPPS_DIR/$SpecialTopic.war
