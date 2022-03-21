@@ -9,22 +9,22 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Mentor</h3>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>地址:</strong>
+              高雄市  前金區<br>
+              中正四路211號8樓之1<br>
+              <strong>電話:</strong> 07 XXX XXXX<br>
+              <strong>信箱:</strong> xxx@example.com<br>
             </p>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">首頁</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">關於我們</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">隱私權政策</a></li>
             </ul>
           </div>
 
