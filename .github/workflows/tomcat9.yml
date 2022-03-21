@@ -13,6 +13,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+
+    - name: Copy application.properties
+      run: mv src/main/resources/application.properties src/main/resources/application.properties.bak
+
+    - name: Remove context-path
+      run: sed -e "/server.servlet.context-path=\/*/d" src/main/resources/application.properties.bak > src/main/resources/application.properties
           
     - name: Build war file
       run: mvn package
