@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!-- 使用 security 標籤 library (必須先在 pom.xml 新增後才能使用) -->
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -30,18 +34,29 @@
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
-<!-- =======================================================
-  * Template Name: Mentor - v4.7.0
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+<!-- 新增了一些額外樣式 -->
+<style>
+  .create-article {
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+  
+  .create-article a {
+    width: 200px;
+    color: #fff;
+    text-align: center;
+  }
+  .create-article a:hover {
+    color: #fff;
+  }
+</style>
 </head>
 
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-
 
 	<!-- main start -->
 	<div class="main">
@@ -49,6 +64,16 @@
 		<div class="article-block">
 			<!-- Articles container -->
 			<div class="d-grid p-left">
+			
+				<!-- 判斷使用者是否已登入並且有 admin 角色才能夠新增文章 -->
+				<!-- hasRole('ROLE_admin'): 判斷是否擁有某個角色(在這裡是判斷是否有管理員角色) -->
+				<!-- isAuthenticated(): 判斷是否已經登入 -->
+		        <sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
+		          <div class="create-article">
+		            <a href="articles/lifestyle" class="get-started-btn">發表文章</a>
+		          </div>
+		        </sec:authorize>
+        
 				<!-- Article -->
 				<div class="pb-and-bb">
 					<!-- Article head -->
