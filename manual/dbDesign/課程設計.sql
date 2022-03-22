@@ -18,7 +18,7 @@ create table curriculum(
 	cid int not null REFERENCES class(cid)
 
 );
-create table classDetails(
+create table class_details(
 	cid int not null PRIMARY KEY REFERENCES class(cid) ,
 	descript nvarchar(500) not null,
 	needed_tool nvarchar(100) not null,
@@ -28,4 +28,16 @@ create table classDetails(
 	video varchar(200) ,
 );
 
+create table class_online(
+	cid int not null PRIMARY KEY REFERENCES class(cid) ,
+	online bit not null
+);
 
+create table classmanagement(
+	cmid int IDENTITY(1,1)PRIMARY KEY not null,
+	status int not null,
+	cid int not null REFERENCES class(cid),
+	uid int not null REFERENCES members(uid),
+	tid int not null REFERENCES c2b(tid)
+);
+	
