@@ -1,8 +1,12 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
 import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.model.repository.ArticalRepository;
 
@@ -13,9 +17,10 @@ public class ArticalService {
   private ArticalRepository articalRepository;
 
   @Transactional // 對應bean檔名
-  public ArticleBean insert(ArticleBean a123) {
+  public ArticleBean insert(ArticleBean article) {
     // System.out.println("create");
-    return articalRepository.save(a123);// 新增bean物件資料
+	 
+    return articalRepository.save(article);// 新增bean物件資料
   }
 
   @Transactional
@@ -34,5 +39,13 @@ public class ArticalService {
   public ArticleBean getById(int id) {
     // System.out.println("read");
     return articalRepository.getById(id);
+  }
+  
+  
+ 
+  @Transactional
+	public List<ArticleBean> getAll() {
+	// TODO Auto-generated method stub
+	return articalRepository.findAll();
   }
 }
