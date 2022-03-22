@@ -1,11 +1,18 @@
 package net.ddns.iiiedug02.model.bean;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
@@ -14,124 +21,125 @@ import java.sql.Date;
 @Table(name = "member_details")
 public class MemberInformation implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 2L;
 
-    @GenericGenerator(name = "generator", strategy = "foreign",
-            parameters = @Parameter(name = "property", value = "member"))
-    @Id
-    @Column(name = "uid")
-    @GeneratedValue(generator = "generator")
-    private int uid;
-
-
-    @Column(name = "address")
-    private String address = "";
-    @Column(name = "phone")
-    private String phone = "";
-    @Column(name = "fullname")
-    private String fullname = "";
-    @Column(name = "email")
-    private String email = "";
-    @Column(name = "birthday")
-    private Date birthday;
-    @Column(name = "job")
-    private String job = "";
+  @GenericGenerator(name = "generator", strategy = "foreign",
+      parameters = @Parameter(name = "property", value = "member"))
+  @Id
+  @Column(name = "uid")
+  @GeneratedValue(generator = "generator")
+  private int uid;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Member member;
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid", referencedColumnName = "TEACHERID")
-    private YPteacher ypteacher;
+  @Column(name = "address")
+  private String address = "";
+  @Column(name = "phone")
+  private String phone = "";
+  @Column(name = "fullname")
+  private String fullname = "";
+  @Column(name = "email")
+  private String email = "";
+  @Column(name = "birthday")
+  private Date birthday;
+  @Column(name = "job")
+  private String job = "";
 
-    public YPteacher getYpteacher() {
-		return ypteacher;
-	}
 
-	public void setYpteacher(YPteacher ypteacher) {
-		this.ypteacher = ypteacher;
-	}
+  @OneToOne(fetch = FetchType.LAZY)
+  @PrimaryKeyJoinColumn
+  private Member member;
 
-	public int getUid() {
-        return uid;
-    }
+  // @OneToOne(fetch = FetchType.LAZY)
+  // @JoinColumn(name = "uid", table = "YPTEACHER", referencedColumnName = "teacherid")
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "memberInformation", cascade = CascadeType.PERSIST)
+  private YPteacher ypteacher;
 
-    public MemberInformation setUid(int uid) {
-        this.uid = uid;
-        return this;
-    }
+  public YPteacher getYpteacher() {
+    return ypteacher;
+  }
 
-    public String getAddress() {
-        return address;
-    }
+  public void setYpteacher(YPteacher ypteacher) {
+    this.ypteacher = ypteacher;
+  }
 
-    public MemberInformation setAddress(String address) {
-        this.address = address;
-        return this;
-    }
+  public int getUid() {
+    return uid;
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  public MemberInformation setUid(int uid) {
+    this.uid = uid;
+    return this;
+  }
 
-    public MemberInformation setPhone(String phone) {
-        this.phone = phone;
-        return this;
-    }
+  public String getAddress() {
+    return address;
+  }
 
-    public String getFullname() {
-        return fullname;
-    }
+  public MemberInformation setAddress(String address) {
+    this.address = address;
+    return this;
+  }
 
-    public MemberInformation setFullname(String fullname) {
-        this.fullname = fullname;
-        return this;
-    }
+  public String getPhone() {
+    return phone;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public MemberInformation setPhone(String phone) {
+    this.phone = phone;
+    return this;
+  }
 
-    public MemberInformation setEmail(String email) {
-        this.email = email;
-        return this;
-    }
+  public String getFullname() {
+    return fullname;
+  }
 
-    public Date getBirthday() {
-        return birthday;
-    }
+  public MemberInformation setFullname(String fullname) {
+    this.fullname = fullname;
+    return this;
+  }
 
-    public MemberInformation setBirthday(Date birthday) {
-        this.birthday = birthday;
-        return this;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getJob() {
-        return job;
-    }
+  public MemberInformation setEmail(String email) {
+    this.email = email;
+    return this;
+  }
 
-    public MemberInformation setJob(String job) {
-        this.job = job;
-        return this;
-    }
+  public Date getBirthday() {
+    return birthday;
+  }
 
-    public Member getMember() {
-        return member;
-    }
+  public MemberInformation setBirthday(Date birthday) {
+    this.birthday = birthday;
+    return this;
+  }
 
-    public MemberInformation setMember(Member member) {
-        this.member = member;
-        return this;
-    }
+  public String getJob() {
+    return job;
+  }
 
-    @Override
-    public String toString() {
-        return "MemberDetailsBean [uid=" + uid + ", address=" + address + ", phone=" + phone
-                + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday + ", job=" + job
-                + "]";
-    }
+  public MemberInformation setJob(String job) {
+    this.job = job;
+    return this;
+  }
+
+  public Member getMember() {
+    return member;
+  }
+
+  public MemberInformation setMember(Member member) {
+    this.member = member;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "MemberDetailsBean [uid=" + uid + ", address=" + address + ", phone=" + phone
+        + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday + ", job=" + job
+        + "]";
+  }
 
 
 }
