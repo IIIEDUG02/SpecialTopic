@@ -38,13 +38,14 @@
   <jsp:include page="incloud/header-section.jsp" />
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex justify-content-center align-items-center">
-    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Learning Today,<br>Leading Tomorrow</h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
-      <a href="courses" class="btn-get-started">Get Started</a>
+  <section id="hero">
+    <div class="hero-container" data-aos="fade-in">
+      <h1>Welcome to eStartup</h1>
+      <h2>Elegant Bootstrap Template for Startups, Apps &amp; more...</h2>
+      <img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
+      <a href="#get-started" class="btn-get-started scrollto">Get Started</a>
     </div>
-  </section><!-- End Hero -->
+  </section><!-- End Hero Section -->
 
 
 
