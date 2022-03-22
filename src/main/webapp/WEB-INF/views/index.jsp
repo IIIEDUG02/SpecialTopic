@@ -40,14 +40,11 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div class="hero-container" data-aos="fade-in">
-      <h1>Welcome to eStartup</h1>
+      <h1>歡迎來到 OOXX線上教學平台</h1>
       <h2>Elegant Bootstrap Template for Startups, Apps &amp; more...</h2>
       <img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
-      <a href="#get-started" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section><!-- End Hero Section -->
-
-
 
   <main id="main">
 
