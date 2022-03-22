@@ -53,7 +53,7 @@ body {
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2>新增文章</h2>
+        <h2>發佈文章</h2>
         <p>在此頁面，您可以新增您的文章，分享您的生活、知識或所見所聞。</p>
       </div>
     </div>
@@ -117,7 +117,7 @@ body {
                 <div class="error-message"></div>
               </div>
               <div class="text-center">
-                <button id="createArticleButton" type="submit">新增文章</button>
+                <button id="createArticleButton" type="submit">發佈文章</button>
               </div>
             </form>
 

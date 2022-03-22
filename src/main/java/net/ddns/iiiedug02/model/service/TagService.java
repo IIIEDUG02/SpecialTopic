@@ -1,17 +1,23 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.ddns.iiiedug02.model.bean.ArticleBean;
+import net.ddns.iiiedug02.model.bean.TagBean;
 import net.ddns.iiiedug02.model.repository.TagRepository;
 
 @Service
 public class TagService {
 	@Autowired
 	private TagRepository tagRepository;
+	
+	public List<TagBean> findAll() {
+		return tagRepository.findAll();
+	}
 	
 	// findByCategory 就是要透過 category 這個欄位來得到相關的文章
 	public Set<ArticleBean> findByCategory(String category) {

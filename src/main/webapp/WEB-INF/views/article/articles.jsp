@@ -70,7 +70,7 @@
 				<!-- isAuthenticated(): 判斷是否已經登入 -->
 		        <sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
 		          <div class="create-article">
-		            <a href="articles/lifestyle" class="get-started-btn">發表文章</a>
+		            <a href="articles/create" class="get-started-btn">發佈文章</a>
 		          </div>
 		        </sec:authorize>
         
