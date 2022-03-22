@@ -41,9 +41,20 @@ public class MemberInformation implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Member member;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid", referencedColumnName = "TEACHERID")
+    private YPteacher ypteacher;
 
+    public YPteacher getYpteacher() {
+		return ypteacher;
+	}
 
-    public int getUid() {
+	public void setYpteacher(YPteacher ypteacher) {
+		this.ypteacher = ypteacher;
+	}
+
+	public int getUid() {
         return uid;
     }
 

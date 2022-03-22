@@ -20,13 +20,13 @@ import net.ddns.iiiedug02.model.service.YPteacherService;
 @Controller
 public class YPteacherController {
   @Autowired
-  private YPteacherService bService;
+  private YPteacherService ypteacherService;
 
   @Autowired
   private CashService cashService;
 
   @Autowired
-  private ClassBeanService classService;
+  private ClassBeanService classbeanService;
 
   @Autowired
   private MemberService memberService;
@@ -35,26 +35,37 @@ public class YPteacherController {
 
   @GetMapping("/ypteacherquerybyid.controller")
   public YPteacher processQueryByIdAction(Integer id) {
-    return bService.findById(id);
+    return ypteacherService.findById(id);
   }
 
-  @GetMapping("/ypteacherfindtop5")
-  public String processfindAll(Model m) {
+  @GetMapping("/ypteachersavetop5")
+  public String processSaveTop5(Model m) {
     List<Map<String, Integer>> cList = cashService.getYearTop5Class(2022);
 
-    List<Member> memberList = new ArrayList<Member>();
+//    List<Member> memberList = new ArrayList<Member>();
     for (Map<String, Integer> c : cList) {
-      ClassBean cbBean = classService.findById(c.get("cid"));
+      ClassBean cbBean = classbeanService.findById(c.get("cid"));
       Member mb = memberService.findByUid(cbBean.getUid());
-      // YPteacher ypth = new YPteacher();
-      // ypth.setTeacherID(mb.getUid());
-      // ypth.setYear(2022);
-      // ypth.setYearAmount(c.get("countcid"));
-      // bService.insert(ypth);
-      memberList.add(mb);
+       YPteacher ypteacher = new YPteacher();
+       ypteacher.setTeacherID(mb.getUid());
+       ypteacher.setYear(2022);
+       ypteacher.setYearAmount(c.get("countcid"));
+       ypteacherService.insert(ypteacher);
+      
+      
+//      memberList.add(mb);
     }
 
-    m.addAttribute("memberList", memberList);
+//    m.addAttribute("memberList", memberList);
+    return "Success";
+  }
+  
+  @GetMapping("/ypteacherfindtop5")
+  public String processFindTop5(Model m) {
+	List<YPteacher> YPteacherList = ypteacherService.findAll();
+   
+	m.addAttribute("YPteacherList", YPteacherList);
+      
     return "ypteacherQueryAll";
   }
 

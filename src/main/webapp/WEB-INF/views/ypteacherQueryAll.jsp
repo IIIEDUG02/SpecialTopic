@@ -18,10 +18,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="mb" items="${memberList}">
+			<c:forEach var="th" items="${YPteacherList}">
 				<tr>
-					<td><c:out value="${mb.getMemberInformation().getFullname()}" /></td>
-					<td><c:out value="${mb.getMemberInformation().getJob()}" /></td>					
+					<td style="border-top:1px solid #000"><c:out value="${th}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getMemberInformation()}" /></td>					
 				</tr>
 			</c:forEach>
 		</tbody>

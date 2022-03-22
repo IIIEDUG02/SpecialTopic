@@ -1,10 +1,13 @@
 package net.ddns.iiiedug02.model.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -25,6 +28,10 @@ public class YPteacher {
 	
 	@Column(name = "YEARAMOUNT")
 	private int yearAmount;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "ypteacher",
+		      cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private MemberInformation memberInformation;
 
 	public int getId() {
 		return id;
@@ -58,7 +65,19 @@ public class YPteacher {
 		this.yearAmount = yearAmount;
 	}
 	
-	
+	public void setMemberInformation(MemberInformation memberInformation) {
+		this.memberInformation = memberInformation;
+	}
+
+	public MemberInformation getMemberInformation() {
+	    return memberInformation;
+	  }
+
+	@Override
+	public String toString() {
+		return "YPteacher [id=" + id + ", teacherID=" + teacherID + ", year=" + year + ", yearAmount=" + yearAmount
+				+ ", memberInformation=" + memberInformation + "]";
+	}
 
 	
 
