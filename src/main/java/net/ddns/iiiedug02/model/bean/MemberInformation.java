@@ -36,6 +36,8 @@ public class MemberInformation implements Serializable {
     private Date birthday;
     @Column(name = "job")
     private String job = "";
+    @Column(name = "photo")
+    private String photo;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -100,8 +102,18 @@ public class MemberInformation implements Serializable {
     public String getJob() {
         return job;
     }
+    
+    
 
-    public MemberInformation setJob(String job) {
+    public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public MemberInformation setJob(String job) {
         this.job = job;
         return this;
     }
