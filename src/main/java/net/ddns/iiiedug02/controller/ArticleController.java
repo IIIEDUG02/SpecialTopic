@@ -21,7 +21,6 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping(path="/articles")
-@ResponseBody
 public class ArticleController {
 
 	@Autowired
@@ -40,6 +39,13 @@ public class ArticleController {
 		c.setPublishTime(dutil.strToDate("2002-01-20"));
 	    return articalService.insert(c);
 	  }
+	
+	
+	// 返回文章列表頁面(articles.jps)
+	@GetMapping("")
+	public String articleList() {
+		return "article/articles";
+	}
 	
 	@GetMapping("/createArticle")
 	public String createArticle(String title, String content) {

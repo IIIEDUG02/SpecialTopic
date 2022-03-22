@@ -32,6 +32,7 @@
             </ul>
           </li>
           
+          <li><a href="/SpecialTopic/articles">知識補給站</a></li>
           <li><a href="contact">聯繫我們</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
