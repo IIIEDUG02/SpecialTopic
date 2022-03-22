@@ -1,0 +1,30 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Deploy
+
+on:
+  push:
+    branches: [ deploy ]
+
+jobs:
+  build_and_deploy:
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Copy application.properties
+      run: mv src/main/resources/application.properties src/main/resources/application.properties.bak
+
+    - name: Remove context-path
+      run: sed -e "/server.servlet.context-path=\/*/d" src/main/resources/application.properties.bak > src/main/resources/application.properties
+          
+    - name: Build war file
+      run: mvn package
+            
+    - name: Remove old file
+      run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
+      
+    - name: Move new file
+      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpcialTopic.war /var/lib/tomcat9/webapps/SpecialTopic.war

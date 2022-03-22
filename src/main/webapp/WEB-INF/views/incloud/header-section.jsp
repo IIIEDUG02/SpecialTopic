@@ -12,7 +12,7 @@
           <li><a href="/SpecialTopic/courses">課程</a></li>
           <li><a href="/SpecialTopic/trainers">教師</a></li>
           <li><a href="/SpecialTopic/events">活動</a></li>
-          <li><a href="/SpecialTopic/pricing">價格</a></li>
+          <li><a href="/SpecialTopic/pricing">老師分潤</a></li>
 
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -31,6 +31,7 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
+          
           <li><a href="contact">聯繫我們</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

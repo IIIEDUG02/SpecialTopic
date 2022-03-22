@@ -59,7 +59,7 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>地址:</h4>
-                <p>高雄市前金區中正四路211號8號樓之1</p>
+                <p>高雄市前金區中正四路211號8號樓之100</p>
               </div>
 
               <div class="email">
