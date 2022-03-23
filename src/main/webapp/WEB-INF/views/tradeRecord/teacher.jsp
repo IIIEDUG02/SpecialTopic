@@ -45,30 +45,30 @@
 
 		<section id="about" class="about">
 			<div class="container" data-aos="fade-up">
-					<c:forEach items="${cid_c2bList_Map.keySet()}" var="key">
-						<div style="display: inline" class="row">
-							<table
-								style="border-width: 1px; border-style: dashed; border-color: #000000; padding: 5px;">
-								<thead>
-									<tr style="border-width: 1px; border-style: dashed; border-color: #000000; padding: 5px;">
-										<td colspan="2"><c:out value="${key} 售課紀錄" /></td>
-									</tr>
+				<c:forEach items="${cid_c2bList_Map.keySet()}" var="key">
+					<div class="shadow p-3 mb-5 bg-body rounded">
+						<span
+							class="p-2 rounded bg-success text-white"> <c:out
+									value="${key} 售課紀錄" />
+						</span>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">學生ID</th>
+									<th scope="col">購課日期</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${cid_c2bList_Map.get(key)}" var="c2bBean">
 									<tr>
-										<td>學生ID</td>
-										<td>購課日期</td>
+										<td class="col"><c:out value="${c2bBean.getUid()}" /></td>
+										<td class="col"><c:out value="${c2bBean.getOrderDate()}" /></td>
 									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${cid_c2bList_Map.get(key)}" var="c2bBean">
-										<tr>
-											<td><c:out value="${c2bBean.getUid()}" /></td>
-											<td><c:out value="${c2bBean.getOrderDate()}" /></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-					</c:forEach>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</c:forEach>
 			</div>
 		</section>
 	</main>
@@ -77,9 +77,7 @@
 	<jsp:include page="../incloud/footer-section.jsp" />
 
 	<div id="preloader"></div>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
