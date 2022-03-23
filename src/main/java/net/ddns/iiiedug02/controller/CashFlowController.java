@@ -47,7 +47,26 @@ public class CashFlowController {
     mav.addObject("cid_c2bList_Map", cid_c2bList_Map);
     mav.setViewName("../../../WEB-INF/views/tradeRecord/teacher");
     return mav;
-
   }
 
+  @GetMapping("tradeRecord/student")
+  public ModelAndView tradeRecordStudent(Principal p) {
+    if (null == p) {
+      throw new NotLoginException();
+    }
+    Member mb = memberService.findByUsername(p.getName());
+    List<C2BBean> c2bl = cashService.findByUid(mb.getUid());
+    Map<C2BBean, ClassBean> c2b_class_map = new HashMap<C2BBean, ClassBean>();
+
+    for (C2BBean c2b : c2bl) {
+      ClassBean cb = classService.findById(c2b.getCid());
+      c2b_class_map.put(c2b, cb);
+    }
+
+
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("c2b_class_map", c2b_class_map);
+    mav.setViewName("../../../WEB-INF/views/tradeRecord/student");
+    return mav;
+  }
 }
