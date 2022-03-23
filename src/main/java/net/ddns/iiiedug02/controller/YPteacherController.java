@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.google.gson.JsonObject;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
@@ -71,19 +70,13 @@ public class YPteacherController {
   @ResponseBody
   public List<MemberInformation> processFindTop5(Model m) {
     List<MemberInformation> memberinfoList = new ArrayList<MemberInformation>();
-    
+
     List<YPteacher> YPteacherList = ypteacherService.findAll();
     for (YPteacher y : YPteacherList) {
-      JsonObject jobj = new JsonObject();
       MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
-      
-      jobj.addProperty(null, mbinfo.getFullname());
-      jobj.addProperty(null, mbinfo.);
-      jobj.addProperty(null, null);
-      
+      mbinfo.setMember(null);
       memberinfoList.add(mbinfo);
     }
-
 
     return memberinfoList;
 
