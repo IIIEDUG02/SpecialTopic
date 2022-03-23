@@ -43,6 +43,10 @@ public class ClassController {
   public String toJsp() {
 	  return "uploadFile";
   }
+  @GetMapping(value = "/play")
+  public String playVideo() {
+	  return "video";
+  }
 
   // show課程
   @GetMapping(value = "/seeteacherclass")
