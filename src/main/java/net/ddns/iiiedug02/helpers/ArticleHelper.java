@@ -52,14 +52,19 @@ public class ArticleHelper {
 
 		return false;
 	}
-
+	
+	// 為了要幫文章產生唯一的識別碼(因為要透過網址去資料庫查出特定的某一篇文章)，所以要使用UUID(通用唯一辨識碼)
+	// 因為網址不能帶中文過去，所以用 UUID 來取代
 	public String generateUUID() {
 		try {
+			// 這裡使用 SHA-256 雜湊(hash)函數
 			MessageDigest salt = MessageDigest.getInstance("SHA-256");
 			salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
+			
+			// 轉成 16 進制字串
 			String hex = new String(Hex.encode(salt.digest()));
 
-			// 單純學 hahow 的文章 URI，長度只有 24
+			// 單純參考 hahow 的文章 URI，長度只有 24
 			return hex.substring(0, 24);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
@@ -82,8 +87,10 @@ public class ArticleHelper {
 
 		return username;
 	}
-
+	
+	// 轉換成能夠進入資料庫的日期格式(YYYY-mm-dd)
 	public Date getDate() {
+		// now() 能夠取得當下時間
 		LocalDate date = LocalDate.now();
 		
 		return SqlDateUtil.strToDate(date.toString());

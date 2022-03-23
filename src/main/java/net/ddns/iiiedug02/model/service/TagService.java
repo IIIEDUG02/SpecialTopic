@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -32,5 +33,9 @@ public class TagService {
 		Set<ArticleBean> articles = tagRepository.findByCategory(category).get(0).getArticles();
 		
 		return articles;
+	}
+	
+	public List<TagBean> findByIdIn(Collection<Integer> ids) {
+		return tagRepository.findByIdIn(ids);
 	}
 }
