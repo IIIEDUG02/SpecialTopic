@@ -1,11 +1,17 @@
 package net.ddns.iiiedug02.model.bean;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
@@ -36,6 +42,8 @@ public class MemberInformation implements Serializable {
     private Date birthday;
     @Column(name = "job")
     private String job = "";
+    @Column(name = "photo")
+    private String photo;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -100,8 +108,18 @@ public class MemberInformation implements Serializable {
     public String getJob() {
         return job;
     }
+    
+    
 
-    public MemberInformation setJob(String job) {
+    public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public MemberInformation setJob(String job) {
         this.job = job;
         return this;
     }
