@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.YPteacher;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.MemberInformationService;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.YPteacherService;
 
@@ -20,44 +23,65 @@ import net.ddns.iiiedug02.model.service.YPteacherService;
 @Controller
 public class YPteacherController {
   @Autowired
-  private YPteacherService bService;
+  private YPteacherService ypteacherService;
 
   @Autowired
   private CashService cashService;
 
   @Autowired
-  private ClassBeanService classService;
+  private ClassBeanService classbeanService;
 
   @Autowired
   private MemberService memberService;
+
+  @Autowired
+  private MemberInformationService memberinfoService;
 
 
 
   @GetMapping("/ypteacherquerybyid.controller")
   public YPteacher processQueryByIdAction(Integer id) {
-    return bService.findById(id);
+    return ypteacherService.findById(id);
+  }
+
+  @GetMapping("/ypteachersavetop5")
+  public String processSaveTop5(Model m) {
+    List<Map<String, Integer>> cList = cashService.getYearTop5Class(2022);
+
+    List<YPteacher> ypteacherList = new ArrayList<YPteacher>();
+    for (Map<String, Integer> c : cList) {
+      ClassBean cbBean = classbeanService.findById(c.get("cid"));
+      Member mb = memberService.findByUid(cbBean.getUid());
+      YPteacher ypteacher = new YPteacher();
+      ypteacher.setTeacherID(mb.getUid());
+      ypteacher.setYear(2022);
+      ypteacher.setYearAmount(c.get("countcid"));
+      ypteacherService.insert(ypteacher);
+
+
+      ypteacherList.add(ypteacher);
+    }
+
+    m.addAttribute("ypteacherList", ypteacherList);
+    return "Success";
   }
 
   @GetMapping("/ypteacherfindtop5")
-  public String processfindAll(Model m) {
-    List<Map<String, Integer>> cList = cashService.getYearTop5Class(2022);
+  @ResponseBody
+  public List<MemberInformation> processFindTop5(Model m) {
+    List<MemberInformation> memberinfoList = new ArrayList<MemberInformation>();
 
-    List<Member> memberList = new ArrayList<Member>();
-    for (Map<String, Integer> c : cList) {
-      ClassBean cbBean = classService.findById(c.get("cid"));
-      Member mb = memberService.findByUid(cbBean.getUid());
-      // YPteacher ypth = new YPteacher();
-      // ypth.setTeacherID(mb.getUid());
-      // ypth.setYear(2022);
-      // ypth.setYearAmount(c.get("countcid"));
-      // bService.insert(ypth);
-      memberList.add(mb);
+    List<YPteacher> YPteacherList = ypteacherService.findAll();
+    for (YPteacher y : YPteacherList) {
+      MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
+      mbinfo.setMember(null);
+      memberinfoList.add(mbinfo);
     }
 
-    m.addAttribute("memberList", memberList);
-    return "ypteacherQueryAll";
+    return memberinfoList;
+
+
+
   }
-
-
 
 }
