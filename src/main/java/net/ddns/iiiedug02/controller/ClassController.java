@@ -3,8 +3,10 @@ package net.ddns.iiiedug02.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -71,21 +73,28 @@ public class ClassController {
   
   
   @PostMapping(path = "/uploadphoto")
-  public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request) throws IllegalStateException, IOException {
-	  	LocalDateTime date = LocalDateTime.now();
-		Random random = new Random();
-		int rNumber = 10000+random.nextInt(90000);
-		String fileName = date.toString()+"-"+rNumber+".jpg";
-		System.out.println(fileName);
-		String tempDir = request.getSession().getServletContext().getRealPath("/") + "uploadTempDir\\";
-		File tempDirFile = new File(tempDir);
-		tempDirFile.mkdirs();
-		
-		String saveFilePath = tempDir + fileName;
-		File saveFile = new File(saveFilePath);
-		mf.transferTo(saveFile);
-		
-		return   saveFilePath;		
+  @ResponseBody
+  public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request)
+      throws IllegalStateException, IOException {
+
+    String pattern = "yyyy-MM-dd-HH-mm-ss";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+    Random random = new Random();
+    int rNumber = 10000 + random.nextInt(90000);
+    String fileName =
+        simpleDateFormat.format(new Date()) + "-" + rNumber + "-" + mf.getOriginalFilename();
+
+
+    String tempDir = request.getSession().getServletContext().getRealPath("/") + "uploadTempDir/";
+    File tempDirFile = new File(tempDir);
+    tempDirFile.mkdirs();
+
+    String saveFilePath = tempDir + fileName;
+    File saveFile = new File(saveFilePath);
+    mf.transferTo(saveFile);
+
+    return saveFilePath;
   }
   
   
