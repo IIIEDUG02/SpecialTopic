@@ -43,8 +43,17 @@ public class ArticleController {
 	private String ROLE = "ROLE_admin";
 	
 	@GetMapping("")
-	public String list(Model model) {
-
+	public String dispatch(HttpServletRequest request, Principal principal, Model model) {
+		// 取得所有文章
+		List<ArticleBean> articles = articleService.findAll();
+		
+		// 取得所有標籤
+		List<TagBean> tags = tagService.findAll();
+		
+		// 將所有文章與標籤放入 model，jsp 可以取出來
+		model.addAttribute("articles", articles);
+		model.addAttribute("tags", tags);
+		
 		return "article/articles";
 	}
 	
