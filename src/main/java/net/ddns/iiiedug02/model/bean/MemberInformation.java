@@ -51,16 +51,16 @@ public class MemberInformation implements Serializable {
 
   // @OneToOne(fetch = FetchType.LAZY)
   // @JoinColumn(name = "uid", table = "YPTEACHER", referencedColumnName = "teacherid")
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "memberInformation", cascade = CascadeType.PERSIST)
-  private YPteacher ypteacher;
+//  @OneToOne(fetch = FetchType.LAZY, mappedBy = "memberInformation", cascade = CascadeType.ALL )
+//  private YPteacher ypteacher;
 
-  public YPteacher getYpteacher() {
-    return ypteacher;
-  }
-
-  public void setYpteacher(YPteacher ypteacher) {
-    this.ypteacher = ypteacher;
-  }
+//  public YPteacher getYpteacher() {
+//    return ypteacher;
+//  }
+//
+//  public void setYpteacher(YPteacher ypteacher) {
+//    this.ypteacher = ypteacher;
+//  }
 
   public int getUid() {
     return uid;

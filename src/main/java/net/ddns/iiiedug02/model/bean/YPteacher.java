@@ -35,10 +35,10 @@ public class YPteacher implements Serializable {
 
   // @OneToOne(fetch = FetchType.LAZY, mappedBy = "ypteacher", cascade = CascadeType.ALL,
   // targetEntity = MemberInformation.class)
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid", insertable = false,
-      updatable = false)
-  private MemberInformation memberInformation;
+//  @OneToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid", insertable = false,
+//      updatable = false)
+//  private MemberInformation memberInformation;
 
   public int getId() {
     return id;
@@ -72,19 +72,19 @@ public class YPteacher implements Serializable {
     this.yearAmount = yearAmount;
   }
 
-  public void setMemberInformation(MemberInformation memberInformation) {
-    this.memberInformation = memberInformation;
-  }
+//  public void setMemberInformation(MemberInformation memberInformation) {
+//    this.memberInformation = memberInformation;
+//  }
+//
+//  public MemberInformation getMemberInformation() {
+//    return memberInformation;
+//  }
 
-  public MemberInformation getMemberInformation() {
-    return memberInformation;
-  }
-
-  @Override
-  public String toString() {
-    return "YPteacher [id=" + id + ", teacherID=" + teacherID + ", year=" + year + ", yearAmount="
-        + yearAmount + ", memberInformation=" + memberInformation + "]";
-  }
+//  @Override
+//  public String toString() {
+//    return "YPteacher [id=" + id + ", teacherID=" + teacherID + ", year=" + year + ", yearAmount="
+//        + yearAmount + ", memberInformation=" + memberInformation + "]";
+//  }
 
 
 

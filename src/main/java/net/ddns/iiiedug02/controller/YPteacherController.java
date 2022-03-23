@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.YPteacher;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.MemberInformationService;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.YPteacherService;
 
@@ -30,6 +32,9 @@ public class YPteacherController {
 
   @Autowired
   private MemberService memberService;
+  
+  @Autowired
+  private MemberInformationService memberinfoService;
 
 
 
@@ -42,7 +47,7 @@ public class YPteacherController {
   public String processSaveTop5(Model m) {
     List<Map<String, Integer>> cList = cashService.getYearTop5Class(2022);
 
-//    List<Member> memberList = new ArrayList<Member>();
+    List<YPteacher> ypteacherList = new ArrayList<YPteacher>();
     for (Map<String, Integer> c : cList) {
       ClassBean cbBean = classbeanService.findById(c.get("cid"));
       Member mb = memberService.findByUid(cbBean.getUid());
@@ -53,22 +58,26 @@ public class YPteacherController {
        ypteacherService.insert(ypteacher);
       
       
-//      memberList.add(mb);
+       ypteacherList.add(ypteacher);
     }
 
-//    m.addAttribute("memberList", memberList);
+    m.addAttribute("ypteacherList", ypteacherList);
     return "Success";
   }
   
   @GetMapping("/ypteacherfindtop5")
   public String processFindTop5(Model m) {
+	List<MemberInformation> memberinfoList = new ArrayList<MemberInformation>();
 	List<YPteacher> YPteacherList = ypteacherService.findAll();
-   
-	m.addAttribute("YPteacherList", YPteacherList);
+	for(YPteacher y : YPteacherList ) {
+		MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
+		memberinfoList.add(mbinfo);		
+	}
+	m.addAttribute("memberinfoList", memberinfoList);
       
     return "ypteacherQueryAll";
+  
+
   }
-
-
 
 }
