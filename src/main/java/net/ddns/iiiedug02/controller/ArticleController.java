@@ -43,7 +43,10 @@ public class ArticleController {
 	private String ROLE = "ROLE_admin";
 	
 	@GetMapping("")
-	public String dispatch(HttpServletRequest request, Principal principal, Model model) {
+	public String dispatch(HttpServletRequest request, Principal principal, Model model, String article) {
+		if (article != null)
+			return getArticleByUUID(article, model);
+		
 		// 取得所有文章
 		List<ArticleBean> articles = articleService.findAll();
 		
@@ -117,5 +120,26 @@ public class ArticleController {
 		
 		// 新增文章之後，返回文章列表頁面
 		return new ModelAndView("redirect:/articles");
+	}
+	
+	// 透過文章的 UUID 來取得單篇文章內容，並且會跳轉到新的頁面瀏覽文章
+	public String getArticleByUUID(String uuid, Model model) {
+		// 透過 articleService.findByUuid 來取得單篇文章
+		List<ArticleBean> articles = articleService.findByUuid(uuid);
+		
+		// 防止 BUG 出現(如:查出文章不只一篇或是查不到文章)，則直接返回文章列表頁面
+		if (articles.size() != 1)
+			return "articles";
+		
+		ArticleBean article = articles.get(0);
+		
+		// 將瀏覽次數取出來之後做 +1 的動作
+		int views = article.getPageViews() + 1;
+		
+		// 把更新過後的瀏覽次數寫回資料庫
+		articleService.updatePageViewsByUUID(article.getUuid(), views);
+		model.addAttribute("article", articles.get(0));
+		
+		return "article/retrieveArticle";
 	}
 }

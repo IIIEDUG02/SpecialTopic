@@ -50,4 +50,13 @@ public class ArticalService {
 	// TODO Auto-generated method stub
 	return articalRepository.findAll();
   }
+  
+  public List<ArticleBean> findByUuid(String uuid) {
+	  return articalRepository.findByUuid(uuid);
+  }
+  
+  @Transactional
+  public void updatePageViewsByUUID(String uuid, int views) {
+	  articalRepository.updatePageViews(uuid, views);
+  }
 }
