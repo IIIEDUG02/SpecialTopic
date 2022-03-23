@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClassManagementBean {
 	
-	@Id @Column(name = "CUID")
+	@Id @Column(name = "CMID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cmid;
 	

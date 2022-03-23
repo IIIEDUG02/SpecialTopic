@@ -36,7 +36,7 @@ create table class_online(
 create table classmanagement(
 	cmid int IDENTITY(1,1)PRIMARY KEY not null,
 	status int not null,
-	cid int not null REFERENCES class(cid),
+	cid int not null REFERENCES class_online(cid),
 	uid int not null REFERENCES members(uid),
 	tid int not null REFERENCES c2b(tid)
 );
