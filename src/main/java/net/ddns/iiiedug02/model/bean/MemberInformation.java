@@ -2,7 +2,6 @@ package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,16 +50,16 @@ public class MemberInformation implements Serializable {
 
   // @OneToOne(fetch = FetchType.LAZY)
   // @JoinColumn(name = "uid", table = "YPTEACHER", referencedColumnName = "teacherid")
-//  @OneToOne(fetch = FetchType.LAZY, mappedBy = "memberInformation", cascade = CascadeType.ALL )
-//  private YPteacher ypteacher;
+  // @OneToOne(fetch = FetchType.LAZY, mappedBy = "memberInformation", cascade = CascadeType.ALL )
+  // private YPteacher ypteacher;
 
-//  public YPteacher getYpteacher() {
-//    return ypteacher;
-//  }
-//
-//  public void setYpteacher(YPteacher ypteacher) {
-//    this.ypteacher = ypteacher;
-//  }
+  // public YPteacher getYpteacher() {
+  // return ypteacher;
+  // }
+  //
+  // public void setYpteacher(YPteacher ypteacher) {
+  // this.ypteacher = ypteacher;
+  // }
 
   public int getUid() {
     return uid;
@@ -133,13 +132,5 @@ public class MemberInformation implements Serializable {
     this.member = member;
     return this;
   }
-
-  @Override
-  public String toString() {
-    return "MemberDetailsBean [uid=" + uid + ", address=" + address + ", phone=" + phone
-        + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday + ", job=" + job
-        + "]";
-  }
-
 
 }
