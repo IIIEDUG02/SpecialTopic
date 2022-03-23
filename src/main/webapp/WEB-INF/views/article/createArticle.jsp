@@ -27,6 +27,9 @@
 <jsp:include page="../incloud/head-css.jsp" />
 <link href="/SpecialTopic/css/multi-select.css" rel="stylesheet">
 
+<!-- 匯入 summernote 的 css 檔案 -->
+<link href="/SpecialTopic/assets/vendor/summernote/css/summernote-lite.css" rel="stylesheet">
+
 <style>
 html {
 	font-size: 10px;
@@ -109,8 +112,9 @@ body {
               </div>
 
               <div class="form-group mt-3 textarea-container">
-                <textarea class="form-control" name="content" rows="5"
-                  placeholder="請輸入文章內容" required></textarea>
+                <div id="summernote" name="content">
+                
+                </div>
               </div>
               <div class="my-3">
                 <div class="loading">新增中...</div>
@@ -137,8 +141,11 @@ body {
 
   <!-- Template Main JS File -->
   <jsp:include page="../incloud/body-js.jsp" />
+  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <script src="/SpecialTopic/js/multi-select.js"></script>
-
+  
+  <!-- 匯入 summernote 的 js 檔案 -->
+  <script src="/SpecialTopic/assets/vendor/summernote/js/summernote-lite.js"></script>
 
   <script>
   	const form = document.querySelector('#createArticleForm')
@@ -147,7 +154,18 @@ body {
       selector: '#tags',
     })
   	
-  	btn.addEventListener('click', () => { form.submit() })
+  	btn.addEventListener('click', () => {
+  		const content = form.querySelector('.note-editable').innerHTML
+  		
+  		form.querySelector('.note-codable').value = content
+  		form.submit()
+  	})
+  	
+  	// 初始化 summmernote 套件
+  	$('#summernote').summernote({
+        tabsize: 2,
+        height: 300
+    });
   </script>
 </body>
 
