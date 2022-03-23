@@ -10,6 +10,8 @@
       
 		<!-- ======= TODO ======= -->
         <div class="row" data-aos="zoom-in" data-aos-delay="100">
+        
+        
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">

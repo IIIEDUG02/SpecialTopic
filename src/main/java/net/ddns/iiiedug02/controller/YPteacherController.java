@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.google.gson.JsonObject;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
@@ -32,7 +34,7 @@ public class YPteacherController {
 
   @Autowired
   private MemberService memberService;
-  
+
   @Autowired
   private MemberInformationService memberinfoService;
 
@@ -51,32 +53,41 @@ public class YPteacherController {
     for (Map<String, Integer> c : cList) {
       ClassBean cbBean = classbeanService.findById(c.get("cid"));
       Member mb = memberService.findByUid(cbBean.getUid());
-       YPteacher ypteacher = new YPteacher();
-       ypteacher.setTeacherID(mb.getUid());
-       ypteacher.setYear(2022);
-       ypteacher.setYearAmount(c.get("countcid"));
-       ypteacherService.insert(ypteacher);
-      
-      
-       ypteacherList.add(ypteacher);
+      YPteacher ypteacher = new YPteacher();
+      ypteacher.setTeacherID(mb.getUid());
+      ypteacher.setYear(2022);
+      ypteacher.setYearAmount(c.get("countcid"));
+      ypteacherService.insert(ypteacher);
+
+
+      ypteacherList.add(ypteacher);
     }
 
     m.addAttribute("ypteacherList", ypteacherList);
     return "Success";
   }
-  
+
   @GetMapping("/ypteacherfindtop5")
-  public String processFindTop5(Model m) {
-	List<MemberInformation> memberinfoList = new ArrayList<MemberInformation>();
-	List<YPteacher> YPteacherList = ypteacherService.findAll();
-	for(YPteacher y : YPteacherList ) {
-		MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
-		memberinfoList.add(mbinfo);		
-	}
-	m.addAttribute("memberinfoList", memberinfoList);
+  @ResponseBody
+  public List<MemberInformation> processFindTop5(Model m) {
+    List<MemberInformation> memberinfoList = new ArrayList<MemberInformation>();
+    
+    List<YPteacher> YPteacherList = ypteacherService.findAll();
+    for (YPteacher y : YPteacherList) {
+      JsonObject jobj = new JsonObject();
+      MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
       
-    return "ypteacherQueryAll";
-  
+      jobj.addProperty(null, mbinfo.getFullname());
+      jobj.addProperty(null, mbinfo.);
+      jobj.addProperty(null, null);
+      
+      memberinfoList.add(mbinfo);
+    }
+
+
+    return memberinfoList;
+
+
 
   }
 
