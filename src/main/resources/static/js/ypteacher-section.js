@@ -43,7 +43,7 @@ $(document).ready(function() {
 			var div_class = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'></div>")
 			div_class.append(div_member);
 
-			$('div#trainers').append(div_class);
+			$('div#ypteacher').append(div_class);
 			
 			//Top2
 			var a_twitter = $("<a href='#'><i class='bi bi-twitter'></i></a>");
@@ -80,7 +80,7 @@ $(document).ready(function() {
 			var div_class = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'></div>")
 			div_class.append(div_member);
 
-			$('div#trainers').append(div_class);
+			$('div#ypteacher').append(div_class);
 			
 			//Top3
 			var a_twitter = $("<a href='#'><i class='bi bi-twitter'></i></a>");
@@ -117,7 +117,7 @@ $(document).ready(function() {
 			var div_class = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'></div>")
 			div_class.append(div_member);
 
-			$('div#trainers').append(div_class);
+			$('div#ypteacher').append(div_class);
 			
 			//Top4
 			var a_twitter = $("<a href='#'><i class='bi bi-twitter'></i></a>");
@@ -154,7 +154,7 @@ $(document).ready(function() {
 			var div_class = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'></div>")
 			div_class.append(div_member);
 
-			$('div#trainers').append(div_class);
+			$('div#ypteacher').append(div_class);
 			
 			//Top5
 			var a_twitter = $("<a href='#'><i class='bi bi-twitter'></i></a>");
@@ -191,7 +191,7 @@ $(document).ready(function() {
 			var div_class = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'></div>")
 			div_class.append(div_member);
 
-			$('div#trainers').append(div_class);
+			$('div#ypteacher').append(div_class);
 			
 
 
