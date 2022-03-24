@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.controller;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +37,11 @@ public class CashFlowController {
     Member mb = memberService.findByUsername(p.getName());
 
     List<ClassBean> classList = classService.findAllByUid(mb.getUid());
-    Map<String, List<C2BBean>> cid_c2bList_Map = new HashMap<String, List<C2BBean>>();
+    Map<ClassBean, List<C2BBean>> cid_c2bList_Map = new HashMap<ClassBean, List<C2BBean>>();
 
     for (ClassBean classBean : classList) {
       List<C2BBean> tradeList = cashService.findByCid(classBean.getCid());
-      cid_c2bList_Map.put(classBean.getTitle(), tradeList);
+      cid_c2bList_Map.put(classBean, tradeList);
     }
 
     ModelAndView mav = new ModelAndView();
@@ -55,17 +56,17 @@ public class CashFlowController {
       throw new NotLoginException();
     }
     Member mb = memberService.findByUsername(p.getName());
-    List<C2BBean> c2bl = cashService.findByUid(mb.getUid());
-    Map<C2BBean, ClassBean> c2b_class_map = new HashMap<C2BBean, ClassBean>();
 
+    List<C2BBean> c2bl = cashService.findByUid(mb.getUid());
+
+    Map<Date, ClassBean> orderDate_class_map = new HashMap<Date, ClassBean>();
     for (C2BBean c2b : c2bl) {
       ClassBean cb = classService.findById(c2b.getCid());
-      c2b_class_map.put(c2b, cb);
+      orderDate_class_map.put(c2b.getOrderDate(), cb);
     }
 
-
     ModelAndView mav = new ModelAndView();
-    mav.addObject("c2b_class_map", c2b_class_map);
+    mav.addObject("orderDate_class_map", orderDate_class_map);
     mav.setViewName("../../../WEB-INF/views/tradeRecord/student");
     return mav;
   }
