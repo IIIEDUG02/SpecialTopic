@@ -49,7 +49,7 @@
 					<div class="shadow p-3 mb-5 bg-body rounded">
 						<span
 							class="p-2 rounded bg-success text-white"> <c:out
-									value="${key} 售課紀錄" />
+									value="${key.getTitle()} 售課紀錄" />
 						</span>
 						<table class="table">
 							<thead>

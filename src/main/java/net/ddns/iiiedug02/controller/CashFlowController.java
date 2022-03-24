@@ -36,11 +36,11 @@ public class CashFlowController {
     Member mb = memberService.findByUsername(p.getName());
 
     List<ClassBean> classList = classService.findAllByUid(mb.getUid());
-    Map<String, List<C2BBean>> cid_c2bList_Map = new HashMap<String, List<C2BBean>>();
+    Map<ClassBean, List<C2BBean>> cid_c2bList_Map = new HashMap<ClassBean, List<C2BBean>>();
 
     for (ClassBean classBean : classList) {
       List<C2BBean> tradeList = cashService.findByCid(classBean.getCid());
-      cid_c2bList_Map.put(classBean.getTitle(), tradeList);
+      cid_c2bList_Map.put(classBean, tradeList);
     }
 
     ModelAndView mav = new ModelAndView();
