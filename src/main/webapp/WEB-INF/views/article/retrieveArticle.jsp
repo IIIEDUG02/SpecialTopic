@@ -38,7 +38,7 @@
         <div class="sc-1avfetc-0 iqvROh sc-vynlzo-7 bLoMCB">
           <a href="articles">知識補給站</a>
           <span class="sc-1avfetc-1 khSOso">&gt;</span>
-          <a href="articles">${article.getTags().toArray()[0].getName()}</a>
+          <a href="articles?category=${article.getTags().toArray()[0].getCategory()}">${article.getTags().toArray()[0].getName()}</a>
         </div>
         
         <div class="yJnUL">
