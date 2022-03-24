@@ -192,16 +192,16 @@
   <!-- Offcanvas body -->
   <div class="offcanvas-body">
     <!-- Titles container -->
-    <ul class="list-group list-group-flush">
+    <ul id="articlesContainer" class="list-group list-group-flush">
       <c:forEach var="article" items="${articles}">
-        <li class="list-group-item d-flex align-items-center" style="justify-content: flex-start;">
+        <li class="list-group-item d-flex align-items-center" data-id="${article.getUuid()}" style="justify-content: flex-start;">
         <!-- Delete button -->
-        <button type="button" class="btn btn-outline-danger btn-sm" title="刪除" style="margin-right: 5px;">
+        <button type="button" class="articleDelBtn btn btn-outline-danger btn-sm" title="刪除" style="margin-right: 5px;">
           <i class="bi bi-trash-fill"></i>
         
         <!-- Update button -->
         </button>
-        <button type="button" class="btn btn-outline-success btn-sm" title="更新" style="margin-right: 10px;">
+        <button type="button" class="articleUpdateBtn btn btn-outline-success btn-sm" title="更新" style="margin-right: 10px;">
           <i class="bi bi-arrow-clockwise"></i>
         </button>
           <!-- Title text -->
@@ -232,9 +232,77 @@
   <script src="/SpecialTopic/js/toast.js"></script>
   
   <script>
-  	$(document).ready(() => {
-  		if (window.location.href.endsWith('?create=success'))
-	  		showToast('您的文章已發佈成功！')
+  	/* 因刪除文章需要較複雜的邏輯，因此寫 class 來輔助 */
+  	class ArticlesPage {
+  	  static TIMEOUT_SEC = 5
+  	  static DELETE_URL = 'articles/delete'
+  	  static CREATE_SUCCESS_URL = '?create=success'
+  	  
+  	  constructor() {
+  	    this.articlesContainer = document.querySelector('#articlesContainer')
+  	    this.articles = [...this.articlesContainer.querySelectorAll('li')]
+  	    this.articleDelBtns = [...this.articlesContainer.querySelectorAll('.articleDelBtn')]
+  	    this.show = showToast
+  	    
+  	    this.init()
+  	  }
+  	  
+  	  init() {
+  	    // 先使用較簡易暴力的方式來實現發佈文章後的提示訊息
+  	    if (window.location.href.endsWith(ArticlesPage.CREATE_SUCCESS_URL))
+  	  		this.show('您的文章已發佈成功！')
+  	  	
+  	  	// 為所有的刪除文章 button 新增 click event
+  			for (let btn of this.articleDelBtns)
+	  		  btn.addEventListener('click', this.deleteArticleHandler.bind(null, event, btn))
+  	  }
+  	  
+  		// 請求超時中斷函數
+  	  static timeout(s) {
+  	    return new Promise(function (_, reject) {
+  	      setTimeout(function () {
+  	        reject(new Error(`請求時間過長(${s} 秒)。`))
+  	      }, s * 1000)
+  	    })
+  	  }
+  		
+  		// 使用原生的方式來發 AJAX 請求
+  	  static async ajax(formData = undefined, csrf = undefined) {
+  	    try {
+  	      const fetchPro = fetch(ArticlesPage.DELETE_URL, {
+  	        method: 'POST',
+  	        headers: {
+  	          'Content-Type': 'application/json',
+  	          // 專案目前取消 CSRF，因此先註解
+  	          // 'X-CSRF-TOKEN': csrf,
+  	        },
+  	        body: JSON.stringify(formData),
+  	      })
+  	      
+  	      // 等待後端回傳結果
+  	      const res = await Promise.race([fetchPro, ArticlesPage.timeout(ArticlesPage.TIMEOUT_SEC)])
+  	      const data = await res.json()
+
+  	      if (!res.ok) throw new Error(`${data.message} (${res.status})`)
+  	      	return data
+  	    } catch (error) { throw error }
+  	  }
+  	  
+  		// 刪除 button 的事件處理器
+  	  async deleteArticleHandler(e, btn) {
+  		  // 取得文章的 UUID
+  	    const uuid = btn.parentElement.dataset.id
+  	    
+  	    try {
+  	      // 向後端發送 AJAX 請求
+  	      const result = await ArticlesPage.ajax({uuid: uuid})
+  	      console.log(result)
+  	    } catch (error) { console.log(error) }
+  	  }
+  	}
+  	
+  	$(document).ready(() => {  	  
+  		new ArticlesPage()
   	})
   </script>
 </body>
