@@ -81,7 +81,8 @@ public class ArticleHelper {
 
 		return null;
 	}
-
+	
+	// 取的使用者名稱
 	public String getUsername(Principal principal) {
 		String username = "";
 
@@ -101,6 +102,7 @@ public class ArticleHelper {
 		return SqlDateUtil.strToDate(date.toString());
 	}
 	
+	// 取得所有標籤的 pk(id)
 	public List<Integer> getTagsId(String[] strings) {
 		Gson gson = new Gson();
 		Type type = new TypeToken<List<Integer>>(){}.getType();
@@ -110,9 +112,12 @@ public class ArticleHelper {
 		return list;
 	}
 	
+	// 取得文章縮圖
 	public Map<Integer, String> getThumbnails(List<ArticleBean> articles) {
 		Map<Integer, String> thumbnails = new HashMap<Integer, String>();
 		String content;
+		
+		// 使用正則將圖片取出
 		Pattern pattern = Pattern.compile("src=\".*?\"");
 		Matcher matcher;
 		
@@ -120,6 +125,7 @@ public class ArticleHelper {
 			content = articleBean.getContent();
 			matcher = pattern.matcher(content);
 			
+			// 如果沒有圖片則使用預設圖片當縮圖
 			if (matcher.find())
 				thumbnails.put(articleBean.getId(), matcher.group());
 			else
@@ -129,12 +135,15 @@ public class ArticleHelper {
 		return thumbnails;
 	}
 	
+	// 取得文章縮寫內容
 	public Map<Integer, String> getAbbreviations(List<ArticleBean> articles) {
 		Map<Integer, String> abbreviations = new HashMap<Integer, String>();
 		String content;
 		
 		for (ArticleBean articleBean : articles) {
 			content = articleBean.getContent();
+			
+			// 使用正則將 html 標籤去除，並且將內容限制在 85 個字
 			content = content.replaceAll("<.*?>", "").substring(0, 85);
 			abbreviations.put(articleBean.getId(), content);
 		}
