@@ -8456,7 +8456,7 @@
         p = r.a.create('<div class="note-toolbar" role="toolbar"/>'),
         m = r.a.create('<div class="note-editing-area"/>'),
         v = r.a.create(
-          '<textarea class="note-codable" name="content" aria-multiline="true"/>'
+          '<textarea class="note-codable" id="content" name="content" aria-multiline="true"/>'
         ),
         g = r.a.create(
           '<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>'

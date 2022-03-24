@@ -91,13 +91,13 @@ public class ArticleController {
 	
 	// 發佈文章(POST 請求)
 	@PostMapping("/create")
-	public ModelAndView createArticle(HttpServletRequest request, Principal principal) {
+	public String createArticle(HttpServletRequest request, Principal principal) {
 		ArticleBean article = null;
 		
 		// 先判斷是否擁有管理者角色，如果沒有管理者角色則直接返回文章列表頁面
 		if (!articleHelper.hasRole(principal, ROLE))
 			// redirect 是重定向的意思，作用為讓瀏覽器再發一次請求到指定的頁面(在這裡是 articles)
-			return new ModelAndView("redirect:/articles");
+			return "redirect:/articles";
 		
 		// 透過 username 去資料庫查出 member 物件，因為 principal 物件只能取得使用者名稱(在這裡是 nilm)
 		Member member = memberService.findByUsername(articleHelper.getUsername(principal));
@@ -125,10 +125,12 @@ public class ArticleController {
 			
 			// insert() 才是真的把資料寫入資料庫
 			articleService.insert(article);
+			
+			// 新增文章之後，返回文章列表頁面
+			return "redirect:/articles?create=success";
 		}
 		
-		// 新增文章之後，返回文章列表頁面
-		return new ModelAndView("redirect:/articles");
+		return "redirect:/articles";
 	}
 	
 	// 透過文章的 UUID 來取得單篇文章內容，並且會跳轉到新的頁面瀏覽文章

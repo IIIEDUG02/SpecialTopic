@@ -88,11 +88,13 @@
 			<div class="d-grid p-left">
 
 				<!-- 判斷使用者是否已登入並且有 admin 角色才能夠新增文章 -->
-				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
-					<div class="create-article">
-						<a href="articles/create" class="get-started-btn">發表文章</a>
-					</div>
-				</sec:authorize>
+        <c:if test = "${empty tag}">
+  				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
+  					<div class="create-article">
+  						<a href="articles/create" class="get-started-btn">發佈文章</a>
+  					</div>
+  				</sec:authorize>
+        </c:if>
 
 				<!-- Article -->
 				<!-- 使用 for 迴圈取出每篇文章顯示在頁面上 -->
@@ -179,7 +181,10 @@
 
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
-
+  
+  <!-- Toast -->
+  <jsp:include page="toast.jsp" />
+  
 	<div id="preloader"></div>
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -187,6 +192,13 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+  
+  <!-- Toast js -->
+  <script src="/SpecialTopic/js/toast.js"></script>
+  
+  <script>
+  	if (window.location.href.endsWith('?create=success'))
+  		showToast('您的文章已發佈成功！')
+  </script>
 </body>
-
 </html>
