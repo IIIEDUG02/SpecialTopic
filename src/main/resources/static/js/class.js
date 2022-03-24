@@ -32,12 +32,18 @@ $(document).ready(function () {
 		div_class_item.append(img_class);
 		div_class_item.append(div_class_content);
 		
-		var div_class_view = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'>")
+		var div_class_view = $("<div class='col-lg-4 col-md-6 d-flex align-items-stretch'>");
 		
 		div_class_view.append(div_class_item);
+//------------------------------------------------------
+		var div_row = $("<div class='row' data-aos='zoom-in' data-aos-delay='100'>");
+		var div_container = $("<div class='container' data-aos='fade-up'>");
 		
+		div_container.append(div_row);
 		
+		var section_class = $("<section id='courses' class='courses'>");
 		
+		section_class.append(div_container);
 		},
 		error: function (xhr, status) {
             console.log("Error")
