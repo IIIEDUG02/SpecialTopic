@@ -1,14 +1,18 @@
 HELP.md
-target/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### STS ###
 .apt_generated
+<<<<<<< HEAD
+=======
+/.classpath
+>>>>>>> origin/main
 .factorypath
 .project
-.settings
+/.settings
 .springBeans
 .sts4-cache
 
@@ -32,3 +36,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/bin/
