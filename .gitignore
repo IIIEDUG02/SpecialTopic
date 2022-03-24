@@ -7,9 +7,13 @@ HELP.md
 ### STS ###
 .apt_generated
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /.classpath
 >>>>>>> origin/main
+=======
+/.classpath
+>>>>>>> 2f07c13f754a540e4c2169d9f941e94c9939adf8
 .factorypath
 .project
 /.settings
