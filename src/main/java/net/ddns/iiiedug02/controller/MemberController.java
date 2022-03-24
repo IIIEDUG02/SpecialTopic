@@ -21,18 +21,20 @@ public class MemberController {
   private MemberService ms;
 
   // 取得登入成功後使用者名稱
-  @GetMapping(value = "/getUsername")
+  @GetMapping(value = "/getLoginStatus")
   @ResponseBody
-  public String processPrincipalQuery(Principal p) {
+  public String processPrincipalQuery(Principal p,HttpSession session) {
     JsonObject result = new JsonObject();
     // 完成登入後 Principal 才會有物件，若未登入 Principal == null
 
     if (null == p) {
       throw new NotLoginException();
     }
-    result.addProperty("result", p.getName());
-
+    result.addProperty("username", p.getName());
+    Member mb = ms.findByUsername(p.getName());
+    session.setAttribute("loginBean", mb);
     return result.toString();
+    
   }
 
   @PostMapping(value = "/registerAction1")
