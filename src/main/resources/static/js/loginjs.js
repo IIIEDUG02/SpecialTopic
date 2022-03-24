@@ -16,6 +16,7 @@ function indexRender(data) {
 		$("li#dp").remove();
 	} else if (data.username != "null") {
 		$("a#login").remove();
+		$("div#header2").prepend("<a href='logout_page' class='get-started-btn'>登出</a>");
 		$("a#register").remove();
 	} else {
 		$("li#dp").remove();
