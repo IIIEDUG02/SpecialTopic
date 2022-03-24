@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.apache.commons.io.FilenameUtils;
 import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
@@ -75,10 +75,10 @@ public class ClassController {
 	  return cbs.countClass();
   }
   
-  
+  //檔案上傳
   @PostMapping(path = "/uploadphoto")
   @ResponseBody
-  public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request)
+  public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request,Model m)
       throws IllegalStateException, IOException {
 
     String pattern = "yyyy-MM-dd-HH-mm-ss";
@@ -86,9 +86,15 @@ public class ClassController {
 
     Random random = new Random();
     int rNumber = 10000 + random.nextInt(90000);
-    String fileName =
-        simpleDateFormat.format(new Date()) + "-" + rNumber + "-" + mf.getOriginalFilename();
+//    取副檔名方法一    
+//    String oName = mf.getOriginalFilename();
+//    int oNameLenghth = oName.length();
+//    String fileName =
+//        simpleDateFormat.format(new Date()) + "-" + rNumber + oName.substring(oNameLenghth-4, oNameLenghth);
+    String type = FilenameUtils.getExtension(mf.getOriginalFilename());
 
+    String fileName =
+    		simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
     String tempDir = request.getSession().getServletContext().getRealPath("/") + "uploadTempDir/";
     File tempDirFile = new File(tempDir);
@@ -97,8 +103,10 @@ public class ClassController {
     String saveFilePath = tempDir + fileName;
     File saveFile = new File(saveFilePath);
     mf.transferTo(saveFile);
-
-    return saveFilePath;
+    
+    m.addAttribute("photoname",fileName);
+    
+    return "uploadPhoto";
   }
   
   
