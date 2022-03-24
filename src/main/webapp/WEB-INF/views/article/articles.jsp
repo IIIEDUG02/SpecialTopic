@@ -109,13 +109,13 @@
 							class="article-body"> 
 							<!-- Article title -->
 							<!-- 顯示文章標題 -->
-							<h2 title="【專題】接案維生前，請詳閱說明書——給文字接案工作者的生存攻略" class="article-body__title">${article.getTitle()}
+							<h2 title="${article.getTitle()}" class="article-body__title">${article.getTitle()}
 							</h2> <!-- Article img -->
-							<img src="img/articles/article-img1.avif"
+							<img ${thumbnails.get(article.getId())}
 							class="article-body__img"> 
 							<!-- Article content -->
 							<!-- 顯示文章內容 -->
-							<div class="article-body__content">${article.getContent()}
+							<div class="article-body__content">${abbreviations.get(article.getId())}
 							</div>
 						</a>
 

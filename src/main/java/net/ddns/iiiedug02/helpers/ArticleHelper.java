@@ -8,6 +8,7 @@ import org.springframework.security.crypto.codec.Hex;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.util.SqlDateUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -16,9 +17,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.lang.reflect.Type;
 
@@ -103,5 +108,37 @@ public class ArticleHelper {
 		List<Integer> list = gson.fromJson(json, type);
 		
 		return list;
+	}
+	
+	public Map<Integer, String> getThumbnails(List<ArticleBean> articles) {
+		Map<Integer, String> thumbnails = new HashMap<Integer, String>();
+		String content;
+		Pattern pattern = Pattern.compile("src=\".*?\"");
+		Matcher matcher;
+		
+		for (ArticleBean articleBean : articles) {
+			content = articleBean.getContent();
+			matcher = pattern.matcher(content);
+			
+			if (matcher.find())
+				thumbnails.put(articleBean.getId(), matcher.group());
+			else
+				thumbnails.put(articleBean.getId(), "src=\"img/articles/default.avif\"");
+		}
+		
+		return thumbnails;
+	}
+	
+	public Map<Integer, String> getAbbreviations(List<ArticleBean> articles) {
+		Map<Integer, String> abbreviations = new HashMap<Integer, String>();
+		String content;
+		
+		for (ArticleBean articleBean : articles) {
+			content = articleBean.getContent();
+			content = content.replaceAll("<.*?>", "").substring(0, 85);
+			abbreviations.put(articleBean.getId(), content);
+		}
+		
+		return abbreviations;
 	}
 }

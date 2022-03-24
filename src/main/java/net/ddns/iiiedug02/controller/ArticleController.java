@@ -56,6 +56,8 @@ public class ArticleController {
 		// 將所有文章與標籤放入 model，jsp 可以取出來
 		model.addAttribute("articles", articles);
 		model.addAttribute("tags", tags);
+		model.addAttribute("thumbnails", articleHelper.getThumbnails(articles));		
+		model.addAttribute("abbreviations", articleHelper.getAbbreviations(articles));
 		
 		return "article/articles";
 	}
