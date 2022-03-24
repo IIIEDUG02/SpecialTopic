@@ -143,8 +143,13 @@ public class ArticleHelper {
 		for (ArticleBean articleBean : articles) {
 			content = articleBean.getContent();
 			
-			// 使用正則將 html 標籤去除，並且將內容限制在 85 個字
-			content = content.replaceAll("<.*?>", "").substring(0, 85);
+			// 使用正則將 html 標籤去除
+			content = content.replaceAll("<.*?>", "");
+			
+			// 將內容限制在 85 個字
+			if (content.length() >= 90)
+				content.substring(0, 85);
+			
 			abbreviations.put(articleBean.getId(), content);
 		}
 		
