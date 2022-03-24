@@ -25,6 +25,8 @@
   <!-- jQuery -->
   <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <script src="/SpecialTopic/js/loginjs.js"></script>
+  <script src="/SpecialTopic/js/teacher-section.js"></script>	
+
   <!-- =======================================================
   * Template Name: Mentor - v4.7.0
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/

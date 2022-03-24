@@ -93,6 +93,12 @@ public class C2BBean implements Serializable {
     this.b2c = b2c;
   }
 
+  @Override
+  public String toString() {
+    return "C2BBean [tid=" + tid + ", uid=" + uid + ", cid=" + cid + ", orderDate=" + orderDate
+        + ", completed=" + completed + "]";
+  }
+
 
 
 }

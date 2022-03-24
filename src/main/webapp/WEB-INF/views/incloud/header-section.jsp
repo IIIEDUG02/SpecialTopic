@@ -13,10 +13,23 @@
           <li><a href="/SpecialTopic/trainers">教師</a></li>
           <li><a href="/SpecialTopic/events">活動</a></li>
           <li><a href="/SpecialTopic/pricing">老師分潤</a></li>
+<<<<<<< HEAD
 		  <li><a href="contact">聯繫我們</a></li>
           <li id="dp" class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+=======
+
+          <li class="dropdown"><a href="#"><span>後台功能</span> <i class="bi bi-chevron-down"></i></a>
+>>>>>>> origin/main
             <ul>
-              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>金流</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="/SpecialTopic/tradeRecord/teacher">教師售課紀錄</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                 

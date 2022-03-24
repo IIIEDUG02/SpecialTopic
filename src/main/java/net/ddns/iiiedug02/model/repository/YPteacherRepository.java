@@ -9,7 +9,7 @@ import net.ddns.iiiedug02.model.bean.YPteacher;
 
 public interface YPteacherRepository extends JpaRepository<YPteacher, Integer> {
 	
-	@Query(value = "select * from Users", nativeQuery = true)
+	@Query(value = "select * from ypteacher", nativeQuery = true)
 	public List<YPteacher> findAll();
 	
 	
