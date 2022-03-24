@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!-- 使用 security 標籤 library (必須先在 pom.xml 新增後才能使用) -->
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -27,64 +33,103 @@
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
-<!-- =======================================================
-  * Template Name: Mentor - v4.7.0
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
+<!-- article CSS -->
+<link rel="stylesheet" href="css/articles.css" />
+
+<style>
+.create-article {
+	display: flex;
+	justify-content: center;
+	margin-top: -20px;
+	margin-bottom: 20px;
+}
+
+.create-article a {
+	width: 200px;
+	color: #fff;
+	text-align: center;
+}
+
+.create-article a:hover {
+	color: #fff;
+}
+</style>
 </head>
+
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
+	<!-- ======= Breadcrumbs ======= -->
+	<div class="breadcrumbs" data-aos="fade-in"></div>
+	<!-- End Breadcrumbs -->
 
-	<main id="main">
-		<!-- ======= Breadcrumbs ======= -->
-		<div class="breadcrumbs" data-aos="fade-in"></div>
-		<!-- End Breadcrumbs -->
+	<!-- main start -->
+	<div class="container">
+		<!-- Articles block -->
+		<div class="article-block">
 
-		<section id="about" class="about">
-			<div class="container" data-aos="fade-up">
-				<c:set var="i" scope="page" value="${1}"/>
-				<c:forEach items="${cid_c2bList_Map.keySet()}" var="key">
-				
-					<c:out value="${ i % 3 }" />
-					<c:set var="i" scope="page" value="${i + 1 }"/>
-					
+			<!-- Articles container -->
+			<div class="d-grid p-left">
+				<!-- 使用 for 迴圈取出每筆售課紀錄在頁面上 -->
+				<c:forEach var="classBean" items="${class_c2bList_Map.keySet()}">
 					<div class="shadow p-3 mb-5 bg-body rounded">
-						<span
-							class="p-2 rounded bg-success text-white"> <c:out
-									value="${key.getTitle()} 售課紀錄" />
-						</span>
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">學生ID</th>
-									<th scope="col">購課日期</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${cid_c2bList_Map.get(key)}" var="c2bBean">
+						<div class="pb-and-bb">
+							<!-- Article head -->
+							<div class="d-flex">
+								<!-- authorMeta -->
+								<div id="authorMeta" class="author-meta">
+									<div class="author-meta__author"></div>
+									<!-- 取出發布文章的人，顯示 username -->
+									<span class="p-2 rounded bg-success text-white"> <c:out
+											value="${classBean.getTitle()} 售課紀錄" />
+									</span>
+								</div>
+							</div>
+							<table class="table">
+								<thead>
 									<tr>
-										<td class="col"><c:out value="${c2bBean.getUid()}" /></td>
-										<td class="col"><c:out value="${c2bBean.getOrderDate()}" /></td>
+										<th scope="col">學生ID</th>
+										<th scope="col">購課日期</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach items="${class_c2bList_Map.get(classBean)}"
+										var="c2bBean">
+										<tr>
+											<td class="col"><c:out value="${c2bBean.getUid()}" /></td>
+											<td class="col"><c:out value="${c2bBean.getOrderDate()}" /></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</c:forEach>
 			</div>
-		</section>
-	</main>
+		</div>
+	</div>
+	<!-- main end -->
 
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 
+
 	<div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+	</a>
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+
+	<!-- Toast js -->
+	<script src="/SpecialTopic/js/toast.js"></script>
+
+	<script>
+		if (window.location.href.endsWith('?create=success'))
+			showToast('您的文章已發佈成功！')
+	</script>
 </body>
 </html>

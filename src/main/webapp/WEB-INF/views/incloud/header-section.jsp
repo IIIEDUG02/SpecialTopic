@@ -4,7 +4,7 @@
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="index.html">OOXX線上教學平台</a>
+			<a href="/SpecialTopic/">OOXX線上教學平台</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
@@ -12,9 +12,7 @@
 				<li><a href="/SpecialTopic/about">關於我們</a></li>
 				<li><a href="/SpecialTopic/courses">課程</a></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
-				<li><a href="/SpecialTopic/events">活動</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
-				<li><a href="/SpecialTopic/pricing">老師分潤</a></li>
 				<li><a href="contact">聯繫我們</a></li>
 				<li id="dp" class="dropdown"><a href="#"><span>後台功能</span>
 						<i class="bi bi-chevron-down"></i></a>
