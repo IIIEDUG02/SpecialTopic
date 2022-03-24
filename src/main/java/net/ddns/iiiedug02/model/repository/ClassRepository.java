@@ -14,4 +14,7 @@ public interface ClassRepository extends JpaRepository<ClassBean, Integer> {
 
   @Query(value = "select count(*) from class", nativeQuery = true)
   public int countClass();
+
+  
+  public List<ClassBean> findAllByCid(Integer Cid);
 }
