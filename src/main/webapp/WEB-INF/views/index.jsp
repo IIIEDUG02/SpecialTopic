@@ -394,8 +394,6 @@
 	<c:if test="${not empty errMsg}">
 		<script>alert("${errMsg}")</script>
 	</c:if>
-
-	<script src="/SpecialTopic/js/loginjs.js"></script>
 </body>
 
 </html>
