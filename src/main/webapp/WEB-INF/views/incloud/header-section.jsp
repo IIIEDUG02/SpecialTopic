@@ -12,14 +12,10 @@
           <li><a href="/SpecialTopic/courses">課程</a></li>
           <li><a href="/SpecialTopic/trainers">教師</a></li>
           <li><a href="/SpecialTopic/events">活動</a></li>
+          <li><a href="/SpecialTopic/articles">知識補給站</a></li>
           <li><a href="/SpecialTopic/pricing">老師分潤</a></li>
-<<<<<<< HEAD
-		  <li><a href="contact">聯繫我們</a></li>
-          <li id="dp" class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-=======
-
-          <li class="dropdown"><a href="#"><span>後台功能</span> <i class="bi bi-chevron-down"></i></a>
->>>>>>> origin/main
+		      <li><a href="contact">聯繫我們</a></li>
+          <li id="dp" class="dropdown"><a href="#"><span>後台功能</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li class="dropdown"><a href="#"><span>金流</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
@@ -45,6 +41,8 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
+          
+          
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
