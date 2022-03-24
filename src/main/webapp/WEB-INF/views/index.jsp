@@ -24,7 +24,6 @@
   
   <!-- jQuery -->
   <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-  <script src="/SpecialTopic/js/loginjs.js"></script>
   <script src="/SpecialTopic/js/teacher-section.js"></script>	
 
   <!-- =======================================================

@@ -51,4 +51,5 @@
       <a id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
     </div>
+    <script src="/SpecialTopic/js/loginjs.js"></script>
   </header><!-- End Header -->
