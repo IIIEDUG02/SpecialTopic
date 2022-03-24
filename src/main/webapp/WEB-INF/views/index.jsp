@@ -64,12 +64,12 @@
 				<div class="row counters">
 
 					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="1232"
-							data-purecounter-duration="1" class="purecounter"></span>
+						<span data-purecounter-start="0" data-purecounter-end="0"
+							data-purecounter-duration="1" class="purecounter" id="countmember"></span>
 						<p>位學生</p>
 						<!-- ======= TODO:聰賢 ======= -->
 					</div>
-
+					<script src="/SpecialTopic/js/countmember.js"></script>
 					<div class="col-lg-3 col-6 text-center">
 						<span data-purecounter-start="0" data-purecounter-end="0"
 							data-purecounter-duration="1" class="purecounter" id="classcount"></span>

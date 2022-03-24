@@ -3,6 +3,7 @@ package net.ddns.iiiedug02.model.service;
 import java.util.HashSet;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -79,6 +80,9 @@ public class MemberService implements UserDetailsService {
       throw new UserNotFoundException("User not found");
     }
     return mb.get();
+  }
+  public int countMember() {
+	  return memberRepository.countMember();
   }
 
 }

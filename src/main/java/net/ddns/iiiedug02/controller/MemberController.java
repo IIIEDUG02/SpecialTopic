@@ -65,6 +65,12 @@ public class MemberController {
     result.addProperty("result", "ok");
     return result.toString();
   }
+  
+  @GetMapping("/countmember.controller")
+  @ResponseBody
+  public int countMemberAction() {
+	  return ms.countMember();
+  }
 
   // @GetMapping("/userprofilesQueryByName.controller")
   // public MemberBean processQueryByName() {
