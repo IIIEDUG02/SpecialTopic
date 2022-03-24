@@ -19,6 +19,8 @@ import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.TagService;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -43,9 +45,12 @@ public class ArticleController {
 	private String ROLE = "ROLE_admin";
 	
 	@GetMapping("")
-	public String dispatch(HttpServletRequest request, Principal principal, Model model, String article) {
+	public String dispatch(HttpServletRequest request, Principal principal, Model model, 
+			String article, String category) {
 		if (article != null)
 			return getArticleByUUID(article, model);
+		else if (category != null)
+			return getArticlesByTagCategory(model, category);
 		
 		// 取得所有文章
 		List<ArticleBean> articles = articleService.findAll();
@@ -145,5 +150,24 @@ public class ArticleController {
 		model.addAttribute("article", articles.get(0));
 		
 		return "article/retrieveArticle";
+	}
+	
+	// 根據文章標籤(category)來找出所有相關的文章
+	public String getArticlesByTagCategory(Model model, String category) {
+		List<TagBean> allTags = tagService.findAll();
+		List<TagBean> tags = tagService.findByCategory(category);
+		
+		if (tags.size() == 1) {
+			TagBean tag = tags.get(0);
+			List<ArticleBean> articles = new ArrayList<>(tag.getArticles());
+			
+			model.addAttribute("tags", allTags);
+			model.addAttribute("tag", tag);
+			model.addAttribute("thumbnails", articleHelper.getThumbnails(articles));		
+			model.addAttribute("abbreviations", articleHelper.getAbbreviations(articles));
+			model.addAttribute("articles", tag.getArticles());
+		}
+		
+		return "article/articles";
 	}
 }

@@ -65,6 +65,25 @@
 	<div class="main">
 		<!-- Articles block -->
 		<div class="article-block">
+      
+      <!-- Category block -->
+      <c:if test = "${not empty tag}">
+        <div class="category-block">
+          <div class="category-container mb">
+            
+            <!-- Breadcrumbs block -->
+            <a href="articles">知識補給站</a>
+            <span class="arrow-mb">&gt;</span>
+            <a href="/articles?category=${tag.getCategory()}">${tag.getName()}</a>
+          </div>
+          
+          <!-- Tag block -->
+          <h1 class=tag-container>
+            <span class="tag__text">${tag.getName()}</span>
+          </h1>
+        </div>
+      </c:if>
+    
 			<!-- Articles container -->
 			<div class="d-grid p-left">
 
@@ -123,7 +142,7 @@
 						<div class="article-tags">
 							<!-- for 迴圈取出每篇文章的所有標籤 -->
 							<c:forEach var="tag" items="${article.getTags()}">
-								<a href="#" class="article-tags__tag article-tags--margin">
+								<a href="articles?category=${tag.getCategory()}" class="article-tags__tag article-tags--margin">
 									<!-- 顯示文章標籤 -->
 									<span class="article-tags__symbol">#</span> ${tag.getName()}
 								</a>
@@ -146,7 +165,7 @@
 					<!-- All categories content -->
 					<!-- 只顯示所有類別的標籤 -->
 					<c:forEach var="tag" items="${tags}">
-						<a href="#"
+						<a href="articles?category=${tag.getCategory()}"
 							class="all-caregories-body__category all-categories-body--margin">
 							<!-- 顯示標籤中文名稱 -->
 							<span class="article-tags__symbol">#</span> ${tag.getName()}
