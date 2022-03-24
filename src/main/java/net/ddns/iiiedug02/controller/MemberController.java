@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
-import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.service.MemberService;
@@ -23,18 +22,23 @@ public class MemberController {
   // 取得登入成功後使用者名稱
   @GetMapping(value = "/getLoginStatus")
   @ResponseBody
-  public String processPrincipalQuery(Principal p,HttpSession session) {
+  public String processPrincipalQuery(Principal p, HttpSession session) {
     JsonObject result = new JsonObject();
     // 完成登入後 Principal 才會有物件，若未登入 Principal == null
+    Member mb;
+    mb = (Member) session.getAttribute("loginBean");
 
     if (null == p) {
-      throw new NotLoginException();
+      result.addProperty("username", "null");
+    } else {
+      if (null == mb) {
+        mb = ms.findByUsername(p.getName());
+      }
+      result.addProperty("username", p.getName());
+      session.setAttribute("loginBean", mb);
     }
-    result.addProperty("username", p.getName());
-    Member mb = ms.findByUsername(p.getName());
-    session.setAttribute("loginBean", mb);
     return result.toString();
-    
+
   }
 
   @PostMapping(value = "/registerAction1")
