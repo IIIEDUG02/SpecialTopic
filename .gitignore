@@ -1,15 +1,15 @@
 HELP.md
-target/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### STS ###
 .apt_generated
-.classpath
+/.classpath
 .factorypath
 .project
-.settings
+/.settings
 .springBeans
 .sts4-cache
 
@@ -18,7 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+*.mp4
 *.class
 
 ### NetBeans ###
@@ -33,3 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/bin/

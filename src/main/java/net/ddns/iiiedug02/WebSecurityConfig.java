@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().anyRequest().authenticated();
 
     http.formLogin().loginPage("/login_page").usernameParameter("username")
-        .passwordParameter("password").defaultSuccessUrl("/").permitAll();
+        .passwordParameter("password").defaultSuccessUrl("/").and().logout().logoutUrl("/logout");
+
     http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
     http.logout().deleteCookies("JESSIONID", "rememberMe-key").logoutUrl("/logout_page");
 
