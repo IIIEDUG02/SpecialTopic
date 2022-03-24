@@ -102,7 +102,7 @@ public class ClassController {
     String fileName =
     		simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-    String tempDir = request.getSession().getServletContext().getRealPath("/") + "../PhotoDir/";
+    String tempDir = request.getSession().getServletContext().getRealPath("/") + "../PhotoDir//";
     File tempDirFile = new File(tempDir);
     tempDirFile.mkdirs();
 
@@ -110,9 +110,9 @@ public class ClassController {
     File saveFile = new File(saveFilePath);
     mf.transferTo(saveFile);
     
-    m.addAttribute("photoname",fileName);
+    m.addAttribute("photopath","SpecialTopic/../PhotoDir/"+fileName);
     
-    return "uploadPhoto";
+    return saveFilePath;
   }
   
   
