@@ -70,5 +70,10 @@ public class CashService {
   public List<Map<String, Integer>> getYearTop5Class(int year) {
     return cashRepository.getYearTop5Class(year);
   }
+  
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getMonthTop5Class(int year, int month) {
+    return cashRepository.getMonthTop5Class(year,month);
+  }
 
 }

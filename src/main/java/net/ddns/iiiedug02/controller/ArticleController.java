@@ -19,6 +19,8 @@ import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.TagService;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -43,9 +45,12 @@ public class ArticleController {
 	private String ROLE = "ROLE_admin";
 	
 	@GetMapping("")
-	public String dispatch(HttpServletRequest request, Principal principal, Model model, String article) {
+	public String dispatch(HttpServletRequest request, Principal principal, Model model, 
+			String article, String category) {
 		if (article != null)
 			return getArticleByUUID(article, model);
+		else if (category != null)
+			return getArticlesByTagCategory(model, category);
 		
 		// 取得所有文章
 		List<ArticleBean> articles = articleService.findAll();
@@ -86,13 +91,13 @@ public class ArticleController {
 	
 	// 發佈文章(POST 請求)
 	@PostMapping("/create")
-	public ModelAndView createArticle(HttpServletRequest request, Principal principal) {
+	public String createArticle(HttpServletRequest request, Principal principal) {
 		ArticleBean article = null;
 		
 		// 先判斷是否擁有管理者角色，如果沒有管理者角色則直接返回文章列表頁面
 		if (!articleHelper.hasRole(principal, ROLE))
 			// redirect 是重定向的意思，作用為讓瀏覽器再發一次請求到指定的頁面(在這裡是 articles)
-			return new ModelAndView("redirect:/articles");
+			return "redirect:/articles";
 		
 		// 透過 username 去資料庫查出 member 物件，因為 principal 物件只能取得使用者名稱(在這裡是 nilm)
 		Member member = memberService.findByUsername(articleHelper.getUsername(principal));
@@ -120,10 +125,12 @@ public class ArticleController {
 			
 			// insert() 才是真的把資料寫入資料庫
 			articleService.insert(article);
+			
+			// 新增文章之後，返回文章列表頁面
+			return "redirect:/articles?create=success";
 		}
 		
-		// 新增文章之後，返回文章列表頁面
-		return new ModelAndView("redirect:/articles");
+		return "redirect:/articles";
 	}
 	
 	// 透過文章的 UUID 來取得單篇文章內容，並且會跳轉到新的頁面瀏覽文章
@@ -145,5 +152,24 @@ public class ArticleController {
 		model.addAttribute("article", articles.get(0));
 		
 		return "article/retrieveArticle";
+	}
+	
+	// 根據文章標籤(category)來找出所有相關的文章
+	public String getArticlesByTagCategory(Model model, String category) {
+		List<TagBean> allTags = tagService.findAll();
+		List<TagBean> tags = tagService.findByCategory(category);
+		
+		if (tags.size() == 1) {
+			TagBean tag = tags.get(0);
+			List<ArticleBean> articles = new ArrayList<>(tag.getArticles());
+			
+			model.addAttribute("tags", allTags);
+			model.addAttribute("tag", tag);
+			model.addAttribute("thumbnails", articleHelper.getThumbnails(articles));		
+			model.addAttribute("abbreviations", articleHelper.getAbbreviations(articles));
+			model.addAttribute("articles", tag.getArticles());
+		}
+		
+		return "article/articles";
 	}
 }

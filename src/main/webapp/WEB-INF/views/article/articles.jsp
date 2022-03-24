@@ -65,15 +65,36 @@
 	<div class="main">
 		<!-- Articles block -->
 		<div class="article-block">
+      
+      <!-- Category block -->
+      <c:if test = "${not empty tag}">
+        <div class="category-block">
+          <div class="category-container mb">
+            
+            <!-- Breadcrumbs block -->
+            <a href="articles">知識補給站</a>
+            <span class="arrow-mb">&gt;</span>
+            <a href="/articles?category=${tag.getCategory()}">${tag.getName()}</a>
+          </div>
+          
+          <!-- Tag block -->
+          <h1 class=tag-container>
+            <span class="tag__text">${tag.getName()}</span>
+          </h1>
+        </div>
+      </c:if>
+    
 			<!-- Articles container -->
 			<div class="d-grid p-left">
 
 				<!-- 判斷使用者是否已登入並且有 admin 角色才能夠新增文章 -->
-				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
-					<div class="create-article">
-						<a href="articles/create" class="get-started-btn">發表文章</a>
-					</div>
-				</sec:authorize>
+        <c:if test = "${empty tag}">
+  				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
+  					<div class="create-article">
+  						<a href="articles/create" class="get-started-btn">發佈文章</a>
+  					</div>
+  				</sec:authorize>
+        </c:if>
 
 				<!-- Article -->
 				<!-- 使用 for 迴圈取出每篇文章顯示在頁面上 -->
@@ -123,7 +144,7 @@
 						<div class="article-tags">
 							<!-- for 迴圈取出每篇文章的所有標籤 -->
 							<c:forEach var="tag" items="${article.getTags()}">
-								<a href="#" class="article-tags__tag article-tags--margin">
+								<a href="articles?category=${tag.getCategory()}" class="article-tags__tag article-tags--margin">
 									<!-- 顯示文章標籤 -->
 									<span class="article-tags__symbol">#</span> ${tag.getName()}
 								</a>
@@ -146,7 +167,7 @@
 					<!-- All categories content -->
 					<!-- 只顯示所有類別的標籤 -->
 					<c:forEach var="tag" items="${tags}">
-						<a href="#"
+						<a href="articles?category=${tag.getCategory()}"
 							class="all-caregories-body__category all-categories-body--margin">
 							<!-- 顯示標籤中文名稱 -->
 							<span class="article-tags__symbol">#</span> ${tag.getName()}
@@ -160,7 +181,10 @@
 
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
-
+  
+  <!-- Toast -->
+  <jsp:include page="toast.jsp" />
+  
 	<div id="preloader"></div>
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -168,6 +192,13 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+  
+  <!-- Toast js -->
+  <script src="/SpecialTopic/js/toast.js"></script>
+  
+  <script>
+  	if (window.location.href.endsWith('?create=success'))
+  		showToast('您的文章已發佈成功！')
+  </script>
 </body>
-
 </html>

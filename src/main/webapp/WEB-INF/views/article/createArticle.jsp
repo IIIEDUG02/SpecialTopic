@@ -98,7 +98,7 @@ body {
               role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="title" class="form-control"
+                  <input type="text" id="title" name="title" class="form-control"
                     id="title" placeholder="請輸入文章標題" required>
                 </div>
               </div>
@@ -124,7 +124,6 @@ body {
                 <button id="createArticleButton" type="submit">發佈文章</button>
               </div>
             </form>
-
           </div>
 
         </div>
@@ -138,7 +137,10 @@ body {
 
   <!-- ======= Footer ======= -->
   <jsp:include page="../incloud/footer-section.jsp" />
-
+  
+  <!-- Toast -->
+  <jsp:include page="toast.jsp" />
+  
   <!-- Template Main JS File -->
   <jsp:include page="../incloud/body-js.jsp" />
   <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
@@ -146,26 +148,70 @@ body {
   
   <!-- 匯入 summernote 的 js 檔案 -->
   <script src="/SpecialTopic/assets/vendor/summernote/js/summernote-lite.js"></script>
-
+  
+  <!-- Toast js -->
+  <script src="/SpecialTopic/js/toast.js"></script>
+  
   <script>
+  $(document).ready(() => {
+		// 初始化 summmernote 套件
+  	$('#summernote').summernote({
+        tabsize: 2,
+        height: 300
+    })
+    
   	const form = document.querySelector('#createArticleForm')
   	const btn = document.querySelector('#createArticleButton')
   	const select = new drop({
       selector: '#tags',
     })
+ 		
+    function displayError(error) {
+  		form.querySelector('.loading').classList.remove('d-block')
+  		showToast(error)
+	  }
   	
-  	btn.addEventListener('click', () => {
-  		const content = form.querySelector('.note-editable').innerHTML
+		/*
+			驗證發佈文章的表單是否有效後才送出，否則顯示提示訊息。
+		*/
+  	function isFormValid(form) {
+  		"use strict";
+
+  		const title = form.querySelector('#title')
+  		const tags = form.querySelector('#tags')
+  		const content = form.querySelector('#content')
+  		const editable = form.querySelector('.note-editable')
   		
-  		form.querySelector('.note-codable').value = content
-  		form.submit()
-  	})
+			content.value = editable.innerHTML
+			form.querySelector('.loading').classList.add('d-block');
+  		form.querySelector('.error-message').classList.remove('d-block');
+      
+      if (title.value.trim().length == 0) {
+      	displayError('請輸入文章標題！')
+      	return false
+      }
+      	
+      if (![...tags.options].some(e => e.selected)) {
+      	displayError('請選擇至少一種分類標籤！')
+      	return false
+      }
+      	
+      if (content.value.trim().length == 0) {
+      	displayError('請輸入文章內容！')
+      	return false
+      }
+      
+      return true
+  	}
   	
-  	// 初始化 summmernote 套件
-  	$('#summernote').summernote({
-        tabsize: 2,
-        height: 300
-    });
+		// Submit button click event.
+  	btn.addEventListener('click', function(e) {
+  		e.preventDefault()
+  		
+  		if (isFormValid(form))
+				form.submit()
+  	})
+  })
   </script>
 </body>
 
