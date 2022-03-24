@@ -37,6 +37,7 @@
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
 <style>
+/* 自定義一些樣式 */
 .create-article {
 	display: flex;
 	justify-content: center;
@@ -197,8 +198,10 @@
   <script src="/SpecialTopic/js/toast.js"></script>
   
   <script>
-  	if (window.location.href.endsWith('?create=success'))
-  		showToast('您的文章已發佈成功！')
+  	$(document).ready(() => {
+  		if (window.location.href.endsWith('?create=success'))
+  	  		showToast('您的文章已發佈成功！')
+  	})
   </script>
 </body>
 </html>
