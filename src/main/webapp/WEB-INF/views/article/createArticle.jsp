@@ -214,8 +214,10 @@ body {
   		e.preventDefault()
   		
   		// 表單驗證成功後才送出
-  		if (isFormValid(form))
-				form.submit()
+  		if (isFormValid(form)) {
+  		 btn.disabled = true
+  		 form.submit()
+  		}
   	})
   })
   </script>

@@ -93,6 +93,9 @@
   				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
   					<div class="create-article">
   						<a href="articles/create" class="get-started-btn">發佈文章</a>
+              <a class="get-started-btn" data-bs-toggle="offcanvas" 
+                 data-bs-target="#articleOffcanvas" 
+                 aria-controls="articleOffcanvas">文章操作</a>
   					</div>
   				</sec:authorize>
         </c:if>
@@ -178,6 +181,35 @@
 			</div>
 		</div>
 	</div>
+  
+  <!-- Left offcanvas -->
+  <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="articleOffcanvas" aria-labelledby="articleOffcanvasLabel" style="width: 600px !important;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="articleOffcanvasLabel">文章操作介面</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <!-- Offcanvas body -->
+  <div class="offcanvas-body">
+    <!-- Titles container -->
+    <ul class="list-group list-group-flush">
+      <c:forEach var="article" items="${articles}">
+        <li class="list-group-item d-flex align-items-center" style="justify-content: flex-start;">
+        <!-- Delete button -->
+        <button type="button" class="btn btn-outline-danger btn-sm" title="刪除" style="margin-right: 5px;">
+          <i class="bi bi-trash-fill"></i>
+        
+        <!-- Update button -->
+        </button>
+        <button type="button" class="btn btn-outline-success btn-sm" title="更新" style="margin-right: 10px;">
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+          <!-- Title text -->
+          ${article.getTitle()}
+      </c:forEach>
+    </ul>
+  </div>
+</div>
 	<!-- main end -->
 
 	<!-- ======= Footer ======= -->
@@ -190,6 +222,8 @@
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
+    
+  
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
@@ -200,7 +234,7 @@
   <script>
   	$(document).ready(() => {
   		if (window.location.href.endsWith('?create=success'))
-  	  		showToast('您的文章已發佈成功！')
+	  		showToast('您的文章已發佈成功！')
   	})
   </script>
 </body>
