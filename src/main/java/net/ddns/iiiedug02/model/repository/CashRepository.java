@@ -37,7 +37,7 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
   public List<Map<String, Integer>> getYearTop5Class(int year);
   
   @Query(
-	      value = "select top 5 count(cid) as countcid, cid from c2b where year(order_date) = 1? and month(order_date) = 2? GROUP BY cid order by count(cid) DESC;",
+	      value = "select top 5 count(cid) as countcid, cid from c2b where year(order_date) = ?1 and month(order_date) = ?2 GROUP BY cid order by count(cid) DESC;",
 	      nativeQuery = true)
 	  public List<Map<String, Integer>> getMonthTop5Class(int year, int month);
 
