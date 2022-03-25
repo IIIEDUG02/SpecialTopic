@@ -12,6 +12,7 @@ import net.ddns.iiiedug02.model.bean.ArticleBean;
 // 對應檔名 //對應PK型別
 public interface ArticalRepository extends JpaRepository<ArticleBean, Integer> {
 	public List<ArticleBean> findByUuid(String uuid);
+	long deleteByUuid(String uuid);
 	
 	//由於 JPQL 是大小寫敏感的大小寫意思不一樣，且查詢的對象是 Entity 類別，不是資料表
 	// 而 ArticleBean 類別上面的@Entity沒有指定名稱，所以 Entity 的名稱預設為類別名稱(要使用類別名稱去寫，不能用 Table 名稱去寫)，即為 ArticleBean

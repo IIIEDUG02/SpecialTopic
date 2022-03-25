@@ -54,6 +54,15 @@
 .create-article a:hover {
 	color: #fff;
 }
+
+/* 調整 spinner style */
+.spinner-border {
+  position: fixed;
+  left: 45%;
+  top: 45%;
+  width: 5rem;
+  height: 5rem;
+}
 </style>
 </head>
 
@@ -103,7 +112,7 @@
 				<!-- Article -->
 				<!-- 使用 for 迴圈取出每篇文章顯示在頁面上 -->
 				<c:forEach var="article" items="${articles}">
-					<div class="pb-and-bb">
+					<div id="${article.getUuid()}" class="pb-and-bb">
 						<!-- Article head -->
 						<div class="d-flex">
 							<!-- authorMeta -->
@@ -232,13 +241,28 @@
   <script src="/SpecialTopic/js/toast.js"></script>
   
   <script>
-  	/* 因刪除文章需要較複雜的邏輯，因此寫 class 來輔助 */
+  	/* 
+  	 * 因刪除文章列表上要實做的功能有些邏輯較複雜，因此寫 class 來輔助
+  	 */
   	class ArticlesPage {
+  	  // 宣告靜態變數
+  	  static HTTP_OK = "200"
   	  static TIMEOUT_SEC = 5
   	  static DELETE_URL = 'articles/delete'
   	  static CREATE_SUCCESS_URL = '?create=success'
+  	  static CREATE_MSG = '您的文章已發佈成功！'
+  	  static DELETE_MSG = '您已經成功刪除文章！'
   	  
+  	  // 建構子
   	  constructor() {
+  	    this.body = document.querySelector('body')
+  	    
+  	    // Loading... 的 html template
+  	    this.template = `
+  	    	<div class="modal-backdrop fade show"></div>
+  	    	<div class="spinner-border text-secondary" role="status">
+  	    		<span class="visually-hidden">Loading...</span>
+	    		</div>`
   	    this.articlesContainer = document.querySelector('#articlesContainer')
   	    this.articles = [...this.articlesContainer.querySelectorAll('li')]
   	    this.articleDelBtns = [...this.articlesContainer.querySelectorAll('.articleDelBtn')]
@@ -250,11 +274,11 @@
   	  init() {
   	    // 先使用較簡易暴力的方式來實現發佈文章後的提示訊息
   	    if (window.location.href.endsWith(ArticlesPage.CREATE_SUCCESS_URL))
-  	  		this.show('您的文章已發佈成功！')
+  	  		this.show(ArticlesPage.CREATE_MSG)
   	  	
   	  	// 為所有的刪除文章 button 新增 click event
   			for (let btn of this.articleDelBtns)
-	  		  btn.addEventListener('click', this.deleteArticleHandler.bind(null, event, btn))
+	  		  btn.addEventListener('click', this.deleteArticleHandler.bind(null, event, btn, this))
   	  }
   	  
   		// 請求超時中斷函數
@@ -289,18 +313,49 @@
   	  }
   	  
   		// 刪除 button 的事件處理器
-  	  async deleteArticleHandler(e, btn) {
+  	  async deleteArticleHandler(e, btn, obj) {
   		  // 取得文章的 UUID
-  	    const uuid = btn.parentElement.dataset.id
+  		  const li = btn.parentElement
+  	    const uuid = li.dataset.id
+  	    const article = document.getElementById(uuid)
+  	    
+  	    // 顯示 Loading... 畫面
+  	    obj.addElement()
   	    
   	    try {
-  	      // 向後端發送 AJAX 請求
+  	      // 向後端發送 AJAX 請求並等待結果回傳
   	      const result = await ArticlesPage.ajax({uuid: uuid})
-  	      console.log(result)
-  	    } catch (error) { console.log(error) }
+  	     	
+  	      if (result.response === ArticlesPage.HTTP_OK) {
+  	        li.remove()
+  	        article.remove()
+  	        obj.show(ArticlesPage.DELETE_MSG)
+  	      } else {
+  	        console.log(result)
+  	      }
+  	    } catch (error) {
+  	      console.error(error)
+	      } finally {
+	        obj.removeElement()
+	      }
   	  }
+  		
+  		// 將 Loading... 元素添加至 body 上面
+  		addElement() {
+  		  this.body.insertAdjacentHTML('beforeend', this.template)
+  		}
+  		
+  	// 從 body 中移除 Loading... 元素
+  		removeElement() {
+  		  const modal = document.querySelector('.modal-backdrop')
+  		  const spinner = document.querySelector('.spinner-border')
+  		  
+  		  this.body.removeChild(modal)
+  		  this.body.removeChild(spinner)
+  		}
   	}
   	
+  	// Entry point
   	$(document).ready(() => {  	  
   		new ArticlesPage()
   	})
