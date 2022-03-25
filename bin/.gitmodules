@@ -1,0 +1,3 @@
+[submodule "src/main/ecpay"]
+	path = src/main/ecpay
+	url = https://github.com/ECPay/ECPayAIO_Java
