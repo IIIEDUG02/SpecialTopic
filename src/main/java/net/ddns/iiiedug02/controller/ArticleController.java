@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import net.ddns.iiiedug02.helpers.ArticleHelper;
 import net.ddns.iiiedug02.model.bean.ArticleBean;
@@ -20,9 +21,8 @@ import net.ddns.iiiedug02.model.service.TagService;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -171,5 +171,26 @@ public class ArticleController {
     }
 
     return "article/articles";
+  }
+  
+  // 刪除文章
+  @PostMapping("/delete")
+  @ResponseBody
+  public String deleteArticleByUUID(
+      @RequestBody Map<String, String> params, Principal principal) throws JsonProcessingException{
+    String badRequest = "{\"response\":\"405\"}";
+    String httpOk = "{\"response\":\"200\"}";
+    
+    if (!articleHelper.hasRole(principal, ROLE))
+      return badRequest;
+          
+    String uuid = params.get("uuid");
+    
+    if (uuid == null)
+      return badRequest;
+    if (articleService.deleteByUuid(uuid) == 1)
+      return httpOk;
+
+    return badRequest;
   }
 }
