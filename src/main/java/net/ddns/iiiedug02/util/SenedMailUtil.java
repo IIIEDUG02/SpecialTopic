@@ -8,6 +8,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import net.ddns.iiiedug02.model.bean.MailBean;
 
 
 
@@ -16,26 +17,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class SenedMailUtil {
 
-  private String toAddress;
-
-  private String text;
-
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  public void setToAddress(String toAddress) {
-    // Recipient's email ID needs to be mentioned.
-    this.toAddress = toAddress;
-  }
-
-  public void send() {
-    if (null == this.text || null == this.toAddress) {
-      return;
-    }
-
-    // Sender's email ID needs to be mentioned
-    String from = "noreplyiiiedug02@gmail.com";
+  public void send(MailBean mail) {
 
     // Assuming you are sending email from through gmails smtp
     String host = "smtp.gmail.com";
@@ -65,16 +47,17 @@ public class SenedMailUtil {
       MimeMessage message = new MimeMessage(session);
 
       // Set From: header field of the header.
-      message.setFrom(new InternetAddress(from));
+      message.setFrom(new InternetAddress(mail.getFromAddress()));
 
       // Set To: header field of the header.
-      message.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+      message.addRecipient(Message.RecipientType.TO,
+          new InternetAddress("noreplyiiiedug02@gmail.com"));
 
       // Set Subject: header field
-      message.setSubject("HI,這是用JAVA記得信喔");
+      message.setSubject(mail.getSubject());
 
       // Now set the actual message
-      message.setText(text);
+      message.setText(mail.getName() + " :\n" + mail.getMsg());
 
       System.out.println("sending...");
       // Send message
