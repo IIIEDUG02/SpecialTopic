@@ -43,9 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	.loginPage("/login_page")
     	.usernameParameter("username")
         .passwordParameter("password")
-        .defaultSuccessUrl("/").and()
-        .logout()
-        .logoutUrl("/logout");
+        .defaultSuccessUrl("/").and();
+        
 
     http.rememberMe()
     	.tokenValiditySeconds(86400)
@@ -53,8 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     http.logout()
     	.deleteCookies("JESSIONID", "rememberMe-key")
-    	.logoutUrl("/logout_page");
-    	
+    	.logoutSuccessUrl("/signout/success");
 
     http.cors()
     	.and()
