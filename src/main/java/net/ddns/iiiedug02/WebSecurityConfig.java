@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.logout()
     	.deleteCookies("JESSIONID", "rememberMe-key")
     	.logoutSuccessUrl("/signout/success");
+	    
 
     http.cors()
     	.and()
