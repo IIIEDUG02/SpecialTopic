@@ -46,11 +46,10 @@ public class MemberInformation implements Serializable {
   private String job = "";
   @Column(name = "photo")
   private String photo;
+  @Column(name = "passportname")
+  private String passportname;
+  @Column(name = "identitycard")
+  private String identitycard;
+  
 
-	@Override
-	public String toString() {
-		return "MemberInformation [uid=" + uid + ", address=" + address + ", phone=" + phone + ", fullname=" + fullname
-				+ ", email=" + email + ", birthday=" + birthday + ", identitycard=" + identitycard + ", photo=" + photo
-				+ ", job=" + job + ", member=" + member + "]" + ", passportname=" + passportname;
-	}
 }
