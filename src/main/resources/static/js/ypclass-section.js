@@ -29,7 +29,7 @@ $(document).ready(function() {
 			var p_de = $('<p>123456456</p>')
 			
 
-			var h4_classtype = $("<h4>"+data[0]["class_type"]+"</h4>");
+			var h4_classtype = $("<h4>"+data[0]["classType"]+"</h4>");
 			var p_price = $(' <p class="price">'+data[0]["price"]+'</p>');
 			var div_typeAndPrice = $('<div class="d-flex justify-content-between align-items-center mb-3"></div>');
 			div_typeAndPrice.append(h4_classtype);
