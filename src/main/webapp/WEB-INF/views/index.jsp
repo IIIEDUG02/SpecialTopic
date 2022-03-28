@@ -25,17 +25,13 @@
 <!-- Head CSS -->
   <jsp:include page="incloud/head-css.jsp" />
   
-  <!-- jQuery -->
-  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-  <script src="/SpecialTopic/js/ypteacher-section.js"></script>	
-  <script src="/SpecialTopic/js/mpteacher-section.js"></script>
-  <script src="/SpecialTopic/js/ypclass-section.js"></script>
 
 
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
+<script src="/SpecialTopic/js/ypclass-section.js"></script>
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
