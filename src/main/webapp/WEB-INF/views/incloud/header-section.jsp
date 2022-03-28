@@ -52,5 +52,7 @@
 		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+	<!-- 登入驗證畫面渲染 -->
+	<script src="/SpecialTopic/js/loginjs.js"></script>
 </header>
 <!-- End Header -->
