@@ -15,14 +15,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * JavaBean物件，對應資料庫中的members資料表
  */
 @Entity
 @Table(name = "members")
-public @Data class Member implements Serializable, UserDetails {
+@Setter
+@Getter
+public class Member implements Serializable, UserDetails {
 
   private static final long serialVersionUID = 1L;
 

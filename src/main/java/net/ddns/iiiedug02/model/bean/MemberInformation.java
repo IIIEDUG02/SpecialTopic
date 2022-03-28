@@ -10,7 +10,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
@@ -18,7 +19,9 @@ import lombok.Data;
 @IdClass(Member.class)
 @Entity
 @Table(name = "member_details")
-public @Data class MemberInformation implements Serializable {
+@Setter
+@Getter
+public class MemberInformation implements Serializable {
 
   private static final long serialVersionUID = 2L;
 

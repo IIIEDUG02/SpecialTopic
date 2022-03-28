@@ -11,11 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "member_roles")
-public @Data class MemberRole implements GrantedAuthority, Serializable {
+@Setter
+@Getter
+public class MemberRole implements GrantedAuthority, Serializable {
 
   /**
    * 
