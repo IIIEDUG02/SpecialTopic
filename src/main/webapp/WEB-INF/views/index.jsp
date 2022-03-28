@@ -26,6 +26,7 @@
   <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <script src="/SpecialTopic/js/ypteacher-section.js"></script>	
   <script src="/SpecialTopic/js/mpteacher-section.js"></script>
+  <script src="/SpecialTopic/js/ypclass-section.js"></script>
 
   <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -279,31 +280,7 @@
             </div>
           </div> <!-- End Course Item-->
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-            <div class="course-item">
-              <img src="assets/img/course-3.jpg" class="img-fluid" alt="...">
-              <div class="course-content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Content</h4>
-                  <p class="price">$180</p>
-                </div>
-
-                <h3><a href="course-details.html">Copywriting</a></h3>
-                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                <div class="trainer d-flex justify-content-between align-items-center">
-                  <div class="trainer-profile d-flex align-items-center">
-                    <img src="assets/img/trainers/trainer-3.jpg" class="img-fluid" alt="">
-                    <span>Brandon</span>
-                  </div>
-                  <div class="trainer-rank d-flex align-items-center">
-                    <i class="bx bx-user"></i>&nbsp;20
-                    &nbsp;&nbsp;
-                    <i class="bx bx-heart"></i>&nbsp;85
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- End Course Item-->
+ 
 		<!-- ======= END:TODO ======= -->
         </div>
 
@@ -312,6 +289,7 @@
 
     <!-- ======= Trainers Section ======= -->
     <jsp:include page="incloud/trainers-section.jsp" />
+    <jsp:include page="incloud/class-section.jsp" />
 
   </main><!-- End #main -->
 
