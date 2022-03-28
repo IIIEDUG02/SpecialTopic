@@ -8,7 +8,7 @@ xmlhttp.onreadystatechange = function() {
 	}
 };
 
-xmlhttp.open("GET", url, true);
+xmlhttp.open("GET", url, false);
 xmlhttp.send();
 
 function indexRender(data) {

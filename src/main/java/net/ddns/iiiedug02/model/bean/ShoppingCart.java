@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
@@ -29,9 +28,8 @@ public class ShoppingCart implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "uid", referencedColumnName = "uid", columnDefinition = "integer")
-  private Member member;
+  @Column(name = "uid", columnDefinition = "integer")
+  private int uid;
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cid", referencedColumnName = "cid", columnDefinition = "integer")

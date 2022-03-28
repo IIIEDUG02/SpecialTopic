@@ -10,6 +10,3 @@
 
 <!-- Template Main JS File -->
 <script src="/SpecialTopic/assets/js/main.js"></script>
-
-<!-- 登入驗證畫面渲染 -->
-<script src="/SpecialTopic/js/loginjs.js"></script>
