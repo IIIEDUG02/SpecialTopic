@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,10 @@ public class YPclass implements Serializable {
 //  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid", insertable = false,
 //      updatable = false)
 //  private MemberInformation memberInformation;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CLASSID", referencedColumnName = "cid", insertable = false, updatable = false)
+  private ClassDetailsBean classDetailsBean;
 
   public int getId() {
     return id;

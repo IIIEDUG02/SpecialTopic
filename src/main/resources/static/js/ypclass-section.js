@@ -26,7 +26,8 @@ $(document).ready(function() {
 			div_teacherAndstyle.append(div_style);
 			
 			var h3_title = $('<h3><a href="course-details.html">'+data[0]["title"]+'</a></h3>')
-			var p_de = $('<p>123456456</p>')
+			var p_de = $('<p>'+data[2]["classDetailsBean"]["descript"]+'</p>')
+			var p_de = $('<p>'+data[2]["descript"]+'</p>')
 			
 
 			var h4_classtype = $("<h4>"+data[0]["classType"]+"</h4>");
