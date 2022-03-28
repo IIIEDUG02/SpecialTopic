@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <header id="header" class="fixed-top">
+
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
@@ -48,9 +49,11 @@
 		</nav>
 		<!-- .navbar -->
 
-		<a id="login" href="login_page" class="get-started-btn">登入</a> 
-		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
+		<a id="login" href="login_page" class="get-started-btn">登入</a> <a
+			id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+		<!-- 登入驗證畫面渲染 -->
+	<script src="/SpecialTopic/js/loginjs.js"></script>
 </header>
 <!-- End Header -->

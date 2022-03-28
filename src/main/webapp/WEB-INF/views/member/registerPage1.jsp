@@ -8,6 +8,12 @@
 <script type="text/javascript" src="/SpecialTopic/js/registerjs.js" ></script>
 <title>帳號註冊</title>
 </head>
+
+<!-- <script type="text/javascript"> -->
+// function reg(form){
+// 	if(form.repass)
+// }
+<!-- </script> -->
 <body>
 	<h3>帳號註冊</h3>
 		<form action="#" METHOD="GET">
@@ -17,6 +23,9 @@
 			</tr>
 			<tr>
 				<td><label>密碼:</label><input type="text" id="password" /></td>
+			</tr>
+			<tr>
+				<td><label>確認密碼:</label><input type="text" id="checkpassword" /></td>
 			</tr>
 			<tr>
 				<td><label>電子信箱:</label><input type="text" id="email" /></td>
