@@ -51,14 +51,6 @@ public class Member implements Serializable, UserDetails {
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
   private Set<MemberRole> roles;
 
-  public int getUid() {
-    return uid;
-  }
-
-  public void setUid(int uid) {
-    this.uid = uid;
-  }
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return getRoles();
