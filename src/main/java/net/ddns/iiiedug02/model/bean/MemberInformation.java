@@ -13,12 +13,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import lombok.Data;
+
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
  */
 @Entity
 @Table(name = "member_details")
-public class MemberInformation implements Serializable {
+public @Data class MemberInformation implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
@@ -46,6 +48,8 @@ public class MemberInformation implements Serializable {
     private String photo;
     @Column(name = "job")
     private String job;
+    @Column(name = "passportname")
+    private String passportname;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -140,10 +144,18 @@ public class MemberInformation implements Serializable {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "MemberDetailsBean [uid=" + uid + ", address=" + address + ", phone=" + phone
-                + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday; }
+	public String getPassportname() {
+		return passportname;
+	}
 
+	public void setPassportname(String passportname) {
+		this.passportname = passportname;
+	}
 
+	@Override
+	public String toString() {
+		return "MemberInformation [uid=" + uid + ", address=" + address + ", phone=" + phone + ", fullname=" + fullname
+				+ ", email=" + email + ", birthday=" + birthday + ", identitycard=" + identitycard + ", photo=" + photo
+				+ ", job=" + job + ", member=" + member + "]" + ", passportname=" + passportname;
+	}
 }

@@ -28,9 +28,14 @@
 				<td><label>工作:</label><input type="text" id="job"></td>
 			</tr>
 			<tr>
+				<td><label>身分證字號:</label><input type="text" id="identitycard"></td>
+			</tr>
+			<tr>
+				<td><label>護照英文名子:</label><input type="text" id="passportname"></td>
+			</tr>
 				<td>
 					<input type="button" onclick="register2()" value="送出" />
-					<input type="button" onclick="javascript:window.location = '/'" value="返回首頁"/>
+					<input type="button" onclick="javascript:window.location = '/SpecialTopic/'" value="返回首頁"/>
 				</td>
 			</tr>
 		</table>

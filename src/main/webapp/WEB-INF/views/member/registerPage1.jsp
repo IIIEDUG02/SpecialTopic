@@ -24,7 +24,7 @@
 			<tr>
 				<td>
 					<input type="button" onclick="register1()" value="送出" />
-					<input type="button" onclick="javascript:window.location = '/'" value="返回首頁"/>
+					<input type="button" onclick="javascript:window.location = '/SpecialTopic/'" value="返回首頁"/>
 				</td>
 			</tr>
 		</table>

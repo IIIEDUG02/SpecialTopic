@@ -28,6 +28,9 @@ function register2() {
 	mdb["phone"] = $("#phone").val();
 	mdb["birthday"] = $("#birthday").val();
 	mdb["job"] = $("#job").val();
+	mdb["identitycard"] = $("#identitycard").val();
+	mdb["passportname"] = $("#passportname").val();
+	
 	
     $.ajax({
         type: "POST",
