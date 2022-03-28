@@ -12,8 +12,15 @@ public class ShoppingCartService {
   @Autowired
   private ShoppingCartRepository shoppingCartRepository;
 
-
   public List<ShoppingCart> findByUid(int uid) {
     return shoppingCartRepository.findByUid(uid);
+  }
+
+  public void deleteById(int uid) {
+    shoppingCartRepository.deleteById(uid);
+  }
+
+  public void save(ShoppingCart sc) {
+    shoppingCartRepository.save(sc);
   }
 }
