@@ -2,11 +2,11 @@ package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.model.repository.ArticalRepository;
 
@@ -37,15 +37,26 @@ public class ArticalService {
 
   @Transactional
   public ArticleBean getById(int id) {
-    // System.out.println("read");
     return articalRepository.getById(id);
   }
   
+  public List<ArticleBean> findAll() {
+	  // 取得所有文章，並且會以 ID 做排序(最新發佈的文章會顯示在頁面最前面)
+	  return articalRepository.findAll(Sort.by(Direction.DESC, "id"));
+  }
   
- 
   @Transactional
 	public List<ArticleBean> getAll() {
 	// TODO Auto-generated method stub
 	return articalRepository.findAll();
+  }
+  
+  public List<ArticleBean> findByUuid(String uuid) {
+	  return articalRepository.findByUuid(uuid);
+  }
+  
+  @Transactional
+  public void updatePageViewsByUUID(String uuid, int views) {
+	  articalRepository.updatePageViews(uuid, views);
   }
 }

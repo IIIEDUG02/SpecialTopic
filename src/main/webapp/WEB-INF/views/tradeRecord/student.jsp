@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>授課紀錄</title>
+<title>課程購買紀錄</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -45,7 +45,7 @@
 
 		<section id="about" class="about">
 			<div class="container" data-aos="fade-up">
-				<c:forEach items="${class_c2bList_Map.keySet()}" var="class">
+				<c:forEach items="${orderDate_class_map.keySet()}" var="class">
 					<div class="shadow p-3 mb-5 bg-body rounded">
 						<span
 							class="p-2 rounded bg-success text-white"> <c:out
