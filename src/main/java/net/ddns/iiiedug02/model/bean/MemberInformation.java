@@ -40,10 +40,12 @@ public class MemberInformation implements Serializable {
     private String email = "";
     @Column(name = "birthday")
     private Date birthday;
-    @Column(name = "job")
-    private String job = "";
+    @Column(name = "identitycard")
+    private String identitycard;
     @Column(name = "photo")
     private String photo;
+    @Column(name = "job")
+    private String job;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -104,14 +106,16 @@ public class MemberInformation implements Serializable {
         this.birthday = birthday;
         return this;
     }
-
-    public String getJob() {
-        return job;
-    }
     
-    
+    public String getIdentitycard() {
+		return identitycard;
+	}
 
-    public String getPhoto() {
+	public void setIdentitycard(String identitycard) {
+		this.identitycard = identitycard;
+	}
+
+	public String getPhoto() {
 		return photo;
 	}
 
@@ -119,12 +123,15 @@ public class MemberInformation implements Serializable {
 		this.photo = photo;
 	}
 
-	public MemberInformation setJob(String job) {
-        this.job = job;
-        return this;
-    }
+	public String getJob() {
+		return job;
+	}
 
-    public Member getMember() {
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public Member getMember() {
         return member;
     }
 
@@ -136,9 +143,7 @@ public class MemberInformation implements Serializable {
     @Override
     public String toString() {
         return "MemberDetailsBean [uid=" + uid + ", address=" + address + ", phone=" + phone
-                + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday + ", job=" + job
-                + "]";
-    }
+                + ", fullname=" + fullname + ", email=" + email + ", birthday=" + birthday; }
 
 
 }
