@@ -15,12 +15,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * JavaBean物件，對應資料庫中的members資料表
  */
 @Entity
 @Table(name = "members")
+@Setter
+@Getter
 public class Member implements Serializable, UserDetails {
 
   private static final long serialVersionUID = 1L;
@@ -53,48 +57,6 @@ public class Member implements Serializable, UserDetails {
 
   public void setUid(int uid) {
     this.uid = uid;
-  }
-
-  @Override
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  @Override
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public short getActivated() {
-    return activated;
-  }
-
-  public void setActivated(short activated) {
-    this.activated = activated;
-  }
-
-  public MemberInformation getMemberInformation() {
-    return memberInformation;
-  }
-
-  public void setMemberInformation(MemberInformation memberInformation) {
-    this.memberInformation = memberInformation;
-  }
-
-  public Set<MemberRole> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(Set<MemberRole> roles) {
-    this.roles = roles;
   }
 
   @Override

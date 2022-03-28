@@ -11,28 +11,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "MPTEACHER")
 @Component
-public @Data class MPteacher implements Serializable {
+@Table(name = "shopping_cart")
+@Setter
+@Getter
+public class ShoppingCart implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name = "ID")
+  @Column(name = "id", columnDefinition = "int", nullable = false, updatable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
+  @Column(name = "uid", columnDefinition = "integer")
+  private int uid;
+
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid")
-  private MemberInformation memberInformation;
-
-  @Column(name = "MONTH")
-  private int month;
-
-  @Column(name = "MONTHAMOUNT")
-  private int monthAmount;
+  @JoinColumn(name = "cid", referencedColumnName = "cid", columnDefinition = "integer")
+  private ClassBean classBean;
 
 }

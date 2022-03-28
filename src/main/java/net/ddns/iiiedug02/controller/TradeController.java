@@ -19,7 +19,7 @@ import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
-public class CashFlowController {
+public class TradeController {
 
   @Autowired
   private MemberService memberService;
@@ -29,6 +29,8 @@ public class CashFlowController {
 
   @Autowired
   private ClassBeanService classService;
+
+
 
   @GetMapping("tradeRecord/teacher")
   public String tradeRecordTeacher(Principal p, Model m) {
