@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
@@ -35,10 +36,10 @@ public class MPteacher implements Serializable {
 
   // @OneToOne(fetch = FetchType.LAZY, mappedBy = "ypteacher", cascade = CascadeType.ALL,
   // targetEntity = MemberInformation.class)
-//  @OneToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid", insertable = false,
-//      updatable = false)
-//  private MemberInformation memberInformation;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "TEACHERID", referencedColumnName = "uid", insertable = false,
+      updatable = false)
+  private MemberInformation memberInformation;
 
   public int getId() {
     return id;
@@ -74,13 +75,13 @@ public void setMonthAmount(int monthAmount) {
 
   
 
-//  public void setMemberInformation(MemberInformation memberInformation) {
-//    this.memberInformation = memberInformation;
-//  }
-//
-//  public MemberInformation getMemberInformation() {
-//    return memberInformation;
-//  }
+  public void setMemberInformation(MemberInformation memberInformation) {
+    this.memberInformation = memberInformation;
+  }
+
+  public MemberInformation getMemberInformation() {
+    return memberInformation;
+  }
 
 //  @Override
 //  public String toString() {

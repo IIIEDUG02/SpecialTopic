@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
  */
@@ -47,7 +49,7 @@ public class MemberInformation implements Serializable {
     @Column(name = "job")
     private String job;
 
-
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Member member;
