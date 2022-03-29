@@ -74,7 +74,7 @@ public class MPteacherController {
 
     List<MPteacher> mpteacherList = mpteacherService.findAll();
     for (MPteacher mp : mpteacherList) {
-      MemberInformation mbinfo = memberinfoService.findByUid(mp.getTeacherID());
+      MemberInformation mbinfo = mp.getMemberInformation();
       mbinfo.setMember(null);
       memberinfoList.add(mbinfo);
     }
