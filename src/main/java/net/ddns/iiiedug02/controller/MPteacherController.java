@@ -12,11 +12,9 @@ import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.MPteacher;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
-
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.MPteacherService;
-import net.ddns.iiiedug02.model.service.MemberInformationService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 
@@ -35,11 +33,6 @@ public class MPteacherController {
   @Autowired
   private MemberService memberService;
 
-  @Autowired
-  private MemberInformationService memberinfoService;
-
-
-
   @GetMapping("/mpteacherquerybyid.controller")
   public MPteacher processQueryByIdAction(Integer id) {
     return mpteacherService.findById(id);
@@ -54,7 +47,7 @@ public class MPteacherController {
       ClassBean cbBean = classbeanService.findById(c.get("cid"));
       Member mb = memberService.findByUid(cbBean.getUid());
       MPteacher mpteacher = new MPteacher();
-      mpteacher.setTeacherID(mb.getUid());
+      mpteacher.setMemberInformation(mb.getMemberInformation());
       mpteacher.setMonth(3);
       mpteacher.setMonthAmount(c.get("countcid"));
       mpteacherService.insert(mpteacher);

@@ -3,7 +3,6 @@ package net.ddns.iiiedug02.model.service;
 import java.util.HashSet;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,12 +37,10 @@ public class MemberService implements UserDetailsService {
     mb.setPassword(encodedpassword);
 
     MemberRole mrb = new MemberRole();
-    mrb.setUid(mb.getUid());
     mrb.setRole("normal");
     mrb.setMember(mb);
 
     MemberRole mrb2 = new MemberRole();
-    mrb2.setUid(mb.getUid());
     mrb2.setRole("admin");
     mrb2.setMember(mb);
 
@@ -81,8 +78,9 @@ public class MemberService implements UserDetailsService {
     }
     return mb.get();
   }
+
   public int countMember() {
-	  return memberRepository.countMember();
+    return memberRepository.countMember();
   }
 
 }

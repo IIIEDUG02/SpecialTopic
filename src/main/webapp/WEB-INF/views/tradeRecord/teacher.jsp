@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<!-- 使用 security 標籤 library (必須先在 pom.xml 新增後才能使用) -->
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"            prefix="c"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"             prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -33,28 +30,6 @@
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
-
-<!-- article CSS -->
-<link rel="stylesheet" href="css/articles.css" />
-
-<style>
-.create-article {
-	display: flex;
-	justify-content: center;
-	margin-top: -20px;
-	margin-bottom: 20px;
-}
-
-.create-article a {
-	width: 200px;
-	color: #fff;
-	text-align: center;
-}
-
-.create-article a:hover {
-	color: #fff;
-}
-</style>
 </head>
 
 <body>
