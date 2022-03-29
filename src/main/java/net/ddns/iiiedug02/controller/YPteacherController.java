@@ -14,7 +14,6 @@ import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.YPteacher;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
-import net.ddns.iiiedug02.model.service.MemberInformationService;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.YPteacherService;
 
@@ -34,10 +33,6 @@ public class YPteacherController {
   @Autowired
   private MemberService memberService;
 
-  @Autowired
-  private MemberInformationService memberinfoService;
-
-
 
   @GetMapping("/ypteacherquerybyid.controller")
   public YPteacher processQueryByIdAction(Integer id) {
@@ -53,7 +48,7 @@ public class YPteacherController {
       ClassBean cbBean = classbeanService.findById(c.get("cid"));
       Member mb = memberService.findByUid(cbBean.getUid());
       YPteacher ypteacher = new YPteacher();
-      ypteacher.setTeacherID(mb.getUid());
+      ypteacher.setMemberInformation(mb.getMemberInformation());
       ypteacher.setYear(2022);
       ypteacher.setYearAmount(c.get("countcid"));
       ypteacherService.insert(ypteacher);
@@ -73,7 +68,7 @@ public class YPteacherController {
 
     List<YPteacher> YPteacherList = ypteacherService.findAll();
     for (YPteacher y : YPteacherList) {
-      MemberInformation mbinfo = memberinfoService.findByUid(y.getTeacherID());
+      MemberInformation mbinfo = y.getMemberInformation();
       mbinfo.setMember(null);
       memberinfoList.add(mbinfo);
     }

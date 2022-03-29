@@ -41,16 +41,19 @@
 						<li><a href="#">Drop Down 4</a></li>
 						<li><a href="/SpecialTopic/logout_page">登出</a></li>
 					</ul></li>
-
-
+				<li id="scl"></li>
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>
 		<!-- .navbar -->
-
-		<a id="login" href="login_page" class="get-started-btn">登入</a> 
-		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
+		<!-- ===== 登入/註冊 ===== -->
+		<a id="login" href="login_page" class="get-started-btn">登入</a> <a
+			id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+	<!-- 登入驗證畫面渲染 -->
+	<script src="/SpecialTopic/js/loginjs.js"></script>
+	<!-- 購物車的icon  -->
+	<script src="/SpecialTopic/js/shopping_cart_badge.js"></script>
 </header>
 <!-- End Header -->
