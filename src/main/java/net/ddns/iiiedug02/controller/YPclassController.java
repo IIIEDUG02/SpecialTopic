@@ -59,6 +59,24 @@ public class YPclassController {
     return "Success3";
   }
 
+//  @GetMapping("/ypclassfindtop5")
+//  @ResponseBody
+//  public List<ClassBean> processFindTop5(Model m) {
+//    List<ClassBean> classBeanList = new ArrayList<ClassBean>();
+//
+//    List<YPclass> YPclassList = ypclassService.findAll();
+//    for (YPclass c : YPclassList) {
+//    	ClassBean classbean = classBeanService.findById(c.getClassID());
+////    	classbean.setClassDetailsBean(null);
+//    	classbean.setCurriculumbean(null);
+//        
+//    	classBeanList.add(classbean);
+//    }
+//
+//    return classBeanList;
+//
+//  }
+  
   @GetMapping("/ypclassfindtop5")
   @ResponseBody
   public List<ClassBean> processFindTop5(Model m) {
@@ -66,17 +84,13 @@ public class YPclassController {
 
     List<YPclass> YPclassList = ypclassService.findAll();
     for (YPclass c : YPclassList) {
-    	ClassBean classbean = classBeanService.findById(c.getClassID());
-    	classbean.setClassDetailsBean(null);
-    	classbean.setCurriculumbean(null);
+    	ClassBean classBean = c.getClassBean();
+    	classBean.setCurriculumbean(null);
     	
-      
-      classBeanList.add(classbean);
+      classBeanList.add(classBean);
     }
 
     return classBeanList;
-
-
 
   }
 

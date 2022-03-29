@@ -13,6 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "class_details")
 @Component
@@ -37,6 +39,7 @@ public class ClassDetailsBean {
 	@Column(name = "length_min")
 	private int length_min;
 	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private ClassBean classbean;

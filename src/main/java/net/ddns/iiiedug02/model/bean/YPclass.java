@@ -42,8 +42,8 @@ public class YPclass implements Serializable {
 //  private MemberInformation memberInformation;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "CLASSID", referencedColumnName = "cid", insertable = false, updatable = false)
-  private ClassDetailsBean classDetailsBean;
+  @JoinColumn(name = "CLASSID", referencedColumnName = "CID", insertable = false, updatable = false)
+  private ClassBean classBean;
 
   public int getId() {
     return id;
@@ -76,6 +76,17 @@ public int getYear() {
   public void setYearAmount(int yearAmount) {
     this.yearAmount = yearAmount;
   }
+
+public ClassBean getClassBean() {
+	return classBean;
+}
+
+public void setClassBean(ClassBean classBean) {
+	this.classBean = classBean;
+}
+  
+  
+  
 
 //  public void setMemberInformation(MemberInformation memberInformation) {
 //    this.memberInformation = memberInformation;
