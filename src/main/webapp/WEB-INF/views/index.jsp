@@ -32,6 +32,7 @@
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
+<script src="/SpecialTopic/js/mpclass-section.js"></script>
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
