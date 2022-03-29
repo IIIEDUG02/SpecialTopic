@@ -15,8 +15,8 @@ $(document).ready(function() {
 			div_style.append(i_bxheart);
 			div_style.append('&nbsp;' + 87 + '&nbsp;&nbsp;');
 			
-			var img_teacher = $("<img src="+data[0]["memberInformation"]["photo"]+" class='img-fluid' alt='待補'  />");
-//			var img_teacher = $("<img src='assets/img/trainers/trainer-1.jpg' class='img-fluid' alt='待補' />");
+//			var img_teacher = $("<img src="+data[0]["memberInformation"]["photo"]+" class='img-fluid' alt='待補'  />");
+			var img_teacher = $("<img src='assets/img/teacher.png' class='img-fluid' alt='待補' />");
 			img_teacher.addClass("img-fluid");
 			var span_teacherName = $('<span>'+data[0]["memberInformation"]["fullname"]+'</span>');
 			var div_teacherinfo = $('<div class="trainer-profile d-flex align-items-center">');
@@ -45,7 +45,7 @@ $(document).ready(function() {
 			div_course_content.append(div_teacherAndstyle);
 						
 			//var img_course_image = $('<img src='+data[0]["photo"]+ ' class="img-fluid" alt="待補圖" >');
-			var img_course_image = $('<img src='+ "assets/img/course-1.jpg" + ' class="img-fluid" alt="待補圖" >');
+			var img_course_image = $('<img src='+ "assets/img/class.PNG" + ' class="img-fluid" alt="待補圖" >');
 			var div_courseitem = $('<div class="course-item"></div>');
 			div_courseitem.append(img_course_image);
 			div_courseitem.append(div_course_content);
@@ -96,7 +96,7 @@ $(document).ready(function() {
 			div_course_content.append(div_teacherAndstyle);
 						
 			//var img_course_image = $('<img src='+data[0]["photo"]+ ' class="img-fluid" alt="待補圖" >');
-			var img_course_image = $('<img src='+ "assets/img/course-1.jpg" + ' class="img-fluid" alt="待補圖" >');
+			var img_course_image = $('<img src='+ "assets/img/class.PNG" + ' class="img-fluid" alt="待補圖" >');
 			var div_courseitem = $('<div class="course-item"></div>');
 			div_courseitem.append(img_course_image);
 			div_courseitem.append(div_course_content);
@@ -147,7 +147,7 @@ $(document).ready(function() {
 			div_course_content.append(div_teacherAndstyle);
 						
 			//var img_course_image = $('<img src='+data[0]["photo"]+ ' class="img-fluid" alt="待補圖" >');
-			var img_course_image = $('<img src='+ "assets/img/course-1.jpg" + ' class="img-fluid" alt="待補圖" >');
+			var img_course_image = $('<img src='+ "assets/img/class.PNG" + ' class="img-fluid" alt="待補圖" >');
 			var div_courseitem = $('<div class="course-item"></div>');
 			div_courseitem.append(img_course_image);
 			div_courseitem.append(div_course_content);

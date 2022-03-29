@@ -34,7 +34,8 @@ $(document).ready(function() {
 			div_member_content.append(div_social);
 
 			//<img src='data[0]["photo"]' class='img-fluid' alt=''>
-			var img_photo = $("<img src='" + data[0]["photo"] + "' class='img-fluid' alt='待補圖'>");
+//			var img_photo = $("<img src='" + data[0]["photo"] + "' class='img-fluid' alt='待補圖'>");
+			var img_photo = $("<img src= 'assets/img/teacher.png' width='200' class='img-fluid' alt='待補圖'>");
 
 			var div_member = $("<div class=\"member\"></div>")
 			div_member.append(img_photo);
@@ -71,7 +72,8 @@ $(document).ready(function() {
 			div_member_content.append(div_social);
 
 			//<img src='data[0]["photo"]' class='img-fluid' alt=''>
-			var img_photo = $("<img src='" + data[1]["photo"] + "' class='img-fluid' alt='待補圖'>");
+//			var img_photo = $("<img src='" + data[1]["photo"] + "' class='img-fluid' alt='待補圖'>");
+			var img_photo = $("<img src= 'assets/img/teacher.png' width='200' class='img-fluid' alt='待補圖'>");
 
 			var div_member = $("<div class=\"member\"></div>")
 			div_member.append(img_photo);
@@ -108,7 +110,8 @@ $(document).ready(function() {
 			div_member_content.append(div_social);
 
 			//<img src='data[0]["photo"]' class='img-fluid' alt=''>
-			var img_photo = $("<img src='" + data[2]["photo"] + "' class='img-fluid' alt='待補圖'>");
+//			var img_photo = $("<img src='" + data[2]["photo"] + "' class='img-fluid' alt='待補圖'>");
+			var img_photo = $("<img src= 'assets/img/teacher.png' width='200' class='img-fluid' alt='待補圖'>");
 
 			var div_member = $("<div class=\"member\"></div>")
 			div_member.append(img_photo);
