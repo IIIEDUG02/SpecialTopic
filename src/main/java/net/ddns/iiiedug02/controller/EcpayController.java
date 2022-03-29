@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.ecpay;
+package net.ddns.iiiedug02.controller;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 //本控制器用以在接到用戶端(瀏覽器)送出的結帳請求時，利用綠界API產生一個只具有<form>元素的頁面來回應給用戶端，
 //用戶端接收該頁面後將自動展開後續的結帳作業。
 @Controller
-public class MyController {	
+public class EcpayController {	
 	private static AllInOne all = new AllInOne("");
 	
 	//http://localhost:8080/ecpay/ECPayServer
