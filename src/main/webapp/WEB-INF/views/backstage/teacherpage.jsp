@@ -33,7 +33,7 @@
 		<section id="testimonials" class="testimonials">
 			<div class="container" data-aos="fade-up">
 				<table>
-					<thead>
+					<thead>S
 						<tr>
 							<td>課程名稱:</td>
 							<td>課程分類:</td>
@@ -41,7 +41,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="tc" items="${teacherclass}">
+						<c:forEach var="tc" items="${classes}">
 							<tr>
 								<td><c:out value="${tc.getTitle()}" /></td>
 								<td><c:out value="${tc.getClassType()}" /></td>
@@ -50,7 +50,7 @@
 									value="編輯" />
 									<input type="button"
 									onclick="javascript:window.location = '/SpecialTopic/deleteclass/${tc.getCid()}'"
-									value="刪除課程" />
+									value="下架課程" />
 									</td>
 							</tr>
 						</c:forEach>

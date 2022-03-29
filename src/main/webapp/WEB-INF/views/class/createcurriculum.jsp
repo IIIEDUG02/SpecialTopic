@@ -4,14 +4,14 @@
   <title>show demo</title>
 </head>
 <body>
+  <input type="button" id="btn" value="addItem" />
   <!-- add new item Dynamically in the show block -->
   <form action="uploadphoto" method="post" enctype="multipart/form-data">  
   <div id="showBlock">
-  <button type="submit" value="upload">Upload</button>
   </div>
   </form>
   <!-- click the button to add new item -->
-  <input type="button" id="btn" value="addItem" />
+  
   
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script>
