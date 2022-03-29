@@ -52,7 +52,17 @@ function checkout() {
 			$('input#ItemName').val($('input#ItemName').val() + "#")
 		}
 		$('input#ItemName').val($('input#ItemName').val() + $(this).html());
-	})
+		
+	});
+	
+	$('input#hidden_cid').each(function() {
+		if ($('input#CidList').val() != "") {
+			$('input#CidList').val($('input#CidList').val() + "#")
+		}
+		$('input#CidList').val($('input#CidList').val() + $(this).val());
+	});
+	
+	
 	$.confirm({
 		title: '確認付款',
 		content: '請檢查付款資訊是否正確，確認後將前往綠界支付頁面。',

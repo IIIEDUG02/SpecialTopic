@@ -71,6 +71,7 @@ body {
 						<div class="col-4">
 							<h4 id="price${item.getId()}">${item.getClassBean().getPrice()}</h4>
 						</div>
+						<input type="hidden" id="hidden_cid" value="${item.getClassBean().getCid()}"/>
 						<div class="col-2">
 							<button type="button" class="btn btn-danger"
 								onclick="sc_del(${item.getId()})">刪除</button>
@@ -89,10 +90,10 @@ body {
 					</h3>
 					<div class="text-end">
 						<form id="idFormAioCheckOut" method="post" action="/SpecialTopic/ECPayServer">
-							<input type="hidden" id="TotalAmount" name="TotalAmount" value="1050"
-								class="form-control" /> <input type="hidden" name="TradeDesc" id="TradeDesc" 
-								value="刷兩三下就光亮如新" class="form-control" /> <input type="hidden"
-								name="ItemName" id="ItemName" value="馬桶刷850元x1#消毒水200元" class="form-control" />
+							<input type="hidden" name="TotalAmount" id="TotalAmount"/> 
+							<input type="hidden" name="TradeDesc"   id="TradeDesc"/> 
+							<input type="hidden" name="ItemName"    id="ItemName"/>
+							<input type="hidden" name="CidList"      id="CidList"/>
 							<button type="button" class="btn btn-success" onclick="checkout()">結帳</button>
 						</form>
 					</div>
