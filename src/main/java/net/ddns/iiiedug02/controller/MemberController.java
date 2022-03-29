@@ -71,6 +71,11 @@ public class MemberController {
   public int countMemberAction() {
 	  return ms.countMember();
   }
+  @GetMapping("/signout/success")
+	public String signout() {
+	    return "redirect:/";
+	}//RETURN "redirect:xxxx";
+}
 
   // @GetMapping("/userprofilesQueryByName.controller")
   // public MemberBean processQueryByName() {
@@ -81,4 +86,4 @@ public class MemberController {
   // }
 
 
-}
+

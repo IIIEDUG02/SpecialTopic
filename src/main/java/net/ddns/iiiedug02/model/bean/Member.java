@@ -42,6 +42,8 @@ public class Member implements Serializable, UserDetails {
 
   @Column(name = "activated")
   private short activated = 0;
+  
+
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "member",
       cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

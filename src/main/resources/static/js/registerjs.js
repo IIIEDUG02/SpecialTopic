@@ -21,7 +21,7 @@ function register1() {
 
 
 function register2() {
-	console.log("456");
+	
 	var mdb = {};
 	mdb["fullname"] = $("#fullname").val();
 	mdb["address"] = $("#address").val();

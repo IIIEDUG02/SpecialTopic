@@ -50,6 +50,8 @@ public class MemberInformation implements Serializable {
   private String passportname;
   @Column(name = "identitycard")
   private String identitycard;
+  @Column(name = "gender")
+  private Integer gender;
   
 
 }
