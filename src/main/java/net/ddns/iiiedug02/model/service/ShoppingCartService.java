@@ -20,7 +20,11 @@ public class ShoppingCartService {
     shoppingCartRepository.deleteById(uid);
   }
 
-  public void save(ShoppingCart sc) {
-    shoppingCartRepository.save(sc);
+  public ShoppingCart save(ShoppingCart sc) {
+    if (null == shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean())) {
+      shoppingCartRepository.save(sc);
+      return shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean());
+    }
+    return null;
   }
 }
