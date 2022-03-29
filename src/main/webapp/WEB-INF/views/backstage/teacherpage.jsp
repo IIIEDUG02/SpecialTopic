@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,9 +8,6 @@
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <!-- Head CSS -->
   <jsp:include page="../incloud/head-css.jsp" />
-  
-  <!-- jQuery -->
-  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   
 <title>teacherpage</title>
 </head>
@@ -33,7 +30,7 @@
 		<section id="testimonials" class="testimonials">
 			<div class="container" data-aos="fade-up">
 				<table>
-					<thead>S
+					<thead>
 						<tr>
 							<td>課程名稱:</td>
 							<td>課程分類:</td>
