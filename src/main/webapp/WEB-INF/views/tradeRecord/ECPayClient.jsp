@@ -47,6 +47,10 @@
 				<div class="mb-3 col-sm-5">
 					<label class="col-xs-12">ItemName(商品名稱):</label> <input type="text"
 						name="ItemName" value="馬桶刷850元x1#消毒水200元" class="form-control" />
+					<label class="col-xs-12">ItemName(商品名稱):</label> <input type="text"
+						name="ItemName" value="馬桶刷850元x1#消毒水200元" class="form-control" />
+					<label class="col-xs-12">ItemName(商品名稱):</label> <input type="text"
+						name="ItemName" value="馬桶刷850元x1#消毒水200元" class="form-control" />
 					商品名稱<br /> 1. 如果商品名稱有多筆，需在金流選擇頁一行一行顯示商品名稱的話，商品名稱請以符號#分隔。 2.
 					商品名稱字數限制為中英數 400 字內，超過此限制系統將自動截斷。
 				</div>
