@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.ecpay;
+package net.ddns.iiiedug02.controller;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -14,7 +14,7 @@ import ecpay.payment.integration.AllInOne;
 
 //本控制器用以接收付款者在付款成功後，從用戶端回傳的付款結果。
 @Controller
-public class MyController3 {
+public class EcpayController3 {
 	public static AllInOne all = new AllInOne("");	
 	
 	//【ECPayServer.java】obj.setClientBackURL("http://localhost:8080/ecpay/ECPayServer3");
