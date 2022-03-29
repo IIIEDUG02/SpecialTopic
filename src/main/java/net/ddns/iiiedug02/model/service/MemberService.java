@@ -37,12 +37,10 @@ public class MemberService implements UserDetailsService {
     mb.setPassword(encodedpassword);
 
     MemberRole mrb = new MemberRole();
-    mrb.setUid(mb.getUid());
     mrb.setRole("normal");
     mrb.setMember(mb);
 
     MemberRole mrb2 = new MemberRole();
-    mrb2.setUid(mb.getUid());
     mrb2.setRole("admin");
     mrb2.setMember(mb);
 
@@ -79,6 +77,10 @@ public class MemberService implements UserDetailsService {
       throw new UserNotFoundException("User not found");
     }
     return mb.get();
+  }
+
+  public int countMember() {
+    return memberRepository.countMember();
   }
 
 }

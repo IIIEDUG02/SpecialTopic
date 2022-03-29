@@ -49,6 +49,10 @@ public class ClassController {
   public String toJsp() {
 	  return "uploadPhoto";
   }
+  @GetMapping(value = "/uploadvideo")
+  public String toJsp1() {
+	  return "uploadvideo";
+  }
   @GetMapping(value = "/play")
   public String playVideo() {
 	  return "video";
@@ -102,7 +106,7 @@ public class ClassController {
     String fileName =
     		simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-    String tempDir = request.getSession().getServletContext().getRealPath("/") + "../PhotoDir//";
+    String tempDir = request.getSession().getServletContext().getRealPath("/") + "PhotoDir//";
     File tempDirFile = new File(tempDir);
     tempDirFile.mkdirs();
 

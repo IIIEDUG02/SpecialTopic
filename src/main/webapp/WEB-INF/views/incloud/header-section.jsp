@@ -4,7 +4,7 @@
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="index.html">OOXX線上教學平台</a>
+			<a href="/SpecialTopic/">OOXX線上教學平台</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
@@ -12,9 +12,7 @@
 				<li><a href="/SpecialTopic/about">關於我們</a></li>
 				<li><a href="/SpecialTopic/courses">課程</a></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
-				<li><a href="/SpecialTopic/events">活動</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
-				<li><a href="/SpecialTopic/pricing">老師分潤</a></li>
 				<li><a href="contact">聯繫我們</a></li>
 				<li id="dp" class="dropdown"><a href="#"><span>後台功能</span>
 						<i class="bi bi-chevron-down"></i></a>
@@ -43,16 +41,19 @@
 						<li><a href="#">Drop Down 4</a></li>
 						<li><a href="/SpecialTopic/logout_page">登出</a></li>
 					</ul></li>
-
-
+				<li id="scl"></li>
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>
 		<!-- .navbar -->
-
-		<a id="login" href="login_page" class="get-started-btn">登入</a> 
-		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
+		<!-- ===== 登入/註冊 ===== -->
+		<a id="login" href="login_page" class="get-started-btn">登入</a> <a
+			id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+	<!-- 登入驗證畫面渲染 -->
+	<script src="/SpecialTopic/js/loginjs.js"></script>
+	<!-- 購物車的badge  -->
+	<script src="/SpecialTopic/js/shopping_cart_badge.js"></script>
 </header>
 <!-- End Header -->

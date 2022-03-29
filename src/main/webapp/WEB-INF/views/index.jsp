@@ -16,11 +16,6 @@
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
-
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
 
@@ -64,12 +59,12 @@
 				<div class="row counters">
 
 					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="1232"
-							data-purecounter-duration="1" class="purecounter"></span>
+						<span data-purecounter-start="0" data-purecounter-end="0"
+							data-purecounter-duration="1" class="purecounter" id="countmember"></span>
 						<p>位學生</p>
 						<!-- ======= TODO:聰賢 ======= -->
 					</div>
-
+					<script src="/SpecialTopic/js/countmember.js"></script>
 					<div class="col-lg-3 col-6 text-center">
 						<span data-purecounter-start="0" data-purecounter-end="0"
 							data-purecounter-duration="1" class="purecounter" id="classcount"></span>
@@ -394,8 +389,6 @@
 	<c:if test="${not empty errMsg}">
 		<script>alert("${errMsg}")</script>
 	</c:if>
-
-	<script src="/SpecialTopic/js/loginjs.js"></script>
 </body>
 
 </html>

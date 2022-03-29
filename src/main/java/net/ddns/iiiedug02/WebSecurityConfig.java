@@ -35,15 +35,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
         .permitAll().antMatchers("/cashflow/**").hasRole("admin");
 
-    http.authorizeRequests().anyRequest().authenticated();
+    http.authorizeRequests()
+    	.anyRequest()
+    	.authenticated();
 
-    http.formLogin().loginPage("/login_page").usernameParameter("username")
-        .passwordParameter("password").defaultSuccessUrl("/").and().logout().logoutUrl("/logout");
+    http.formLogin()
+    	.loginPage("/login_page")
+    	.usernameParameter("username")
+        .passwordParameter("password")
+        .defaultSuccessUrl("/").and();
+        
 
-    http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
-    http.logout().deleteCookies("JESSIONID", "rememberMe-key").logoutUrl("/logout_page");
+    http.rememberMe()
+    	.tokenValiditySeconds(86400)
+    	.key("rememberMe-key");
+    
+    http.logout()
+    	.logoutUrl("/logout_page")
+    	.deleteCookies("JESSIONID", "rememberMe-key")
+    	.logoutSuccessUrl("/");
+	    
 
-    http.cors().and().csrf().disable();
+    http.cors()
+    	.and()
+    	.csrf()
+    	.disable();
   }
-
 }
