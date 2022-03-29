@@ -30,6 +30,7 @@ public class MemberInformation implements Serializable {
   @Id
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "uid", referencedColumnName = "uid")
+  @JsonIgnore
   private Member member;
 
   @Column(name = "address")
