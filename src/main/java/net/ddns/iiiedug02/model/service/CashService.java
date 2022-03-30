@@ -26,6 +26,11 @@ public class CashService {
   }
 
   @Transactional
+  public List<C2BBean> insertByList(List<C2BBean> c2bBeanList) {
+    return cashRepository.saveAll(c2bBeanList);
+  }
+
+  @Transactional
   public C2BBean update(C2BBean c2bBean) {
     return cashRepository.save(c2bBean);
   }
@@ -43,6 +48,11 @@ public class CashService {
   @Transactional(readOnly = true)
   public List<C2BBean> findByCid(int cid) {
     return cashRepository.findByCid(cid);
+  }
+
+  @Transactional(readOnly = true)
+  public C2BBean findByUidAndCid(int uid, int cid) {
+    return cashRepository.findByUidAndCid(uid, cid);
   }
 
   /**

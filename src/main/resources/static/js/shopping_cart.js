@@ -83,4 +83,25 @@ function checkout() {
 			},
 		}
 	});
+	
+	$.confirm({
+		title: '是否完成付款?',
+		content: '是否綠界支付付款？&nbsp;按[完成]頁面將會跳轉到課程清單。&nbsp;按[失敗]頁面將不會發生跳轉，請重新嘗試付款。',
+		buttons: {
+			confirm:  {
+				text: '完成',
+				btnClass: 'btn-success',
+				action : function() {
+					// 頁面跳轉
+				}
+			},
+			cancel: {
+				text: '失敗',
+				btnClass: 'btn-danger',
+				action : function() {
+					$.alert('請重新嘗試!');
+				}
+			},
+		}
+	});
 }

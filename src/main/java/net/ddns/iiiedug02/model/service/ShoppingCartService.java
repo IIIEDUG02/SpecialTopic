@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,15 @@ public class ShoppingCartService {
     return shoppingCartRepository.findByUid(uid);
   }
 
+  public List<Integer> findIdListByUid(int uid) {
+    List<ShoppingCart> scl = shoppingCartRepository.findByUid(uid);
+    List<Integer> scidl = new ArrayList<Integer>();
+    for (ShoppingCart sc : scl) {
+      scidl.add(sc.getId());
+    }
+    return scidl;
+  }
+
   public void deleteById(int uid) {
     shoppingCartRepository.deleteById(uid);
   }
@@ -26,5 +36,9 @@ public class ShoppingCartService {
       return shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean());
     }
     return null;
+  }
+
+  public void deleteByList(List<ShoppingCart> scl) {
+    shoppingCartRepository.deleteAll(scl);
   }
 }

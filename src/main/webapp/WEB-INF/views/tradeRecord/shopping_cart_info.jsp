@@ -89,7 +89,7 @@ body {
 						新台幣：<a id="sum">${ sum }</a>
 					</h3>
 					<div class="text-end">
-						<form id="idFormAioCheckOut" method="post" action="/SpecialTopic/ECPayServer">
+						<form id="idFormAioCheckOut" method="post" action="/SpecialTopic/ECPayServer" target="blank_">
 							<input type="hidden" name="TotalAmount" id="TotalAmount"/> 
 							<input type="hidden" name="TradeDesc"   id="TradeDesc"/> 
 							<input type="hidden" name="ItemName"    id="ItemName"/>
