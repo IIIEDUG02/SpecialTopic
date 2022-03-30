@@ -7,40 +7,38 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-@IdClass(ClassBean.class)
+
 @Entity
-@Table(name = "STUDENTANALYSIS")
+@Table(name = "student_analysis")
 @Component
-public @Data class StudentAnalysis implements Serializable {
+@Setter
+@Getter
+public class StudentAnalysis implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  
-  
-
   @Id
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "classID", referencedColumnName = "CID")
-  @JsonIgnore
-  private ClassBean classbean;
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-  @Column(name = "AVERAGEAGE")
+  @Column(name = "ave_age")
   private int averageAge;
 
-  @Column(name = "JOB")
+  @Column(name = "job")
   private String job;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cid", referencedColumnName = "cid")
+  @JsonIgnore
+  private ClassBean classBean;
 
 }

@@ -15,6 +15,7 @@
 			<tr>
 				<td>資料成功存入:</td>
 				<td>課程ID:</td>
+				<td>課程名稱:</td>
 				<td>平均年齡:</td>
 				<td>最多職業:</td>
 			</tr>
@@ -23,7 +24,8 @@
 			<c:forEach var="th" items="${studentAnalList}">
 				<tr>
 					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getClassID()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getClassBean().getCid()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getClassBean().getTitle()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getAverageAge()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getJob()}" /></td>						
 				</tr>
