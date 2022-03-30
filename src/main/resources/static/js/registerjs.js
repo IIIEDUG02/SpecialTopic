@@ -21,13 +21,16 @@ function register1() {
 
 
 function register2() {
-	console.log("456");
+	
 	var mdb = {};
 	mdb["fullname"] = $("#fullname").val();
 	mdb["address"] = $("#address").val();
 	mdb["phone"] = $("#phone").val();
 	mdb["birthday"] = $("#birthday").val();
 	mdb["job"] = $("#job").val();
+	mdb["identitycard"] = $("#identitycard").val();
+	mdb["passportname"] = $("#passportname").val();
+	
 	
     $.ajax({
         type: "POST",

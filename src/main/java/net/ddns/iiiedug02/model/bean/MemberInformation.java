@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import lombok.Data;
+
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
  */
@@ -44,5 +46,12 @@ public class MemberInformation implements Serializable {
   private String job = "";
   @Column(name = "photo")
   private String photo;
+  @Column(name = "passportname")
+  private String passportname;
+  @Column(name = "identitycard")
+  private String identitycard;
+  @Column(name = "gender")
+  private Integer gender;
+  
 
 }

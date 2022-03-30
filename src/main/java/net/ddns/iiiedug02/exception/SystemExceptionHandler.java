@@ -9,17 +9,19 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 public class SystemExceptionHandler {
 
-  @ExceptionHandler(NotLoginException.class)
-  public ModelAndView noLoginException(NotLoginException e) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("index");
-    mav.addObject("errMsg", "請先登入！！");
-    return mav;
-  }
+	@ExceptionHandler(NotLoginException.class)
+	public ModelAndView noLoginException(NotLoginException e) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+		mav.addObject("errMsg", "請先登入！！");
+		return mav;
+	}
 
-  @ExceptionHandler(UserNotFoundException.class)
+	@ExceptionHandler(UserNotFoundException.class)
   public Object userNotFountException(UserNotFoundException e) {
     String eMsg = e.getMessage();
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(eMsg);
-  }
+	}
+	
+	
 }
