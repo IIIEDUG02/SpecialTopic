@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,70 +20,42 @@
 }
 </style>
 </head>
-<script>
-		function addCheck(){
-			var username=document.getElementById("username").value;
-			var password=document.getElementById("password").value;
-			var repassword=document.getElementById("repassword").value;
-			var email=document.getElementById("email").value;
-			if(username==""){
-				alert("使用者名稱不能為空!");
-				document.getElementById("username").focus();  
-				return false;
-                }
-			if(password==""){
-				alert("密碼不能為空!");
-				 document.getElementById("password").focus();
-				 return false;
-				 }
-			if(password != repassord){
-				alert("兩次輸入密碼不相同!");
-				 document.getElementById("repassword").focus();
-				 return false;
-				 }
-		}
-		function validate(){
-		    var flag = addCheck();
-		    if(flag == false)
-		        return false;
-		    return true;
-	    }
-	</script>
 <body>
 	<div class="main-box">
 		<h3 style="text-align: center">帳號註冊</h3>
-		<form action="#" METHOD="GET" onsubmit="return validate()">
+		<form action="/SpecialTopic/registerAction1" METHOD="POST"
+			onsubmit="return validate()">
 			<div>
 				帳號:<input type="text" id="username" name="username"
-					required="required" value="輸入16個字元以內" maxlength="16"
+					required="required" maxlength="16"
 					onfocus="if(this.value == '輸入16個字元以內') this.value =''" />
 			</div>
-			</br>
+			<br />
 			<div>
 				密碼:<input type="text" id="password" name="password"
-					required="required" value="輸入20個字元以內" maxlength="20"
+					required="required" maxlength="20"
 					onfocus="if(this.value == '輸入20個字元以內') this.value =''" />
 			</div>
-			</br>
+			<br />
 			<div>
 				確認密碼:<input type="text" id="repassword" name="repassword"
-					required="required" value="重新輸入密碼" maxlength="20"
+					required="required" maxlength="20"
 					onfocus="if(this.value == '重新輸入密碼') this.value =''" />
 			</div>
-			</br>
+			<br />
 			<div>
-				<label>電子信箱:<input type="text" id="email" name="email"
-					required="required" />
+				電子信箱:<input type="text" id="email" name="email" required="required" />
 			</div>
-			</br>
+			<br />
 			<div>
-				<input type="submit" onclick="validate();register1()" value="送 出" />
-
-				<input type="button"
+				<input type="submit" value="送 出" /> <input type="button"
 					onclick="javascript:window.location = '/SpecialTopic/'"
 					value="返 回 首 頁" />
 			</div>
 		</form>
+		<c:if test="${not empty errMsg}">
+			<script>alert("${errMsg}")</script>
+		</c:if>
 	</div>
 </body>
 </html>

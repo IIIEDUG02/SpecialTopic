@@ -48,30 +48,37 @@
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>
 		<!-- .navbar -->
+		
+		<!-- Button trigger modal -->
+		<a type="button" class="get-started-btn" data-bs-toggle="modal"
+			data-bs-target="#loginform" >登入</a>
 
-		<button type="button" id="login" class="btn btn-primary" data-bs-target="login_page">登入</button> 
-		
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">會員登入</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-        <button type="button" class="btn btn-primary">儲存</button>
-      </div>
-    </div>
-  </div>
-</div>
-		
+		<!-- Modal -->
+		<div class="modal fade" id="loginform" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">登入</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">...</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+
 	<!-- 登入驗證畫面渲染 -->
 	<script src="/SpecialTopic/js/loginjs.js"></script>
 </header>
