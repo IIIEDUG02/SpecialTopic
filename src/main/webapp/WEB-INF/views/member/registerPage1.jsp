@@ -19,7 +19,7 @@
 }
 </style>
 </head>
-    <script>
+<script>
 		function addCheck(){
 			var username=document.getElementById("username").value;
 			var password=document.getElementById("password").value;
@@ -52,36 +52,36 @@
 	<div class="main-box">
 		<h3 style="text-align: center">帳號註冊</h3>
 		<form action="#" METHOD="GET" onsubmit="return validate()">
-		<table>
-
 			<div>
 				帳號:<input type="text" id="username" name="username"
-					required="required" value="輸入16個字元以內" maxlength = "16" onfocus = "if(this.value == '輸入16個字元以內') this.value =''"/>
+					required="required" value="輸入16個字元以內" maxlength="16"
+					onfocus="if(this.value == '輸入16個字元以內') this.value =''" />
 			</div>
 			</br>
 			<div>
-				密碼:<input type="text" id="password" name="password" required="required"
-				 value="輸入20個字元以內" maxlength = "20" onfocus = "if(this.value == '輸入20個字元以內') this.value =''"/> 
+				密碼:<input type="text" id="password" name="password"
+					required="required" value="輸入20個字元以內" maxlength="20"
+					onfocus="if(this.value == '輸入20個字元以內') this.value =''" />
 			</div>
 			</br>
 			<div>
-				確認密碼:<input type="text" id="repassword" name="repassword" required="required" 
-				value="重新輸入密碼" maxlength = "20" onfocus = "if(this.value == '重新輸入密碼') this.value =''"/>
+				確認密碼:<input type="text" id="repassword" name="repassword"
+					required="required" value="重新輸入密碼" maxlength="20"
+					onfocus="if(this.value == '重新輸入密碼') this.value =''" />
 			</div>
 			</br>
 			<div>
-				<label>電子信箱:</label><input type="text" id="email" name="email" required="required"/>
+				<label>電子信箱:<input type="text" id="email" name="email"
+					required="required" />
 			</div>
 			</br>
 			<div>
-				<input type="button" onclick="register1()" value="送 出" />
-				
-				<input
-					type="button"
+				<input type="submit" onclick="validate();register1()" value="送 出" />
+
+				<input type="button"
 					onclick="javascript:window.location = '/SpecialTopic/'"
-					value="返 回 首 頁" />				
+					value="返 回 首 頁" />
 			</div>
-		</table>	
 		</form>
 	</div>
 </body>

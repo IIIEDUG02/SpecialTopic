@@ -4,42 +4,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js" ></script>
-<script type="text/javascript" src="/SpecialTopic/js/registerjs.js" ></script>
+<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/SpecialTopic/js/registerjs.js"></script>
 <title>帳號註冊</title>
+<style>
+.main-box {
+	margin: 50px auto;
+	width: 400px;
+	height: 330px;
+	padding: 50px;
+	box-shadow: 5px 5px 10px #999;
+	border: 1px solid #fff text-align:center;
+	font-size: 1.0em;
+}
+</style>
 </head>
 <body>
-	<h3>帳號註冊</h3>
+	<div class="main-box">
+		<h3 style="text-align: center">帳號註冊</h3>
 		<form action="#" METHOD="GET">
-		<table>
-			<tr>
-				<td><label>全名:</label><input type="text" id="fullname" /></td>
-			</tr>
-			<tr>
-				<td><label>地址:</label><input type="text" id="address"/></td>
-			</tr>
-			<tr>
-				<td><label>電話:</label><input type="text" id="phone" /></td>
-			</tr>
-			<tr>
-				<td><label>生日:</label><input type="date" id="birthday" /></td>
-			</tr>
-			<tr>
-				<td><label>工作:</label><input type="text" id="job"></td>
-			</tr>
-			<tr>
-				<td><label>身分證字號:</label><input type="text" id="identitycard"></td>
-			</tr>
-			<tr>
-				<td><label>護照英文名子:</label><input type="text" id="passportname"></td>
-			</tr>
-				<td>
-					<input type="button" onclick="register2()" value="送出" />
-					<input type="button" onclick="javascript:window.location = '/SpecialTopic/'" value="返回首頁"/>
+			<div>
+				全名:<input type="text" id="fullname" required="required"/>
 				</td>
-			</tr>
-		</table>
-	</form>
-
+			</div>
+			</br>
+			<div>
+				地址:<input type="text" id="address" required="required"/>
+				</td>
+			</div>
+			</br>
+			<div>
+				電話:<input type="text" id="phone" required="required"/>
+				</td>
+			</div>
+			</br>
+			<div>
+				生日:<input type="date" id="birthday" required="required"/>
+				</td>
+			</div>
+			</br>
+			<div>
+				工作:<input type="text" id="job" required="required">
+				</td>
+			</div>
+			</br>
+			<div>
+				身分證字號:<input type="text" id="identitycard" required="required">
+				</td>
+			</div>
+			</br>
+			<div>
+				護照英文名子:<input type="text" id="passportname" required="required">
+				</td>
+			</div>
+			</br>
+			<div>
+				<input type="button" onclick="register2()" value="送出" /> <input
+					type="button"
+					onclick="javascript:window.location = '/SpecialTopic/'"
+					value="返回首頁" />
+			</div>
+		</form>
+	</div>
 </body>
 </html>
