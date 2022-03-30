@@ -60,5 +60,10 @@ public class CashService {
   public List<Map<String, Integer>> getMonthTop5Class(int year, int month) {
     return cashRepository.getMonthTop5Class(year, month);
   }
+  
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getAverageAge() {
+    return cashRepository.getAverageAge();
+  }
 
 }
