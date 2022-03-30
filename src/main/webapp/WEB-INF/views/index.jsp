@@ -8,13 +8,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>OOXX線上教學平台</title>
+<title>雲端大學</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<jsp:include page="incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
@@ -39,8 +38,8 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container" data-aos="fade-in">
-			<h1>歡迎來到 OOXX線上教學平台</h1>
-			<h2>Elegant Bootstrap Template for Startups, Apps &amp; more...</h2>
+			<h1>雲端大學</h1>
+			<h2>學習無所不在，隨時、隨地</h2>
 			<img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs"
 				data-aos="zoom-out" data-aos-delay="100">
 		</div>
