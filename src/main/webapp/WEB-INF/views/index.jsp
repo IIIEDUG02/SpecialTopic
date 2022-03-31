@@ -42,7 +42,7 @@
 
 <body>
 	<!-- ======= Header ======= -->
-	<jsp:include page="incloud/header-section2.jsp" />
+	<jsp:include page="incloud/header-section.jsp" />
 
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">

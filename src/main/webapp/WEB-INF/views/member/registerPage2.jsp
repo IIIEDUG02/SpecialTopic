@@ -12,7 +12,7 @@
 .main-box {
 	margin: 50px auto;
 	width: 400px;
-	height: 330px;
+	height: 340px;
 	padding: 50px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff text-align:center;
