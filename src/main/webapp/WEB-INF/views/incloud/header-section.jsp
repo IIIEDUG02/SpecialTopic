@@ -50,7 +50,7 @@
 		<!-- .navbar -->
 		
 		<!-- Button trigger modal -->
-		<a type="button" class="get-started-btn" data-bs-toggle="modal"
+		<a type="button" id="login" class="get-started-btn" data-bs-toggle="modal"
 			data-bs-target="#loginform" >登入</a>
 
 		<!-- Modal -->
@@ -66,22 +66,22 @@
 					</div>
 					<!-- Body -->
 					<div class="modal-body" style="background-color: hsla(89, 43%, 51%, 0.3)">
-						<form>
+						<form action="/SpecialTopic/login" method="POST">
 							<!-- username -->
 							<div class="form-group" >
-								<input type="username" class="username form-control" placeholder="帳號 :">							
+								<input type="text" name="username" class="username form-control" placeholder="帳號 :">							
 							</div>
 							<!-- passowrd -->
 							<div class="form-group">
-								<input type="password" class="password form-control" placeholder="密碼 :">							
+								<input type="password" name="password" class="password form-control" placeholder="密碼 :">							
 							</div>
 							<!-- checkbox -->
 							<div class="form-group">
-								<input type="checkbox" class="remember">記住我的密碼
+								<input type="checkbox" id="rememberMe-key" name="rememberMe-key" class="remember">記住我的密碼
 							</div>	
 							<!-- 送出按鈕 -->
 							<div>
-							<button type="button" class="btn btn-primary">登入</button>						
+							<button type="submit" class="btn btn-primary">登入</button>						
 							</div>									
 						</form>
 					
