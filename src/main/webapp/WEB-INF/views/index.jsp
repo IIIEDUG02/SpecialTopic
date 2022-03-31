@@ -23,6 +23,14 @@
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 
+<style>
+.modal-backdrop {
+  z-index: -1;
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+}
+</style>
+
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/

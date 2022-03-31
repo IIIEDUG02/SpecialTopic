@@ -7,9 +7,9 @@ xmlhttp.onreadystatechange = function() {
 		indexRender(data);
 	}
 };
-
 xmlhttp.open("GET", url, false);
 xmlhttp.send();
+
 
 function indexRender(data) {
 	if (data == null) {
@@ -20,4 +20,5 @@ function indexRender(data) {
 	} else {
 		$("li#dp").remove();
 	}
+
 }
