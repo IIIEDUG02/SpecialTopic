@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassDetailsBean;
@@ -17,14 +16,13 @@ import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 
 @Controller
-@RequestMapping(value = "/update")
 public class ClassController2 {
 
   @Autowired
   private ClassBeanService cbs;
 
   // 編輯課程
-  @GetMapping(value = "/{cid}")
+  @GetMapping(value = "update/{cid}")
   public String updatePage(@PathVariable int cid) {
     ClassBean cb = cbs.findById(cid);
     ModelAndView mav = new ModelAndView();
@@ -32,14 +30,14 @@ public class ClassController2 {
     return "backstage/classEdit";
   }
 
-  @PostMapping(value = "/Action")
+  @PostMapping(value = "update/Action")
   public String updateAction(@RequestBody MultiValueMap<String, String> formData) {
 
     ClassBean cb = new ClassBean();
     cb.setCid(Integer.parseInt(formData.get("cid").get(0)));
     cb.setUid(Integer.parseInt(formData.get("uid").get(0)));
     cb.setClassType(formData.get("classType").get(0));
-    cb.setPhoto(new byte[10]);
+    cb.setPhoto("");
     cb.setPrice(Integer.parseInt(formData.get("price").get(0)));
     cb.setTitle(formData.get("title").get(0));
 
@@ -70,5 +68,4 @@ public class ClassController2 {
 
     return "redirect:/seeteacherclass";
   }
-
 }

@@ -47,7 +47,7 @@
 			<!-- Articles container -->
 			<div class="d-grid p-left">
 				<!-- 使用 for 迴圈取出每筆售課紀錄在頁面上 -->
-				<c:forEach var="classBean" items="${class_c2bList_Map.keySet()}">
+				<c:forEach var="classBean" items="${class_cmbList_Map.keySet()}">
 					<div class="shadow p-3 mb-5 bg-body rounded">
 						<div class="pb-and-bb">
 							<!-- Article head -->
@@ -69,7 +69,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${class_c2bList_Map.get(classBean)}"
+									<c:forEach items="${class_cmbList_Map.get(classBean)}"
 										var="c2bBean">
 										<tr>
 											<td class="col"><c:out value="${c2bBean.getUid()}" /></td>

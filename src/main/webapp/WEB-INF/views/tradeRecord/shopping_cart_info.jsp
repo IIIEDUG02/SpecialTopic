@@ -73,8 +73,8 @@ body {
 						</div>
 						<input type="hidden" id="hidden_cid" value="${item.getClassBean().getCid()}"/>
 						<div class="col-2">
-							<button type="button" class="btn btn-danger"
-								onclick="sc_del(${item.getId()})">刪除</button>
+							<button type="button" class="btn btn-danger" id="sc_btn"
+								onclick="sc_del(${item.getClassBean().getCid()})">移出購物車</button>
 						</div>
 					</div>
 				</c:forEach>

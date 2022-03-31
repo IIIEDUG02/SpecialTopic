@@ -1,12 +1,16 @@
-function sc_del(sid) {
+function sc_del(cid) {
 	$.ajax({
 		type: "delete",
-		url: "/SpecialTopic/ShoppingCart/" + sid,
+		url: "/SpecialTopic/ShoppingCart/" + cid,
 		success: function(data) {
 			if (data == "success") {
-				$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + sid).html()))
+				$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + cid).html()))
 				$('a#total').html(parseInt($('a#total').html()) - 1)
-				$('div#item' + sid).remove();
+				$('div#item' + cid).remove();
+				$('button#sc_btn').html("加入購物車");
+				$('button#sc_btn').attr('onclick', "sc_add(" + cid +")");
+				$('button#sc_btn').addClass("btn-success");
+				$('button#sc_btn').removeClass("btn-danger");
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 			} else {
 				alert("網頁發生錯誤");
@@ -26,13 +30,11 @@ function sc_add(cid) {
 		contentType: "application/json",
 		success: function(data) {
 			if (data != "") {
-				//var del_btn = $('<div class="col-2"><button type="button" class="btn btn-danger"	onclick="sc_del(' + data['id'] + ')">刪除</button></div>');
-				//var h4_price = $('<div class="col-4"><h4 id="price$' + data['classBean']['price'] + '">${item.getClassBean().getPrice()}</h4></div>')
-				//var h4_title = $('<div class="col-6"><h4>' + data['classBean']['title'] + '</h4></div>')
-				//var div = $('<div id="' + data['id'] + '}" class="row m-3 shadow p-1"></div>')
-				//div.append(h4_title,h4_price,del_btn);
-				//console.log(data)
-				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) + 1);
+				$('span#shoppingcart_count').html(parseInt(1 + parseInt($('span#shoppingcart_count').html())) );
+				$('button#sc_btn').html("移出購物車");
+				$('button#sc_btn').removeClass("btn-success");
+				$('button#sc_btn').addClass("btn-danger");
+				$('button#sc_btn').attr('onclick', "sc_del(" + cid +")");
 			} else {
 				alert("網頁發生錯誤");
 			}

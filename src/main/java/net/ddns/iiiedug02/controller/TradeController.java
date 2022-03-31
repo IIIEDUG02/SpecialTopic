@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import net.ddns.iiiedug02.exception.NotLoginException;
-import net.ddns.iiiedug02.model.bean.C2BBean;
 import net.ddns.iiiedug02.model.bean.ClassBean;
+import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.EcpayRecord;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.ShoppingCart;
-import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.EcpayRecordService;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.ShoppingCartService;
@@ -40,8 +40,8 @@ public class TradeController {
   @Autowired
   private ShoppingCartService shoppingCartService;
 
-  @Autowired
-  private CashService cashService;
+  // @Autowired
+  // private CashService cashService;
 
   @Autowired
   private MemberService memberService;
@@ -49,7 +49,11 @@ public class TradeController {
   @Autowired
   private ClassBeanService classService;
 
+  @Autowired
+  private ClassManagementService classManagementService;
+
   private static AllInOne all = new AllInOne("");
+
 
 
   // 將購物車資料送至綠界api-1
@@ -97,7 +101,7 @@ public class TradeController {
     // 當消費者付款完成後，綠界會將付款結果參數以幕後(Server POST)回傳到該網址(該網址須是一個固定IP且使用https協定)。
     // 必設欄位。但我們可以忽略相關的後續處理作業。
     // B.以Client端(消費者)方式回傳付款結果通知
-    obj.setOrderResultURL("http://localhost:8080/SpecialTopic/ECPayServer3");
+    obj.setOrderResultURL("http://localhost:8080/SpecialTopic/getEcPayResult");
     // 當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。
     // 若與下面[ClientBackURL]同時設定，將會以此參數為主。
     // ********************************//
@@ -112,7 +116,7 @@ public class TradeController {
   // 【ECPayServer.java】obj.setOrderResultURL("http://localhost:8080/ecpay/ECPayServer3");
   // 當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。
   // 若與[ClientBackURL]同時設定，將會以此參數為主。
-  @PostMapping(value = "/ECPayServer3", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
+  @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
   @ResponseBody
   public String processPaymentResult2(HttpServletRequest request, HttpSession httpsession,
       Principal p) {
@@ -139,6 +143,7 @@ public class TradeController {
     // 消費者付款成功且檢查碼正確的時候： (RtnCode:交易狀態(1:成功，其餘為失敗))
     if ("1".equals(dict.get("RtnCode")) && checkStatus) {
 
+      // 交易ID
       EcpayRecord er = ecpayRecordService.findByOrderId(dict.get("MerchantTradeNo"));
       java.sql.Date orderDate = new java.sql.Date(new Date().getTime());
 
@@ -150,19 +155,27 @@ public class TradeController {
 
       if ("Succeeded".equals(dict.get("RtnMsg"))) {
         String[] cidStrList = er.getCids().split("#");
-        List<ShoppingCart> scList = shoppingCartService.findByUid(loginBean.getUid());
-        List<C2BBean> c2bList = new ArrayList<C2BBean>();
+        List<ShoppingCart> scList = shoppingCartService.findAllByUid(loginBean.getUid());
+        // List<C2BBean> c2bList = new ArrayList<C2BBean>();
+        List<ClassManagementBean> cmbList = new ArrayList<ClassManagementBean>();
         // 刪除購物車 & 寫入C2B
         for (String cidStr : cidStrList) {
           int cidInt = Integer.parseUnsignedInt(cidStr);
-          C2BBean c2bBean = new C2BBean();
-          c2bBean.setCid(cidInt);
-          c2bBean.setUid(loginBean.getUid());
-          c2bBean.setOrderDate(orderDate);
-          c2bList.add(c2bBean);
+          // C2BBean c2bBean = new C2BBean();
+          // c2bBean.setCid(cidInt);
+          // c2bBean.setUid(loginBean.getUid());
+          // c2bBean.setOrderDate(orderDate);
+          // c2bList.add(c2bBean);
+
+          ClassManagementBean cmb = new ClassManagementBean();
+          cmb.setCid(cidInt);
+          cmb.setUid(cidInt);
+          cmb.setTid(dict.get("MerchantTradeNo"));
+          cmbList.add(cmb);
         }
         shoppingCartService.deleteByList(scList);
-        cashService.insertByList(c2bList);
+        // cashService.insertByList(c2bList);
+        classManagementService.insertByList(cmbList);
       }
       return "<h1>伺服端已接收到從用戶端(付款者)送出的「付款成功」通知。</h1>";
     } else
@@ -177,14 +190,15 @@ public class TradeController {
     Member mb = memberService.findByUsername(p.getName());
 
     List<ClassBean> classList = classService.findAllByUid(mb.getUid());
-    Map<ClassBean, List<C2BBean>> class_c2bList_Map = new HashMap<ClassBean, List<C2BBean>>();
+    Map<ClassBean, List<ClassManagementBean>> class_cmbList_Map =
+        new HashMap<ClassBean, List<ClassManagementBean>>();
 
     for (ClassBean classBean : classList) {
-      List<C2BBean> tradeList = cashService.findByCid(classBean.getCid());
-      class_c2bList_Map.put(classBean, tradeList);
+      List<ClassManagementBean> tradeList = classManagementService.findByCid(classBean.getCid());
+      class_cmbList_Map.put(classBean, tradeList);
     }
 
-    m.addAttribute("class_c2bList_Map", class_c2bList_Map);
+    m.addAttribute("class_cmbList_Map", class_cmbList_Map);
     return "tradeRecord/teacher";
 
   }
