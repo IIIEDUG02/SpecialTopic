@@ -12,11 +12,23 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<style>
+.position_fixed {
+	position: fixed;
+}
+
+.top64 {
+	height: 100px;
+}
+</style>
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
+
+<!-- article CSS -->
+<link rel="stylesheet" href="css/articles.css" />
 
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
@@ -28,9 +40,8 @@
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-	<!-- ======= Breadcrumbs ======= -->
-	<div class="breadcrumbs" data-aos="fade-in"></div>
-
+	<div class="top64">
+	</div>
 	<main id="main">
 		<div class="container">
 			<c:choose>
@@ -41,14 +52,17 @@
 					<div class="row">
 						<!-- 課程介紹 -->
 						<div class="col-8 min-vh-100">
-							<h3>${classBean.getTitle()}</h3>
-							<a>${classBean.getClassType()}</a>
+							<div class="shadow p-3">
+								<h3>${classBean.getTitle()}</h3>
+								<img src="${classBean.getPhoto()}" alt="課程圖片" width="300"
+									height="200">
+								<a>${classBean.getClassType()}</a>
+							</div>
 						</div>
-						
+
 						<!-- 購物車 -->
 						<div class="col-4">
-							<div class="shadow m-3 p-3">
-								<img src="${classBean.getPhoto()}" alt="課程圖片">
+							<div class="shadow p-3 position_fixed">
 								<h3>價格:${classBean.getPrice()}</h3>
 								<c:choose>
 									<c:when test="${not empty classManagerBean}">
@@ -69,7 +83,7 @@
 								</c:choose>
 							</div>
 						</div>
-					
+
 					</div>
 				</c:otherwise>
 			</c:choose>
