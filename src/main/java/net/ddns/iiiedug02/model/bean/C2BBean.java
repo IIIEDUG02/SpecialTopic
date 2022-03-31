@@ -35,7 +35,4 @@ public @Data class C2BBean implements Serializable {
   @Column(name = "order_date")
   private Date orderDate;
 
-  @Column(name = "completed")
-  private short completed;
-
 }

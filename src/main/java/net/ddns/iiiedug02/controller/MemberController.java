@@ -3,6 +3,7 @@ package net.ddns.iiiedug02.controller;
 import java.security.Principal;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ public class MemberController {
   // 取得登入成功後使用者名稱
   @GetMapping(value = "/getLoginStatus")
   @ResponseBody
+  @Scope("session")
   public String processPrincipalQuery(Principal p, HttpSession session) {
     JsonObject result = new JsonObject();
     // 完成登入後 Principal 才會有物件，若未登入 Principal == null
@@ -65,11 +67,11 @@ public class MemberController {
     result.addProperty("result", "ok");
     return result.toString();
   }
-  
+
   @GetMapping("/countmember.controller")
   @ResponseBody
   public int countMemberAction() {
-	  return ms.countMember();
+    return ms.countMember();
   }
 
   // @GetMapping("/userprofilesQueryByName.controller")

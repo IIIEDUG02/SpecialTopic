@@ -35,7 +35,7 @@ public class ShoppigCartController {
   public List<ShoppingCart> getShoppingCart(HttpSession httpsession) {
     Member loginBean = (Member) httpsession.getAttribute("loginBean");
     if (null != loginBean) {
-      return shoppigCartService.findByUid(loginBean.getUid());
+      return shoppigCartService.findAllByUid(loginBean.getUid());
     }
     return new ArrayList<>();
   }
@@ -44,7 +44,7 @@ public class ShoppigCartController {
   public String getShoppingCart(HttpSession httpsession, Model m) {
     Member loginBean = (Member) httpsession.getAttribute("loginBean");
     if (null != loginBean) {
-      List<ShoppingCart> scl = shoppigCartService.findByUid(loginBean.getUid());
+      List<ShoppingCart> scl = shoppigCartService.findAllByUid(loginBean.getUid());
       int sum = 0;
       for (ShoppingCart sc : scl) {
         sum = sum + sc.getClassBean().getPrice();
@@ -55,18 +55,19 @@ public class ShoppigCartController {
     return "tradeRecord/shopping_cart_info";
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("{cid}")
   @ResponseBody
-  public String deleteById(HttpSession httpsession, @PathVariable int id) {
+  public String deleteByCid(HttpSession httpsession, @PathVariable int cid) {
+
     Member loginBean = (Member) httpsession.getAttribute("loginBean");
-    if (null != loginBean) {
-      List<ShoppingCart> scl = shoppigCartService.findByUid(loginBean.getUid());
-      if (!scl.isEmpty()) {
-        shoppigCartService.deleteById(id);
-        return "success";
-      }
+    ClassBean cb = classBeanService.findById(cid);
+    ShoppingCart sc = shoppigCartService.findByUidAndClassBean(loginBean.getUid(), cb);
+    if (null != sc) {
+      shoppigCartService.deleteById(sc.getId());
+      return "success";
     }
     return "fail";
+
   }
 
   @PostMapping("{cid}")

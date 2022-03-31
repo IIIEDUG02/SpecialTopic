@@ -27,11 +27,13 @@
 
 <!-- 購物車的JS -->
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 <style>
-	body {
-		font-family: "PingFang TC", 微軟正黑體, sans-serif;
-	}
+body {
+	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+}
 </style>
 </head>
 <body>
@@ -48,7 +50,9 @@
 			<div id="sc_info" class="col-sm-8 mt-5">
 				<h4 class="">
 					<span aria-hidden="true" class="fa fa-shopping-cart"></span> 購物車 <small
-						class="text-muted">總計 <a id="total">${shoppingCartList.size()}</a> 堂課</small>
+						class="text-muted">總計 <a id="total">${shoppingCartList.size()}</a>
+						堂課
+					</small>
 				</h4>
 				<div class="row m-3 p-1">
 					<div class="col-6">
@@ -62,14 +66,15 @@
 				<c:forEach var="item" items="${shoppingCartList}">
 					<div id="item${item.getId()}" class="row m-3 shadow p-1">
 						<div class="col-6">
-							<h4>${item.getClassBean().getTitle()}</h4>
+							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
 						</div>
 						<div class="col-4">
 							<h4 id="price${item.getId()}">${item.getClassBean().getPrice()}</h4>
 						</div>
+						<input type="hidden" id="hidden_cid" value="${item.getClassBean().getCid()}"/>
 						<div class="col-2">
-							<button type="button" class="btn btn-danger"
-								onclick="sc_del(${item.getId()})">刪除</button>
+							<button type="button" class="btn btn-danger" id="sc_btn"
+								onclick="sc_del(${item.getClassBean().getCid()})">移出購物車</button>
 						</div>
 					</div>
 				</c:forEach>
@@ -80,9 +85,17 @@
 					<h5 class="mt-3">訂單明細</h5>
 					<hr class="border-2 border-top border-black">
 					<div>小記</div>
-					<h3 class="text-end">新台幣：<a id="sum">${ sum }</a></h3>
+					<h3 class="text-end">
+						新台幣：<a id="sum">${ sum }</a>
+					</h3>
 					<div class="text-end">
-						<button type="button" class="btn btn-success">結帳</button>
+						<form id="idFormAioCheckOut" method="post" action="/SpecialTopic/ECPayServer" target="blank_">
+							<input type="hidden" name="TotalAmount" id="TotalAmount"/> 
+							<input type="hidden" name="TradeDesc"   id="TradeDesc"/> 
+							<input type="hidden" name="ItemName"    id="ItemName"/>
+							<input type="hidden" name="CidList"      id="CidList"/>
+							<button type="button" class="btn btn-success" onclick="checkout()">結帳</button>
+						</form>
 					</div>
 				</div>
 			</div>
