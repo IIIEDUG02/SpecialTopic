@@ -57,6 +57,10 @@ public class ClassController {
   public String playVideo() {
 	  return "video";
   }
+  @GetMapping(value = "/test")
+  public String test() {
+	  return "class/creatCurriculum";
+  }
 
   // show課程
   @GetMapping(value = "/seeteacherclass")
@@ -136,7 +140,11 @@ public class ClassController {
 	  
   }
   
-  
+  @PostMapping(value = "/insertcurriculum")
+  public String creatCurriculum() {
+	  return "creatCurriculum";
+  }
+
 
 
 }

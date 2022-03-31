@@ -25,12 +25,11 @@ public class ClassController2 {
 
   // 編輯課程
   @GetMapping(value = "/{cid}")
-  public ModelAndView updatePage(@PathVariable int cid) {
+  public String updatePage(@PathVariable int cid) {
     ClassBean cb = cbs.findById(cid);
     ModelAndView mav = new ModelAndView();
     mav.addObject("classBean", cb);
-    mav.setViewName("../../../WEB-INF/views/backstage/classEdit");
-    return mav;
+    return "backstage/classEdit";
   }
 
   @PostMapping(value = "/Action")
