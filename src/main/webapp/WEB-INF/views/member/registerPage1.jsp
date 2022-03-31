@@ -12,7 +12,7 @@
 .main-box {
 	margin: 50px auto;
 	width: 400px;
-	height: 200px;
+	height: 500px;
 	padding: 50px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff text-align:center;
@@ -30,23 +30,51 @@
 					required="required" maxlength="16"
 					onfocus="if(this.value == '輸入16個字元以內') this.value =''" />
 			</div>
-			<br />
+			<br/>
 			<div>
 				密碼:<input type="text" id="password" name="password"
 					required="required" maxlength="20"
 					onfocus="if(this.value == '輸入20個字元以內') this.value =''" />
 			</div>
-			<br />
+			<br/>
 			<div>
 				確認密碼:<input type="text" id="repassword" name="repassword"
 					required="required" maxlength="20"
 					onfocus="if(this.value == '重新輸入密碼') this.value =''" />
 			</div>
-			<br />
+			<br/>
+			<div>
+				全名:<input type="text" id="fullname" required="required"/>			
+			</div>
+			<br/>
 			<div>
 				電子信箱:<input type="text" id="email" name="email" required="required" />
 			</div>
-			<br />
+			<br/>
+			<div>
+				地址:<input type="text" id="address" required="required"/>				
+			</div>
+			<br/>
+			<div>
+				電話:<input type="text" id="phone" required="required"/>				
+			</div>
+			<br/>
+			<div>
+				生日:<input type="date" id="birthday" required="required"/>				
+			</div>
+			<br/>
+				<div>
+				工作:<input type="text" id="job" required="required">				
+			</div>
+			<br/>
+			<div>
+				身分證字號:<input type="text" id="identitycard" required="required">
+			</div>
+			<br/>
+			<div>
+				護照英文名子:<input type="text" id="passportname" required="required">				
+			</div>
+			<br/>
 			<div>
 				<input type="submit" value="送 出" /> <input type="button"
 					onclick="javascript:window.location = '/SpecialTopic/'"
