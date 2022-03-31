@@ -59,7 +59,7 @@ public class ClassController {
   }
   @GetMapping(value = "/test")
   public String test() {
-	  return "creatCurriculum";
+	  return "class/creatCurriculum";
   }
 
   // show課程
@@ -140,7 +140,11 @@ public class ClassController {
 	  
   }
   
-  
+  @PostMapping(value = "/insertcurriculum")
+  public String creatCurriculum() {
+	  return "creatCurriculum";
+  }
+
 
 
 }
