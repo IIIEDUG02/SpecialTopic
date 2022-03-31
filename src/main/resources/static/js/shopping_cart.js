@@ -68,25 +68,6 @@ function checkout() {
 		$('input#CidList').val($('input#CidList').val() + $(this).val());
 	});
 	
-	$.confirm({
-		title: '確認付款',
-		content: '請檢查付款資訊是否正確，確認後將前往綠界支付頁面。',
-		buttons: {
-			confirm: {
-				text: '確認',
-				btnClass: 'btn-success',
-				action: function() {
-					$('form#idFormAioCheckOut').submit();
-				}
-			},
-			cancel: {
-				text: '取消',
-				btnClass: 'btn-danger',
-				action: function() {
-					$.alert('取消付款!');
-				}
-			},
-		}
-	});
-	location.reload();
+	$('form#idFormAioCheckOut').submit();
+	//location.reload();
 }

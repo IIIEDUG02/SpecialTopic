@@ -27,8 +27,10 @@
 
 <!-- 購物車的JS -->
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 <style>
 body {
@@ -64,16 +66,19 @@ body {
 				</div>
 				<hr class="border-2 border-top border-black">
 				<c:forEach var="item" items="${shoppingCartList}">
-					<div id="item${item.getClassBean().getCid()}" class="row m-3 shadow p-1">
+					<div id="item${item.getClassBean().getCid()}"
+						class="row m-3 shadow p-1">
 						<div class="col-6">
 							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
 						</div>
 						<div class="col-4">
 							<h4 id="price${item.getId()}">${item.getClassBean().getPrice()}</h4>
 						</div>
-						<input type="hidden" id="hidden_cid" value="${item.getClassBean().getCid()}"/>
+						<input type="hidden" id="hidden_cid"
+							value="${item.getClassBean().getCid()}" />
 						<div class="col-2">
-							<button type="button" class="btn btn-danger" id="sc_btn_${item.getClassBean().getCid()}"
+							<button type="button" class="btn btn-danger"
+								id="sc_btn_${item.getClassBean().getCid()}"
 								onclick="sc_del(${item.getClassBean().getCid()})">從購物車中移出</button>
 						</div>
 					</div>
@@ -89,12 +94,37 @@ body {
 						新台幣：<a id="sum">${ sum }</a>
 					</h3>
 					<div class="text-end">
-						<form id="idFormAioCheckOut" method="post" action="/SpecialTopic/ECPayServer" target="blank_">
-							<input type="hidden" name="TotalAmount" id="TotalAmount"/> 
-							<input type="hidden" name="TradeDesc"   id="TradeDesc"/> 
-							<input type="hidden" name="ItemName"    id="ItemName"/>
-							<input type="hidden" name="CidList"      id="CidList"/>
-							<button type="button" class="btn btn-success" onclick="checkout()">結帳</button>
+						<form id="idFormAioCheckOut" method="post"
+							action="/SpecialTopic/ECPayServer" target="blank_">
+							<input type="hidden" name="TotalAmount" id="TotalAmount" /> <input
+								type="hidden" name="TradeDesc" id="TradeDesc" /> <input
+								type="hidden" name="ItemName" id="ItemName" /> <input
+								type="hidden" name="CidList" id="CidList" />
+
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-success"
+								data-bs-toggle="modal" data-bs-target="#checkoutModal">
+								結帳</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="checkoutModal" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">確認付款</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">請確認購買的課程及付款金額，確定後將前往綠界付款API</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">取消</button>
+											<button type="button" class="btn btn-primary" onclick="checkout()">確認</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
