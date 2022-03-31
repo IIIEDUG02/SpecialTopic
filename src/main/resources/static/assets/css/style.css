@@ -50,11 +50,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .modal-body form .btn{
 	width:70%;
-	font-size:25px;
-	color: white;
+	font-size:25px;	
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	background-color: #5FCF80;
 }
 
 /*--------------------------------------------------------------
