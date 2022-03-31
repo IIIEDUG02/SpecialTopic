@@ -169,7 +169,8 @@ public class TradeController {
 
           ClassManagementBean cmb = new ClassManagementBean();
           cmb.setCid(cidInt);
-          cmb.setUid(cidInt);
+          cmb.setUid(loginBean.getUid());
+          cmb.setOrderDate(orderDate);
           cmb.setTid(dict.get("MerchantTradeNo"));
           cmbList.add(cmb);
         }
@@ -177,7 +178,7 @@ public class TradeController {
         // cashService.insertByList(c2bList);
         classManagementService.insertByList(cmbList);
       }
-      return "<h1>伺服端已接收到從用戶端(付款者)送出的「付款成功」通知。</h1>";
+      return "<script>alert('付款成功');window.close();</script>";
     } else
       return "<h1>伺服端已接收到從用戶端(付款者)送出的付款通知(但付款資料有誤！)。</h1>";
   }

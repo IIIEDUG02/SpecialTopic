@@ -27,9 +27,6 @@
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- article CSS -->
-<link rel="stylesheet" href="css/articles.css" />
-
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
@@ -71,12 +68,12 @@
 									<c:otherwise>
 										<c:choose>
 											<c:when test="${not empty ShoppingCart}">
-												<button id="sc_btn" class="btn btn-danger"
-													onclick="sc_del(${classBean.getCid()})">移除購物車</button>
+												<button id="sc_btn_${classBean.getCid()}" class="btn btn-danger"
+													onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
 											</c:when>
 											<c:otherwise>
-												<button id="sc_btn" class="btn btn-success"
-													onclick="sc_add(${classBean.getCid()})">加入購物車</button>
+												<button id="sc_btn_${classBean.getCid()}" class="btn btn-success"
+													onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>

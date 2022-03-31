@@ -64,7 +64,7 @@ body {
 				</div>
 				<hr class="border-2 border-top border-black">
 				<c:forEach var="item" items="${shoppingCartList}">
-					<div id="item${item.getId()}" class="row m-3 shadow p-1">
+					<div id="item${item.getClassBean().getCid()}" class="row m-3 shadow p-1">
 						<div class="col-6">
 							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
 						</div>
@@ -73,8 +73,8 @@ body {
 						</div>
 						<input type="hidden" id="hidden_cid" value="${item.getClassBean().getCid()}"/>
 						<div class="col-2">
-							<button type="button" class="btn btn-danger" id="sc_btn"
-								onclick="sc_del(${item.getClassBean().getCid()})">移出購物車</button>
+							<button type="button" class="btn btn-danger" id="sc_btn_${item.getClassBean().getCid()}"
+								onclick="sc_del(${item.getClassBean().getCid()})">從購物車中移出</button>
 						</div>
 					</div>
 				</c:forEach>
