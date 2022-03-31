@@ -1,24 +1,22 @@
 package net.ddns.iiiedug02.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.ddns.iiiedug02.model.bean.ClassBean;
-import net.ddns.iiiedug02.model.bean.ClassDetailsBean;
 import net.ddns.iiiedug02.model.bean.Member;
-import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.YPclass;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
-import net.ddns.iiiedug02.model.service.ClassDetailsService;
-
+import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.YPclassService;
-
 
 
 
@@ -32,6 +30,9 @@ public class YPclassController {
 
   @Autowired
   private ClassBeanService classBeanService;
+
+  @Autowired
+  private MemberService memberService;
 
 
   @GetMapping("/ypclassquerybyid.controller")
@@ -59,38 +60,45 @@ public class YPclassController {
     return "Success3";
   }
 
-//  @GetMapping("/ypclassfindtop5")
-//  @ResponseBody
-//  public List<ClassBean> processFindTop5(Model m) {
-//    List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-//
-//    List<YPclass> YPclassList = ypclassService.findAll();
-//    for (YPclass c : YPclassList) {
-//    	ClassBean classbean = classBeanService.findById(c.getClassID());
-////    	classbean.setClassDetailsBean(null);
-//    	classbean.setCurriculumbean(null);
-//        
-//    	classBeanList.add(classbean);
-//    }
-//
-//    return classBeanList;
-//
-//  }
-  
+  // @GetMapping("/ypclassfindtop5")
+  // @ResponseBody
+  // public List<ClassBean> processFindTop5(Model m) {
+  // List<ClassBean> classBeanList = new ArrayList<ClassBean>();
+  //
+  // List<YPclass> YPclassList = ypclassService.findAll();
+  // for (YPclass c : YPclassList) {
+  // ClassBean classbean = classBeanService.findById(c.getClassID());
+  //// classbean.setClassDetailsBean(null);
+  // classbean.setCurriculumbean(null);
+  //
+  // classBeanList.add(classbean);
+  // }
+  //
+  // return classBeanList;
+  //
+  // }
+
   @GetMapping("/ypclassfindtop5")
   @ResponseBody
-  public List<ClassBean> processFindTop5(Model m) {
-    List<ClassBean> classBeanList = new ArrayList<ClassBean>();
+  public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
 
     List<YPclass> YPclassList = ypclassService.findAll();
+
+    List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+
     for (YPclass c : YPclassList) {
-    	ClassBean classBean = c.getClassBean();
-    	classBean.setCurriculumbean(null);
-    	
-      classBeanList.add(classBean);
+      Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+      ClassBean classBean = c.getClassBean();
+      Member teacher = memberService.findByUid(classBean.getUid());
+
+      classBean.setCurriculumbean(null);
+
+      classTeacherInfo.put("class", classBean);
+      classTeacherInfo.put("teacher", teacher.getMemberInformation());
+      result.add(classTeacherInfo);
     }
 
-    return classBeanList;
+    return ResponseEntity.ok(result);
 
   }
 

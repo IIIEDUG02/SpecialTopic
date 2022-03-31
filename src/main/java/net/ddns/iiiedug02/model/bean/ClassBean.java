@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,14 +39,7 @@ public class ClassBean {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
-  
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "uid", referencedColumnName = "uid", insertable = false, updatable = false)
-  private MemberInformation memberInformation;
 
-  public ClassBean() {
-
-  }
 
   public Set<CurriculumBean> getCurriculumbean() {
     return curriculumbean;
@@ -113,16 +104,5 @@ public class ClassBean {
   public void setPhoto(byte[] photo) {
     this.photo = photo;
   }
-
-  public MemberInformation getMemberInformation() {
-	return memberInformation;
-  }
-
-  public void setMemberInformation(MemberInformation memberInformation) {
-	this.memberInformation = memberInformation;
-  }
-  
-  
-  
 
 }
