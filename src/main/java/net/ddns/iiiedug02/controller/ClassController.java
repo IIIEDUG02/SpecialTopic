@@ -34,10 +34,13 @@ import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
+import net.ddns.iiiedug02.model.service.CurriculumService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
 public class ClassController {
+  @Autowired
+  private CurriculumService ccs;
 
   @Autowired
   private ClassBeanService cbs;
@@ -104,7 +107,7 @@ public class ClassController {
     cdb.setVideo(formData.get("video").get(0));
 
     CurriculumBean ccb = new CurriculumBean();
-    ccb.setCid(Integer.parseInt(formData.get("cid").get(0)));
+    ccb.setClassbean(cb);
     ccb.setVideo_path("123");
     ccb.setChapter("123");
     ccb.setClassbean(cb);
@@ -219,4 +222,12 @@ public class ClassController {
     return "class/student";
   }
 
+
+
+  @GetMapping("/classtest")
+  @ResponseBody
+  public List<CurriculumBean> classtest() {
+    ClassBean cb = cbs.findById(1);
+    return ccs.findAllByClassbean(cb);
+  }
 }

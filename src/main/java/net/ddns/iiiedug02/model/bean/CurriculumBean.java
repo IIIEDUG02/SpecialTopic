@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,9 +22,6 @@ public class CurriculumBean {
   private int cuid;
   private String chapter;
   private String video_path;
-
-  @Transient
-  private int cid;
 
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
@@ -46,14 +42,6 @@ public class CurriculumBean {
 
   public void setVideo_path(String video_path) {
     this.video_path = video_path;
-  }
-
-  public int getCid() {
-    return cid;
-  }
-
-  public void setCid(int cid) {
-    this.cid = cid;
   }
 
   public ClassBean getClassbean() {
