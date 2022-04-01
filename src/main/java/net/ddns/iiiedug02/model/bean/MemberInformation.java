@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
@@ -30,6 +31,7 @@ public class MemberInformation implements Serializable {
   @Id
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "uid", referencedColumnName = "uid")
+  @JsonIgnore
   private Member member;
 
   @Column(name = "address")
