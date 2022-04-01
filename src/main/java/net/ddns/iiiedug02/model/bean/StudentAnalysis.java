@@ -30,12 +30,15 @@ public class StudentAnalysis implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "ave_age")
+  @Column(name = "avg_age")
   private int averageAge;
 
   @Column(name = "job")
   private String job;
-
+  
+  @Column(name = "classtitle")
+  private String classtitle;
+  
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cid", referencedColumnName = "cid")
   @JsonIgnore

@@ -80,7 +80,8 @@ public class YPclassController {
 
   @GetMapping("/ypclassfindtop5")
   @ResponseBody
-  public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
+//  public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
+  public List<Map<String, Object>> processFindTop5(Model m) {
 
     List<YPclass> YPclassList = ypclassService.findAll();
 
@@ -98,7 +99,8 @@ public class YPclassController {
       result.add(classTeacherInfo);
     }
 
-    return ResponseEntity.ok(result);
+//    return ResponseEntity.ok(result);
+    return result;
 
   }
 

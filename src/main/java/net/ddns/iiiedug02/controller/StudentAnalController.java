@@ -37,8 +37,9 @@ public class StudentAnalController {
 
       ClassBean cb = classBeanService.findById(a.get("cid"));
       stuanal.setAverageAge(a.get("avgAge"));
+      stuanal.setClasstitle(cb.getTitle());
       stuanal.setJob(null);
-
+      
       stuanal.setClassBean(cb);
       analyService.insert(stuanal);
 
