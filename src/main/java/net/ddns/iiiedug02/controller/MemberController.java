@@ -62,7 +62,7 @@ public class MemberController {
     mb.setPassword(params.get("password"));
     mb.setActivated((short) 0);
     session.setAttribute("registerBean", mb);
-    return "member/registerPage2";
+    return "redirect:/";
   }
 
 
