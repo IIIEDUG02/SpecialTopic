@@ -68,14 +68,12 @@
 						style="background-color: hsla(89, 43%, 51%, 0.3)">
 						<form action="/SpecialTopic/login" method="POST">
 							<!-- username -->
-							<div class="form-group">
-								<input type="text" name="username" class="username form-control"
-									placeholder="帳號 :">
+							<div class="form-group" >
+								<input type="text" name="username" required="required" class="username form-control" placeholder="帳號 :">							
 							</div>
 							<!-- passowrd -->
 							<div class="form-group">
-								<input type="password" name="password"
-									class="password form-control" placeholder="密碼 :">
+								<input type="password" name="password" required="required" class="password form-control" placeholder="密碼 :">							
 							</div>
 							<!-- checkbox -->
 							<div class="form-group">
@@ -93,19 +91,15 @@
 					<div class="modal-footer"
 						style="background-color: hsla(89, 43%, 51%, 0.3)">
 						<div class="signup">
-
-							<span>尚未成為會員?</span> <a href="#" type="button"
-								class="memberregister">立即註冊</a>
+						
+							<span>尚未成為會員?</span>
+							<a href="registerPage1" type="button" class="memberregister" >立即註冊</a>
 						</div>
 
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
-
 	</div>
 
 	<!-- 登入驗證畫面渲染 -->

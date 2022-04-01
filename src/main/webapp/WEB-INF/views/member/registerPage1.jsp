@@ -12,7 +12,7 @@
 .main-box {
 	margin: 50px auto;
 	width: 400px;
-	height: 500px;
+	height: 540px;
 	padding: 50px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff text-align:center;
@@ -73,6 +73,10 @@
 			<br/>
 			<div>
 				護照英文名子:<input type="text" id="passportname" required="required">				
+			</div>
+			<br/>
+			<div>
+				性別: 男<input type="checkbox" id="gender" />女<input type="checkbox" id="gender" />				
 			</div>
 			<br/>
 			<div>
