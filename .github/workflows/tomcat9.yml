@@ -17,6 +17,9 @@ jobs:
     - name: Copy application.properties
       run: mv src/main/resources/application.properties src/main/resources/application.properties.bak
 
+    - name: git submodule pull 
+      run: git submodule update --init --recursive
+
     - name: replace host url
       run: sed -i 's/http:\/\/localhost:8080/https:\/\/iiiedug02.nilm.in/g' src/main/java/net/ddns/iiiedug02/controller/TradeController.java
 
