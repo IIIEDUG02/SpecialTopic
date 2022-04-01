@@ -179,7 +179,7 @@ public class TradeController {
       }
       return "<script>alert('付款成功');</script>";
     } else
-      return "<script>alert('付款失敗');window.close();</script>";
+      return "<script>alert('付款失敗');</script>";
   }
 
   @GetMapping("tradeRecord/teacher")
