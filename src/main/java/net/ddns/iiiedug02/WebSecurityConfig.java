@@ -31,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**","/classphoto/**", "/assets/**", "/viewClass/**", "/*")
+        .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/classphoto/**",
+            "/assets/**", "/viewClass/**", "/*")
         .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
         .permitAll().antMatchers("/cashflow/**").hasRole("admin");
 
@@ -40,6 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("username")
         .passwordParameter("password").defaultSuccessUrl("/").and().logout().logoutUrl("/logout")
         .invalidateHttpSession(true);
+
+    // http.formLogin().loginPage("javascript$('div#loginform').modal('toggle');")
+    // .loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
+    // .defaultSuccessUrl("/").and().logout().logoutUrl("/logout").invalidateHttpSession(true);
+
 
 
     http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");

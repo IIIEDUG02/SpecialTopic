@@ -17,7 +17,7 @@
 	position: fixed;
 }
 
-.top64 {
+.height100 {
 	height: 100px;
 }
 </style>
@@ -37,7 +37,7 @@
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-	<div class="top64">
+	<div class="height100">
 	</div>
 	<main id="main">
 		<div class="container">
@@ -101,8 +101,6 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-
-	<!-- ======= errMsg ======= -->
 
 </body>
 
