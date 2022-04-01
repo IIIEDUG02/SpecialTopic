@@ -101,7 +101,6 @@ public class ClassController {
 
 		CurriculumBean ccb = new CurriculumBean();
 		ccb.setCid(Integer.parseInt(formData.get("cid").get(0)));
-		ccb.setCu_title(1);
 		ccb.setVideo_path("123");
 		ccb.setChapter("123");
 		ccb.setClassbean(cb);

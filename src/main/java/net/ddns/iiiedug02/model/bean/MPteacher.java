@@ -35,5 +35,5 @@ public @Data class MPteacher implements Serializable {
 
   @Column(name = "MONTHAMOUNT")
   private int monthAmount;
-
+  
 }

@@ -14,6 +14,7 @@ import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.MPteacherService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
@@ -32,6 +33,9 @@ public class MPteacherController {
 
   @Autowired
   private MemberService memberService;
+  
+  @Autowired
+  private ClassManagementService classMService;
 
   @GetMapping("/mpteacherquerybyid.controller")
   public MPteacher processQueryByIdAction(Integer id) {
@@ -40,7 +44,7 @@ public class MPteacherController {
 
   @GetMapping("/mpteachersavetop5")
   public String processSaveTop5(Model m) {
-    List<Map<String, Integer>> cList = cashService.getMonthTop5Class(2022, 3);
+    List<Map<String, Integer>> cList = classMService.getMonthTop5Class(2022, 3);
 
     List<MPteacher> mpteacherList = new ArrayList<MPteacher>();
     for (Map<String, Integer> c : cList) {
@@ -57,7 +61,7 @@ public class MPteacherController {
     }
 
     m.addAttribute("mpteacherList", mpteacherList);
-    return "Success2";
+    return "success/Success2";
   }
 
   @GetMapping("/mpteacherfindtop5")

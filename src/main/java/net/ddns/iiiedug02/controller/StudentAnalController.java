@@ -13,6 +13,7 @@ import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.StudentAnalysis;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.StudentAnalService;
 
 @Controller
@@ -26,10 +27,13 @@ public class StudentAnalController {
 
   @Autowired
   private StudentAnalService analyService;
+  
+  @Autowired
+  private ClassManagementService classMService;
 
   @GetMapping("/calAverageAge")
   public String processSaveTop5(Model m) {
-    List<Map<String, Integer>> averageAgeList = cashService.getAverageAge();
+    List<Map<String, Integer>> averageAgeList = classMService.getAverageAge();
     List<StudentAnalysis> studentAnalList = new ArrayList<StudentAnalysis>();
 
     for (Map<String, Integer> a : averageAgeList) {
@@ -49,7 +53,7 @@ public class StudentAnalController {
 
 
     m.addAttribute("studentAnalList", studentAnalList);
-    return "Success5";
+    return "success/Success5";
   }
 
   // @GetMapping("/ypclassfindtop5")

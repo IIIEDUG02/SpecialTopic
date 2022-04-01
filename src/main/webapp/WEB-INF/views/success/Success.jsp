@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<td>資料成功存入:</td>
-				<td>老師ID:</td>
+				<td>老師名字:</td>
 				<td>年份:</td>
 				<td>數量:</td>
 			</tr>
@@ -23,7 +23,7 @@
 			<c:forEach var="th" items="${ypteacherList}">
 				<tr>
 					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getTeacherID()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getMemberInformation().getFullname()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getYear()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getYearAmount()}" /></td>						
 				</tr>

@@ -23,7 +23,7 @@
 			<c:forEach var="th" items="${mpteacherList}">
 				<tr>
 					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getTeacherID()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getMemberInformation().getMember().getUid()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getMonth()}" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.getMonthAmount()}" /></td>						
 				</tr>

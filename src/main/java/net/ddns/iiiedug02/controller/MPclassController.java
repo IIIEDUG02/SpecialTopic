@@ -17,6 +17,7 @@ import net.ddns.iiiedug02.model.bean.YPclass;
 import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassDetailsService;
+import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.MPclassService;
 import net.ddns.iiiedug02.model.service.YPclassService;
 
@@ -30,6 +31,9 @@ public class MPclassController {
 
   @Autowired
   private CashService cashService;
+  
+  @Autowired
+  private ClassManagementService classMService;
 
 
   @GetMapping("/mpclassquerybyid.controller")
@@ -39,7 +43,7 @@ public class MPclassController {
 
   @GetMapping("/mpclasssavetop5")
   public String processSaveTop5(Model m) {
-    List<Map<String, Integer>> cList = cashService.getMonthTop5Class(2022, 3);
+    List<Map<String, Integer>> cList = classMService.getMonthTop5Class(2022, 3);
 
     List<MPclass> mpclassList = new ArrayList<MPclass>();
     for (Map<String, Integer> c : cList) {
@@ -54,7 +58,7 @@ public class MPclassController {
     }
 
     m.addAttribute("mpclassList", mpclassList);
-    return "Success4";
+    return "success/Success4";
   }
 
 //  @GetMapping("/ypclassfindtop5")

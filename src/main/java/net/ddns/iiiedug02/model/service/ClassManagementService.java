@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +47,20 @@ public class ClassManagementService {
   @Transactional(readOnly = true)
   public ClassManagementBean findByUidAndCid(int uid, int cid) {
     return cmRepo.findByUidAndCid(uid, cid);
+  }
+  
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getYearTop5Class(int year){
+	  return cmRepo.getYearTop5Class(year);
+  }
+  
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getMonthTop5Class(int year, int month){
+	  return cmRepo.getMonthTop5Class(year, month);
+  }
+  
+  @Transactional(readOnly = true)
+  public List<Map<String, Integer>> getAverageAge() {
+    return cmRepo.getAverageAge();
   }
 }
