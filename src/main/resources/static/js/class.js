@@ -36,6 +36,8 @@ $(document).ready(function() {
 				var div_row = $("div#row");	
 						
 				div_row.append(div_class_view);
+				
+				$('div#loadingCircle').remove();
 			};
 		},
 		error: function(xhr, status) {

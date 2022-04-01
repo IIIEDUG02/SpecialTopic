@@ -12,6 +12,15 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<style>
+.position_fixed {
+	position: fixed;
+}
+
+.height100 {
+	height: 100px;
+}
+</style>
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
@@ -28,9 +37,8 @@
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-	<!-- ======= Breadcrumbs ======= -->
-	<div class="breadcrumbs" data-aos="fade-in"></div>
-
+	<div class="height100">
+	</div>
 	<main id="main">
 		<div class="container">
 			<c:choose>
@@ -41,14 +49,17 @@
 					<div class="row">
 						<!-- 課程介紹 -->
 						<div class="col-8 min-vh-100">
-							<h3>${classBean.getTitle()}</h3>
-							<a>${classBean.getClassType()}</a>
+							<div class="shadow p-3">
+								<h3>${classBean.getTitle()}</h3>
+								<img src="${classBean.getPhoto()}" alt="課程圖片" width="300"
+									height="200">
+								<a>${classBean.getClassType()}</a>
+							</div>
 						</div>
-						
+
 						<!-- 購物車 -->
 						<div class="col-4">
-							<div class="shadow m-3 p-3">
-								<img src="${classBean.getPhoto()}" alt="課程圖片">
+							<div class="shadow p-3 position_fixed">
 								<h3>價格:${classBean.getPrice()}</h3>
 								<c:choose>
 									<c:when test="${not empty classManagerBean}">
@@ -57,19 +68,19 @@
 									<c:otherwise>
 										<c:choose>
 											<c:when test="${not empty ShoppingCart}">
-												<button id="sc_btn" class="btn btn-danger"
-													onclick="sc_del(${classBean.getCid()})">移除購物車</button>
+												<button id="sc_btn_${classBean.getCid()}" class="btn btn-danger"
+													onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
 											</c:when>
 											<c:otherwise>
-												<button id="sc_btn" class="btn btn-success"
-													onclick="sc_add(${classBean.getCid()})">加入購物車</button>
+												<button id="sc_btn_${classBean.getCid()}" class="btn btn-success"
+													onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>
 								</c:choose>
 							</div>
 						</div>
-					
+
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -90,8 +101,6 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-
-	<!-- ======= errMsg ======= -->
 
 </body>
 

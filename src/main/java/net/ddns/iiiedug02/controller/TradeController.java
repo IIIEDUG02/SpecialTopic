@@ -118,8 +118,7 @@ public class TradeController {
   // 若與[ClientBackURL]同時設定，將會以此參數為主。
   @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
   @ResponseBody
-  public String processPaymentResult2(HttpServletRequest request, HttpSession httpsession,
-      Principal p) {
+  public String processPaymentResult2(HttpServletRequest request, Principal p) {
 
     Member loginBean = memberService.findByUsername(p.getName());
     Hashtable<String, String> dict = new Hashtable<String, String>();
@@ -169,7 +168,8 @@ public class TradeController {
 
           ClassManagementBean cmb = new ClassManagementBean();
           cmb.setCid(cidInt);
-          cmb.setUid(cidInt);
+          cmb.setUid(loginBean.getUid());
+          cmb.setOrderDate(orderDate);
           cmb.setTid(dict.get("MerchantTradeNo"));
           cmbList.add(cmb);
         }
@@ -177,9 +177,9 @@ public class TradeController {
         // cashService.insertByList(c2bList);
         classManagementService.insertByList(cmbList);
       }
-      return "<h1>伺服端已接收到從用戶端(付款者)送出的「付款成功」通知。</h1>";
+      return "<script>alert('付款成功');</script>";
     } else
-      return "<h1>伺服端已接收到從用戶端(付款者)送出的付款通知(但付款資料有誤！)。</h1>";
+      return "<script>alert('付款失敗');window.close();</script>";
   }
 
   @GetMapping("tradeRecord/teacher")
