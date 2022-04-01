@@ -27,8 +27,6 @@ public class CurriculumBean {
   @Transient
   private int cid;
 
-  private int cu_title;
-
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cid")
@@ -56,14 +54,6 @@ public class CurriculumBean {
 
   public void setCid(int cid) {
     this.cid = cid;
-  }
-
-  public int getCu_title() {
-    return cu_title;
-  }
-
-  public void setCu_title(int cu_title) {
-    this.cu_title = cu_title;
   }
 
   public ClassBean getClassbean() {

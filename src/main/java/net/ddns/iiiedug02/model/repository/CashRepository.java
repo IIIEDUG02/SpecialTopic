@@ -15,7 +15,6 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
    * @param int uid
    * @return List<C2BBean>
    */
-  @Query(value = "from C2BBean where uid = ?1")
   public List<C2BBean> findByUid(int uid);
 
   /**
@@ -24,8 +23,9 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
    * @param int cid
    * @return List<C2BBean>
    */
-  @Query(value = "from C2BBean where cid = ?1")
   public List<C2BBean> findByCid(int cid);
+
+  public C2BBean findByUidAndCid(int uid, int cid);
 
 
   /**
@@ -35,7 +35,7 @@ public interface CashRepository extends JpaRepository<C2BBean, Integer> {
       value = "select top 5 count(cid) as countcid, cid from c2b where year(order_date) = ?1 GROUP BY cid order by count(cid) DESC;",
       nativeQuery = true)
   public List<Map<String, Integer>> getYearTop5Class(int year);
-  
+
   @Query(
 	      value = "select top 5 count(cid) as countcid, cid from c2b where year(order_date) = ?1 and month(order_date) = ?2 GROUP BY cid order by count(cid) DESC;",
 	      nativeQuery = true)

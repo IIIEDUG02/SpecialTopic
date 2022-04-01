@@ -9,6 +9,9 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Inte
 
   public List<ShoppingCart> findByUid(int uid);
 
+  // 失敗
+  public void deleteByUidAndClassBean(int uid, ClassBean cb);
+
   public ShoppingCart findByUidAndClassBean(int uid, ClassBean cb);
 
 }

@@ -44,10 +44,17 @@ public class ClassBeanService {
 	public List<ClassBean> findAllByUid(Integer uid){
 		return cRepo.findAllByUid(uid);
 	}
+	
 	public List<ClassBean> findAllClassType(){
 		return cRepo.findAllClassType();
 	}
+	
 	public int countClass(){
 		return cRepo.countClass();
 	}
+	
+	public List<ClassBean> findAll(){
+		return cRepo.findAll();
+	}
+	
 }
