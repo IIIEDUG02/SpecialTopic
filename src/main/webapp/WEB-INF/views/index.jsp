@@ -8,18 +8,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>OOXX線上教學平台</title>
+<title>雲端大學</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+<jsp:include page="incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
@@ -28,6 +22,14 @@
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
+
+<style>
+.modal-backdrop {
+  z-index: -1;
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+}
+</style>
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -44,8 +46,8 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container" data-aos="fade-in">
-			<h1>歡迎來到 OOXX線上教學平台</h1>
-			<h2>Elegant Bootstrap Template for Startups, Apps &amp; more...</h2>
+			<h1>雲端大學</h1>
+			<h2>學習無所不在，隨時、隨地</h2>
 			<img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs"
 				data-aos="zoom-out" data-aos-delay="100">
 		</div>
@@ -64,12 +66,12 @@
 				<div class="row counters">
 
 					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="1232"
-							data-purecounter-duration="1" class="purecounter"></span>
+						<span data-purecounter-start="0" data-purecounter-end="0"
+							data-purecounter-duration="1" class="purecounter" id="countmember"></span>
 						<p>位學生</p>
 						<!-- ======= TODO:聰賢 ======= -->
 					</div>
-
+					<script src="/SpecialTopic/js/countmember.js"></script>
 					<div class="col-lg-3 col-6 text-center">
 						<span data-purecounter-start="0" data-purecounter-end="0"
 							data-purecounter-duration="1" class="purecounter" id="classcount"></span>
@@ -394,8 +396,6 @@
 	<c:if test="${not empty errMsg}">
 		<script>alert("${errMsg}")</script>
 	</c:if>
-
-	<script src="/SpecialTopic/js/loginjs.js"></script>
 </body>
 
 </html>

@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <header id="header" class="fixed-top">
-	<div id="header2" class="container d-flex align-items-center">
 
+	<div id="header2" class="container d-flex align-items-center">
+		
 		<h1 class="logo me-auto">
-			<a href="index.html">OOXX線上教學平台</a>
+			<a href="/SpecialTopic/">私立雲端大學</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
 				<li><a class="active" href="/SpecialTopic/">首頁</a></li>
-				<li><a href="/SpecialTopic/about">關於我們</a></li>
+				<li><a href="/SpecialTopic/about">關於本校</a></li>
 				<li><a href="/SpecialTopic/courses">課程</a></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
-				<li><a href="/SpecialTopic/events">活動</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
-				<li><a href="/SpecialTopic/pricing">老師分潤</a></li>
 				<li><a href="contact">聯繫我們</a></li>
 				<li id="dp" class="dropdown"><a href="#"><span>後台功能</span>
 						<i class="bi bi-chevron-down"></i></a>
@@ -49,10 +48,63 @@
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>
 		<!-- .navbar -->
+		
+		<!-- Button trigger modal -->
+		<a type="button" id="login" class="get-started-btn" data-bs-toggle="modal"
+			data-bs-target="#loginform" >登入</a>
 
-		<a id="login" href="login_page" class="get-started-btn">登入</a> 
+		<!-- Modal -->
+		<div class="modal fade" id="loginform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				<!-- Header -->
+					<div class="modal-header" style="background-color: hsla(89, 43%, 51%, 0.3)" >
+						<h5 class="modal-title" id="exampleModalLabel">登入</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+							
+					</div>
+					<!-- Body -->
+					<div class="modal-body" style="background-color: hsla(89, 43%, 51%, 0.3)">
+						<form action="/SpecialTopic/login" method="POST">
+							<!-- username -->
+							<div class="form-group" >
+								<input type="text" name="username" class="username form-control" placeholder="帳號 :">							
+							</div>
+							<!-- passowrd -->
+							<div class="form-group">
+								<input type="password" name="password" class="password form-control" placeholder="密碼 :">							
+							</div>
+							<!-- checkbox -->
+							<div class="form-group">
+								<input type="checkbox" id="rememberMe-key" name="rememberMe-key" class="remember">記住我的密碼
+							</div>	
+							<!-- 送出按鈕 -->
+							<div>
+							<button type="submit" class="btn btn-primary">登入</button>						
+							</div>									
+						</form>
+					
+					</div>
+					<!-- Footer -->
+					<div class="modal-footer" style="background-color: hsla(89, 43%, 51%, 0.3)">
+						<div class="signup">
+						
+							<span>尚未成為會員?</span>
+							<a href="#" type="button" class="memberregister" >立即註冊</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<a id="register" href="registerPage1" class="get-started-btn">註冊</a>
 
 	</div>
+
+	<!-- 登入驗證畫面渲染 -->
+	<script src="/SpecialTopic/js/loginjs.js"></script>
 </header>
 <!-- End Header -->

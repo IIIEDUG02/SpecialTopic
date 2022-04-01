@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -8,9 +8,6 @@
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <!-- Head CSS -->
   <jsp:include page="../incloud/head-css.jsp" />
-  
-  <!-- jQuery -->
-  <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   
 <title>teacherpage</title>
 </head>
@@ -41,7 +38,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="tc" items="${teacherclass}">
+						<c:forEach var="tc" items="${classes}">
 							<tr>
 								<td><c:out value="${tc.getTitle()}" /></td>
 								<td><c:out value="${tc.getClassType()}" /></td>
@@ -50,7 +47,7 @@
 									value="編輯" />
 									<input type="button"
 									onclick="javascript:window.location = '/SpecialTopic/deleteclass/${tc.getCid()}'"
-									value="刪除課程" />
+									value="下架課程" />
 									</td>
 							</tr>
 						</c:forEach>

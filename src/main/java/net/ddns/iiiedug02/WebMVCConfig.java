@@ -12,7 +12,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
     registry.addViewController("/login_page").setViewName("member/loginPage");
     registry.addViewController("/logout_page").setViewName("logoutPage");
     registry.addViewController("/registerPage1").setViewName("member/registerPage1");
-    registry.addViewController("/registerPage2").setViewName("member/registerPage2");
+    registry.addViewController("/signout/success").setViewName("signout/success");
+
     // 模板
     registry.addViewController("/").setViewName("index");
     registry.addViewController("/about").setViewName("about");

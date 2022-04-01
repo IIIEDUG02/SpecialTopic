@@ -3,7 +3,6 @@ package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +26,11 @@ public class CashService {
   }
 
   @Transactional
+  public List<C2BBean> insertByList(List<C2BBean> c2bBeanList) {
+    return cashRepository.saveAll(c2bBeanList);
+  }
+
+  @Transactional
   public C2BBean update(C2BBean c2bBean) {
     return cashRepository.save(c2bBean);
   }
@@ -46,23 +50,14 @@ public class CashService {
     return cashRepository.findByCid(cid);
   }
 
-
   @Transactional(readOnly = true)
-  public boolean getCompletedByTid(int tid) {
-    Optional<C2BBean> optional = cashRepository.findById(tid);
-    if (optional.isEmpty()) {
-      return false;
-    } else if (optional.get().getB2c().getCompleted() == (short) 0) {
-      return false;
-    }
-    return true;
+  public C2BBean findByUidAndCid(int uid, int cid) {
+    return cashRepository.findByUidAndCid(uid, cid);
   }
 
   /**
-   * 輸入指定年份，回傳List<Map<統計, cid>> 
-   * List<Map<String, Integer>> ol =
-   * cashRepository.getYearTop5Class(year); 
-   * for (Map<String, Integer> o : ol) {
+   * 輸入指定年份，回傳List<Map<統計, cid>> List<Map<String, Integer>> ol =
+   * cashRepository.getYearTop5Class(year); for (Map<String, Integer> o : ol) {
    * System.out.println(o.get("cid")); }
    * 
    */
@@ -70,10 +65,10 @@ public class CashService {
   public List<Map<String, Integer>> getYearTop5Class(int year) {
     return cashRepository.getYearTop5Class(year);
   }
-  
+
   @Transactional(readOnly = true)
   public List<Map<String, Integer>> getMonthTop5Class(int year, int month) {
-    return cashRepository.getMonthTop5Class(year,month);
+    return cashRepository.getMonthTop5Class(year, month);
   }
 
 }

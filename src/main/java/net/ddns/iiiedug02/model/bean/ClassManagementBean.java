@@ -1,74 +1,37 @@
 package net.ddns.iiiedug02.model.bean;
 
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.springframework.stereotype.Component;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "classmanagement")
 @Component
+@Setter
+@Getter
 public class ClassManagementBean {
-	
-	@Id @Column(name = "CMID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cmid;
-	
-	private int status;
-	
-	private int cid;
-	
-	private int tid;
-	
-	private int uid;
 
-	public int getCmid() {
-		return cmid;
-	}
+  @Id
+  @Column(name = "CMID")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int cmid;
 
-	public void setCmid(int cmid) {
-		this.cmid = cmid;
-	}
+  private int status;
 
-	public int getStatus() {
-		return status;
-	}
+  private int cid;
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+  private String tid;
 
-	public int getCid() {
-		return cid;
-	}
+  private int uid;
 
-	public void setCid(int cid) {
-		this.cid = cid;
-	}
+  @Column(name = "order_date")
+  private Date orderDate;
 
-	public int getTid() {
-		return tid;
-	}
-
-	public void setTid(int tid) {
-		this.tid = tid;
-	}
-
-	public int getUid() {
-		return uid;
-	}
-
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
-	
-	
-	
-	
-	
-	
 }

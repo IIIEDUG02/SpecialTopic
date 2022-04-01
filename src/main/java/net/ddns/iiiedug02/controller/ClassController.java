@@ -49,9 +49,17 @@ public class ClassController {
   public String toJsp() {
 	  return "uploadPhoto";
   }
+  @GetMapping(value = "/uploadvideo")
+  public String toJsp1() {
+	  return "uploadvideo";
+  }
   @GetMapping(value = "/play")
   public String playVideo() {
 	  return "video";
+  }
+  @GetMapping(value = "/test")
+  public String test() {
+	  return "class/creatCurriculum";
   }
 
   // show課程
@@ -102,7 +110,7 @@ public class ClassController {
     String fileName =
     		simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-    String tempDir = request.getSession().getServletContext().getRealPath("/") + "../PhotoDir//";
+    String tempDir = request.getSession().getServletContext().getRealPath("/") + "PhotoDir//";
     File tempDirFile = new File(tempDir);
     tempDirFile.mkdirs();
 
@@ -132,7 +140,11 @@ public class ClassController {
 	  
   }
   
-  
+  @PostMapping(value = "/insertcurriculum")
+  public String creatCurriculum() {
+	  return "creatCurriculum";
+  }
+
 
 
 }

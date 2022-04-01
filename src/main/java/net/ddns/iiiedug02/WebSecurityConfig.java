@@ -31,19 +31,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/assets/**", "/*")
+        .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/assets/**",
+            "/viewClass/**", "/*")
         .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
         .permitAll().antMatchers("/cashflow/**").hasRole("admin");
 
     http.authorizeRequests().anyRequest().authenticated();
 
-    http.formLogin().loginPage("/login_page").usernameParameter("username")
-        .passwordParameter("password").defaultSuccessUrl("/").and().logout().logoutUrl("/logout");
+    http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("username")
+        .passwordParameter("password").defaultSuccessUrl("/").and().logout().logoutUrl("/logout")
+        .invalidateHttpSession(true);
+
 
     http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
-    http.logout().deleteCookies("JESSIONID", "rememberMe-key").logoutUrl("/logout_page");
+
+    http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
+        .logoutSuccessUrl("/");
+
 
     http.cors().and().csrf().disable();
   }
-
 }
