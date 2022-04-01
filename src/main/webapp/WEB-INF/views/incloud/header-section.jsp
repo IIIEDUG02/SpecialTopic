@@ -69,11 +69,11 @@
 						<form action="/SpecialTopic/login" method="POST">
 							<!-- username -->
 							<div class="form-group" >
-								<input type="text" name="username" class="username form-control" placeholder="帳號 :">							
+								<input type="text" name="username" required="required" class="username form-control" placeholder="帳號 :">							
 							</div>
 							<!-- passowrd -->
 							<div class="form-group">
-								<input type="password" name="password" class="password form-control" placeholder="密碼 :">							
+								<input type="password" name="password" required="required" class="password form-control" placeholder="密碼 :">							
 							</div>
 							<!-- checkbox -->
 							<div class="form-group">
