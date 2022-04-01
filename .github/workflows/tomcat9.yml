@@ -19,6 +19,9 @@ jobs:
 
     - name: git submodule pull 
       run: git submodule update --init --recursive
+      
+    - name: Copy submodules
+      run: cp -r src/main/ecpay/ecpay src/main/java/ 
 
     - name: replace host url
       run: sed -i 's/http:\/\/localhost:8080/https:\/\/iiiedug02.nilm.in/g' src/main/java/net/ddns/iiiedug02/controller/TradeController.java
