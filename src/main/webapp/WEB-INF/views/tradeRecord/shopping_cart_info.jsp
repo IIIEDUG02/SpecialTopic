@@ -72,7 +72,7 @@ body {
 							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
 						</div>
 						<div class="col-4">
-							<h4 id="price${item.getId()}">${item.getClassBean().getPrice()}</h4>
+							<h4 id="price${item.getClassBean().getCid()}">${item.getClassBean().getPrice()}</h4>
 						</div>
 						<input type="hidden" id="hidden_cid"
 							value="${item.getClassBean().getCid()}" />

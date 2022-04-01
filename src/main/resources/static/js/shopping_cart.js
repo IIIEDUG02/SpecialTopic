@@ -4,8 +4,11 @@ function sc_del(cid) {
 		url: "/SpecialTopic/ShoppingCart/" + cid,
 		success: function(data) {
 			if (data == "success") {
-				$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + cid).html()))
+				if ($('a#sum').length > 0) {
+					$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + cid).html()))
+				}
 				$('a#total').html(parseInt($('a#total').html()) - 1)
+				
 				if (typeof($('div#item1')[0]) != 'undefined') {
 					$('div#item' + cid).remove();
 				} else {
