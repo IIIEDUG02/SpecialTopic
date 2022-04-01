@@ -22,3 +22,7 @@ function indexRender(data) {
 	}
 
 }
+
+function showLoginForm() {
+	$('div#loginform').modal('toggle');
+}

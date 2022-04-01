@@ -177,7 +177,7 @@ public class TradeController {
         // cashService.insertByList(c2bList);
         classManagementService.insertByList(cmbList);
       }
-      return "<script>alert('付款成功');window.close();</script>";
+      return "<script>alert('付款成功');</script>";
     } else
       return "<script>alert('付款失敗');window.close();</script>";
   }
