@@ -17,7 +17,7 @@ $(document).ready(function() {
 				div_class_detail.append(h4_type);
 				div_class_detail.append(p_price);
 
-				var h3_title = $("<h3><a href='#'>"+data[i]['title']+"</a></h3>");
+				var h3_title = $("<h3><a href='viewClass/"+data[i]['cid']+"'>"+data[i]['title']+"</a></h3>");
 				var div_class_content = $("<div class='course-content'>");
 
 				div_class_content.append(div_class_detail);

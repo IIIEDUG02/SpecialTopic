@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,8 @@ public class CurriculumService {
 		}
 		
 		return op1.get();
+	}
+	public List<CurriculumBean> finAllbyCid(int cid){
+		return cuRepo.findAllByCid(cid);
 	}
 }

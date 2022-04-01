@@ -34,6 +34,7 @@ import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
+import net.ddns.iiiedug02.model.service.CurriculumService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
@@ -47,6 +48,9 @@ public class ClassController {
 
 	@Autowired
 	private ClassOnlineService cos;
+	
+	@Autowired
+	private CurriculumService cus;
 
 	@GetMapping(value = "/upload")
 	public String toJsp() {
@@ -71,7 +75,7 @@ public class ClassController {
 		return "backstage/teacherpage";
 	}
 	// 進入編輯課程頁面
-	@GetMapping(value = "/update/{cid}")
+	@GetMapping(value = "/classUpdate/{cid}")
 	public String updatePage(@PathVariable int cid, Model model) {
 		ClassBean cb = cbs.findById(cid);
 		model.addAttribute("classBean", cb);
@@ -101,7 +105,6 @@ public class ClassController {
 
 		CurriculumBean ccb = new CurriculumBean();
 		ccb.setCid(Integer.parseInt(formData.get("cid").get(0)));
-		ccb.setCu_title(1);
 		ccb.setVideo_path("123");
 		ccb.setChapter("123");
 		ccb.setClassbean(cb);
@@ -118,7 +121,6 @@ public class ClassController {
 		return "redirect:/seeteacherclass";
 	}
 	
-
 	// show課程
 	@GetMapping(value = "/seeteacherclass")
 	public String processShowClass(Principal p, Model m) {
@@ -139,8 +141,23 @@ public class ClassController {
 	public int processCountClass() {
 		return cbs.countClass();
 	}
+	
+	// 尋找全部上線課程
+	@GetMapping(path = "/allonlineclass")
+	@ResponseBody
+	public List<ClassBean> findAllOnlineClass() {
+		List<ClassOnlineBean> coList = cos.findAll();
+		List<ClassBean> cbList = new ArrayList<ClassBean>();
+		for (ClassOnlineBean co : coList) {
+			ClassBean cb = cbs.findById(co.getCid());
+			cb.setClassDetailsBean(null);
+			cb.setCurriculumbean(null);
+			cbList.add(cb);
+		}
+		return cbList;
+	}
 
-	// 檔案上傳
+	// 課程圖片上傳
 	@PostMapping(path = "/uploadphoto")
 	@ResponseBody
 	public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request, Model m)
@@ -176,21 +193,7 @@ public class ClassController {
 		return saveFilePath;
 	}
 
-	// 尋找全部上線課程
-	@GetMapping(path = "/allonlineclass")
-	@ResponseBody
-	public List<ClassBean> findAllOnlineClass() {
-		List<ClassOnlineBean> coList = cos.findAll();
-		List<ClassBean> cbList = new ArrayList<ClassBean>();
-		for (ClassOnlineBean co : coList) {
-			ClassBean cb = cbs.findById(co.getCid());
-			cb.setClassDetailsBean(null);
-			cb.setCurriculumbean(null);
-			cbList.add(cb);
-		}
-		return cbList;
-
-	}
+	
 
 
 
