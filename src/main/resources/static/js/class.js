@@ -23,7 +23,7 @@ $(document).ready(function() {
 				div_class_content.append(div_class_detail);
 				div_class_content.append(h3_title);
 
-				var img_class = $("<img src='"+data[i]['photo']+"' class='img-fluid' alt='...'>");
+				var img_class = $("<img src='"+data[i]['photo']+"' class='img-fluid' alt='no image'>");
 				var div_class_item = $("<div class='course-item'>");
 
 				div_class_item.append(img_class);
