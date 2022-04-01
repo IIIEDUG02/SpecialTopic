@@ -10,11 +10,9 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 /**
  * JavaBean物件，對應資料庫中的memberDetail資料表
@@ -54,6 +52,6 @@ public class MemberInformation implements Serializable {
   private String identitycard;
   @Column(name = "gender")
   private Integer gender;
-  
+
 
 }
