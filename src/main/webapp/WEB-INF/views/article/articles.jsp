@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -290,16 +291,24 @@
   	    })
   	  }
   		
-  		// 使用原生的方式來發 AJAX 請求
+		// 使用原生(native)的方式(JS)來發 AJAX 請求,async JS 的非同步關鍵字
+		// undefined JS 的關鍵字(未定義 有功能的字)
+		// 跟 JAVA 一樣，函數可以傳參數進來，formData 是第一個參數，csrf 是第二個參數
+		// csrf = Cross Site Request Forgery 跨站請求偽造(防止請求偽造)
   	  static async ajax(formData = undefined, csrf = undefined) {
   	    try {
+  	      // const 表示是常數，ex; const a = 1，之後改成 a = 2 會錯誤，因為常數只能賦值(給予變數的值)一次
+  	      // fetch 是一個 JS 的函數，能夠用來發送 AJAX 請求
   	      const fetchPro = fetch(ArticlesPage.DELETE_URL, {
   	        method: 'POST',
   	        headers: {
   	          'Content-Type': 'application/json',
   	          // 專案目前取消 CSRF，因此先註解
-  	          // 'X-CSRF-TOKEN': csrf,
+  	          //之後上伺服器後，下面那句要解開，向後端傳送一個確認是否偽造請求的驗證碼
+  	          // 'X-CSRF-TOKEN': csrf,  
   	        },
+  	        // body 用來放要往後端傳送的資料
+  	        // JSON 是 JS 的物件，stringify 用來把傳入的參數轉成 JSON 格式
   	        body: JSON.stringify(formData),
   	      })
   	      
@@ -323,10 +332,11 @@
   	    obj.addElement()
   	    
   	    try {
-  	      // 向後端發送 AJAX 請求並等待結果回傳
+  	      // 向後端發送 AJAX 請求並等待結果回傳,await=等待
   	      const result = await ArticlesPage.ajax({uuid: uuid})
   	     	
   	      if (result.response === ArticlesPage.HTTP_OK) {
+  	    	console.log(result)
   	        li.remove()
   	        article.remove()
   	        obj.show(ArticlesPage.DELETE_MSG)

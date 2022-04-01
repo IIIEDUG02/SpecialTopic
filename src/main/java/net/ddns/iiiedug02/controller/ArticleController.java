@@ -178,9 +178,14 @@ public class ArticleController {
   @ResponseBody
   public String deleteArticleByUUID(
       @RequestBody Map<String, String> params, Principal principal) throws JsonProcessingException{
-    String badRequest = "{\"response\":\"405\"}";
+   
+	// 405 表示前端發過來的請求有問題
+	String badRequest = "{\"response\":\"405\"}";
+	
+	// 200 請求表示成功
     String httpOk = "{\"response\":\"200\"}";
     
+    //判斷是不是ROLE_Admin發過來的請求
     if (!articleHelper.hasRole(principal, ROLE))
       return badRequest;
           
