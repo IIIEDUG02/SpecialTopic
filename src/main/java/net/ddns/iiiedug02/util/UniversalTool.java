@@ -51,7 +51,7 @@ public class UniversalTool {
      * @param longth: 指定UUID的長度
      * @return UUID
      * 
-     * @author nilm
+     * @author Anna
      */
     public String generateUUID(int longth)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
