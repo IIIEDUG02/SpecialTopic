@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.controller;
 
+import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class ShoppigCartController {
     @GetMapping("getList")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public List<ShoppingCart> getShoppingCart(HttpSession httpsession) {
-        Member loginBean = (Member) httpsession.getAttribute("loginBean");
+    public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
+        Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
             throw new NotLoginException();
         }
@@ -45,25 +46,31 @@ public class ShoppigCartController {
     }
 
     @GetMapping("getInfo")
-    public String getShoppingCart(HttpSession httpsession, Model m) {
-        Member loginBean = (Member) httpsession.getAttribute("loginBean");
-        if (null != loginBean) {
-            List<ShoppingCart> scl = shoppigCartService.findAllByUid(loginBean.getUid());
-            int sum = 0;
-            for (ShoppingCart sc : scl) {
-                sum = sum + sc.getClassBean().getPrice();
-            }
-            m.addAttribute("shoppingCartList", scl);
-            m.addAttribute("sum", sum);
+    public String getShoppingCart(HttpSession session, Principal p, Model m) {
+        Member loginBean = utool.getLoiginBean(session, p);
+        if (null == loginBean) {
+            throw new NotLoginException();
         }
+
+        List<ShoppingCart> scl = shoppigCartService.findAllByUid(loginBean.getUid());
+        int sum = 0;
+        for (ShoppingCart sc : scl) {
+            sum = sum + sc.getClassBean().getPrice();
+        }
+        m.addAttribute("shoppingCartList", scl);
+        m.addAttribute("sum", sum);
+
         return "tradeRecord/shopping_cart_info";
     }
 
     @DeleteMapping("{cid}")
     @ResponseBody
-    public String deleteByCid(HttpSession httpsession, @PathVariable int cid) {
+    public String deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
 
-        Member loginBean = (Member) httpsession.getAttribute("loginBean");
+        Member loginBean = utool.getLoiginBean(session, p);
+        if (null == loginBean) {
+            throw new NotLoginException();
+        }
         ClassBean cb = classBeanService.findById(cid);
         ShoppingCart sc = shoppigCartService.findByUidAndClassBean(loginBean.getUid(), cb);
         if (null != sc) {
@@ -76,8 +83,8 @@ public class ShoppigCartController {
 
     @PostMapping("{cid}")
     @ResponseBody
-    public Object saveById(HttpSession httpsession, @PathVariable int cid) {
-        Member loginBean = (Member) httpsession.getAttribute("loginBean");
+    public Object saveById(HttpSession session, Principal p, @PathVariable int cid) {
+        Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
             return "fail";
         }
@@ -86,7 +93,6 @@ public class ShoppigCartController {
         ClassBean classBean = classBeanService.findById(cid);
         sci.setUid(loginBean.getUid());
         sci.setClassBean(classBean);
-        Object scid = shoppigCartService.save(sci);
-        return scid;
+        return shoppigCartService.save(sci);
     }
 }
