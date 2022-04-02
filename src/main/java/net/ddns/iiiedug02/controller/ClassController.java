@@ -73,7 +73,8 @@ public class ClassController {
     List<ClassBean> cbList = cbs.findAll();
 
     model.addAttribute("classes", cbList);
-
+    return "backstage/teacherpage";
+  }
 
 
 
