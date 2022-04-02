@@ -3,7 +3,7 @@ gantt
     title 金流系統
     dateFormat  YYYY-MM-DD
     excludes weekends
-    %%{init: {'theme': 'forest'} }%%
+    %%{init: {'theme': 'dark'} }%%
 
     section [大綱]
     excludes    days
