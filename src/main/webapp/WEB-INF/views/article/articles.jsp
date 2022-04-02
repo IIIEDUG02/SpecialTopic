@@ -58,13 +58,19 @@
 
 /* 調整 spinner style */
 .spinner-border {
-  color: #5fcf80;
+  color: #5fcf80 !important;
   position: fixed;
   left: 45%;
   top: 45%;
   width: 5rem;
   height: 5rem;
   z-index: 9999;
+}
+
+/* 編輯文章 button 訪問過後樣式 */
+.btn-outline-success:visited {
+  color: #198754;
+  border-color: #198754;
 }
 </style>
 </head>
@@ -213,9 +219,12 @@
         
         <!-- Update button -->
         </button>
-        <button type="button" class="articleUpdateBtn btn btn-outline-success btn-sm" title="更新" style="margin-right: 10px;">
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
+        <a
+          href="articles/update/${article.getUuid()}"
+          type="button" class="articleUpdateBtn btn btn-outline-success btn-sm" title="編輯" 
+          style="margin-right: 10px;">
+            <i class="bi bi-file-earmark-font-fill"></i>
+        </a>
           <!-- Title text -->
           ${article.getTitle()}
       </c:forEach>
@@ -253,7 +262,9 @@
   	  static TIMEOUT_SEC = 5
   	  static DELETE_URL = 'articles/delete'
   	  static CREATE_SUCCESS_URL = '?create=success'
+	    static UPDATE_SUCCESS_URL = '?update=success'
   	  static CREATE_MSG = '您的文章已發佈成功！'
+	    static UPDATE_MSG = '您的文章已更新成功！'
   	  static DELETE_MSG = '您已經成功刪除文章！'
   	  
   	  // 建構子
@@ -291,6 +302,9 @@
   	    // 先使用較簡易暴力的方式來實現發佈文章後的提示訊息
   	    if (window.location.href.endsWith(ArticlesPage.CREATE_SUCCESS_URL))
   	  		this.show(ArticlesPage.CREATE_MSG)
+  	  	// 更新文章成功訊息
+  	  	if (window.location.href.endsWith(ArticlesPage.UPDATE_SUCCESS_URL))
+  	  		this.show(ArticlesPage.UPDATE_MSG)
   	  	
   	  	// 為所有的刪除文章 button 新增 click event
   			for (let btn of this.articleDelBtns)

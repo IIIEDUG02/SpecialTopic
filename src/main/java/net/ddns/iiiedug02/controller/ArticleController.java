@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -86,7 +89,7 @@ public class ArticleController {
     }
 
     // 如果使用者沒有登入或是使用者沒有管理員角色，則返回文章列表頁面
-    return "articles";
+    return "article/articles";
   }
 
   // 發佈文章(POST 請求)
@@ -114,7 +117,6 @@ public class ArticleController {
       article.setPageViews(0);
       article.setMember(member);
       article.setPublishTime(articleHelper.getDate());
-      articleService.insert(article);
 
       // 取得文章所選取的標籤(例如: 理想生活、學設計)
       // 這裡使用 request.getParameterValues 是因為含有多個標籤。
@@ -140,7 +142,7 @@ public class ArticleController {
 
     // 防止 BUG 出現(如:查出文章不只一篇或是查不到文章)，則直接返回文章列表頁面
     if (articles.size() != 1)
-      return "articles";
+      return "article/articles";
 
     ArticleBean article = articles.get(0);
 
@@ -171,6 +173,70 @@ public class ArticleController {
     }
 
     return "article/articles";
+  }
+  
+  // 進入編輯文章頁面，用的跟發佈文章是同一個頁面
+  @GetMapping("/update/{uuid}")
+  public String update(Principal principal, Model model, @PathVariable String uuid) {
+    if (!articleHelper.hasRole(principal, ROLE))
+      return "article/articles";
+    
+    List<ArticleBean> articles = articleService.findByUuid(uuid);
+    
+    if (articles.size() != 1)
+      return "article/articles";
+    
+    ArticleBean article = articles.get(0);
+    List<TagBean> tags = tagService.findAll();
+    
+    // 得到標籤 PK 的字串(e.g. "[1, 2]")
+    String ids = article.getTags()
+        .stream()
+        .map(tag -> tag.getId())
+        .collect(Collectors.toList())
+        .toString();
+    
+    model.addAttribute("article", article);
+    model.addAttribute("tags", tags);
+    model.addAttribute("ids", ids);
+    
+    return "article/createArticle";
+  }
+  
+  @PostMapping("/update/{uuid}")
+  public String updateArticle(HttpServletRequest request, Principal principal, 
+      @PathVariable String uuid) {
+
+    if (!articleHelper.hasRole(principal, ROLE))
+      return "article/articles";
+    
+    List<ArticleBean> articles = articleService.findByUuid(uuid);
+    
+    if (articles.size() != 1)
+      return "article/articles";
+    
+    Member member = memberService.findByUsername(articleHelper.getUsername(principal));
+
+    if (member != null) {
+      ArticleBean article = articles.get(0);
+      article.setTitle(request.getParameter("title"));
+      article.setContent(request.getParameter("content"));
+      article.setMember(member);
+
+      String[] strings = request.getParameterValues("tags");
+      
+      // 更新多對多表的方式(透過 lambda 表達式來完成較簡潔的語句)
+      Set<TagBean> tags = tagService.findByIdIn(articleHelper.getTagsId(strings))
+          .stream()
+          .collect(Collectors.toSet());
+      
+      // 更新文章的標籤
+      article.setTags(tags);
+      articleService.update(article);
+    }
+    
+    // 更新文章之後，返回文章列表頁面
+    return "redirect:/articles?update=success";
   }
   
   // 刪除文章
