@@ -16,10 +16,8 @@
 <jsp:include page="incloud/favicons.jsp" />
 
 <!-- Head CSS -->
-  <jsp:include page="incloud/head-css.jsp" />
+<jsp:include page="incloud/head-css.jsp" />
   
-
-
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
@@ -27,13 +25,6 @@
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
 <script src="/SpecialTopic/js/mpclass-section.js"></script>
 
-<style>
-.modal-backdrop {
-  z-index: -1;
-  opacity: 0 !important;
-  filter: alpha(opacity=0) !important;
-}
-</style>
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
