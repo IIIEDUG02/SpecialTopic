@@ -40,9 +40,6 @@ public class ClassBean {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
 
-  public ClassBean() {
-
-  }
 
   public Set<CurriculumBean> getCurriculumbean() {
     return curriculumbean;
@@ -107,7 +104,5 @@ public class ClassBean {
   public void setPhoto(String photo) {
     this.photo = photo;
   }
-
-
 
 }

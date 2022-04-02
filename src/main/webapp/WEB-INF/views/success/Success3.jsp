@@ -14,18 +14,18 @@
 		<thead>
 			<tr>
 				<td>資料成功存入:</td>
-				<td>老師ID:</td>
-				<td>月份:</td>
+				<td>課程ID:</td>
+				<td>年份:</td>
 				<td>數量:</td>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="th" items="${mpteacherList}">
+			<c:forEach var="th" items="${ypclassList}">
 				<tr>
 					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getTeacherID()}" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getMonth()}" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.getMonthAmount()}" /></td>						
+					<td style="border-top:1px solid #000"><c:out value="${th.getClassID()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getYear()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${th.getYearAmount()}" /></td>						
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -59,4 +59,9 @@ public class ArticalService {
   public void updatePageViewsByUUID(String uuid, int views) {
 	  articalRepository.updatePageViews(uuid, views);
   }
+  
+  @Transactional
+  public long deleteByUuid(String uuid) {
+    return articalRepository.deleteByUuid(uuid);
+  }
 }
