@@ -94,7 +94,14 @@ public class UniversalTool {
         return new java.sql.Date(d.getTime());
     }
 
-
+    /**
+     * 取得已登入的MemberBean
+     * 
+     * @param session: HttpSession物件
+     * @return principal: Principal物件)
+     * 
+     * @author nilm
+     */
     public Member getLoiginBean(HttpSession session, Principal principal) {
         Member loginBean;
         loginBean = (Member) session.getAttribute("loginBean");
