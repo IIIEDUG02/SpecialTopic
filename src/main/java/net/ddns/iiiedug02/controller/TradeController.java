@@ -51,8 +51,6 @@ public class TradeController {
 
     private static AllInOne all = new AllInOne("");
 
-
-
     // 將購物車資料送至綠界api-1
     @RequestMapping(value = "ECPayServer", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
     @ResponseBody
