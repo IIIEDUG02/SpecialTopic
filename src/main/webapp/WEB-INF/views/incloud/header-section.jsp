@@ -111,12 +111,5 @@
 			</c:when>
 		</c:choose>
 	</div>
-
-	<!-- 登入驗證畫面渲染 -->
-	<script src="/SpecialTopic/js/loginjs.js"></script>
-
-	<!-- 購物車的badge  -->
-	<script src="/SpecialTopic/js/shopping_cart_badge.js"></script>
-
 </header>
 <!-- End Header -->
