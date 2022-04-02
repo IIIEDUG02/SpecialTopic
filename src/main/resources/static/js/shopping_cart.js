@@ -1,4 +1,5 @@
 function sc_del(cid) {
+	$('button#sc_btn_' + cid).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	$.ajax({
 		type: "delete",
 		url: "/SpecialTopic/ShoppingCart/" + cid,
@@ -12,10 +13,10 @@ function sc_del(cid) {
 				if (typeof($('div#item1')[0]) != 'undefined') {
 					$('div#item' + cid).remove();
 				} else {
-					$('button#sc_btn_' + cid).html("加入至購物車");
 					$('button#sc_btn_' + cid).attr('onclick', "sc_add(" + cid + ")");
 					$('button#sc_btn_' + cid).addClass("btn-success");
 					$('button#sc_btn_' + cid).removeClass("btn-danger");
+					$('button#sc_btn_' + cid).html("加入至購物車");
 				}
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 			} else {
@@ -29,6 +30,7 @@ function sc_del(cid) {
 }
 
 function sc_add(cid) {
+	$('button#sc_btn_' + cid).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	$.ajax({
 		type: "post",
 		url: "http://localhost:8080/SpecialTopic/ShoppingCart/" + cid,
@@ -38,10 +40,10 @@ function sc_add(cid) {
 			if (data != "") {
 				if ($('span#shoppingcart_count').html() == "") { $('span#shoppingcart_count').html(0)};
 				$('span#shoppingcart_count').html(1 + parseInt($('span#shoppingcart_count').html()));
-				$('button#sc_btn_' + cid).html("從購物車中移出");
 				$('button#sc_btn_' + cid).removeClass("btn-success");
 				$('button#sc_btn_' + cid).addClass("btn-danger");
 				$('button#sc_btn_' + cid).attr('onclick', "sc_del(" + cid + ")");
+				$('button#sc_btn_' + cid).html("從購物車中移出");
 			} else {
 				alert("網頁發生錯誤");
 			}
@@ -72,5 +74,4 @@ function checkout() {
 	});
 	
 	$('form#idFormAioCheckOut').submit();
-	//location.reload();
 }
