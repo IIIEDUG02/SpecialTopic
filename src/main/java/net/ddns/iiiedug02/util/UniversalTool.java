@@ -9,13 +9,20 @@ import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
+import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.service.MemberService;
 
 public class UniversalTool {
+
+    @Autowired
+    private MemberService ms;
 
     /**
      * 檢查當前使用者是否具有角色
@@ -85,5 +92,16 @@ public class UniversalTool {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date d = format.parse(str);
         return new java.sql.Date(d.getTime());
+    }
+
+
+    public Member getLoiginBean(HttpSession session, Principal principal) {
+        Member loginBean;
+        loginBean = (Member) session.getAttribute("loginBean");
+        if (null == loginBean) {
+            loginBean = ms.findByUsername(principal.getName());
+            session.setAttribute("loginBean", loginBean);
+        }
+        return loginBean;
     }
 }
