@@ -83,26 +83,15 @@ public class ClassController {
 		return "backstage/classEdit";
 	}
 
-    return "backstage/teacherpage";
-  }
 
-  // 進入編輯課程頁面
-  @GetMapping(value = "/classUpdate/{cid}")
-  public String updatePage(@PathVariable int cid, Model model) {
-    ClassBean cb = cbs.findById(cid);
-    model.addAttribute("classBean", cb);
-    return "backstage/classEdit";
-  }
+
+
 
   // 更新課程
   @PostMapping(value = "/Action")
   public String updateAction(@RequestBody MultiValueMap<String, String> formData) {
 
-		CurriculumBean ccb = new CurriculumBean();
-		ccb.setCid(Integer.parseInt(formData.get("cid").get(0)));
-		ccb.setVideo_path("123");
-		ccb.setChapter("123");
-		ccb.setClassbean(cb);
+
     ClassBean cb = new ClassBean();
     cb.setCid(Integer.parseInt(formData.get("cid").get(0)));
     cb.setUid(Integer.parseInt(formData.get("uid").get(0)));
@@ -203,83 +192,6 @@ public class ClassController {
 
 		return saveFilePath;
 	}
-
-	
-
-
-  // show課程
-  @GetMapping(value = "/seeteacherclass")
-  public String processShowClass(Principal p, Model m) {
-    if (null == p) {
-      throw new NotLoginException();
-    }
-    Member teacher = ms.findByUsername(p.getName());
-    List<ClassBean> teacherclass = cbs.findAllByUid(teacher.getUid());
-    m.addAttribute("teacherclass", teacherclass);
-
-    return "teacherpage";
-
-  }
-
-  // 計算全部上線課程總數
-  @ResponseBody
-  @GetMapping(value = "/countclass")
-  public int processCountClass() {
-    return cbs.countClass();
-  }
-
-  // 檔案上傳
-  @PostMapping(path = "/uploadphoto")
-  @ResponseBody
-  public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request,
-      Model m) throws IllegalStateException, IOException {
-
-    String pattern = "yyyy-MM-dd-HH-mm-ss";
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-    Random random = new Random();
-    int rNumber = 10000 + random.nextInt(90000);
-    // 取副檔名方法一
-    // String oName = mf.getOriginalFilename();
-    // int oNameLenghth = oName.length();
-    // String fileName =
-    // simpleDateFormat.format(new Date()) + "-" + rNumber + oName.substring(oNameLenghth-4,
-    // oNameLenghth);
-    String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-    if (type.isEmpty()) {
-      return "no image";
-    }
-    String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-
-    String tempDir = request.getSession().getServletContext().getRealPath("/")
-        + "../resources/static/classphoto//";
-    File tempDirFile = new File(tempDir);
-    tempDirFile.mkdirs();
-
-    String saveFilePath = tempDir + fileName;
-    File saveFile = new File(saveFilePath);
-
-    mf.transferTo(saveFile);
-
-    m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
-
-    return saveFilePath;
-  }
-
-  // 尋找全部上線課程
-  @GetMapping(path = "/allonlineclass")
-  @ResponseBody
-  public List<ClassBean> findAllOnlineClass() {
-    List<ClassOnlineBean> coList = cos.findAll();
-    List<ClassBean> cbList = new ArrayList<ClassBean>();
-    for (ClassOnlineBean co : coList) {
-      ClassBean cb = cbs.findById(co.getCid());
-      cb.setClassDetailsBean(null);
-      cb.setCurriculumbean(null);
-      cbList.add(cb);
-    }
-    return cbList;
-  }
 
   // 查學生未完成的課程
   @GetMapping(path = "/viewClassesList/personal")
