@@ -61,7 +61,7 @@ public class ClassController {
 
   @GetMapping(value = "/play")
   public String toJsp1() {
-	  return "class/video";
+	  return "class/curriculum-nilm";
   }
 
   // Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
