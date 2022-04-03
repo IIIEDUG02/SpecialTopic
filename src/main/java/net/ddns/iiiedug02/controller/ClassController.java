@@ -217,13 +217,14 @@ public class ClassController {
         return "class/student";
     }
 
-	// 進入編輯課程頁面
-	@GetMapping(value = "/classUpdate/{cid}")
-	public String updatePage(@PathVariable int cid, Model model) {
-		ClassBean cb = cbs.findById(cid);
-		model.addAttribute("classBean", cb);
-		return "backstage/classEdit";
-	}
+    @GetMapping("classCurriculum/{cid}")
+    public String classtest(Model m, @PathVariable("cid") int cid) {
+        ClassBean cb = cbs.findById(cid);
+        List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
+        m.addAttribute("CurriculumList", cusList);
+        m.addAttribute("cid", cid);
+        return "class/curriculum-nilm";
+    }
 
 	@GetMapping("classCurriculum/{cid}")
 	public String classtest(Model m, @PathVariable("cid") int cid) {

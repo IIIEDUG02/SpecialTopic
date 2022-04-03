@@ -30,12 +30,21 @@
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-
-	<div class="player">
-		<video controls controlsList="nodownload">
-			<source src="/SpecialTopic/classvideo/123.mp4" type="video/mp4">
-			<!-- fallback content here -->
-		</video>
+	<div class="height100"></div>
+	<div class="container">
+		<div class="player m-3 p-3 shadow">
+			<video controls controlsList="nodownload">
+				<source src="/SpecialTopic/classvideo/123.mp4"
+					type="video/mp4">
+				<!-- fallback content here -->
+			</video>
+			<div class="controls">
+				<button class="btn btn-primary" type="button"
+					data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+					aria-controls="offcanvasRight">章節清單</button>
+			</div>
+			<input id="cid" type="hidden" value="${cid}"/>
+		</div>
 	</div>
 	<button class="btn btn-primary" type="button"
 		data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -43,7 +52,7 @@
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 		aria-labelledby="offcanvasRightLabel">
 		<div class="offcanvas-header">
-			<h5 id="offcanvasRightLabel">Offcanvas right</h5>
+			<h5 id="offcanvasRightLabel">章節清單</h5>
 			<button type="button" class="btn-close text-reset"
 				data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>

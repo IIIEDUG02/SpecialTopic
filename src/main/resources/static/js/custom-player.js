@@ -1,13 +1,7 @@
 const media = $('video').get(0);
-const controls = $('.controls');
-
-const play = $('.play');
-const stop = $('.stop');
 
 var startTime;
 var pauseTime;
-
-play.click(playPauseMedia);
 
 media.addEventListener('play', playMedia);
 media.addEventListener('pause', PauseOrStopMedia);
@@ -61,7 +55,7 @@ function changeVideoSrc(url) {
 
 $.ajax({
 	type: "Get",
-	url: "/SpecialTopic/getCurListJson/api/1",
+	url: "/SpecialTopic/getCurListJson/api/" + $('input#cid').val(),
 	dataType: "json",
 	contentType: "application/json;charset=utf-8",
 	success: function(data) {
