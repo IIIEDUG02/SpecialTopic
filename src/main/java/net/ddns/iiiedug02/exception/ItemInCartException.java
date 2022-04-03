@@ -3,15 +3,15 @@ package net.ddns.iiiedug02.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * 使用者未登入的Exception
+/*
+ * 商品已在購物車
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class NotLoginException extends RuntimeException {
+public class ItemInCartException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public NotLoginException() {
-        super("請先登入");
+    public ItemInCartException() {
+        super("商品已在購物車");
     }
 }

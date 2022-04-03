@@ -11,45 +11,45 @@ import net.ddns.iiiedug02.model.repository.ShoppingCartRepository;
 @Service
 public class ShoppingCartService {
 
-  @Autowired
-  private ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
 
-  public List<ShoppingCart> findAllByUid(int uid) {
-    return shoppingCartRepository.findByUid(uid);
-  }
-
-  public List<Integer> findIdListByUid(int uid) {
-    List<ShoppingCart> scl = shoppingCartRepository.findByUid(uid);
-    List<Integer> scidl = new ArrayList<Integer>();
-    for (ShoppingCart sc : scl) {
-      scidl.add(sc.getId());
+    public List<ShoppingCart> findAllByUid(int uid) {
+        return shoppingCartRepository.findByUid(uid);
     }
-    return scidl;
-  }
 
-  public ShoppingCart findByUidAndClassBean(int uid, ClassBean cb) {
-    return shoppingCartRepository.findByUidAndClassBean(uid, cb);
-  }
-
-  public void deleteById(int id) {
-    shoppingCartRepository.deleteById(id);
-  }
-
-  public ShoppingCart save(ShoppingCart sc) {
-    if (null == shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean())) {
-      shoppingCartRepository.save(sc);
-      return shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean());
+    public List<Integer> findIdListByUid(int uid) {
+        List<ShoppingCart> scl = shoppingCartRepository.findByUid(uid);
+        List<Integer> scidl = new ArrayList<Integer>();
+        for (ShoppingCart sc : scl) {
+            scidl.add(sc.getId());
+        }
+        return scidl;
     }
-    return null;
-  }
 
-  public void deleteByList(List<ShoppingCart> scl) {
-    shoppingCartRepository.deleteAll(scl);
-  }
-
-  public void deleteByUidAndClassBean(ShoppingCart sc) {
-    if (null == shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean())) {
-      shoppingCartRepository.deleteByUidAndClassBean(sc.getUid(), sc.getClassBean());
+    public ShoppingCart findByUidAndClassBean(int uid, ClassBean cb) {
+        return shoppingCartRepository.findByUidAndClassBean(uid, cb);
     }
-  }
+
+    public void deleteById(int id) {
+        shoppingCartRepository.deleteById(id);
+    }
+
+    public ShoppingCart save(ShoppingCart sc) {
+        if (null == shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean())) {
+            shoppingCartRepository.save(sc);
+            return shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean());
+        }
+        return null;
+    }
+
+    public void deleteByList(List<ShoppingCart> scl) {
+        shoppingCartRepository.deleteAll(scl);
+    }
+
+    public void deleteByUidAndClassBean(ShoppingCart sc) {
+        if (null == shoppingCartRepository.findByUidAndClassBean(sc.getUid(), sc.getClassBean())) {
+            shoppingCartRepository.deleteByUidAndClassBean(sc.getUid(), sc.getClassBean());
+        }
+    }
 }
