@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
+import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.MemberService;
 
@@ -102,10 +103,12 @@ public class UniversalTool {
      * 
      * @author nilm
      */
-    public Member getLoiginBean(HttpSession session, Principal principal) {
+    public Member getLoiginBean(HttpSession session, Principal principal) throws NotLoginException {
         Member loginBean;
         loginBean = (Member) session.getAttribute("loginBean");
-        if (null == loginBean) {
+        if (null == principal) {
+            throw new NotLoginException();
+        } else if (null == loginBean) {
             loginBean = ms.findByUsername(principal.getName());
             session.setAttribute("loginBean", loginBean);
         }
