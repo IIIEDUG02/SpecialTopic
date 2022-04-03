@@ -9,19 +9,19 @@ import net.ddns.iiiedug02.model.repository.EcpayRecordRepository;
 @Service
 public class EcpayRecordService {
 
-  @Autowired
-  private EcpayRecordRepository ecpayRecordRepository;
+    @Autowired
+    private EcpayRecordRepository ecpayRecordRepository;
 
-  public void save(EcpayRecord ecpayRecord) {
-    ecpayRecordRepository.save(ecpayRecord);
-  }
-
-  public EcpayRecord findByOrderId(String orderId) {
-    Optional<EcpayRecord> ec = ecpayRecordRepository.findById(orderId);
-    if (ec.isEmpty()) {
-      return null;
+    public void save(EcpayRecord ecpayRecord) {
+        ecpayRecordRepository.save(ecpayRecord);
     }
-    return ec.get();
-  }
+
+    public EcpayRecord findByOrderId(String orderId) {
+        Optional<EcpayRecord> ec = ecpayRecordRepository.findById(orderId);
+        if (ec.isEmpty()) {
+            return null;
+        }
+        return ec.get();
+    }
 
 }

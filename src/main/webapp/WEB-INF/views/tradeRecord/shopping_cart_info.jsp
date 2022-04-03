@@ -31,12 +31,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
-<style>
-body {
-	font-family: "PingFang TC", 微軟正黑體, sans-serif;
-}
-</style>
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -72,7 +66,7 @@ body {
 							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
 						</div>
 						<div class="col-4">
-							<h4 id="price${item.getId()}">${item.getClassBean().getPrice()}</h4>
+							<h4 id="price${item.getClassBean().getCid()}">${item.getClassBean().getPrice()}</h4>
 						</div>
 						<input type="hidden" id="hidden_cid"
 							value="${item.getClassBean().getCid()}" />
