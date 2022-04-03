@@ -8,10 +8,20 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>=播放課程</title>
+<title>瀏覽課程資訊</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<style>
+.position_fixed {
+	position: fixed;
+}
+
+.height100 {
+	height: 100px;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="css/video.css">
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
@@ -20,16 +30,43 @@
 
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+
+
+
+</head>
+
+<body>
+	<!-- ======= Header ======= -->
+	<jsp:include page="../incloud/header-section.jsp" />
 <body>
 
 
 
- <video width="640" height="480" controls controlsList="nodownload"> 
-     <source src="" type="video/mp4">   
-</video>
+	<main id="main" data-aos="fade-in">
+
+		<div class="player">
+			<video>
+				<source src="/SpecialTopic/classvideo/123.mp4" type="video/mp4">
+			</video>
+			<div class="controls">
+				<button class="play" data-icon="P" aria-label="play pause toggle"></button>
+				<button class="stop" data-icon="S" aria-label="stop"></button>
+				<div class="timer">
+					<div></div>
+					<span aria-label="timer">00:00</span>
+				</div>
+				<input type="range" class="player-sound" min="0" max="1" value="1"
+					step="0.1">
+				<button class="player-btn" data-skip="-4">快進4秒</button>
+				<button class="player-btn" data-skip="4">後退4秒</button>
+				<button class="player-btn fullscreen">全螢幕</button>
+			</div>
+		</div>
 
 
 
+
+	</main>
 
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
@@ -41,9 +78,7 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-
-	<!-- ======= errMsg ======= -->
+	<script src="/SpecialTopic/js/custom-player.js"></script>
 
 </body>
-
 </html>
