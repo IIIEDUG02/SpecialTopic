@@ -1,7 +1,7 @@
 package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Table(name = "certification_name")
 @Setter
 @Getter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CertificationBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,6 +33,6 @@ public class CertificationBean implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "certificationBean",
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<CertificationClasses> certificationclasses;
+    private List<CertificationClasses> certificationcClasses;
 
 }
