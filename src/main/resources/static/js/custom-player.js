@@ -1,25 +1,8 @@
 const media = $('video').get(0);
-const controls = $('.controls');
-
-const play = $('.play');
-const stop = $('.stop');
-const rwd = $('.rwd');
-const fwd = $('.fwd');
-const fsn = $('.fullscreen');
-
-const timerWrapper = $('.timer');
-const timer = $('.timer span');
-const timerBar = $('.timer div');
 
 var startTime;
 var pauseTime;
 
-play.click(playPauseMedia);
-rwd.click(windBackward(3));
-fwd.click(windForward(3));
-fsn.click(toggleFullScreen);
-
-media.addEventListener('timeupdate', setTime);
 media.addEventListener('play', playMedia);
 media.addEventListener('pause', PauseOrStopMedia);
 media.addEventListener('ended', PauseOrStopMedia);
@@ -73,20 +56,6 @@ function windForward(sec) {
 	}
 }
 
-function setTime() {
-	const minutes = Math.floor(media.currentTime / 60);
-	const seconds = Math.floor(media.currentTime - minutes * 60);
-
-	const minuteValue = minutes.toString().padStart(2, '0');
-	const secondValue = seconds.toString().padStart(2, '0');
-
-	const mediaTime = `${minuteValue}:${secondValue}`;
-	timer.textContent = mediaTime;
-
-	const barLength = timerWrapper.get(0).clientWidth * (media.currentTime / media.duration);
-	timerBar.get(0).style.width = `${barLength}px`;
-}
-
 function postRecord(duration, sumTime, ended) {
 	$.ajax({
 		type: "POST",
@@ -114,7 +83,7 @@ function changeVideoSrc(url) {
 
 $.ajax({
 	type: "Get",
-	url: "/SpecialTopic/getCurListJson/api/1",
+	url: "/SpecialTopic/getCurListJson/api/" + $('input#cid').val(),
 	dataType: "json",
 	contentType: "application/json;charset=utf-8",
 	success: function(data) {

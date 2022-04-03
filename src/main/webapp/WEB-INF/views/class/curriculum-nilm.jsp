@@ -30,24 +30,17 @@ var clients = ["123"];
 	<div class="height100"></div>
 	<div class="container">
 		<div class="player m-3 p-3 shadow">
-			<video controlsList="nodownload">
+			<video controls controlsList="nodownload">
 				<source src="/SpecialTopic/classvideo/sintel-short.mp4"
 					type="video/mp4">
 				<!-- fallback content here -->
 			</video>
 			<div class="controls">
-				<button class="play" aria-label="play pause toggle">play</button>
-				<div class="timer" style="display: inline-block;">
-					<div></div>
-					<span aria-label="timer">00:00</span>
-				</div>
-				<button class="rwd" aria-label="rewind">reward</button>
-				<button class="fwd" aria-label="fast forward">foward</button>
-				<button class="fullscreen" aria-label="fast forward">fullscreen</button>
 				<button class="btn btn-primary" type="button"
 					data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-					aria-controls="offcanvasRight">Toggle right offcanvas</button>
+					aria-controls="offcanvasRight">章節清單</button>
 			</div>
+			<input id="cid" type="hidden" value="${cid}"/>
 		</div>
 	</div>
 
@@ -55,17 +48,12 @@ var clients = ["123"];
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 		aria-labelledby="offcanvasRightLabel">
 		<div class="offcanvas-header">
-			<h5 id="offcanvasRightLabel">Offcanvas right</h5>
+			<h5 id="offcanvasRightLabel">章節清單</h5>
 			<button type="button" class="btn-close text-reset"
 				data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
 		<div class="offcanvas-body">
 			<ul class="list-group">
-			  <li class="list-group-item active" aria-current="true">An active item</li>
-			  <li class="list-group-item">A second item</li>
-			  <li class="list-group-item">A third item</li>
-			  <li class="list-group-item">A fourth item</li>
-			  <li class="list-group-item">And a fifth one</li>
 			</ul>
 		</div>
 	</div>

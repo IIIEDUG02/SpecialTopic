@@ -227,6 +227,7 @@ public class ClassController {
         ClassBean cb = cbs.findById(cid);
         List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
         m.addAttribute("CurriculumList", cusList);
+        m.addAttribute("cid", cid);
         return "class/curriculum-nilm";
     }
 
