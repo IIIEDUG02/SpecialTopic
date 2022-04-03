@@ -46,7 +46,7 @@ function postRecord(duration, sumTime, ended) {
 		},
 		//contentType: "application/json;charset=utf-8",
 		success: function(data) {
-			console.log(data);
+			console.log("not login");
 		},
 		error: function(xhr, status) {
 			console.log(xhr);
@@ -54,3 +54,24 @@ function postRecord(duration, sumTime, ended) {
 		}
 	})
 }
+
+function changeVideoSrc(url) {
+	media.src=url;
+}
+
+$.ajax({
+	type: "Get",
+	url: "/SpecialTopic/getCurListJson/api/1",
+	dataType: "json",
+	contentType: "application/json;charset=utf-8",
+	success: function(data) {
+		for (var i = 0 ; i < data.length ; i++) {
+			let li = $("<li class='list-group-item' onclick=changeVideoSrc(\'" + data[i]['video_path'] + "\') >第" + data[i]['chapter'] + "章</li>")
+			$('ul.list-group').append(li)
+		}
+	},
+	error: function(xhr, status) {
+		console.log(xhr);
+		console.log(status);
+	}
+})
