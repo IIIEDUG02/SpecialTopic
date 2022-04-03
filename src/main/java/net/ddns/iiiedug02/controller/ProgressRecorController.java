@@ -49,30 +49,36 @@ public class ProgressRecorController {
 
 
     @PostMapping("ProgressRecord/api/{cuid}")
-    public void saveRecord(HttpSession session, Principal p, @PathVariable("cuid") int cuid,
+    @ResponseBody
+    public String saveRecord(HttpSession session, Principal p, @PathVariable("cuid") int cuid,
             @RequestParam Map<String, String> params) {
         Member loginBean = null;
         // NotLoginException會直接倒回首頁，所以這邊要先擷取。
         try {
             loginBean = uttool.getLoiginBean(session, p);
         } catch (NotLoginException e) {
-            return;
+            return e.getMessage();
         }
 
         ProgressRecord record = progressRecordService.findByUidAndCuid(loginBean.getUid(), cuid);
+        if (null == record) {
+            record = new ProgressRecord();
+            record.setCuid(cuid);
+            record.setUid(loginBean.getUid());
+        }
 
-        float postMaxTimePoint = Float.parseFloat(params.get("MaxTimePoint"));
-        float postTimeSum = Float.parseFloat(params.get("TimeSum"));
-        float postVideoLongth = Float.parseFloat(params.get("VideoLongth"));
+        float sumTime = Float.parseFloat(params.get("sumTime"));
+        float duration = Float.parseFloat(params.get("duration"));
+        boolean ended = Boolean.parseBoolean(params.get("ended"));
 
-        record.setMaxTimePoint(postMaxTimePoint);
-        record.setTimeSum(postTimeSum);
+        record.setTimeSum(sumTime + record.getTimeSum());
 
-        if (postTimeSum >= postVideoLongth && postMaxTimePoint == postVideoLongth) {
+        if (record.getTimeSum() >= duration && ended) {
             record.setStatus((short) 1);
         }
         progressRecordService.save(record);
 
+        return "EYEYEY";
     }
 
 

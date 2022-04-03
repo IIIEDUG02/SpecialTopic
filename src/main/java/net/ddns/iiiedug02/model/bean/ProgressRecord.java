@@ -21,8 +21,6 @@ public class ProgressRecord {
 
     private int cuid;
 
-    private float maxTimePoint;
-
     private float timeSum;
 
     private short status;
