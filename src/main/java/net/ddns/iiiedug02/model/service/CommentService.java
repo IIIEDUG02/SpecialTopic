@@ -16,11 +16,11 @@ public class CommentService {
   @Autowired
   private CommentRepository repository;
 
-  Comment create(Comment comment) {
+  public Comment create(Comment comment) {
     return repository.save(comment);
   }
   
-  Comment update(Comment comment) {
+  public Comment update(Comment comment) {
     return repository.save(comment);
   }
   
@@ -31,16 +31,10 @@ public class CommentService {
    * @param uuid: 該則留言的 uuid
    * @return 受影響的筆數 
    */
-  long deleteByUuid(String uuid) {
+  public long deleteByUuid(String uuid) {
     return repository.deleteByUuid(uuid);
   }
   
-  List<Comment> getAllComments(int pageNum, int pageSize) {
-    Pageable pages = PageRequest.of(pageNum, pageSize, Direction.DESC, "post_time");
-
-    return repository.findAll(pages).getContent();
-  }
-
   /**
    * 根據課程的 cid 與留言的類型(type)來取得該課程的所有留言
    * 
@@ -48,11 +42,15 @@ public class CommentService {
    * @param type: 留言的類型
    * @return 
    */
-  List<Comment> getCommentsByCidAndCommentType(int cid, String type) {
-    return repository.getCommentsByClassCidAndCommentType(cid, type);
+  public List<Comment> getCommentsByCidAndCommentType(int cid, String type, int pageNum, int pageSize) {
+    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "post_time");
+    
+    return repository.getCommentsByClassCidAndCommentType(cid, type, pageRequest);
   }
 
-  Comment getCommentByUuid(String uuid) {
-    return repository.findByUuid(uuid).get(0);
+  public Comment getCommentByUuid(String uuid) {
+    List<Comment> comments = repository.findByUuid(uuid);
+    
+    return comments.size() == 1 ? comments.get(0): null;
   }
 }
