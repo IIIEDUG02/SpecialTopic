@@ -32,13 +32,13 @@
 			</div>
 			<br/>
 			<div>
-				密碼:<input type="text" id="password" name="password"
+				密碼:<input type="password" id="password" name="password"
 					required="required" maxlength="20"
 					onfocus="if(this.value == '輸入20個字元以內') this.value =''" />
 			</div>
 			<br/>
 			<div>
-				確認密碼:<input type="text" id="repassword" name="repassword"
+				確認密碼:<input type="password" id="repassword" name="repassword"
 					required="required" maxlength="20"
 					onfocus="if(this.value == '重新輸入密碼') this.value =''" />
 			</div>
