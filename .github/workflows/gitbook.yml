@@ -1,0 +1,23 @@
+name: Build my gitbook and deploy to gh-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - nilm
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: self-hosted
+    env:
+      MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
+      USER_NAME   : nilm
+      USER_EMAIL  : nilm987521@gmail.com
+      BOOK_DIR    : manual
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2.3.1
+    - name: Build and Deploy 🚀
+      uses: onejar99/gitbook-build-publish-action@v1.0.2
