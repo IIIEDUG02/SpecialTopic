@@ -55,8 +55,8 @@ public class CommentController {
   @Autowired
   private MemberService memberService;
   
-  // 目前課成種類暫定三種，課前購課問題發問、課程內容討論與留評價
-  private final List<String> TYPE = Arrays.asList("course", "discussion", "ratting");
+  
+  private final List<String> TYPE = Arrays.asList("course");
   private CommentHelper commentHelper = CommentHelper.getInstance();
   
   
