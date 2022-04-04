@@ -7,8 +7,13 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
+    
+    - name: go manual
+      run: cd manual
+      
     - name: Checkout action
       uses: actions/checkout@v2
+      
     - name: Gitbook Action
       uses: zanderzhao/gitbook-action@v1.2.4
       with:
