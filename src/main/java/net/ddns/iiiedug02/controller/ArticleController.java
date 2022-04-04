@@ -203,6 +203,7 @@ public class ArticleController {
     return "article/createArticle";
   }
   
+  //更新編輯文章
   @PostMapping("/update/{uuid}")
   public String updateArticle(HttpServletRequest request, Principal principal, 
       @PathVariable String uuid) {
