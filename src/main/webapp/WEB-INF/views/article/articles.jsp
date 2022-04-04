@@ -56,17 +56,6 @@
 	color: #fff;
 }
 
-/* 調整 spinner style */
-.spinner-border {
-  color: #5fcf80 !important;
-  position: fixed;
-  left: 45%;
-  top: 45%;
-  width: 5rem;
-  height: 5rem;
-  z-index: 9999;
-}
-
 /* 編輯文章 button 訪問過後樣式 */
 .btn-outline-success:visited {
   color: #198754;
@@ -244,19 +233,17 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
     
-  
-
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
   
-  <!-- Toast js -->
-  <script src="/SpecialTopic/js/toast.js"></script>
-  
+  <!-- Base js -->
+  <script src="/SpecialTopic/js/base.js"></script>
   <script>
+  	
   	/* 
   	 * 因刪除文章列表上要實做的功能有些邏輯較複雜，因此寫 class 來輔助
   	 */
-  	class ArticlesPage {
+  	class ArticlesPage extends Base {
   	  // 宣告靜態變數
   	  static HTTP_OK = "200"
   	  static TIMEOUT_SEC = 5
@@ -269,9 +256,12 @@
   	  
   	  // 建構子
   	  constructor() {
+  	    super()
   	    this.body = document.querySelector('body')
+  	    
+  	    // alert window template
   	    this.alert = `
-  	      <div id="alertMask" class="modal-backdrop fade show"></div>
+  	      <div id="alertMask" class="modal-backdrop fade show" style="z-index: 9999!important; opacity: .5!important;"></div>
   	      <div id="alertToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
   	        	 style="display: block!important; z-index: 9999; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);"
         	>
@@ -284,16 +274,10 @@
     	      </div>
   	    	</div>
   	    `
-  	    // Loading... 的 html template
-  	    this.template = `
-  	    	<div class="modal-backdrop fade show"></div>
-  	    	<div class="spinner-border text-secondary" role="status">
-  	    		<span class="visually-hidden">Loading...</span>
-	    		</div>`
+  	    
   	    this.articlesContainer = document.querySelector('#articlesContainer')
   	    this.articles = [...this.articlesContainer.querySelectorAll('li')]
   	    this.articleDelBtns = [...this.articlesContainer.querySelectorAll('.articleDelBtn')]
-  	    this.show = showToast
   	    
   	    this.init()
   	  }
@@ -301,53 +285,14 @@
   	  init() {
   	    // 先使用較簡易暴力的方式來實現發佈文章後的提示訊息
   	    if (window.location.href.endsWith(ArticlesPage.CREATE_SUCCESS_URL))
-  	  		this.show(ArticlesPage.CREATE_MSG)
+  	  		this.showToast(ArticlesPage.CREATE_MSG)
   	  	// 更新文章成功訊息
   	  	if (window.location.href.endsWith(ArticlesPage.UPDATE_SUCCESS_URL))
-  	  		this.show(ArticlesPage.UPDATE_MSG)
+  	  		this.showToast(ArticlesPage.UPDATE_MSG)
   	  	
   	  	// 為所有的刪除文章 button 新增 click event
   			for (let btn of this.articleDelBtns)
 	  		  btn.addEventListener('click', this.showAlert.bind(null, event, btn, this))
-  	  }
-  	  
-  		// 請求超時中斷函數
-  	  static timeout(s) {
-  	    return new Promise(function (_, reject) {
-  	      setTimeout(function () {
-  	        reject(new Error(`請求時間過長(${s} 秒)。`))
-  	      }, s * 1000)
-  	    })
-  	  }
-  		
-		// 使用原生(native)的方式(JS)來發 AJAX 請求,async JS 的非同步關鍵字
-		// undefined JS 的關鍵字(未定義 有功能的字)
-		// 跟 JAVA 一樣，函數可以傳參數進來，formData 是第一個參數，csrf 是第二個參數
-		// csrf = Cross Site Request Forgery 跨站請求偽造(防止請求偽造)
-  	  static async ajax(formData = undefined, csrf = undefined) {
-  	    try {
-  	      // const 表示是常數，ex; const a = 1，之後改成 a = 2 會錯誤，因為常數只能賦值(給予變數的值)一次
-  	      // fetch 是一個 JS 的函數，能夠用來發送 AJAX 請求
-  	      const fetchPro = fetch(ArticlesPage.DELETE_URL, {
-  	        method: 'POST',
-  	        headers: {
-  	          'Content-Type': 'application/json',
-  	          // 專案目前取消 CSRF，因此先註解
-  	          //之後上伺服器後，下面那句要解開，向後端傳送一個確認是否偽造請求的驗證碼
-  	          // 'X-CSRF-TOKEN': csrf,  
-  	        },
-  	        // body 用來放要往後端傳送的資料
-  	        // JSON 是 JS 的物件，stringify 用來把傳入的參數轉成 JSON 格式
-  	        body: JSON.stringify(formData),
-  	      })
-  	      
-  	      // 等待後端回傳結果
-  	      const res = await Promise.race([fetchPro, ArticlesPage.timeout(ArticlesPage.TIMEOUT_SEC)])
-  	      const data = await res.json()
-
-  	      if (!res.ok) throw new Error(`${data.message} (${res.status})`)
-  	      	return data
-  	    } catch (error) { throw error }
   	  }
 			
   		// 刪除文章的事件處理器
@@ -358,24 +303,24 @@
   	    const article = document.getElementById(uuid)
   	    
   	    // 顯示 Loading... 畫面
-  	    obj.addElement()
+  	    obj.showSpinner()
   	    
   	    try {
   	      // 向後端發送 AJAX 請求並等待結果回傳,await=等待
-  	      const result = await ArticlesPage.ajax({uuid: uuid})
+  	      const result = await ArticlesPage.ajax(ArticlesPage.timeout, {uuid: uuid})
   	     	
   	      if (result.response === ArticlesPage.HTTP_OK) {
   	    	console.log(result)
   	        li.remove()
   	        article.remove()
-  	        obj.show(ArticlesPage.DELETE_MSG)
+  	        obj.showToast(ArticlesPage.DELETE_MSG)
   	      } else {
   	        console.log(result)
   	      }
   	    } catch (error) {
   	      console.error(error)
 	      } finally {
-	        obj.removeElement()
+	        obj.removeSpinner()
 	      }
   	  }
   		
@@ -410,20 +355,6 @@
 			  // "取消" button 的事件
 			  alertCancelBtn.addEventListener('click', obj.removeAlert.bind(obj))
 			}
-			
-  		// 將 Loading... 元素添加至 body 上面
-  		addElement() {
-  		  this.body.insertAdjacentHTML('beforeend', this.template)
-  		}
-  		
-  	// 從 body 中移除 Loading... 元素
-  		removeElement() {
-  		  const modal = document.querySelector('.modal-backdrop')
-  		  const spinner = document.querySelector('.spinner-border')
-  		  
-  		  this.body.removeChild(modal)
-  		  this.body.removeChild(spinner)
-  		}
   	}
   	
   	// Entry point
