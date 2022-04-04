@@ -306,7 +306,7 @@
   	  	if (window.location.href.endsWith(ArticlesPage.UPDATE_SUCCESS_URL))
   	  		this.show(ArticlesPage.UPDATE_MSG)
   	  	
-  	  	// 為所有的刪除文章 button 新增 click event 
+  	  	// 為所有的刪除文章 button 新增 click event
   			for (let btn of this.articleDelBtns)
 	  		  btn.addEventListener('click', this.showAlert.bind(null, event, btn, this))
   	  }
@@ -388,7 +388,7 @@
   		  this.body.removeChild(alert)
   		}
   		
-  		// 刪除 button 的事件處理器，會跳視窗提醒是否要刪除該文章
+  		// 刪除 button 的事件處理器，會先提醒是否要刪除該文章
 			showAlert(e, btn, obj) {
   		  // 添加提醒視窗至 body
 			  obj.body.insertAdjacentHTML('beforeend', obj.alert)
