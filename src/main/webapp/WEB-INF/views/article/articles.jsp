@@ -58,11 +58,19 @@
 
 /* 調整 spinner style */
 .spinner-border {
+  color: #5fcf80 !important;
   position: fixed;
   left: 45%;
   top: 45%;
   width: 5rem;
   height: 5rem;
+  z-index: 9999;
+}
+
+/* 編輯文章 button 訪問過後樣式 */
+.btn-outline-success:visited {
+  color: #198754;
+  border-color: #198754;
 }
 </style>
 </head>
@@ -211,9 +219,12 @@
         
         <!-- Update button -->
         </button>
-        <button type="button" class="articleUpdateBtn btn btn-outline-success btn-sm" title="更新" style="margin-right: 10px;">
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
+        <a
+          href="articles/update/${article.getUuid()}"
+          type="button" class="articleUpdateBtn btn btn-outline-success btn-sm" title="編輯" 
+          style="margin-right: 10px;">
+            <i class="bi bi-file-earmark-font-fill"></i>
+        </a>
           <!-- Title text -->
           ${article.getTitle()}
       </c:forEach>
@@ -251,13 +262,28 @@
   	  static TIMEOUT_SEC = 5
   	  static DELETE_URL = 'articles/delete'
   	  static CREATE_SUCCESS_URL = '?create=success'
+	    static UPDATE_SUCCESS_URL = '?update=success'
   	  static CREATE_MSG = '您的文章已發佈成功！'
+	    static UPDATE_MSG = '您的文章已更新成功！'
   	  static DELETE_MSG = '您已經成功刪除文章！'
   	  
   	  // 建構子
   	  constructor() {
   	    this.body = document.querySelector('body')
-  	    
+  	    this.alert = `
+  	      <div id="alertMask" class="modal-backdrop fade show"></div>
+  	      <div id="alertToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+  	        	 style="display: block!important; z-index: 9999; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);"
+        	>
+    	      <div class="toast-body">
+    	      	<span id="alertToastBody"></span>
+    	        <div class="mt-2 pt-2 border-top">
+    	          <button id="alertDelBtn" type="button" class="btn btn-primary btn-sm">確定</button>
+    	          <button id="alertCancelBtn" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">取消</button>
+    	        </div>
+    	      </div>
+  	    	</div>
+  	    `
   	    // Loading... 的 html template
   	    this.template = `
   	    	<div class="modal-backdrop fade show"></div>
@@ -276,10 +302,13 @@
   	    // 先使用較簡易暴力的方式來實現發佈文章後的提示訊息
   	    if (window.location.href.endsWith(ArticlesPage.CREATE_SUCCESS_URL))
   	  		this.show(ArticlesPage.CREATE_MSG)
+  	  	// 更新文章成功訊息
+  	  	if (window.location.href.endsWith(ArticlesPage.UPDATE_SUCCESS_URL))
+  	  		this.show(ArticlesPage.UPDATE_MSG)
   	  	
   	  	// 為所有的刪除文章 button 新增 click event
   			for (let btn of this.articleDelBtns)
-	  		  btn.addEventListener('click', this.deleteArticleHandler.bind(null, event, btn, this))
+	  		  btn.addEventListener('click', this.showAlert.bind(null, event, btn, this))
   	  }
   	  
   		// 請求超時中斷函數
@@ -320,8 +349,8 @@
   	      	return data
   	    } catch (error) { throw error }
   	  }
-  	  
-  		// 刪除 button 的事件處理器
+			
+  		// 刪除文章的事件處理器
   	  async deleteArticleHandler(e, btn, obj) {
   		  // 取得文章的 UUID
   		  const li = btn.parentElement
@@ -350,6 +379,38 @@
 	      }
   	  }
   		
+  		// 移除題醒元件
+  		removeAlert() {
+  		  const mask = document.querySelector('#alertMask')
+			  const alert = document.querySelector('#alertToast')
+			  
+			  this.body.removeChild(mask)
+  		  this.body.removeChild(alert)
+  		}
+  		
+  		// 刪除 button 的事件處理器，會先提醒是否要刪除該文章
+			showAlert(e, btn, obj) {
+  		  // 添加提醒視窗至 body
+			  obj.body.insertAdjacentHTML('beforeend', obj.alert)
+			  
+			  const li = btn.parentElement
+			  const toastBody = document.querySelector('#alertToastBody')
+			  const alertDelBtn = document.querySelector('#alertDelBtn')
+			  const alertCancelBtn = document.querySelector('#alertCancelBtn')
+			  
+			  // 設定提醒文字
+			  toastBody.innerText = '您確定要刪除文章 ' + '"' +li.innerText + '" 嗎？'
+			  
+			  // "確定" button 的事件
+			  alertDelBtn.addEventListener('click', () => {
+			    obj.removeAlert()
+			    obj.deleteArticleHandler(null, btn, obj)
+			  })
+			  
+			  // "取消" button 的事件
+			  alertCancelBtn.addEventListener('click', obj.removeAlert.bind(obj))
+			}
+			
   		// 將 Loading... 元素添加至 body 上面
   		addElement() {
   		  this.body.insertAdjacentHTML('beforeend', this.template)

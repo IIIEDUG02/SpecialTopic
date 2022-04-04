@@ -32,7 +32,7 @@ public class ClassBean {
   @Column(name = "class_type")
   private String classType;
   @Column(name = "photo")
-  private byte[] photo;
+  private String photo;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private ClassDetailsBean classDetailsBean;
@@ -40,9 +40,6 @@ public class ClassBean {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
 
-  public ClassBean() {
-
-  }
 
   public Set<CurriculumBean> getCurriculumbean() {
     return curriculumbean;
@@ -100,14 +97,12 @@ public class ClassBean {
     this.classType = classType;
   }
 
-  public byte[] getPhoto() {
+  public String getPhoto() {
     return photo;
   }
 
-  public void setPhoto(byte[] photo) {
+  public void setPhoto(String photo) {
     this.photo = photo;
   }
-
-
 
 }

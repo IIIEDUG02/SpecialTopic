@@ -7,23 +7,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMVCConfig implements WebMvcConfigurer {
 
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/login_page").setViewName("member/loginPage");
-    registry.addViewController("/logout_page").setViewName("logoutPage");
-    registry.addViewController("/registerPage1").setViewName("member/registerPage1");
-    registry.addViewController("/registerPage2").setViewName("member/registerPage2");
-    registry.addViewController("/signout/success").setViewName("signout/success");
-    registry.addViewController("/ECPayClient").setViewName("tradeRecord/ECPayClient");
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login_page").setViewName("member/loginPage");
+        registry.addViewController("/logout_page").setViewName("logoutPage");
+        registry.addViewController("/registerPage1").setViewName("member/registerPage1");
+        registry.addViewController("/signout/success").setViewName("signout/success");
+        registry.addViewController("/play").setViewName("class/curriculum-nilm");
 
-    // 模板
-    registry.addViewController("/").setViewName("index");
-    registry.addViewController("/about").setViewName("about");
-    registry.addViewController("/courses").setViewName("courses");
-    registry.addViewController("/trainers").setViewName("trainers");
-    registry.addViewController("/events").setViewName("events");
-    registry.addViewController("/pricing").setViewName("pricing");
-    registry.addViewController("/contact").setViewName("contact");
-  }
+        // 模板
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/about").setViewName("about");
+        registry.addViewController("/courses").setViewName("courses");
+        registry.addViewController("/trainers").setViewName("trainers");
+        registry.addViewController("/events").setViewName("events");
+        registry.addViewController("/pricing").setViewName("pricing");
+        registry.addViewController("/contact").setViewName("contact");
+    }
 
 }

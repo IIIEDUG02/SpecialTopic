@@ -21,18 +21,18 @@ import lombok.Setter;
 @Getter
 public class ShoppingCart implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Id
-  @Column(name = "id", columnDefinition = "int", nullable = false, updatable = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+    @Id
+    @Column(name = "id", columnDefinition = "int", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-  @Column(name = "uid", columnDefinition = "integer")
-  private int uid;
+    @Column(name = "uid", columnDefinition = "integer")
+    private int uid;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "cid", referencedColumnName = "cid", columnDefinition = "integer")
-  private ClassBean classBean;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cid", referencedColumnName = "cid", columnDefinition = "integer")
+    private ClassBean classBean;
 
 }

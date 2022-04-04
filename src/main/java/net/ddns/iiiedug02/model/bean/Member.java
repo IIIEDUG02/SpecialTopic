@@ -27,53 +27,53 @@ import lombok.Setter;
 @Getter
 public class Member implements Serializable, UserDetails {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Id
-  @Column(name = "uid")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int uid;
+    @Id
+    @Column(name = "uid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int uid;
 
-  @Column(name = "username")
-  private String username;
+    @Column(name = "username")
+    private String username;
 
-  @Column(name = "password")
-  private String password;
+    @Column(name = "password")
+    private String password;
 
-  @Column(name = "activated")
-  private short activated = 0;
+    @Column(name = "activated")
+    private short activated = 0;
 
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "member",
-      cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-  private MemberInformation memberInformation;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private MemberInformation memberInformation;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "member",
-      cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-  private Set<MemberRole> roles;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<MemberRole> roles;
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return getRoles();
-  }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
+    @Override
+    public boolean isEnabled() {
+        return this.activated == (short) 1;
+    }
 
 }

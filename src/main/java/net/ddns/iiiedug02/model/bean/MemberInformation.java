@@ -10,6 +10,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,7 @@ public class MemberInformation implements Serializable {
   @Id
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "uid", referencedColumnName = "uid")
+  @JsonIgnore
   private Member member;
 
   @Column(name = "address")
@@ -44,5 +46,12 @@ public class MemberInformation implements Serializable {
   private String job = "";
   @Column(name = "photo")
   private String photo;
+  @Column(name = "passportname")
+  private String passportname;
+  @Column(name = "identitycard")
+  private String identitycard;
+  @Column(name = "gender")
+  private Integer gender;
+
 
 }

@@ -1,0 +1,9 @@
+{
+  "name": "SpecialTopic",
+  "version": "1.0.0",
+  "description": "資展國際JAVA跨域班123期第2組期末專題",
+  "main": "index.js",
+  "repository": "https://github.com/IIIEDUG02/SpecialTopic.git",
+  "author": "IIIEDUG02",
+  "license": "MIT"
+}

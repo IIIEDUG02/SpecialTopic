@@ -1,25 +1,28 @@
 package net.ddns.iiiedug02.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice
+/*
+ * 須從controller拋出Exception，才會觸發，必須使用ModelAndView，用Model無法傳送訊息
+ */
+@ControllerAdvice()
 public class SystemExceptionHandler {
 
-  @ExceptionHandler(NotLoginException.class)
-  public ModelAndView noLoginException(NotLoginException e) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("index");
-    mav.addObject("errMsg", "請先登入！！");
-    return mav;
-  }
+    @ExceptionHandler(NotLoginException.class)
+    public ModelAndView noLoginException(NotLoginException e) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("errMsg", e.getMessage());
+        mav.setViewName("index");
+        return mav;
+    }
 
-  @ExceptionHandler(UserNotFoundException.class)
-  public Object userNotFountException(UserNotFoundException e) {
-    String eMsg = e.getMessage();
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(eMsg);
-  }
+    @ExceptionHandler(ItemInCartException.class)
+    public ModelAndView itemInCartException(ItemInCartException e) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("msg", e.getMessage());
+        mav.setViewName("tradeRecord/shopping_cart_info");
+        return mav;
+    }
 }

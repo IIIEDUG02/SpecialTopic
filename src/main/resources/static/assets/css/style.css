@@ -27,6 +27,36 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
 }
 
+.modal-header h5{
+	font-size: 30px;
+	/*置中*/
+	position: absolute;
+	top: 7%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-body form .username, 
+.modal-body form .password{
+	margin: 30px;
+	width:90%;
+	border-radius: 20px;
+}
+
+.remember{
+	
+	margin-bottom:50px;
+}
+
+.modal-body form .btn{
+	width:70%;
+	font-size:25px;	
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #5FCF80;
+}
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -718,7 +748,8 @@ section {
   border-top: 1px solid #eef0ef;
 }
 .courses .trainer .trainer-profile img {
-  max-width: 50px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
 }
 .courses .trainer .trainer-profile span {

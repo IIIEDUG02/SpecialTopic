@@ -7,8 +7,10 @@ import net.ddns.iiiedug02.model.bean.ShoppingCart;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer> {
 
-  public List<ShoppingCart> findByUid(int uid);
+    public List<ShoppingCart> findByUid(int uid);
 
-  public ShoppingCart findByUidAndClassBean(int uid, ClassBean cb);
+    public void deleteByUidAndClassBean(int uid, ClassBean cb);
+
+    public ShoppingCart findByUidAndClassBean(int uid, ClassBean cb);
 
 }
