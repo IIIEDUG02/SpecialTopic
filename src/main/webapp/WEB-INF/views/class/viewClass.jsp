@@ -32,6 +32,9 @@
 
 <!-- 購物車 -->
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
+
+<!-- courseComment CSS -->
+<link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
 </head>
 
 <body>
@@ -90,7 +93,10 @@
 
 	</main>
 	<!-- End #main -->
-
+  
+  <!-- courseComment -->
+  <jsp:include page="../comment/courseComment.jsp" />
+  
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 
