@@ -1,0 +1,12 @@
+.book .book-body .page-wrapper .page-inner {
+  max-width: 90%;
+}
+
+h1 {
+  display: block;
+  border-bottom: 1px solid #000000;
+}
+
+p {
+  text-indent: 2em;
+}
