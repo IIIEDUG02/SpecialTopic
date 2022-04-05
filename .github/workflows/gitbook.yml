@@ -7,14 +7,28 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+
     steps:
-    
+    - name: Checkout action 
+      uses: actions/checkout@v2
+
+    - name: Checkout nodejs 12 
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '12'
+
     - name: go manual
       run: cd manual
       
-    - name: Checkout action
-      uses: actions/checkout@v2
-      
+    - name: install gitbook plugins
+      run: gitbook install
+
+    - name: build html file
+      run: gitbook build
+
+    - name: move htmls to www-data
+      run: echo ${{ secrets.PASSWORD }} | sudo mv _book/ /var/www/html/gitbook
+
     - name: Gitbook Action
       uses: zanderzhao/gitbook-action@v1.2.4
       with:
