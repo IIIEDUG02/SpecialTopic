@@ -2,8 +2,7 @@ name: 'Gitbook Action Build'
 on:
   push:
     branches:
-      - Nilm
-      - main # trigger branch
+      - deploy
 jobs:
   build:
     runs-on: self-hosted
