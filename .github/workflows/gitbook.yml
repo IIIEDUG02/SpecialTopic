@@ -12,18 +12,15 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: '12'
-
-    - name: go manual
-      run: cd manual
       
     - name: install gitbook plugins
-      run: gitbook install
+      run: gitbook install manual/
 
     - name: build html file
-      run: gitbook build
+      run: gitbook build manual/
 
     - name: move old www-data
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/www/html/gitbook
 
     - name: move htmls to www-data
-      run: echo ${{ secrets.PASSWORD }} | sudo -S mv _book/ /var/www/html/gitbook
+      run: echo ${{ secrets.PASSWORD }} | sudo -S mv manual/_book/ /var/www/html/gitbook
