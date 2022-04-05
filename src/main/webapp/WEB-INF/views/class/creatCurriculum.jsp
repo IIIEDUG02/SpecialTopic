@@ -12,6 +12,8 @@
 <title>curriculum</title>
 </head>
 <body>
+	<!-- ======= Header ======= -->
+	<jsp:include page="../incloud/header-section.jsp" />
 
 	<button onclick="creatForm()"></button>	
 	<div id="createform"></div>

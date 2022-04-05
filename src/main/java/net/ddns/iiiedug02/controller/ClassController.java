@@ -8,20 +8,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.helpers.ArticleHelper;
@@ -32,12 +37,14 @@ import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
+import net.ddns.iiiedug02.model.service.ClassDetailsService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
 import net.ddns.iiiedug02.model.service.CurriculumService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @Controller
+@SessionAttributes({"classbean"})
 public class ClassController {
 	@Autowired
 	private CurriculumService cus;
@@ -53,6 +60,9 @@ public class ClassController {
 
 	@Autowired
 	private ClassManagementService cms;
+	
+	@Autowired
+	private ClassDetailsService cds;
 
 	@GetMapping(value = "/upload")
 	public String toJsp() {
@@ -62,6 +72,10 @@ public class ClassController {
 	@GetMapping(value = "/play")
 	public String toJsp1() {
 		return "class/curriculum-nilm";
+	}
+	@GetMapping(value = "/test")
+	public String toJsp2() {
+		return "class/createclass";
 	}
 
 	// Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
@@ -80,6 +94,37 @@ public class ClassController {
 		model.addAttribute("classes", cbList);
 		return "backstage/teacherpage";
 	}
+	//創建class
+	@PostMapping(value = "/createclass",produces = "text/html;charset=utf-8")
+	public String createProcessClass(@RequestParam Map<String, String> formData,Model model) {
+		ClassBean cb = new ClassBean();
+		cb.setClassType(formData.get("classtype"));
+		cb.setTitle(formData.get("classtitle"));
+		cb.setPrice(Integer.parseInt(formData.get("classprice")));
+		cb.setUid(Integer.parseInt(formData.get("teacherid")));	
+		model.addAttribute("classbean",cb);
+		
+		
+		return "class/createclassdetails";
+	}
+	//創建classdetails
+	@PostMapping(value = "/createclassdetails")
+	public String createProcessClassDetails(@RequestParam Map<String, String> formData,
+			HttpSession session) {
+		ClassDetailsBean cdb = new ClassDetailsBean();
+		cdb.setDescript(formData.get("descript"));
+		cdb.setGoal(formData.get("goal"));
+		cdb.setNeed_tool(formData.get("needed_tool"));
+		cdb.setStu_required(formData.get("stu_required"));
+		cdb.setVideo(formData.get("video"));
+		cdb.setLength_min(Integer.parseInt(formData.get("length_min")));
+		ClassBean cb = (ClassBean) session.getAttribute("classbean");
+		cb.setClassDetailsBean(cdb);
+		cdb.setClassbean(cb);
+		cbs.insert(cb);
+		return "class/createcurriculum";
+	}
+	
 
 	// 更新課程
 	@PostMapping(value = "/Action")
@@ -226,13 +271,7 @@ public class ClassController {
         return "class/curriculum-nilm";
     }
 
-	@GetMapping("classCurriculum/{cid}")
-	public String classtest(Model m, @PathVariable("cid") int cid) {
-		ClassBean cb = cbs.findById(cid);
-		List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
-		m.addAttribute("CurriculumList", cusList);
-		return "class/curriculum-nilm";
-	}
+
 
 	@GetMapping("getCurListJson/api/{cid}")
 	@ResponseBody

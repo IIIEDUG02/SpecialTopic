@@ -25,7 +25,15 @@
 <title>Video player example</title>
 <link rel="stylesheet" type="text/css"
 	href="/SpecialTopic/css/style.css">
+<style>
+.position_fixed {
+    position: fixed;
+}
 
+.height100 {
+    height: 100px;
+}
+</style>
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -46,9 +54,6 @@
 			<input id="cid" type="hidden" value="${cid}"/>
 		</div>
 	</div>
-	<button class="btn btn-primary" type="button"
-		data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-		aria-controls="offcanvasRight">Toggle right offcanvas</button>
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 		aria-labelledby="offcanvasRightLabel">
 		<div class="offcanvas-header">

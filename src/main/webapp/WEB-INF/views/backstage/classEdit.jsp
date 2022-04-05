@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="hidden" name="uid"
+					<td><input name="uid"
 						value="${classBean.getUid()}" /></td>
 				</tr>
 				<tr>
