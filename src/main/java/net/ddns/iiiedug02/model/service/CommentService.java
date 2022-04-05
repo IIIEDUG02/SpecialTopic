@@ -43,7 +43,7 @@ public class CommentService {
    * @return 
    */
   public List<Comment> getCommentsByCidAndCommentType(int cid, String type, int pageNum, int pageSize) {
-    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "post_time");
+    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "postTime");
     
     return repository.getCommentsByClassCidAndCommentType(cid, type, pageRequest);
   }

@@ -11,7 +11,9 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Comment;
+import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 
 /**
@@ -22,7 +24,7 @@ import net.ddns.iiiedug02.model.bean.MemberInformation;
  */
 public class CommentHelper {
   // 前端顯示的時間會做格式化
-  private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss");
+  private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
   private static CommentHelper instance;
   
   
@@ -125,6 +127,7 @@ public class CommentHelper {
     ObjectMapper objectMapper = new ObjectMapper();
     Map<String, Object> member = new LinkedHashMap<>();
     MemberInformation info;
+    int teacherUid = comments.get(0).getClassBean().getUid();
     
     objectMapper.registerModule(new JavaTimeModule());
     
@@ -141,30 +144,42 @@ public class CommentHelper {
         for (Comment child: children) {
           Map<String, Object> childMap = objectMapper.convertValue(child, Map.class);
           Map<String, Object> childMember = new LinkedHashMap<>();
+          Member m = child.getMember();
           
-          info = child.getMember().getMemberInformation();
+          info = m.getMemberInformation();
           childMember.put("username", info.getFullname());
           childMember.put("avatar", info.getPhoto());
           childMap.put("member", childMember);
           childMap.put("postTime", child.getPostTime().format(FORMATTER));
           childMap.put("editTime", child.getEditTime().format(FORMATTER));
           
+          if (m.getUid() == teacherUid)
+            childMap.put("isInstructor", 1);
+          else
+            childMap.put("isInstructor", 0);
+            
           // 子留言的列表，因為可能有多則子留言
           childrenList.add(childMap);
         }
       }
       
       parentMap = objectMapper.convertValue(comment, Map.class);
+      Member m = comment.getMember();
       
       // 父留言會再添加子留言的屬性
       parentMap.put("comments", childrenList);
 
-      info = comment.getMember().getMemberInformation();
+      info = m.getMemberInformation();
       member.put("username", info.getFullname());
       member.put("avatar", info.getPhoto());
       parentMap.put("member", member);
       parentMap.put("postTime", comment.getPostTime().format(FORMATTER));
       parentMap.put("editTime", comment.getEditTime().format(FORMATTER));
+      
+      if (m.getUid() == teacherUid)
+        parentMap.put("isInstructor", 1);
+      else
+        parentMap.put("isInstructor", 0);
 
       body.add(parentMap);
     }

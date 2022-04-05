@@ -307,10 +307,10 @@
   	    
   	    try {
   	      // 向後端發送 AJAX 請求並等待結果回傳,await=等待
-  	      const result = await ArticlesPage.ajax(ArticlesPage.timeout, {uuid: uuid})
+  	      const result = await ArticlesPage.ajax(ArticlesPage.DELETE_URL, {uuid: uuid})
   	     	
   	      if (result.response === ArticlesPage.HTTP_OK) {
-  	    	console.log(result)
+  	    		console.log(result)
   	        li.remove()
   	        article.remove()
   	        obj.showToast(ArticlesPage.DELETE_MSG)

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.ddns.iiiedug02.helpers.CommentHelper;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Comment;
-
+import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.CommentService;
 import net.ddns.iiiedug02.model.service.MemberService;
@@ -74,10 +74,22 @@ public class CommentController {
    */
   @GetMapping("/comments")
   public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam int cid, @RequestParam String type, 
-      @RequestParam int pageNum, @RequestParam int pageSize) {
+      @RequestParam int pageNum, @RequestParam int pageSize, Principal p) {
     List<Comment> comments = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
+    List<Map<String, Object>> data = commentHelper.getResponseBody(comments);
     
-    return new ResponseEntity<Object>(commentHelper.getResponseBody(comments), HttpStatus.OK);
+    if (p != null) {
+      Member member = memberService.findByUsername(p.getName());
+      Map<String, Object> result = new LinkedHashMap<String, Object>();
+      
+      result.put("username", member.getMemberInformation().getFullname());
+      result.put("avatar", member.getMemberInformation().getPhoto());
+      result.put("result", data);
+      
+      return new ResponseEntity<Object>(result, HttpStatus.OK);
+    }
+    
+    return new ResponseEntity<Object>(data, HttpStatus.OK);
   }
   
   
