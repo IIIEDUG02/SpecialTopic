@@ -23,5 +23,8 @@ jobs:
     - name: build html file
       run: gitbook build
 
+    - name: move old www-data
+      run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/www/html/gitbook
+
     - name: move htmls to www-data
       run: echo ${{ secrets.PASSWORD }} | sudo -S mv _book/ /var/www/html/gitbook
