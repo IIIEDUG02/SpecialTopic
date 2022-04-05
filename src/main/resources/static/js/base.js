@@ -7,6 +7,8 @@
 */
 
 class Base {
+	static TIMEOUT_SEC = 5
+	
 	constructor() {
 		// Loading... 的 html template
 		this.spinner = `
@@ -32,10 +34,10 @@ class Base {
 
 	// 使用原生(native)的方式(JS)來發 AJAX 請求,async JS 的非同步關鍵字
 	// csrf = Cross Site Request Forgery 跨站請求偽造(防止請求偽造)
-	static async ajax(timeout, formData = undefined, csrf = undefined) {
+	static async ajax(url, formData = undefined, csrf = undefined) {
 		try {
 			// fetch 是一個 JS 的函數，能夠用來發送 AJAX 請求
-			const fetchPro = fetch(ArticlesPage.DELETE_URL, {
+			const fetchPro = formData ? fetch(url, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -45,12 +47,12 @@ class Base {
 				},
 				// body 用來放要往後端傳送的資料
 				body: JSON.stringify(formData),
-			});
+			}) : fetch(url);
 
 			// 等待後端回傳結果
 			const res = await Promise.race([
 				fetchPro,
-				timeout(ArticlesPage.TIMEOUT_SEC),
+				Base.timeout(Base.TIMEOUT_SEC),
 			]);
 			const data = await res.json();
 

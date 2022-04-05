@@ -107,7 +107,15 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-
+  
+  <!-- moment js，用來轉換前端較好看的顯示時間 -->
+  <script src="/SpecialTopic/assets/vendor/moment-with-locales.min.js"></script>
+  
+  <!-- Base js -->
+  <script src="/SpecialTopic/js/base.js"></script>
+  
+  <!-- course-comment js -->
+  <script src="/SpecialTopic/js/course-comment.js"></script>
 </body>
 
 </html>
