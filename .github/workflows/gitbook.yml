@@ -25,8 +25,3 @@ jobs:
 
     - name: move htmls to www-data
       run: echo ${{ secrets.PASSWORD }} | sudo -S mv _book/ /var/www/html/gitbook
-
-    - name: Gitbook Action
-      uses: zanderzhao/gitbook-action@v1.2.4
-      with:
-        token: ${{ secrets.PERSONAL_TOKEN }}
