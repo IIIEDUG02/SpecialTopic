@@ -1,3 +1,3 @@
 {
-    "plugins": ["splitter"]
+    "plugins": ["splitter","chapter-fold"]
 }
