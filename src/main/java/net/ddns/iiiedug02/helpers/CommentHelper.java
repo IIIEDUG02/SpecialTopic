@@ -87,34 +87,37 @@ public class CommentHelper {
    * 這裡會需要處理父子留言的問題，來回傳一個正確的結構給前端。
    * 
    * 目前格式為:
-   * 最外層為 list
-   * [
-       {
-        "title": "留言標題",
-        "content": "留言內容",
-        "uuid": "c415c69ee953493ab48a001 ",
-        "postTime": "2022/04/04 05:22:14",
-        "editTime": "2022/04/04 05:22:14",
-        * 此為子留言
-        "comments": [
-            {
-              "title": "留言標題",
-              "content": "留言內容",
-              "uuid": "791cfd29804a423791d1abc ",
-              "postTime": "2022/04/04 05:28:15",
-              "editTime": "2022/04/04 05:28:15",
-              "member": {
-                "username": "使用者中文名稱",
-                "avatar": 大頭貼
+   * {
+       "username": "登入者中文名稱",
+       "avatar" : "大頭貼", 
+       "result": [  
+         {
+          "title": "留言標題",
+          "content": "留言內容",
+          "uuid": "c415c69ee953493ab48a001 ",
+          "postTime": "2022/04/04 05:22:14",
+          "editTime": "2022/04/04 05:22:14",
+          * 此為子留言
+          "comments": [
+              {
+                "title": "留言標題",
+                "content": "留言內容",
+                "uuid": "791cfd29804a423791d1abc ",
+                "postTime": "2022/04/04 05:28:15",
+                "editTime": "2022/04/04 05:28:15",
+                "member": {
+                  "username": "使用者中文名稱",
+                  "avatar": 大頭貼
+                }
               }
+            ],
+            "member": {
+              "username": "使用者中文名稱",
+              "avatar": 大頭貼
             }
-          ],
-          "member": {
-            "username": "使用者中文名稱",
-            "avatar": 大頭貼
           }
-        }
-      ]
+        ]
+      }
    * 
    * @param comments: 要處理的 Comment 列表，此列表都只會是父留言，已經從資料庫用條件篩出來。
    * @return Map Object
