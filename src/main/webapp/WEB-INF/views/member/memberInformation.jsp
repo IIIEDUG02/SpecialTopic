@@ -26,7 +26,7 @@
  			<div>©m¦W: <a>${mb.getMemberInformation().getFullname()}</a> <input type="hidden" name="fullname" value="${mb.getMemberInformation().getFullname()}"> <button >½s¿è</button></div>
  			<div>¤â¾÷: <a>${mb.getMemberInformation().getPhone()}</a> <input type="hidden" name="phone" value="${mb.getMemberInformation().getPhone()}" > <button >½s¿è</button></div>
  			<div>«H½c: <a>${mb.getMemberInformation().getEmail()}</a> <input type="hidden" name="email" value="${mb.getMemberInformation().getEmail()}" > <button >½s¿è</button></div>
- 			<div>¦a§}: <a>${mb.getMemberInformation().getAddress()}</a> <input type="hidden" name="adress" value="${mb.getMemberInformation().getAddress()}" > <button >½s¿è</button></div>
+ 			<div>¦a§}: <a>${mb.getMemberInformation().getAddress()}</a> <input type="hidden" name="address" value="${mb.getMemberInformation().getAddress()}" > <button >½s¿è</button></div>
  			<div>¤u§@: <a>${mb.getMemberInformation().getJob()}</a> <input type="hidden" name="job" value="${mb.getMemberInformation().getJob()}" > <button >½s¿è</button></div>
  			<input id="check" type="hidden" value="½T»{" >
  		</form>
