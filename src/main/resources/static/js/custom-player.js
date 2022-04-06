@@ -83,7 +83,7 @@ function changeVideoSrc(url) {
 
 $.ajax({
 	type: "Get",
-	url: "/SpecialTopic/getCurListJson/api/" + $('input#cid').val(),
+	url: "/SpecialTopic/class/curriculums/api/" + $('input#cid').val(),
 	dataType: "json",
 	contentType: "application/json;charset=utf-8",
 	success: function(data) {
