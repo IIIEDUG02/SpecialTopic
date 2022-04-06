@@ -143,7 +143,6 @@ public class CommentHelper {
     List<Map<String, Object>> childrenList;
     Map<String, Object> parentMap;
     ObjectMapper objectMapper = new ObjectMapper();
-    Map<String, Object> member = new LinkedHashMap<>();
     MemberInformation info;
     ClassBean classBean = comments.get(0).getClassBean();
     
@@ -151,7 +150,9 @@ public class CommentHelper {
     
     // 循環每個父留言
     for (Comment comment : comments) {
+      Map<String, Object> member = new LinkedHashMap<>();
       childrenList = new ArrayList<Map<String,Object>>();
+      MemberInformation childInfo;
       
       // 取出子留言
       Set<Comment> children = comment.getComments();
@@ -164,9 +165,9 @@ public class CommentHelper {
           Map<String, Object> childMember = new LinkedHashMap<>();
           Member m = child.getMember();
           
-          info = m.getMemberInformation();
-          childMember.put("username", info.getFullname());
-          childMember.put("avatar", info.getPhoto());
+          childInfo = m.getMemberInformation();
+          childMember.put("username", childInfo.getFullname());
+          childMember.put("avatar", childInfo.getPhoto());
           childMap.put("member", childMember);
           childMap.put("postTime", child.getPostTime().format(FORMATTER));
           childMap.put("editTime", child.getEditTime().format(FORMATTER));
@@ -194,18 +195,17 @@ public class CommentHelper {
       }
       
       parentMap = objectMapper.convertValue(comment, Map.class);
-      Member m = comment.getMember();
       
       // 父留言會再添加子留言的屬性
       parentMap.put("comments", childrenList);
 
-      info = m.getMemberInformation();
+      info = comment.getMember().getMemberInformation();
       member.put("username", info.getFullname());
       member.put("avatar", info.getPhoto());
       parentMap.put("member", member);
       parentMap.put("postTime", comment.getPostTime().format(FORMATTER));
       parentMap.put("editTime", comment.getEditTime().format(FORMATTER));
-      parentMap.put("isInstructor", isisInstructor(m, classBean));
+      parentMap.put("isInstructor", isisInstructor(comment.getMember(), classBean));
 
       body.add(parentMap);
     }

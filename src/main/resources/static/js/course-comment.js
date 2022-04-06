@@ -289,6 +289,7 @@ class CourseComment extends Base {
 			
 			if (data) {
 				const firstItem = document.querySelector(obj.elements.firstItem);
+				commentEl.querySelector("textarea").value = "";
 				
         // 新增留言成功後，要將元件新增到頁面上，會新增到最上面，但在第一個元素之後
 				firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
