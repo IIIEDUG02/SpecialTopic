@@ -8,4 +8,4 @@
 * [流程圖](workflow/workflow.md)
 * [資料表](dbDesign/datatable.md)
 * [附錄](appendix/README.md)
-  *  [進度管制](appendix/GanttChart/gantt.md)
+  *  [進度管制](appendix/GanttChart/cert.md)
