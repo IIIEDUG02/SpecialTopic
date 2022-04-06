@@ -31,11 +31,12 @@ public class MemberService implements UserDetailsService {
         return opt.get();
     }
 
-    public Member createMemberBean(Member mb) {
+    public Member save(Member mb) {
 
         String encodedpassword = bCryptPasswordEncoder.encode(mb.getPassword());
         mb.setPassword(encodedpassword);
 
+        if(null == mb.getRoles()) {
         MemberRole mrb = new MemberRole();
         mrb.setRole("normal");
         mrb.setMember(mb);
@@ -44,7 +45,7 @@ public class MemberService implements UserDetailsService {
         rs.add(mrb);
 
         mb.setRoles(rs);
-
+        }
         return memberRepository.save(mb);
     }
 
