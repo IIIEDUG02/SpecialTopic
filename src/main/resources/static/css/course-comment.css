@@ -342,7 +342,7 @@ textarea {
 }
 
 /* sub comment profile style */
-.dOurpm {
+.sub-comment__img {
   border-radius: 50%;
   overflow: hidden;
   height: 40px;

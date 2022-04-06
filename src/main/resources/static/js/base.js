@@ -6,6 +6,15 @@
  其他 JS 可繼承此類別再擴充自己需要的功能。
 */
 
+String.prototype.format = function() {
+  a = this;
+  
+  for (k in arguments) {
+    a = a.replace("{" + k + "}", arguments[k])
+  }
+  return a;
+}
+
 class Base {
 	static TIMEOUT_SEC = 5
 	
