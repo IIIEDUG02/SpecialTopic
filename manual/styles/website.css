@@ -1,0 +1,37 @@
+.book .book-body .page-wrapper .page-inner {
+  max-width: 90%;
+}
+
+h1 {
+  display: block;
+  border-bottom: 1px solid #000000;
+}
+
+p {
+  text-indent: 2em;
+}
+
+th {
+  background-color: #909090;
+  color: #FFFFFF;
+}
+
+a:link {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:active {
+  text-decoration: none;
+  color: #000000;
+}

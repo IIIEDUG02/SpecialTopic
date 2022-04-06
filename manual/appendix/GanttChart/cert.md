@@ -1,4 +1,6 @@
-```mermaid
+# 購物車
+
+<div class="mermaid">
 gantt
     title 金流系統
     dateFormat  YYYY-MM-DD
@@ -31,6 +33,9 @@ gantt
     串接購物車資料   :done, d2, after c4, 1d
     接收綠界回傳資料 :done, d3, after d2, 1d
     測試及除錯     :done, d4, after d3, 2d
-    
-```
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true });
+</script>

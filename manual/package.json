@@ -1,0 +1,9 @@
+{
+  "name": "manual",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "gitbook-plugin-chapter-fold": "^0.0.4"
+  }
+}
