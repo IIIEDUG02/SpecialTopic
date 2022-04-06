@@ -26,3 +26,20 @@
 		btn_submit.append(span_submit);
 		div_createform.append(form_cu);
 };
+
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8080/SpecialTopic/getCurListJson/api/"+cid,
+		contentType: "application/json",
+		dataType: "json",
+		success: function(data) {
+			
+			
+			
+			},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+});

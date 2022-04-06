@@ -6,11 +6,11 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,12 +18,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -37,7 +34,6 @@ import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
-import net.ddns.iiiedug02.model.service.ClassDetailsService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
 import net.ddns.iiiedug02.model.service.CurriculumService;
@@ -61,8 +57,6 @@ public class ClassController {
 	@Autowired
 	private ClassManagementService cms;
 	
-	@Autowired
-	private ClassDetailsService cds;
 
 	@GetMapping(value = "/upload")
 	public String toJsp() {
@@ -76,6 +70,10 @@ public class ClassController {
 	@GetMapping(value = "/test")
 	public String toJsp2() {
 		return "class/createclass";
+	}
+	@GetMapping(value = "/test2")
+	public String toJsp3() {
+		return "class/createCurriculum";
 	}
 
 	// Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
@@ -124,46 +122,46 @@ public class ClassController {
 		cbs.insert(cb);
 		return "class/createcurriculum";
 	}
-	
+	// 創建curriculum
+	@PostMapping(path = "/createcurriculum")
+	@ResponseBody
+	public String uploadvideo(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
+			@RequestParam Map<String, String> formData,HttpSession session)
+			throws IllegalStateException, IOException {
+		
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
 
-	// 更新課程
-	@PostMapping(value = "/Action")
-	public String updateAction(@RequestBody MultiValueMap<String, String> formData) {
-
-		ClassBean cb = new ClassBean();
-		cb.setCid(Integer.parseInt(formData.get("cid").get(0)));
-		cb.setUid(Integer.parseInt(formData.get("uid").get(0)));
-		cb.setClassType(formData.get("classType").get(0));
-		cb.setPhoto(formData.get("photo").get(0));
-		cb.setPrice(Integer.parseInt(formData.get("price").get(0)));
-		cb.setTitle(formData.get("title").get(0));
-
-		ClassDetailsBean cdb = new ClassDetailsBean();
-		cdb.setCid(Integer.parseInt(formData.get("cid").get(0)));
-		cdb.setDescript(formData.get("descript").get(0));
-		cdb.setLength_min(Integer.parseInt(formData.get("length_min").get(0)));
-		cdb.setGoal(formData.get("goal").get(0));
-		cdb.setNeed_tool(formData.get("needed_tool").get(0));
-		cdb.setStu_required(formData.get("stu_required").get(0));
-		cdb.setVideo(formData.get("video").get(0));
-
-		CurriculumBean ccb = new CurriculumBean();
-		ccb.setClassbean(cb);
-		ccb.setVideo_path("123");
-		ccb.setChapter("123");
-		ccb.setClassbean(cb);
-
-		Set<CurriculumBean> ccbSet = new HashSet<>();
-		ccbSet.add(ccb);
-
-		cb.setClassDetailsBean(cdb);
-		cb.setCurriculumbean(ccbSet);
-		cdb.setClassbean(cb);
-
-		cbs.update(cb);
-
-		return "redirect:/seeteacherclass";
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		if (type.isEmpty()) {
+			return "no video";
+		}
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		
+		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
+		
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
+		
+		mf.transferTo(saveFile);
+		
+		CurriculumBean cub = new CurriculumBean();
+		
+		ClassBean cb = (ClassBean)session.getAttribute("classbean");
+		cub.setClassbean(cb);
+		cub.setChapter(formData.get("chapter"));
+		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+		cus.insert(cub);
+		
+		return "instructor";
 	}
+
+
 
 	// show課程
 	@GetMapping(value = "/seeteacherclass")
@@ -223,6 +221,7 @@ public class ClassController {
 
 		return saveFilePath;
 	}
+
 
 	// 尋找全部上線課程
 	@GetMapping(path = "/allonlineclass")
