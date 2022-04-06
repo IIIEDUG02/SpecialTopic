@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,17 @@ public class StudentAnalService {
 	
 	public void  insert(StudentAnalysis an){
 		analRepo.save(an);
+	}
+	
+	public List<Map<String, Integer>> getgenderbyID(String cid){
+		return analRepo.getgenderbyID(cid);
+	}
+	
+	public List<Map<String, Integer>> getAgePercentbyID(String cid){
+		return analRepo.getAgePercentbyID(cid);
+	}
+	
+	public List<Map<String, Integer>> getJobPercentbyID(String cid){
+		return analRepo.getJobPercentbyID(cid);
 	}
 }
