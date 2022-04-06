@@ -41,7 +41,7 @@
 									</ul></li>
 								<li><a href="#">Drop Down 2</a></li>
 								<li><a href="#">Drop Down 3</a></li>
-								<li><a href="#">Drop Down 4</a></li>
+								<li><a href="/SpecialTopic/memberInformation" type="button">個人資料</a></li>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
