@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +22,9 @@ public class MemberController {
 
     @Autowired
     private MemberService ms;
-    
+
     @Autowired
-    private  UniversalTool ut;
+    private UniversalTool ut;
 
     @PostMapping(value = "/registerAction1",
             produces = "application/x-www-form-urlencoded;charset=UTF-8")
@@ -37,7 +36,7 @@ public class MemberController {
             m.addAttribute("errMsg", "帳號已註冊");
             return "member/registerPage1";
         }
-        
+
         MemberInformation mbi = new MemberInformation();
         mbi.setAddress(params.get("address"));
         mbi.setBirthday(ut.strToSqlDate(params.get("birthday")));
@@ -54,13 +53,13 @@ public class MemberController {
         mb.setUsername(params.get("username"));
         mb.setPassword(params.get("password"));
         mb.setActivated((short) 0);
-        
+
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
-        ms.createMemberBean(mb);
+        ms.save(mb);
         session.setAttribute("registerBean", mb);
-        return "redirect:/";   
-        
+        return "redirect:/";
+
     }
 
     @GetMapping("/countmember.controller")
@@ -73,40 +72,44 @@ public class MemberController {
     public String signout() {
         return "redirect:/";
     }
-    
+
     @GetMapping("/member/editInformation")
-    public String editInformation(Model m , HttpSession session, Principal principal) {
-    	
-    	Member mb = ut.getLoiginBean(session, principal);
-    	 m.addAttribute("mb", mb);
-    	return "member/memberInformation";
+    public String editInformation(Model m, HttpSession session, Principal principal) {
+
+        Member mb = ut.getLoiginBean(session, principal);
+        m.addAttribute("mb", mb);
+        return "member/memberInformation";
     }
-    
+
     @PostMapping(value = "/memberUpdateInformation",
             produces = "application/x-www-form-urlencoded;charset=UTF-8")
     public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session,
             Model m, HttpServletRequest request) throws ParseException {
 
         Member mb = ms.findByUsername(params.get("username"));
-                         
+
         MemberInformation mbi = mb.getMemberInformation();
         mbi.setAddress(params.get("address"));
 
         mbi.setEmail(params.get("email"));
         mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));   
-        mbi.setPhone(params.get("phone"));   
+        mbi.setJob(params.get("job"));
+        mbi.setPhone(params.get("phone"));
 
         mb.setUsername(params.get("username"));
         mb.setPassword(params.get("password"));
         mb.setActivated((short) 0);
-//        mb.setRoles(null);
-        
+        // mb.setRoles(null);
+
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
-        ms.createMemberBean(mb);
+
+        System.out.println(mb.getRoles().get(0));
+
+        ms.save(mb);
+
         session.setAttribute("registerBean", mb);
-        return "redirect:/";   
-        
+        return "redirect:/";
+
     }
 }
