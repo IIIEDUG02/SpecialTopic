@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.controller;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -73,5 +74,39 @@ public class MemberController {
         return "redirect:/";
     }
     
+    @GetMapping("/member/editInformation")
+    public String editInformation(Model m , HttpSession session, Principal principal) {
+    	
+    	Member mb = ut.getLoiginBean(session, principal);
+    	 m.addAttribute("mb", mb);
+    	return "member/memberInformation";
+    }
     
+    @PostMapping(value = "/memberUpdateInformation",
+            produces = "application/x-www-form-urlencoded;charset=UTF-8")
+    public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session,
+            Model m, HttpServletRequest request) throws ParseException {
+
+        Member mb = ms.findByUsername(params.get("username"));
+                         
+        MemberInformation mbi = mb.getMemberInformation();
+        mbi.setAddress(params.get("address"));
+
+        mbi.setEmail(params.get("email"));
+        mbi.setFullname(params.get("fullname"));
+        mbi.setJob(params.get("job"));   
+        mbi.setPhone(params.get("phone"));   
+
+        mb.setUsername(params.get("username"));
+        mb.setPassword(params.get("password"));
+        mb.setActivated((short) 0);
+//        mb.setRoles(null);
+        
+        mb.setMemberInformation(mbi);
+        mbi.setMember(mb);
+        ms.createMemberBean(mb);
+        session.setAttribute("registerBean", mb);
+        return "redirect:/";   
+        
+    }
 }
