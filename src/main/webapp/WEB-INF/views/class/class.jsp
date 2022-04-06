@@ -20,11 +20,9 @@
 				<td><label>價錢:</label><input type="text" id="classprice" /></td>
 			</tr>
 			<tr>
-				<td><label>縮圖:</label><input type="file" id="classphoto" /></td>
+				<td><label>老師ID:</label><input type="text" id="teacherid" /></td>
 			</tr>
-			<tr>
-				<td><label>老師:</label><input type="text" id="teacherid" /></td>
-			</tr>
+
 			<tr>
 				<td>
 					<input type="button" onclick="register1()" value="送出" />

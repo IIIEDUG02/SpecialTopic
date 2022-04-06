@@ -42,7 +42,8 @@
 				</tr>
 				<tr>
 					<td>圖片</td>
-					<td></td>
+					<td><input type = "file" name="photo"
+						value="${classBean.getPhoto()}" /></td>
 				</tr>
 				<tr>
 					<td>價錢</td>

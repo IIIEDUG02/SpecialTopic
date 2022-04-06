@@ -17,13 +17,13 @@ $(document).ready(function() {
 				div_class_detail.append(h4_type);
 				div_class_detail.append(p_price);
 
-				var h3_title = $("<h3><a href='#'>"+data[i]['title']+"</a></h3>");
+				var h3_title = $("<h3><a href='viewClass/"+data[i]['cid']+"'>"+data[i]['title']+"</a></h3>");
 				var div_class_content = $("<div class='course-content'>");
 
 				div_class_content.append(div_class_detail);
 				div_class_content.append(h3_title);
 
-				var img_class = $("<img src='"+data[i]['photo']+"' class='img-fluid' alt='...'>");
+				var img_class = $("<img src='"+data[i]['photo']+"' class='img-fluid' alt='no image'>");
 				var div_class_item = $("<div class='course-item'>");
 
 				div_class_item.append(img_class);
@@ -36,6 +36,8 @@ $(document).ready(function() {
 				var div_row = $("div#row");	
 						
 				div_row.append(div_class_view);
+				
+				$('div#loadingCircle').remove();
 			};
 		},
 		error: function(xhr, status) {
