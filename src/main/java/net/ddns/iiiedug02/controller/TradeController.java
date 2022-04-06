@@ -112,7 +112,6 @@ public class TradeController {
     // 當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。
     // 若與[ClientBackURL]同時設定，將會以此參數為主。
     @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
-    @ResponseBody
     public String processPaymentResult2(HttpServletRequest request, Principal p) {
 
         Member loginBean = memberService.findByUsername(p.getName());
@@ -167,9 +166,9 @@ public class TradeController {
                 // cashService.insertByList(c2bList);
                 classManagementService.insertByList(cmbList);
             }
-            return "<script>alert('付款成功');</script>";
+            return "viewClassesList/personal";
         } else
-            return "<script>alert('付款失敗');</script>";
+            return "viewClassesList/personal";
     }
 
     @GetMapping("tradeRecord/teacher")
