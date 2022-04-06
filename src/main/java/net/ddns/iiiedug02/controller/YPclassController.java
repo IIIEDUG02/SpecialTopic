@@ -144,43 +144,28 @@ public class YPclassController {
 		return "success/Controllpage1";
 	}
 	
-	ypclassService.updateypclass(pi1);
-    ypclassService.updateypclass(pi2);
-    ypclassService.updateypclass(pi3);
+	ypclassService.updateypclass("1",pi1);
+    ypclassService.updateypclass("2",pi2);
+    ypclassService.updateypclass("3",pi3);
     
-    List<YPclass> YPclassList = ypclassService.findAll();
-    if(YPclassList!=null && !YPclassList.isEmpty()) {
-    	m.addAttribute("YPclassList", YPclassList);
+    List<YPclass> ypclassList = ypclassService.findAll();
+    if(ypclassList!=null && !ypclassList.isEmpty()) {
+    	m.addAttribute("ypclassList", ypclassList);
 		return "success/Success3";
 	}
     errors.put("pimsg", "請確認輸入值");
 	return "success/Controllpage1";
   }
   
-  @GetMapping("/ypclasschangetop")
-  public String controllChangeTop(@RequestParam("pi1") String pi1, Model m) {
-	
-    Map<String, String> errors = new HashMap<String, String>();
-	m.addAttribute("errors", errors);
-	if(pi1==null || pi1.length()==0) {
-		errors.put("pi1", "請輸入課程ID");
-	}
-	
-
-	if(errors!=null && !errors.isEmpty()) {
-		return "success/Controllpage1";
-	}
-	
-	ypclassService.updateypclass(pi1);
-
-    
-    List<YPclass> YPclassList = ypclassService.findAll();
-    if(YPclassList!=null && !YPclassList.isEmpty()) {
-    	m.addAttribute("YPclassList", YPclassList);
-		return "success/Success3";
-	}
-    errors.put("pimsg", "請確認輸入值");
-	return "success/Controllpage1";
+  @GetMapping("/resetypclass")
+  public String resetypclass(Model m) {
+	  List<YPclass> ypclasscontroll = ypclassService.findAllRow();
+	  Map<String, String> errors = new HashMap<String, String>();
+	  m.addAttribute("ypclasscontroll", ypclasscontroll);
+	  m.addAttribute("errors", errors);
+	  errors.put("resetmsg", "排序設定已清空");
+	  ypclassService.resetypclass();
+	  return "success/Controllpage1";
   }
   
 

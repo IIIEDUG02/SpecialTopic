@@ -30,29 +30,32 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<form action="ypclasschangetop" method="get">
-				<table>
-					<tr>
-						<td>輸入第一順位:</td>
-						<td><input type="text" name="pi1" /></td>
-						<td>${errors.pi1}</td>
-					</tr>
-					<tr>
-						<td>輸入第二順位:</td>
-						<td><input type="text" name="pi2" /></td>
-						<td>${errors.pi2}</td>
-					</tr>
-					<tr>
-						<td>輸入第三順位:</td>
-						<td><input type="text" name="pi3" /></td>
-						<td>${errors.pi3}</td>
-					</tr>
-					<tr>
-						<td><button type="submit" value="login">送出</button></td>
-						<td>${errors.pimsg}</td>
-					</tr>
-				</table>
-			</form>
+	<form action="ypclasschangetop5" method="get">
+		<table>
+			<tr>
+				<td>輸入第一順位:</td>
+				<td><input type="text" name="pi1" /></td>
+				<td>${errors.pi1}</td>
+			</tr>
+			<tr>
+				<td>輸入第二順位:</td>
+				<td><input type="text" name="pi2" /></td>
+				<td>${errors.pi2}</td>
+			</tr>
+			<tr>
+				<td>輸入第三順位:</td>
+				<td><input type="text" name="pi3" /></td>
+				<td>${errors.pi3}</td>
+			</tr>
+			<tr>
+				<td><button type="submit">送出</button></td>
+				<td>${errors.pimsg}</td>
+			</tr>
+		</table>
+	</form>
+	<form action="resetypclass" method="get">
+		<button type="submit" >重新排序</button><span>${errors.resetmsg}</span>
+	</form>
 	
 
 </body>
