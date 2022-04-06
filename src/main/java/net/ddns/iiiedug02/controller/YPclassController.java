@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
@@ -107,5 +108,80 @@ public class YPclassController {
     return result;
 
   }
+  
+  @GetMapping("/ypclasscontrolltop5")
+//  public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
+  public String controllFindTop5(Model m) {
+
+    List<YPclass> ypclasscontroll = ypclassService.findAllRow();
+
+    m.addAttribute("ypclasscontroll", ypclasscontroll);
+
+
+
+//    return ResponseEntity.ok(result);
+    return "success/Controllpage1";
+
+  }
+  
+  @GetMapping("/ypclasschangetop5")
+  public String controllChangeTop5(@RequestParam("pi1") String pi1, @RequestParam("pi2") String pi2, @RequestParam("pi3") String pi3, Model m) {
+	
+    Map<String, String> errors = new HashMap<String, String>();
+	m.addAttribute("errors", errors);
+	if(pi1==null || pi1.length()==0) {
+		errors.put("pi1", "請輸入課程ID");
+	}
+	
+	if(pi2==null || pi2.length()==0) {
+		errors.put("pi2", "請輸入課程ID");
+	}
+	
+	if(pi3==null || pi3.length()==0) {
+		errors.put("pi3", "請輸入課程ID");
+	}
+	if(errors!=null && !errors.isEmpty()) {
+		return "success/Controllpage1";
+	}
+	
+	ypclassService.updateypclass(pi1);
+    ypclassService.updateypclass(pi2);
+    ypclassService.updateypclass(pi3);
+    
+    List<YPclass> YPclassList = ypclassService.findAll();
+    if(YPclassList!=null && !YPclassList.isEmpty()) {
+    	m.addAttribute("YPclassList", YPclassList);
+		return "success/Success3";
+	}
+    errors.put("pimsg", "請確認輸入值");
+	return "success/Controllpage1";
+  }
+  
+  @GetMapping("/ypclasschangetop")
+  public String controllChangeTop(@RequestParam("pi1") String pi1, Model m) {
+	
+    Map<String, String> errors = new HashMap<String, String>();
+	m.addAttribute("errors", errors);
+	if(pi1==null || pi1.length()==0) {
+		errors.put("pi1", "請輸入課程ID");
+	}
+	
+
+	if(errors!=null && !errors.isEmpty()) {
+		return "success/Controllpage1";
+	}
+	
+	ypclassService.updateypclass(pi1);
+
+    
+    List<YPclass> YPclassList = ypclassService.findAll();
+    if(YPclassList!=null && !YPclassList.isEmpty()) {
+    	m.addAttribute("YPclassList", YPclassList);
+		return "success/Success3";
+	}
+    errors.put("pimsg", "請確認輸入值");
+	return "success/Controllpage1";
+  }
+  
 
 }

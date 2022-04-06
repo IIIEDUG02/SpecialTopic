@@ -32,7 +32,15 @@ public class YPclassService {
 		return YPRepo.findAll();
 	}
 	
+	public List<YPclass> findAllRow(){
+		return YPRepo.findAllRow();
+	}
+	
 	public void  insert(YPclass yp){
 		YPRepo.save(yp);
+	}
+	
+	public void updateypclass(String priority){
+		YPRepo.updateypclass(priority);
 	}
 }
