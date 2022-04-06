@@ -99,6 +99,9 @@
   
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
+  
+  <!-- Toast -->
+  <jsp:include page="../article/toast.jsp" />
 
 	<div id="preloader"></div>
 	<a href="#"

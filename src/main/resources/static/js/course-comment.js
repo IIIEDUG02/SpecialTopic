@@ -1,5 +1,7 @@
 class CourseComment extends Base {
 	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cid={0}&type=course&pageNum={1}&pageSize={2}`
+	static CREATE_URL = `/SpecialTopic/api/comment/create/{0}`;
+	static CREATED_MSG = "您的留言已新增成功！";
 	
   constructor() {
     super();
@@ -7,7 +9,7 @@ class CourseComment extends Base {
     this.replyCommentTemplate = `
     <div class="sub-comment reply-comment">
       <div>
-        <div class="dOurpm profile-image profile-image-xs">
+        <div class="sub-comment__img profile-image profile-image-xs">
           <a class="" href="javascript:void(0);">
             <img src="/SpecialTopic/img/default_avatar.png" width="" class="sc-cx4oas-0 aratar--img loaded">
           </a>
@@ -101,6 +103,10 @@ class CourseComment extends Base {
       firstItem
         .querySelector("textarea")
         .addEventListener("keyup", this.textareaKeyUpHandler.bind(null, this));
+      
+      firstItem
+      	.querySelector(this.elements.submitBtn)
+      	.addEventListener("click", this.submitBtnClickHandler.bind(null, this));
     }
   }
 
@@ -150,25 +156,32 @@ class CourseComment extends Base {
     this.commentsWrapper.removeChild(spinner);
   }
   
+  async resultHandler(obj, url, payload) {
+		let result;
+		
+		try {
+			obj.showSpinner();
+      result = await CourseComment.ajax(url, payload);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      obj.removeSpinner();
+    }
+    
+    return result;
+	}
+	
   async observerHandler(obj, entries, observer) {
     const [entry] = entries;
 
     if (!entry.isIntersecting) return;
 
     const url = CourseComment.COMMENTS_URL.format(obj.cid, obj.pageNum, obj.pageSize);
-
-    try {
-			obj.showSpinner();
-			
-      const result = await CourseComment.ajax(url);
-
-      obj.addCommentElements(result);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      obj.removeSpinner();
-    }
-
+    const result = await obj.resultHandler(obj, url);
+    
+    if (result)
+    	obj.addCommentElements(result);
+    
     observer.unobserve(entry.target);
   }
 
@@ -181,11 +194,16 @@ class CourseComment extends Base {
     
     
     const replyComment = mainComment.querySelector(obj.elements.replyCommentEl);
-    
+    const submitBtn = replyComment.querySelector(obj.elements.submitBtn);
     const cancelBtn = replyComment.querySelector(obj.elements.cancelBtn);
     const textarea = replyComment.querySelector("textarea");
     
     obj.setReplyItemUsername(replyComment);
+    submitBtn.addEventListener(
+      "click",
+      obj.submitBtnClickHandler.bind(null, obj)
+    );
+    
     cancelBtn.addEventListener(
       "click",
       obj.removeReplyCommentElement.bind(null, obj, div)
@@ -196,7 +214,50 @@ class CourseComment extends Base {
       obj.textareaKeyUpHandler.bind(null, obj)
     );
   }
-
+  
+  async submitBtnClickHandler(obj, e) {
+		const url = CourseComment.CREATE_URL.format(obj.cid);
+		const payload = {
+			title: "!",
+			type: "course",
+		};
+		let commentEl = e.target.closest(obj.elements.firstItem);
+		
+		if (commentEl) {
+			payload.content = commentEl.querySelector("textarea").value;
+			
+			const data = await obj.resultHandler(obj, url, payload);
+			
+			if (data) {
+				const firstItem = document.querySelector(obj.elements.firstItem);
+				
+				firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
+				firstItem.nextElementSibling
+					.querySelector(obj.elements.replyButton)
+					.addEventListener("click", obj.addReplyCommentElement.bind(null, obj));
+				obj.showToast(CourseComment.CREATED_MSG);
+				
+				
+			}
+		} else {
+			commentEl = e.target.closest(obj.elements.replyCommentEl);
+			const mainCommentEl = commentEl.closest(obj.elements.commentEl);
+			
+			payload.content = commentEl.querySelector("textarea").value;
+			payload.uuid = mainCommentEl.id.trim();
+			
+			const data = await obj.resultHandler(obj, url, payload);
+			
+			if (data) {
+				const lastItem = mainCommentEl.lastElementChild;
+				
+				lastItem.insertAdjacentHTML('beforebegin', obj.generateSubCommentMarkup(data.result));
+				obj.removeReplyCommentElement(obj, lastItem);
+				obj.showToast(CourseComment.CREATED_MSG);
+			}
+		}
+	}
+	
   removeReplyCommentElement(obj, div) {
     div.removeChild(div.querySelector(obj.elements.replyCommentEl));
     div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
@@ -235,6 +296,7 @@ class CourseComment extends Base {
             <!-- Username & comment post time block-->
             <div class="comment-extra-info text-sm">
               <div class="first-row">
+              	${Boolean(data.isInstructor) ? '<span class="tag-gray marg-r-5">授課老師</span>' : ""}
                 <a href="javascript:void(0);" class="username">${data.member.username}</a>
               </div>
 
@@ -263,7 +325,7 @@ class CourseComment extends Base {
     `;
   }
 
-  generateSubCommentMarkup(data) {
+  generateSubCommentMarkup(data) {	
     return `
     <div id=${data.uuid} class="sub-comment marg-t-20">
       <div>
@@ -307,8 +369,11 @@ class CourseComment extends Base {
 		
 		this.setFirstItemUsername(username);
 		
-    if (!result || result.length === 0)
-      return;
+    if (!result || result.length === 0) {
+    	this.showToast("此課程還沒有人做詢問！<br>您有任何問題都歡迎發問唷～");
+    	return;
+		}
+      
 
     const template = this.generateCommentsMarkup(result);
 

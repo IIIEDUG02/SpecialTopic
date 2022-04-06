@@ -6,6 +6,7 @@
  其他 JS 可繼承此類別再擴充自己需要的功能。
 */
 
+// 為 JS built-in Stinrg 類別添加自訂義 method
 String.prototype.format = function() {
   a = this;
   
@@ -16,7 +17,8 @@ String.prototype.format = function() {
 }
 
 class Base {
-	static TIMEOUT_SEC = 5
+	static TIMEOUT_SEC = 5;
+	static HTTP_CREATED = 201;
 	
 	constructor() {
 		// Loading... 的 html template
@@ -74,7 +76,7 @@ class Base {
 	
 	// 顯示 Toast
 	showToast(message) {
-		this.toastBody.innerText = message
+		this.toastBody.innerHTML = message
 		new bootstrap.Toast(this.toast).show()
 	}
 
