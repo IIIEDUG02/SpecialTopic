@@ -1,3 +1,10 @@
+/**
+ * Author: Anna
+ * 
+ * 課程頁面留言都是以動態的方式來操作，因此會有很多 Template String，看起來會較凌亂。
+ * 若之後有學習到前端框架，可將這些寫成 Component。
+ * 
+ */
 class CourseComment extends Base {
 	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cid={0}&type=course&pageNum={1}&pageSize={2}`
 	static CREATE_URL = `/SpecialTopic/api/comment/create/{0}`;
@@ -6,8 +13,9 @@ class CourseComment extends Base {
   constructor() {
     super();
 
+    // 回覆留言框的模板
     this.replyCommentTemplate = `
-    <div class="sub-comment reply-comment">
+    <div class="sub-comment reply-comment animate__animated animate__fadeIn">
       <div>
         <div class="sub-comment__img profile-image profile-image-xs">
           <a class="" href="javascript:void(0);">
@@ -44,9 +52,13 @@ class CourseComment extends Base {
       </div>
     </div>
     `;
+
+    // 回覆 button 的模板
     this.replyButtonTemp = `
     <span class="reply-btn reply-text pseudo-btn"><i class="bi bi-reply-fill pad-r-5"></i>回覆</span>
     `;
+
+    // 因為是區塊 spinner，因此重寫一個
     this.spinner = `
     <div id="commentMask" class="mask"></div>
     <div id="commentSpinner" class="spinner-border text-secondary" role="status"
@@ -56,6 +68,8 @@ class CourseComment extends Base {
       <span class="visually-hidden">Loading...</span>
     </div>
     `;
+
+    // 會用到的所有 elements 名稱都統一放在這裡，使用 document.querySelector 時會用到
     this.elements = {
       commentsWrapper: ".comments-wrapper",
       commentsBody: ".comments",
@@ -71,31 +85,39 @@ class CourseComment extends Base {
       firstItemUsernameEl: "#firstItemUsername",
       replyItemUsernameEl: ".reply-username",
     };
+
     this.commentsWrapper = document.querySelector(
       this.elements.commentsWrapper
     );
     this.commentsBody = document.querySelector(this.elements.commentsBody);
     this.username = "";
+
+    // 將會從第零頁開始要資料
     this.pageNum = 0;
+
+    // 向後端要資料時的指定筆數
     this.pageSize = 5;
     
     this.init();
   }
   
+  // getter 方法，將網址列的課程代號(cid)取出
   get cid() {
 		const cid = location.href.split("/")[location.href.split("/").length - 1];
 		
 		return isNaN(Number(cid)) ? 0 : Number(cid);
 	}
 
+  // 初始化 method，類別實例化之後會需要先執行的東西放這
   init() {
+    // 因使用到 moment.js 要做本地化
     moment.lang("zh-tw");
 
     this.initFirstItem();
     this.initIntersectionObserverListener();
   }
 	
-	
+	// 初始化第一個 Item，也就是留言版區塊的最上面的一個固定元素(就是想要新增留言的區塊)
   initFirstItem() {
     const firstItem = document.querySelector(this.elements.firstItem);
 
@@ -110,14 +132,18 @@ class CourseComment extends Base {
     }
   }
 
+  // 對所有回覆 button 設定 lietener
   initReplyButtonClickListener() {
     const replyBtns = [...document.querySelectorAll(this.elements.replyButton)];
 
+    // 要將 this 傳入，否則無法參考回 CourseComment 物件，event 會自動在引數的最後面
+    // 自動被傳入
     replyBtns.forEach((e) => {
       e.addEventListener("click", this.addReplyCommentElement.bind(null, this));
     });
   }
 
+  // 用來監聽滾輪滑動，到一定位置時才將留言加載到畫面上
   initIntersectionObserverListener() {
     const target = document.querySelector(this.elements.observer);
     const observer = new IntersectionObserver(this.observerHandler.bind(null, this), {
@@ -128,6 +154,7 @@ class CourseComment extends Base {
     observer.observe(target);
   }
   
+  // 動態設定使用者的名字
   setFirstItemUsername(username) {		
     if (username) {
 			const usernameEl = document.querySelector(this.elements.firstItemUsernameEl);
@@ -155,7 +182,61 @@ class CourseComment extends Base {
     this.commentsWrapper.removeChild(mask);
     this.commentsWrapper.removeChild(spinner);
   }
+
+  // 回覆 button 的 handler，點擊按鈕後將回覆框動態增加到頁面上
+  addReplyCommentElement(obj, event) {
+    // 往外層取得指定的 parent element
+    const mainComment = event.target.closest(obj.elements.commentEl);
+
+    // 之後取得最後一個元素，也就是包住回覆 button 的 div
+    const div = mainComment.lastElementChild;
+
+    div.removeChild(mainComment.querySelector(obj.elements.replyButton));
+
+    // 將回覆框動態添加到頁面上
+    div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate);
+    
+    // 之後為回覆框上面的元素添加事件
+    const replyComment = mainComment.querySelector(obj.elements.replyCommentEl);
+    const submitBtn = replyComment.querySelector(obj.elements.submitBtn);
+    const cancelBtn = replyComment.querySelector(obj.elements.cancelBtn);
+    const textarea = replyComment.querySelector("textarea");
+    
+    // 設定使用者名字
+    obj.setReplyItemUsername(replyComment);
+    submitBtn.addEventListener(
+      "click",
+      obj.submitBtnClickHandler.bind(null, obj)
+    );
+    
+
+    // 當按取消 button 時，要將回覆框移除，並把回覆 button 加回來
+    cancelBtn.addEventListener(
+      "click",
+      obj.removeReplyCommentElement.bind(null, obj, div)
+    );
+
+    // 監聽 textarea 輸入，若為空則不能按送出
+    textarea.addEventListener(
+      "keyup",
+      obj.textareaKeyUpHandler.bind(null, obj)
+    );
+  }
+
+  removeReplyCommentElement(obj, div) {
+    div.removeChild(div.querySelector(obj.elements.replyCommentEl));
+    div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
+
+    const replyBtn = div.querySelector(obj.elements.replyButton);
+
+    replyBtn.addEventListener(
+      "click",
+      obj.addReplyCommentElement.bind(null, obj)
+    );
+  }
   
+    
+  // 從後端回傳的結果統一呼叫這 method
   async resultHandler(obj, url, payload) {
 		let result;
 		
@@ -171,58 +252,36 @@ class CourseComment extends Base {
     return result;
 	}
 	
+  // 滾輪事件的 handler
   async observerHandler(obj, entries, observer) {
     const [entry] = entries;
 
     if (!entry.isIntersecting) return;
 
+    // 向後端要資料
     const url = CourseComment.COMMENTS_URL.format(obj.cid, obj.pageNum, obj.pageSize);
     const result = await obj.resultHandler(obj, url);
     
     if (result)
     	obj.addCommentElements(result);
     
+    // 之後就可以解除監聽
     observer.unobserve(entry.target);
   }
 
-  addReplyCommentElement(obj, event) {
-    const mainComment = event.target.closest(obj.elements.commentEl);
-    const div = mainComment.children[mainComment.children.length - 1];
-
-    div.removeChild(mainComment.querySelector(obj.elements.replyButton));
-    div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate);
-    
-    
-    const replyComment = mainComment.querySelector(obj.elements.replyCommentEl);
-    const submitBtn = replyComment.querySelector(obj.elements.submitBtn);
-    const cancelBtn = replyComment.querySelector(obj.elements.cancelBtn);
-    const textarea = replyComment.querySelector("textarea");
-    
-    obj.setReplyItemUsername(replyComment);
-    submitBtn.addEventListener(
-      "click",
-      obj.submitBtnClickHandler.bind(null, obj)
-    );
-    
-    cancelBtn.addEventListener(
-      "click",
-      obj.removeReplyCommentElement.bind(null, obj, div)
-    );
-
-    textarea.addEventListener(
-      "keyup",
-      obj.textareaKeyUpHandler.bind(null, obj)
-    );
-  }
-  
+  // 當留言 button 按下(送出留言)時的 handler
   async submitBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
+
+    // 要傳到後端的資料，course 留言是不需要標題的
 		const payload = {
 			title: "!",
 			type: "course",
 		};
 		let commentEl = e.target.closest(obj.elements.firstItem);
 		
+    // 因為留言有兩個地方，一個是增新一個留言，另一個地方是回複某則留言的子留言
+    // 因此會要做判斷是哪個留言鈕被按
 		if (commentEl) {
 			payload.content = commentEl.querySelector("textarea").value;
 			
@@ -231,6 +290,7 @@ class CourseComment extends Base {
 			if (data) {
 				const firstItem = document.querySelector(obj.elements.firstItem);
 				
+        // 新增留言成功後，要將元件新增到頁面上，會新增到最上面，但在第一個元素之後
 				firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
 				firstItem.nextElementSibling
 					.querySelector(obj.elements.replyButton)
@@ -244,6 +304,8 @@ class CourseComment extends Base {
 			const mainCommentEl = commentEl.closest(obj.elements.commentEl);
 			
 			payload.content = commentEl.querySelector("textarea").value;
+
+      // 如果是回覆別人的留言，要將父留言的 id 抓出來，會一起傳送到後端
 			payload.uuid = mainCommentEl.id.trim();
 			
 			const data = await obj.resultHandler(obj, url, payload);
@@ -251,6 +313,7 @@ class CourseComment extends Base {
 			if (data) {
 				const lastItem = mainCommentEl.lastElementChild;
 				
+        // 因為是回覆別人留言，因此畫面會添加在父元素的最後
 				lastItem.insertAdjacentHTML('beforebegin', obj.generateSubCommentMarkup(data.result));
 				obj.removeReplyCommentElement(obj, lastItem);
 				obj.showToast(CourseComment.CREATED_MSG);
@@ -258,18 +321,7 @@ class CourseComment extends Base {
 		}
 	}
 	
-  removeReplyCommentElement(obj, div) {
-    div.removeChild(div.querySelector(obj.elements.replyCommentEl));
-    div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
-
-    const replyBtn = div.querySelector(obj.elements.replyButton);
-
-    replyBtn.addEventListener(
-      "click",
-      obj.addReplyCommentElement.bind(null, obj)
-    );
-  }
-
+  // textarea 的 handler
   textareaKeyUpHandler(obj, e) {
     const comment = e.target.closest(".comment-wrap");
     const submitBtn = comment.querySelector(obj.elements.submitBtn);
@@ -278,11 +330,12 @@ class CourseComment extends Base {
     else submitBtn.disabled = true;
   }
 
+  // 動態創建 Template String，因為會要將後端回傳的資料添加上去，這裡是父留言
   generateMainCommentMarkup(data) {
     const subComments = data.comments;
 
     return `
-    <div id="${data.uuid}" class="main-comment isolated-comment-item pad-rl-20 pad-tb-20 marg-b-20">
+    <div id="${data.uuid}" class="animate__animated animate__fadeInDown main-comment isolated-comment-item pad-rl-20 pad-tb-20 marg-b-20">
       <div class="main-comment-block marg-t-20">
         <div>
 
@@ -325,6 +378,7 @@ class CourseComment extends Base {
     `;
   }
 
+  // 子留言的 Template String，因可能有多個子留言，所以會在上方的 method 被循環呼叫多次
   generateSubCommentMarkup(data) {	
     return `
     <div id=${data.uuid} class="sub-comment marg-t-20">
@@ -359,10 +413,12 @@ class CourseComment extends Base {
     `;
   }
 
+  // 最後產生的總 Template String 會在這被 join 後回傳
   generateCommentsMarkup(data) {
     return data.map((x) => this.generateMainCommentMarkup(x)).join("");
   }
 
+  // 後端回傳資料後，要開始產生 Template String 的進入點 method
   addCommentElements(data) {
 		const username = data.username
 		const result = data.result

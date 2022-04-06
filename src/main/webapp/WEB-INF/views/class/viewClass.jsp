@@ -33,6 +33,9 @@
 <!-- 購物車 -->
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
 
+<!-- Animate CSS -->
+<link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
+
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
 </head>
