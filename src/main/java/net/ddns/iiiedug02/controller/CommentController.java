@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -76,12 +77,17 @@ public class CommentController {
   public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam int cid, @RequestParam String type, 
       @RequestParam int pageNum, @RequestParam int pageSize, Principal p) {
     List<Comment> comments = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
-    List<Map<String, Object>> data = commentHelper.getResponseBody(comments);
+    List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
+    
+    // 因可能查出來結果為零筆資料
+    if (comments.size() != 0)
+      data = commentHelper.getResponseBody(comments);
     
     if (p != null) {
       Member member = memberService.findByUsername(p.getName());
       Map<String, Object> result = new LinkedHashMap<String, Object>();
       
+      // 放入登入者的基本資訊
       result.put("username", member.getMemberInformation().getFullname());
       result.put("avatar", member.getMemberInformation().getPhoto());
       result.put("result", data);
@@ -126,14 +132,16 @@ public class CommentController {
     }
     
     // 不管是不是子留言都要更新 UUID，不使用任何 hash 直接取前 24 個字
-    comment.setUuid(UUID.randomUUID().toString().replace("-", "").substring(0, 23));
-    comment.setMember(memberService.findByUsername("admin"));
-    // comment.setMember(memberService.findByUsername(p.getName()));
-    
+    comment.setUuid(UUID.randomUUID().toString().replace("-", "").substring(0, 24));
+    comment.setMember(memberService.findByUsername(p.getName()));
     
     Comment c = commentService.create(comment);
+    Map<String, Object> body = new LinkedHashMap<>();
     
-    return new ResponseEntity<Object>(commentHelper.getResponseBody(c), HttpStatus.CREATED);
+    body.put("status", HttpStatus.CREATED.value());
+    body.put("result", commentHelper.getResponseBody(c, classBean));
+    
+    return new ResponseEntity<Object>(body, HttpStatus.CREATED);
   }
   
   

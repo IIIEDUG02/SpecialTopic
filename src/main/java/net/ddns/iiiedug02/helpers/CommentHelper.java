@@ -1,10 +1,13 @@
 package net.ddns.iiiedug02.helpers;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +27,7 @@ import net.ddns.iiiedug02.model.bean.MemberInformation;
  */
 public class CommentHelper {
   // 前端顯示的時間會做格式化
-  private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+  private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
   private static CommentHelper instance;
   
   
@@ -35,6 +38,16 @@ public class CommentHelper {
     return instance;
   }
   
+  /**
+   * 判斷留言的人是不是授課老師本人
+   * 
+   * @param member: 留言的使用者
+   * @param classBean: 為了要取出被關聯的使用者，所以 classBean 要傳進來
+   * @return int: 1 表示是本人，反之則為 0
+   */
+  public int isisInstructor(Member member, ClassBean classBean) {
+    return member.getUid() == classBean.getUid() ? 1 : 0;
+  }
   
   /**
    * 主要是將回傳给前端的 JSON 做處理，不回傳過多或敏感的資訊
@@ -55,10 +68,11 @@ public class CommentHelper {
      }
    * 
    * @param comment: 要回傳給前端的單一 Comment 物件
+   * @param classBean: 因要判斷授課老師，所以要將 member 從 classBean 中取出來
    * @return Map Object: 回傳給前端會自動轉成 JSON
    */
   @SuppressWarnings("unchecked")
-  public Map<String, Object> getResponseBody(Comment comment) {
+  public Map<String, Object> getResponseBody(Comment comment, ClassBean classBean) {
     // 用來將 Comment 轉成 Map 的物件
     ObjectMapper objectMapper = new ObjectMapper();
     
@@ -78,6 +92,7 @@ public class CommentHelper {
     body.put("member", member);
     body.put("postTime", comment.getPostTime().format(FORMATTER));
     body.put("editTime", comment.getEditTime().format(FORMATTER));
+    body.put("isInstructor", isisInstructor(comment.getMember(), classBean));
     
     return body;
   }
@@ -130,7 +145,7 @@ public class CommentHelper {
     ObjectMapper objectMapper = new ObjectMapper();
     Map<String, Object> member = new LinkedHashMap<>();
     MemberInformation info;
-    int teacherUid = comments.get(0).getClassBean().getUid();
+    ClassBean classBean = comments.get(0).getClassBean();
     
     objectMapper.registerModule(new JavaTimeModule());
     
@@ -155,15 +170,27 @@ public class CommentHelper {
           childMap.put("member", childMember);
           childMap.put("postTime", child.getPostTime().format(FORMATTER));
           childMap.put("editTime", child.getEditTime().format(FORMATTER));
-          
-          if (m.getUid() == teacherUid)
-            childMap.put("isInstructor", 1);
-          else
-            childMap.put("isInstructor", 0);
+          childMap.put("isInstructor", isisInstructor(m, classBean));
             
           // 子留言的列表，因為可能有多則子留言
           childrenList.add(childMap);
         }
+        
+        // 對子留言用時間做排序
+        childrenList.sort(new Comparator<Map<String, Object>>() {
+          @Override
+          public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+            DateTimeFormatter df = new DateTimeFormatterBuilder()
+                .parseCaseInsensitive()
+                .appendPattern("yyyy/MM/dd HH:mm:ss")
+                .toFormatter(Locale.TAIWAN);
+            
+            LocalDateTime c1 = LocalDateTime.parse((CharSequence) o1.get("postTime"), df);
+            LocalDateTime c2 = LocalDateTime.parse((CharSequence) o2.get("postTime"), df);
+            
+            return c1.compareTo(c2);
+          }
+        });
       }
       
       parentMap = objectMapper.convertValue(comment, Map.class);
@@ -178,11 +205,7 @@ public class CommentHelper {
       parentMap.put("member", member);
       parentMap.put("postTime", comment.getPostTime().format(FORMATTER));
       parentMap.put("editTime", comment.getEditTime().format(FORMATTER));
-      
-      if (m.getUid() == teacherUid)
-        parentMap.put("isInstructor", 1);
-      else
-        parentMap.put("isInstructor", 0);
+      parentMap.put("isInstructor", isisInstructor(m, classBean));
 
       body.add(parentMap);
     }

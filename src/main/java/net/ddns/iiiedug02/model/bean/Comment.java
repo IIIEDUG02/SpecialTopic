@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -83,6 +84,7 @@ public class Comment {
   @Column(name = "post_time", nullable = false, updatable = false)
   private LocalDateTime postTime;
   
+  @UpdateTimestamp
   @Column(name = "edit_time")
   private LocalDateTime editTime;
 }
