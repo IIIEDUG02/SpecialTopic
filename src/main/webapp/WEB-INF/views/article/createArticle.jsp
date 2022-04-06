@@ -9,7 +9,15 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>新增文章</title>
+<title>
+  <c:if test = "${not empty article}">
+    編輯文章
+  </c:if>
+  
+  <c:if test = "${empty article}">
+    新增文章
+  </c:if>
+</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -58,8 +66,25 @@ body {
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2>發佈文章</h2>
-        <p>在此頁面，您可以新增您的文章，分享您的生活、知識或所見所聞。</p>
+        <h2>
+          <c:if test = "${not empty article}">
+            編輯文章
+          </c:if>
+          
+          <c:if test = "${empty article}">
+            發佈文章
+          </c:if>
+        </h2>
+      
+        <p>
+          <c:if test = "${not empty article}">
+            您現在正在編輯文章當中...
+          </c:if>
+          
+          <c:if test = "${empty article}">
+            在此頁面，您可以新增您的文章，分享您的生活、知識或所見所聞。
+          </c:if>
+        </p>
       </div>
     </div>
     <!-- End Breadcrumbs -->
@@ -87,16 +112,20 @@ body {
               <div class="phone">
                 <i class="bi bi-file-earmark-text"></i>
                 <h4>文章內容:</h4>
-                <p>文章內容目前只能新增純文字</p>
+                <p>您可以不只新增文字，還可以附上圖片與影片</p>
               </div>
-
             </div>
-
           </div>
-
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form id="createArticleForm" action="create" method="post"
+            <form id="createArticleForm"
+              <c:if test = "${not empty article}">
+                action="${article.getUuid()}"
+              </c:if>
+              <c:if test = "${empty article}">
+                action="create"
+              </c:if>
+              method="post"
               role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
@@ -120,17 +149,31 @@ body {
                 <div id="summernote" name="content"></div>
               </div>
               <div class="my-3">
-                <div class="loading">新增中...</div>
+                <div class="loading">
+                  <c:if test = "${not empty article}">
+                    更新文章中...
+                  </c:if>
+                  
+                  <c:if test = "${empty article}">
+                    新增文章中...
+                  </c:if>
+                </div>
                 <div class="error-message"></div>
               </div>
               <div class="text-center">
-                <button id="createArticleButton" type="submit">發佈文章</button>
+                <button id="createArticleButton" type="submit">
+                  <c:if test = "${not empty article}">
+                    更新文章
+                  </c:if>
+                  
+                  <c:if test = "${empty article}">
+                    發佈文章
+                  </c:if>
+                </button>
               </div>
             </form>
           </div>
-
         </div>
-
       </div>
     </section>
     <!-- End Contact Section -->
@@ -164,10 +207,32 @@ body {
         height: 300
     })
     
+    let preselected = []
+    
+		// 如果是編輯文章，就會執行此內容
+    <c:if test = "${not empty article}">
+    	const opts = [...document.querySelectorAll('#tags option')]
+    	const ids = JSON.parse("${ids}")
+    	
+    	// 帶入文章標題(title)
+    	document.querySelector('#title').value = "${article.getTitle()}"
+    	// 帶入文章內容(content)
+    	document.querySelector('.note-editable').innerHTML = `${article.getContent()}`
+    	
+    	// 得到該文章選取的標籤 index(因為 options 使用的是標籤 table 的 PK)
+    	ids.forEach(id => {
+    	  opts.forEach((opt, index) => {
+    	    if (opt.value == id)
+    	      preselected.push(index)
+    	  })
+    	})
+  	</c:if>
+    
   	const form = document.querySelector('#createArticleForm')
   	const btn = document.querySelector('#createArticleButton')
   	const select = new drop({
       selector: '#tags',
+      preselected: preselected
     })
  		
     function displayError(error) {
