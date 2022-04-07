@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -76,8 +77,12 @@ public class CommentController {
   @GetMapping("/comments")
   public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam int cid, @RequestParam String type, 
       @RequestParam int pageNum, @RequestParam int pageSize, Principal p) {
-    List<Comment> comments = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
+    Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
+    List<Comment> comments = pages.getContent();
     List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
+    
+    System.out.println("Total pages: " + pages.getTotalPages());
+    System.out.println("Current number: " + pages.getNumber());
     
     // 因可能查出來結果為零筆資料
     if (comments.size() != 0)
@@ -91,6 +96,7 @@ public class CommentController {
       result.put("username", member.getMemberInformation().getFullname());
       result.put("avatar", member.getMemberInformation().getPhoto());
       result.put("result", data);
+      result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
       
       return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
