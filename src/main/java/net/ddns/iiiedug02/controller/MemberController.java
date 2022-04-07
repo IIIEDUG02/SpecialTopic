@@ -90,17 +90,14 @@ public class MemberController {
 
         MemberInformation mbi = mb.getMemberInformation();
         mbi.setAddress(params.get("address"));
-
         mbi.setEmail(params.get("email"));
         mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));
-        mbi.setPhone(params.get("phone"));
-
-        mb.setUsername(params.get("username"));
+        mbi.setJob(params.get("job"));   
+        mbi.setPhone(params.get("phone"));   
         mb.setPassword(params.get("password"));
-        mb.setActivated((short) 0);
-        // mb.setRoles(null);
 
+//        mb.setRoles(null);
+        
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
 
