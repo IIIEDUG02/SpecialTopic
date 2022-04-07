@@ -32,8 +32,8 @@ public class MultiController {
 
     @GetMapping("viewClass/{cid}")
     public String viewClass(@PathVariable("cid") int cid, Model m, Principal p) {
-
-        Member loginBean = ms.findByUsername(p.getName());
+    	
+        
         // 課程資訊
         ClassBean cb = cbs.findById(cid);
         if (cb == null) {
@@ -41,8 +41,9 @@ public class MultiController {
             return "class/viewClass";
         }
         m.addAttribute("classBean", cb);
-
-
+        
+        if (p!=null) {
+        Member loginBean = ms.findByUsername(p.getName());
         // 個人購課紀錄
         ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
         if (null != cmb) {
@@ -51,8 +52,8 @@ public class MultiController {
             // 購課車
             ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
             m.addAttribute("ShoppingCart", sc);
-        }
-
+        }}
+        
 
 
         // 留言板

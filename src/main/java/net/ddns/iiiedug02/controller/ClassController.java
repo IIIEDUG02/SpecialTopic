@@ -7,8 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
@@ -33,21 +37,23 @@ import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
+@SessionAttributes({"classbean"})
 public class ClassController {
-    @Autowired
-    private CurriculumService cus;
+	@Autowired
+	private CurriculumService cus;
 
-    @Autowired
-    private ClassBeanService cbs;
+	@Autowired
+	private ClassBeanService cbs;
 
-    @Autowired
-    private MemberService ms;
+	@Autowired
+	private MemberService ms;
 
-    @Autowired
-    private ClassOnlineService cos;
+	@Autowired
+	private ClassOnlineService cos;
 
-    @Autowired
-    private ClassManagementService cms;
+	@Autowired
+	private ClassManagementService cms;
+	
 
     @Autowired
     private UniversalTool utool;
@@ -105,37 +111,40 @@ public class ClassController {
     public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request,
             Model m) throws IllegalStateException, IOException {
 
-        String pattern = "yyyy-MM-dd-HH-mm-ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	// 課程圖片上傳
+	@PostMapping(path = "/uploadphoto")
+	@ResponseBody
+	public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request, Model m)
+			throws IllegalStateException, IOException {
 
-        Random random = new Random();
-        int rNumber = 10000 + random.nextInt(90000);
-        // 取副檔名方法一
-        // String oName = mf.getOriginalFilename();
-        // int oNameLenghth = oName.length();
-        // String fileName =
-        // simpleDateFormat.format(new Date()) + "-" + rNumber + oName.substring(oNameLenghth-4,
-        // oNameLenghth);
-        String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-        if (type.isEmpty()) {
-            return "no image";
-        }
-        String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        String tempDir = request.getSession().getServletContext().getRealPath("/")
-                + "../resources/static/classphoto//";
-        File tempDirFile = new File(tempDir);
-        tempDirFile.mkdirs();
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+		// 取副檔名方法一
+		// String oName = mf.getOriginalFilename();
+		// int oNameLenghth = oName.length();
+		// String fileName =
+		// simpleDateFormat.format(new Date()) + "-" + rNumber +
+		// oName.substring(oNameLenghth-4,
+		// oNameLenghth);
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		if (type.isEmpty()) {
+			return "no image";
+		}
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String saveFilePath = tempDir + fileName;
-        File saveFile = new File(saveFilePath);
+		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classphoto//";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
 
-        mf.transferTo(saveFile);
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
 
-        m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
+		mf.transferTo(saveFile);
 
-        return saveFilePath;
-    }
+		m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
 
     // 尋找全部上線課程,api
     @GetMapping(path = "class/allonline")
@@ -192,5 +201,12 @@ public class ClassController {
         }
 
     }
+
+	@GetMapping("getCurListJson/api/{cid}")
+	@ResponseBody
+	public List<CurriculumBean> getCurListJson(Model m, @PathVariable("cid") int cid) {
+		ClassBean cb = cbs.findById(cid);
+		return cus.findAllByClassbean(cb);
+	}
 
 }

@@ -28,34 +28,6 @@ function playPauseMedia() {
 	}
 }
 
-function toggleFullScreen() {
-	if (media.requestFullscreen) {
-		media.requestFullscreen();
-	} else if (media.mozRequestFullScreen) {
-		media.mozRequestFullScreen();
-	} else if (media.webkitRequestFullscreen) {
-		media.webkitRequestFullscreen();
-	} else if (media.msRequestFullscreen) {
-		media.msRequestFullscreen();
-	}
-}
-
-function windBackward(sec) {
-	if (media.currentTime <= sec) {
-		PauseOrStopMedia();
-	} else {
-		media.currentTime -= sec;
-	}
-}
-
-function windForward(sec) {
-	if (media.currentTime >= media.duration - sec) {
-		PauseOrStopMedia();
-	} else {
-		media.currentTime += sec;
-	}
-}
-
 function postRecord(duration, sumTime, ended) {
 	$.ajax({
 		type: "POST",
