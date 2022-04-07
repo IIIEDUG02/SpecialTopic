@@ -108,37 +108,35 @@ public class ClassController {
     public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request,
             Model m) throws IllegalStateException, IOException {
 
-        String pattern = "yyyy-MM-dd-HH-mm-ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        Random random = new Random();
-        int rNumber = 10000 + random.nextInt(90000);
-        // 取副檔名方法一
-        // String oName = mf.getOriginalFilename();
-        // int oNameLenghth = oName.length();
-        // String fileName =
-        // simpleDateFormat.format(new Date()) + "-" + rNumber +
-        // oName.substring(oNameLenghth-4,
-        // oNameLenghth);
-        String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-        if (type.isEmpty()) {
-            return "no image";
-        }
-        String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+		// 取副檔名方法一
+		// String oName = mf.getOriginalFilename();
+		// int oNameLenghth = oName.length();
+		// String fileName =
+		// simpleDateFormat.format(new Date()) + "-" + rNumber +
+		// oName.substring(oNameLenghth-4,
+		// oNameLenghth);
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		if (type.isEmpty()) {
+			return "no image";
+		}
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String tempDir = request.getSession().getServletContext().getRealPath("/")
-                + "../resources/static/classphoto//";
-        File tempDirFile = new File(tempDir);
-        tempDirFile.mkdirs();
+		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classphoto//";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
 
-        String saveFilePath = tempDir + fileName;
-        File saveFile = new File(saveFilePath);
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
 
-        mf.transferTo(saveFile);
+		mf.transferTo(saveFile);
 
-        m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
-
-        return "";
+		m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
+		return "...";
     }
 
     // 尋找全部上線課程,api
