@@ -1,98 +1,115 @@
 package net.ddns.iiiedug02.controller;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.google.gson.JsonObject;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.service.MemberService;
+import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
 public class MemberController {
 
-  @Autowired
-  private MemberService ms;
+    @Autowired
+    private MemberService ms;
 
-  // 取得登入成功後使用者名稱
-  @GetMapping(value = "/getLoginStatus")
-  @ResponseBody
-  @Scope("session")
-  public String processPrincipalQuery(Principal p, HttpSession session) {
-    JsonObject result = new JsonObject();
-    // 完成登入後 Principal 才會有物件，若未登入 Principal == null
-    Member mb;
-    mb = (Member) session.getAttribute("loginBean");
+    @Autowired
+    private UniversalTool ut;
 
-    if (null == p) {
-      result.addProperty("username", "null");
-    } else {
-      if (null == mb) {
-        mb = ms.findByUsername(p.getName());
-      }
-      result.addProperty("username", p.getName());
-      session.setAttribute("loginBean", mb);
+    @PostMapping(value = "/registerAction1",
+            produces = "application/x-www-form-urlencoded;charset=UTF-8")
+    public String registerAction1(@RequestParam Map<String, String> params, HttpSession session,
+            Model m, HttpServletRequest request) throws ParseException {
+
+        Member mb = ms.findByUsername(params.get("username"));
+        if (null != mb) {
+            m.addAttribute("errMsg", "帳號已註冊");
+            return "member/registerPage1";
+        }
+
+        MemberInformation mbi = new MemberInformation();
+        mbi.setAddress(params.get("address"));
+        mbi.setBirthday(ut.strToSqlDate(params.get("birthday")));
+        mbi.setEmail(params.get("email"));
+        mbi.setFullname(params.get("fullname"));
+        mbi.setGender(Integer.parseInt(params.get("gender")));
+        mbi.setIdentitycard(params.get("identitycard"));
+        mbi.setJob(params.get("job"));
+        mbi.setPassportname(params.get("passportname"));
+        mbi.setPhone(params.get("phone"));
+        mbi.setPhoto(params.get("photo"));
+
+        mb = new Member();
+        mb.setUsername(params.get("username"));
+        mb.setPassword(params.get("password"));
+        mb.setActivated((short) 0);
+
+        mb.setMemberInformation(mbi);
+        mbi.setMember(mb);
+        ms.save(mb);
+        session.setAttribute("registerBean", mb);
+        return "redirect:/";
+
     }
-    return result.toString();
 
-  }
-
-  @PostMapping(value = "/registerAction1",
-      produces = "application/x-www-form-urlencoded;charset=UTF-8")
-  public String registerAction1(@RequestParam Map<String, String> params, HttpSession session,
-      Model m) {
-
-    Member mb = ms.findByUsername(params.get("username"));
-    if (null != mb) {
-      m.addAttribute("errMsg", "帳號已註冊");
-      return "member/registerPage1";
+    @GetMapping("/countmember.controller")
+    @ResponseBody
+    public int countMemberAction() {
+        return ms.countMember();
     }
 
-    mb = new Member();
-    mb.setUsername(params.get("username"));
-    mb.setPassword(params.get("password"));
-    mb.setActivated((short) 0);
-    session.setAttribute("registerBean", mb);
-    return "member/registerPage2";
-  }
+    @GetMapping("/signout/success")
+    public String signout() {
+        return "redirect:/";
+    }
 
+    @GetMapping("/member/editInformation")
+    public String editInformation(Model m, HttpSession session, Principal principal) {
 
-  @PostMapping(value = "/registerAction2")
-  public String registerAction2(@RequestBody MemberInformation mdb, HttpSession session, Model m) {
-    Member mb = (Member) session.getAttribute("registerBean");
-    mdb.setMember(mb);
-    mb.setMemberInformation(mdb);
-    ms.createMemberBean(mb);
-    return "redirect:/";
-  }
+        Member mb = ut.getLoiginBean(session, principal);
+        m.addAttribute("mb", mb);
+        return "member/memberInformation";
+    }
 
-  @GetMapping("/countmember.controller")
-  @ResponseBody
-  public int countMemberAction() {
-    return ms.countMember();
-  }
+    @PostMapping(value = "/memberUpdateInformation",
+            produces = "application/x-www-form-urlencoded;charset=UTF-8")
+    public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session,
+            Model m, HttpServletRequest request) throws ParseException {
 
-  @GetMapping("/signout/success")
-  public String signout() {
-    return "redirect:/";
-  }
+        Member mb = ms.findByUsername(params.get("username"));
+
+        MemberInformation mbi = mb.getMemberInformation();
+        mbi.setAddress(params.get("address"));
+
+        mbi.setEmail(params.get("email"));
+        mbi.setFullname(params.get("fullname"));
+        mbi.setJob(params.get("job"));
+        mbi.setPhone(params.get("phone"));
+
+        mb.setUsername(params.get("username"));
+        mb.setPassword(params.get("password"));
+        mb.setActivated((short) 0);
+        // mb.setRoles(null);
+
+        mb.setMemberInformation(mbi);
+        mbi.setMember(mb);
+
+        System.out.println(mb.getRoles().get(0));
+
+        ms.save(mb);
+
+        session.setAttribute("registerBean", mb);
+        return "redirect:/";
+
+    }
 }
-
-// @GetMapping("/userprofilesQueryByName.controller")
-// public MemberBean processQueryByName() {
-// MemberBean uProfiles = ms.findByUsername("nilm987521");
-// boolean result = new BCryptPasswordEncoder().matches("abcd1234", uProfiles.getPassword());
-// System.out.println("ms result:" + result);
-// return uProfiles;
-// }
-
-

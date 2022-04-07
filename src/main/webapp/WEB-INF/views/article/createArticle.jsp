@@ -9,7 +9,15 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>新增文章</title>
+<title>
+  <c:if test = "${not empty article}">
+    編輯文章
+  </c:if>
+  
+  <c:if test = "${empty article}">
+    新增文章
+  </c:if>
+</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -21,26 +29,28 @@
 <link
   href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
   rel="stylesheet">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+<link rel='stylesheet'
+  href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 <link href="/SpecialTopic/css/multi-select.css" rel="stylesheet">
 
 <!-- 匯入 summernote 的 css 檔案 -->
-<link href="/SpecialTopic/assets/vendor/summernote/css/summernote-lite.css" rel="stylesheet">
+<link
+  href="/SpecialTopic/assets/vendor/summernote/css/summernote-lite.css"
+  rel="stylesheet">
 
 <style>
 html {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 body {
-	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+  font-family: "PingFang TC", 微軟正黑體, sans-serif;
 }
 
-.tags-container,
-.textarea-container {
+.tags-container, .textarea-container {
   margin-top: 34px !important;
 }
 </style>
@@ -56,8 +66,25 @@ body {
     <!-- ======= Breadcrumbs ======= -->
     <div class="breadcrumbs" data-aos="fade-in">
       <div class="container">
-        <h2>發佈文章</h2>
-        <p>在此頁面，您可以新增您的文章，分享您的生活、知識或所見所聞。</p>
+        <h2>
+          <c:if test = "${not empty article}">
+            編輯文章
+          </c:if>
+          
+          <c:if test = "${empty article}">
+            發佈文章
+          </c:if>
+        </h2>
+      
+        <p>
+          <c:if test = "${not empty article}">
+            您現在正在編輯文章當中...
+          </c:if>
+          
+          <c:if test = "${empty article}">
+            在此頁面，您可以新增您的文章，分享您的生活、知識或所見所聞。
+          </c:if>
+        </p>
       </div>
     </div>
     <!-- End Breadcrumbs -->
@@ -85,26 +112,33 @@ body {
               <div class="phone">
                 <i class="bi bi-file-earmark-text"></i>
                 <h4>文章內容:</h4>
-                <p>文章內容目前只能新增純文字</p>
+                <p>您可以不只新增文字，還可以附上圖片與影片</p>
               </div>
-
             </div>
-
           </div>
-
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form id="createArticleForm" action="create" method="post"
+            <form id="createArticleForm"
+              <c:if test = "${not empty article}">
+                action="${article.getUuid()}"
+              </c:if>
+              <c:if test = "${empty article}">
+                action="create"
+              </c:if>
+              method="post"
               role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" id="title" name="title" class="form-control"
-                    id="title" placeholder="請輸入文章標題" required>
+                  <input type="text" id="title" name="title"
+                    class="form-control" id="title"
+                    placeholder="請輸入文章標題" required>
                 </div>
               </div>
 
               <div class="form-group col-md-6 tags-container">
-                <select id="tags" name="tags" class="form-group mt-4 col-md-4" multiple="multiple" required>
+                <select id="tags" name="tags"
+                  class="form-group mt-4 col-md-4" multiple="multiple"
+                  required>
                   <c:forEach var="tag" items="${tags}">
                     <option value="${tag.getId()}">${tag.getName()}</option>
                   </c:forEach>
@@ -112,22 +146,34 @@ body {
               </div>
 
               <div class="form-group mt-3 textarea-container">
-                <div id="summernote" name="content">
-                
-                </div>
+                <div id="summernote" name="content"></div>
               </div>
               <div class="my-3">
-                <div class="loading">新增中...</div>
+                <div class="loading">
+                  <c:if test = "${not empty article}">
+                    更新文章中...
+                  </c:if>
+                  
+                  <c:if test = "${empty article}">
+                    新增文章中...
+                  </c:if>
+                </div>
                 <div class="error-message"></div>
               </div>
               <div class="text-center">
-                <button id="createArticleButton" type="submit">發佈文章</button>
+                <button id="createArticleButton" type="submit">
+                  <c:if test = "${not empty article}">
+                    更新文章
+                  </c:if>
+                  
+                  <c:if test = "${empty article}">
+                    發佈文章
+                  </c:if>
+                </button>
               </div>
             </form>
           </div>
-
         </div>
-
       </div>
     </section>
     <!-- End Contact Section -->
@@ -137,21 +183,22 @@ body {
 
   <!-- ======= Footer ======= -->
   <jsp:include page="../incloud/footer-section.jsp" />
-  
+
   <!-- Toast -->
   <jsp:include page="toast.jsp" />
-  
+
   <!-- Template Main JS File -->
   <jsp:include page="../incloud/body-js.jsp" />
   <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
   <script src="/SpecialTopic/js/multi-select.js"></script>
-  
+
   <!-- 匯入 summernote 的 js 檔案 -->
-  <script src="/SpecialTopic/assets/vendor/summernote/js/summernote-lite.js"></script>
-  
+  <script
+    src="/SpecialTopic/assets/vendor/summernote/js/summernote-lite.js"></script>
+
   <!-- Toast js -->
   <script src="/SpecialTopic/js/toast.js"></script>
-  
+
   <script>
   $(document).ready(() => {
 		// 初始化 summmernote 套件
@@ -160,10 +207,32 @@ body {
         height: 300
     })
     
+    let preselected = []
+    
+		// 如果是編輯文章，就會執行此內容
+    <c:if test = "${not empty article}">
+    	const opts = [...document.querySelectorAll('#tags option')]
+    	const ids = JSON.parse("${ids}")
+    	
+    	// 帶入文章標題(title)
+    	document.querySelector('#title').value = "${article.getTitle()}"
+    	// 帶入文章內容(content)
+    	document.querySelector('.note-editable').innerHTML = `${article.getContent()}`
+    	
+    	// 得到該文章選取的標籤 index(因為 options 使用的是標籤 table 的 PK)
+    	ids.forEach(id => {
+    	  opts.forEach((opt, index) => {
+    	    if (opt.value == id)
+    	      preselected.push(index)
+    	  })
+    	})
+  	</c:if>
+    
   	const form = document.querySelector('#createArticleForm')
   	const btn = document.querySelector('#createArticleButton')
   	const select = new drop({
       selector: '#tags',
+      preselected: preselected
     })
  		
     function displayError(error) {
@@ -173,6 +242,7 @@ body {
   	
 		/*
 			驗證發佈文章的表單是否有效後才送出，否則顯示提示訊息。
+			return 值為 boolean，true 表示表單驗證成功，反之。
 		*/
   	function isFormValid(form) {
   		"use strict";
@@ -208,8 +278,11 @@ body {
   	btn.addEventListener('click', function(e) {
   		e.preventDefault()
   		
-  		if (isFormValid(form))
-				form.submit()
+  		// 表單驗證成功後才送出
+  		if (isFormValid(form)) {
+  		 btn.disabled = true
+  		 form.submit()
+  		}
   	})
   })
   </script>

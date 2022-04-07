@@ -12,7 +12,7 @@
 .main-box {
 	margin: 50px auto;
 	width: 400px;
-	height: 500px;
+	height: 540px;
 	padding: 50px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff text-align:center;
@@ -23,60 +23,60 @@
 <body>
 	<div class="main-box">
 		<h3 style="text-align: center">帳號註冊</h3>
-		<form action="/SpecialTopic/registerAction1" METHOD="POST"
-			onsubmit="return validate()">
+		<form action="/SpecialTopic/registerAction1" id="registerform" METHOD="POST" >
 			<div>
 				帳號:<input type="text" id="username" name="username"
-					required="required" maxlength="16"
-					onfocus="if(this.value == '輸入16個字元以內') this.value =''" />
+					required="required" maxlength="16" />
 			</div>
 			<br/>
 			<div>
-				密碼:<input type="text" id="password" name="password"
-					required="required" maxlength="20"
-					onfocus="if(this.value == '輸入20個字元以內') this.value =''" />
+				密碼:<input type="password" id="password" name="password"
+					required="required" maxlength="20" />
 			</div>
 			<br/>
 			<div>
-				確認密碼:<input type="text" id="repassword" name="repassword"
-					required="required" maxlength="20"
-					onfocus="if(this.value == '重新輸入密碼') this.value =''" />
+				確認密碼:<input type="password" id="repassword" name="repassword"
+					required="required" maxlength="20" />
 			</div>
 			<br/>
 			<div>
-				全名:<input type="text" id="fullname" required="required"/>			
+				全名:<input type="text" name="fullname" required="required"/>			
 			</div>
 			<br/>
 			<div>
-				電子信箱:<input type="text" id="email" name="email" required="required" />
+				電子信箱:<input type="text" name="email" id="email" required="required" />
 			</div>
 			<br/>
 			<div>
-				地址:<input type="text" id="address" required="required"/>				
+				地址:<input type="text" name="address" required="required"/>				
 			</div>
 			<br/>
 			<div>
-				電話:<input type="text" id="phone" required="required"/>				
+				手機:<input type="text" name="phone" id="phone" required="required"/>				
 			</div>
 			<br/>
 			<div>
-				生日:<input type="date" id="birthday" required="required"/>				
+				生日:<input type="date" name="birthday" required="required"/>				
 			</div>
 			<br/>
 				<div>
-				工作:<input type="text" id="job" required="required">				
+				工作:<input type="text" name="job" required="required">				
 			</div>
 			<br/>
 			<div>
-				身分證字號:<input type="text" id="identitycard" required="required">
+				身分證字號:<input type="text" id="identitycard" name="identitycard" required="required">
 			</div>
 			<br/>
 			<div>
-				護照英文名子:<input type="text" id="passportname" required="required">				
+				護照英文名子:<input type="text" name="passportname" required="required">				
 			</div>
 			<br/>
 			<div>
-				<input type="submit" value="送 出" /> <input type="button"
+				性別: 男<input type="radio" name="gender" value=1 />女<input type="radio" name="gender" value=0 />				
+			</div>
+			<br/>
+			<div>
+				<input type="button" value="送 出" onclick="check()"/> <input type="button"
 					onclick="javascript:window.location = '/SpecialTopic/'"
 					value="返 回 首 頁" />
 			</div>

@@ -104,6 +104,9 @@ var drop = function(info){var o = {
             removed: false
          })
          that.options[pre].state = 'remove';
+         
+         // 更新文章時，該篇文章的標籤也要先選上
+         that.html.opts[pre].selected = true
       })
    },
    render: function(){

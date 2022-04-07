@@ -1,7 +1,5 @@
 package net.ddns.iiiedug02.controller;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.StudentAnalysis;
-import net.ddns.iiiedug02.model.service.CashService;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.StudentAnalService;
@@ -24,14 +21,13 @@ import net.ddns.iiiedug02.model.service.StudentAnalService;
 @Controller
 public class StudentAnalController {
 
-  @Autowired
-  private CashService cashService;
+    @Autowired
+    private ClassBeanService classBeanService;
 
-  @Autowired
-  private ClassBeanService classBeanService;
+    @Autowired
+    private StudentAnalService analyService;
 
-  @Autowired
-  private StudentAnalService analyService;
+  
   
   @Autowired
   private ClassManagementService classMService;

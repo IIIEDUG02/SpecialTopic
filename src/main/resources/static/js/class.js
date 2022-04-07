@@ -1,9 +1,8 @@
-
-
+// 取的所有課程清單
 $(document).ready(function() {
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8080/SpecialTopic/allonlineclass",
+		url: "/SpecialTopic/class/allonline",
 		dataType: "json",
 		contentType: "application/json",
 		success: function(data) {
@@ -17,7 +16,7 @@ $(document).ready(function() {
 				div_class_detail.append(h4_type);
 				div_class_detail.append(p_price);
 
-				var h3_title = $("<h3><a href='#'>"+data[i]['title']+"</a></h3>");
+				var h3_title = $("<h3><a href='viewClass/"+data[i]['cid']+"'>"+data[i]['title']+"</a></h3>");
 				var div_class_content = $("<div class='course-content'>");
 
 				div_class_content.append(div_class_detail);
@@ -36,6 +35,8 @@ $(document).ready(function() {
 				var div_row = $("div#row");	
 						
 				div_row.append(div_class_view);
+				
+				$('div#loadingCircle').remove();
 			};
 		},
 		error: function(xhr, status) {
@@ -43,3 +44,23 @@ $(document).ready(function() {
 		}
 	})
 });
+
+// 刪除課程by Cid
+function deleteClassByCid(cid) {
+	$.ajax({
+		type: "Delete",
+		url: "/SpecialTopic/class/delete/" + cid,
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data) {
+			if (data) {
+				$('div#classDiv' + cid).remove();
+			} else {
+				alert("網頁發生錯誤");
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};

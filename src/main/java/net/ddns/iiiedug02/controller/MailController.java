@@ -9,15 +9,15 @@ import net.ddns.iiiedug02.util.SenedMailUtil;
 @Controller
 public class MailController {
 
-  @PostMapping("/sendMail")
-  public void sendMail(@RequestParam String name, @RequestParam String fromAddress,
-      @RequestParam String subject, @RequestParam String msg) {
-    SenedMailUtil mu = new SenedMailUtil();
-    MailBean mail = new MailBean();
-    mail.setFromAddress(fromAddress);
-    mail.setMsg(msg);
-    mail.setName(name);
-    mail.setSubject(subject);
-    mu.send(mail);
-  }
+    @PostMapping("/sendMail")
+    public void sendMail(@RequestParam String name, @RequestParam String fromAddress,
+            @RequestParam String subject, @RequestParam String msg) {
+        SenedMailUtil mu = new SenedMailUtil();
+        MailBean mail = new MailBean();
+        mail.setFromAddress(fromAddress);
+        mail.setMsg(msg);
+        mail.setName(name);
+        mail.setSubject(subject);
+        mu.send(mail);
+    }
 }
