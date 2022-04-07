@@ -74,7 +74,7 @@ public class YPclassController {
     //
     // }
 
-  }
+  
   
   @GetMapping("/ypclasscontrolltop5")
 //  public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
