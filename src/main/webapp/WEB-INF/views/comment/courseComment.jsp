@@ -40,7 +40,7 @@
                   <div class="comment-description">
                     <!-- 留言 button block -->
                     <div class="button-wrapper">
-                      <button class="button--submit" disabled>留言</button>
+                      <button class="first-item-submit-btn button--submit" disabled>留言</button>
                     </div>
   
                     <!-- description text block -->
