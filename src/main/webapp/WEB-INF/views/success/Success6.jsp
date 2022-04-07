@@ -6,12 +6,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="../incloud/head-css.jsp" />
 <title>Success</title>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<style>
+.position_fixed {
+	position: fixed;
+}
 
+.height100 {
+	height: 100px;
+}
+</style>
 
 </head>
 <body>
+	<jsp:include page="../incloud/header-section.jsp" />
+		<div class="height100"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col min-vh-100">
 	
 	
 	<table>
@@ -31,8 +45,8 @@
 					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${th.get('cid')}" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="${th.get('gender')}" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('countgender')}" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('ratio')}" /></td>				
+					<td style="border-top:1px solid #000"><c:out value="共${th.get('countgender')}筆" /></td>				
+					<td style="border-top:1px solid #000"><c:out value="${th.get('ratio')} %" /></td>				
 				</tr>
 			</c:forEach>		
 		</tbody>
@@ -98,6 +112,18 @@
 			  }]
 			});
 	</script>
+	</div>
+		</div>
+	</div>
+	<jsp:include page="../incloud/footer-section.jsp" />
+
+				<div id="preloader"></div>
+				<a href="#"
+					class="back-to-top d-flex align-items-center justify-content-center"><i
+					class="bi bi-arrow-up-short"></i></a>
+
+				<!-- Templete JS -->
+				<jsp:include page="../incloud/body-js.jsp" />
 
 </body>
 </html>

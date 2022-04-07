@@ -374,7 +374,7 @@
 
 
     <!-- ======= Trainers Section ======= -->
-    <jsp:include page="incloud/trainers-section.jsp" />
+<%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>
     <jsp:include page="incloud/class-section.jsp" />
 
 
