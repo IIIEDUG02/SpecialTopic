@@ -7,11 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -111,12 +108,6 @@ public class ClassController {
     public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request,
             Model m) throws IllegalStateException, IOException {
 
-	// 課程圖片上傳
-	@PostMapping(path = "/uploadphoto")
-	@ResponseBody
-	public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request, Model m)
-			throws IllegalStateException, IOException {
-
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -145,6 +136,8 @@ public class ClassController {
 		mf.transferTo(saveFile);
 
 		m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
+		return "...";
+    }
 
     // 尋找全部上線課程,api
     @GetMapping(path = "class/allonline")
@@ -202,11 +195,5 @@ public class ClassController {
 
     }
 
-	@GetMapping("getCurListJson/api/{cid}")
-	@ResponseBody
-	public List<CurriculumBean> getCurListJson(Model m, @PathVariable("cid") int cid) {
-		ClassBean cb = cbs.findById(cid);
-		return cus.findAllByClassbean(cb);
-	}
 
 }

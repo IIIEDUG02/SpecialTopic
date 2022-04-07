@@ -37,7 +37,7 @@ create table classmanagement(
 	status int not null,
 	cid int not null REFERENCES class_online(cid),
 	uid int not null REFERENCES members(uid),
-	tid int not null REFERENCES tid(tid)
+	tid varchar(255) not null REFERENCES ecpay_record(order_id)
 );
 
 create table progress_record(
