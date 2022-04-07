@@ -3,6 +3,7 @@ package net.ddns.iiiedug02.model.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -42,9 +43,8 @@ public class CommentService {
    * @param type: 留言的類型
    * @return 
    */
-  public List<Comment> getCommentsByCidAndCommentType(int cid, String type, int pageNum, int pageSize) {
-    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "postTime");
-    
+  public Page<Comment> getCommentsByCidAndCommentType(int cid, String type, int pageNum, int pageSize) {
+    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "post_time");
     return repository.getCommentsByClassCidAndCommentType(cid, type, pageRequest);
   }
 

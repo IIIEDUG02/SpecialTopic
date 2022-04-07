@@ -70,6 +70,10 @@ textarea {
   overflow-y: auto;
   outline: 0;
 }
+
+.relative {
+  position: relative;
+}
 /* Global style end */
 
 
@@ -307,16 +311,6 @@ textarea {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.pad-rl-20 {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-
-.pad-tb-20 {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
 .marg-b-20 {
   margin-bottom: 20px;
 }
@@ -435,6 +429,85 @@ textarea {
 }
 
 /* Comment style end */
+
+/* Fake comment item start */
+.fake-comment-block {
+  position: relative;
+}
+
+.isolated-comment-item.fake-comment-item {
+  width: 100%;
+  min-height: 100px;
+  position: absolute;
+}
+
+.avatar .no-pointer {
+  cursor: auto;
+}
+
+.isolated-comment-item.fake-comment-item .comment-extra-info {
+  width: 200px;
+}
+
+.isolated-comment-item.fake-comment-item .comment-content,
+.isolated-comment-item.fake-comment-item .comment-extra-info {
+  height: 15px;
+  background: rgb(234, 234, 234);
+}
+
+.isolated-comment-item.fake-comment-item .comment-content {
+  width: 100%;
+}
+
+.isolated-comment-item.fake-comment-item::after {
+  content: "";
+  display: block;
+  width: calc(100% + 2px);
+  height: 100%;
+  position: absolute;
+  top: 1px;
+  left: -1px;
+  background: linear-gradient(rgba(243, 243, 241, 0) 0%, rgb(243, 243, 241) 100%);
+}
+
+/* button */
+.fake-item__button {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid rgba(0, 0, 0, 0.43);
+  white-space: nowrap;
+  user-select: none;
+  font-weight: 400;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 5px 40px;
+  font-size: 20px;
+  border-radius: 3px;
+  min-width: 260px;
+  line-height: 1.8em;
+}
+
+.fake-item__button:hover {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.43);
+  color: rgb(250, 139, 0);
+}
+
+.fake-item__button:active {
+  background-color: transparent;
+  border-color: rgb(250, 139, 0);
+  color: rgb(250, 139, 0);
+}
+
+.marg-t-50 {
+  margin-top: 50px;
+}
+
+/* Fake comment item end */
 
 /* Media query start */
 @media (min-width: 768px) {
