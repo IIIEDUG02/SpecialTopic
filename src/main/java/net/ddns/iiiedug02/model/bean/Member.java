@@ -2,7 +2,7 @@ package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,9 +47,8 @@ public class Member implements Serializable, UserDetails {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private MemberInformation memberInformation;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<MemberRole> roles;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberRole> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
