@@ -10,7 +10,7 @@ function editCurriculum(cuid) {
 	var videoPathDiv = $("<div id='videoPathDiv'>影片網址：<input name='' type='file'></input></div>");
 	var submitBtn = $("<input id='submitBtn' type='button' value='送出' />");
 	var editBtn = $("<input id='editBtn' type='hidden' onclick='editBtnOnclick()' value='編輯' />");
-	var delBtn = $("<input id='delBtn' type='hidden' onclick='' value='刪除' />");
+	var delBtn = $("<input id='delBtn' type='hidden' onclick='deleteBtnOnclick("+cuid+")' value='刪除' />");
 	
 	if (cuid != 0) {
 		cuidInput.val($("input#cuid" + cuid).val());
@@ -46,7 +46,28 @@ function editBtnOnclick() {
 	$("div#chapterDiv input").attr("type","text");
 	$("div#videoPathDiv video").remove();
 	$("div#videoPathDiv input").attr("type","file");
-	
-	
-	
+		
 }
+function deleteBtnOnclick(cuid){
+		$.ajax({
+		type: "Delete",
+		url: "/SpecialTopic/class/delete/curriculum/" + cuid,
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data) {
+			if (data) {
+				$('li#li' + cuid).remove();
+				$('div form').remove();
+				location.reload;
+			} else {
+				alert("網頁發生錯誤");
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};
+	
+
+
