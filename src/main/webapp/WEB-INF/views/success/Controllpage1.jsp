@@ -41,9 +41,9 @@
 								<td style="border-top: 1px solid #000"><c:out
 										value="${th.getClassID()}" /></td>
 								<td style="border-top: 1px solid #000"><c:out
-										value="${th.getYear()}" /></td>
+										value="${th.getYear()}年" /></td>
 								<td style="border-top: 1px solid #000"><c:out
-										value="${th.getYearAmount()}" /></td>
+										value="共${th.getYearAmount()}筆" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
