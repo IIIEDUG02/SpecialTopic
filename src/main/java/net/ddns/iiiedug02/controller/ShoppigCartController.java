@@ -34,7 +34,7 @@ public class ShoppigCartController {
     @Autowired
     private ClassBeanService classBeanService;
 
-    @GetMapping("getList")
+    @GetMapping("api/getList")
     @ResponseBody
     @CrossOrigin(origins = "*")
     public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
