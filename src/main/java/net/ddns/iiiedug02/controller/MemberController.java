@@ -41,31 +41,31 @@ public class MemberController {
         }
 
         MemberInformation mbi = new MemberInformation();
-        mbi.setAddress(params.get("address"));
-        mbi.setBirthday(ut.strToSqlDate(params.get("birthday")));
-        mbi.setEmail(params.get("email"));
-        mbi.setFullname(params.get("fullname"));
-        mbi.setGender(Integer.parseInt(params.get("gender")));
-        mbi.setIdentitycard(params.get("identitycard"));
-        mbi.setJob(params.get("job"));
-        mbi.setPassportname(params.get("passportname"));
-        mbi.setPhone(params.get("phone"));
-        mbi.setPhoto(params.get("photo"));
+//        mbi.setAddress(params.get("address"));
+//        mbi.setBirthday(ut.strToSqlDate(params.get("birthday")));
+//        mbi.setEmail(params.get("email"));
+//        mbi.setFullname(params.get("fullname"));
+//        mbi.setGender(Integer.parseInt(params.get("gender")));
+//        mbi.setIdentitycard(params.get("identitycard"));
+//        mbi.setJob(params.get("job"));
+//        mbi.setPassportname(params.get("passportname"));
+//        mbi.setPhone(params.get("phone"));
+//        mbi.setPhoto(params.get("photo"));
 
         mb = new Member();
-        MemberRole mrb = new MemberRole();
-        mrb.setRole("normal");
-        mrb.setMember(mb);
-        List<MemberRole> rs = new ArrayList<>(1);
-        rs.add(mrb);
+//        MemberRole mrb = new MemberRole();
+//        mrb.setRole("normal");
+//        mrb.setMember(mb);
+//        List<MemberRole> rs = new ArrayList<>(1);
+//        rs.add(mrb);
 
         mb.setUsername(params.get("username"));
         mb.setPassword(params.get("password"));
         mb.setActivated((short) 0);
-        mb.setRoles(rs);
+//        mb.setRoles(rs);
 
-        mb.setMemberInformation(mbi);
-        mbi.setMember(mb);
+//        mb.setMemberInformation(mbi);
+//        mbi.setMember(mb);
         ms.save(mb);
         session.setAttribute("registerBean", mb);
         return "redirect:/";
