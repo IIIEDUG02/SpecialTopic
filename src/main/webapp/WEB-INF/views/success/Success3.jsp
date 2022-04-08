@@ -28,6 +28,14 @@
 					<td style="border-top:1px solid #000"><c:out value="${th.getYearAmount()}" /></td>						
 				</tr>
 			</c:forEach>
+			<c:forEach var="mh" items="${mpclassList}">
+				<tr>
+					<td ><c:out value="" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${mh.getClassID()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${mh.getMonth()}" /></td>
+					<td style="border-top:1px solid #000"><c:out value="${mh.getMonthAmount()}" /></td>						
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	

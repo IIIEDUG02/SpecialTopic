@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.MPclass;
@@ -97,6 +98,62 @@ public class MPclassController {
 //
 //    }
     
+    @GetMapping("/mpclasscontrolltop5")
+    public String controllFindTop5(Model m) {
+
+        List<MPclass> mpclasscontroll = mpclassService.findAllRow();
+
+        m.addAttribute("mpclasscontroll", mpclasscontroll);
+    
+        return "success/Controllpage2";
+
+    }
+    
+    @GetMapping("/mpclasschangetop5")
+    public String controllChangeTop5(@RequestParam("pi1") String pi1, @RequestParam("pi2") String pi2, @RequestParam("pi3") String pi3, Model m) {
+  	
+      Map<String, String> errors = new HashMap<String, String>();
+  	m.addAttribute("errors", errors);
+  	if(pi1==null || pi1.length()==0) {
+  		errors.put("pi1", "請輸入課程ID");
+  	}
+  	
+  	if(pi2==null || pi2.length()==0) {
+  		errors.put("pi2", "請輸入課程ID");
+  	}
+  	
+  	if(pi3==null || pi3.length()==0) {
+  		errors.put("pi3", "請輸入課程ID");
+  	}
+  	if(errors!=null && !errors.isEmpty()) {
+  		return "success/Controllpage2";
+  	}
+  	
+  	mpclassService.resetmpclass();
+  	mpclassService.updatempclass("1",pi1);
+    mpclassService.updatempclass("2",pi2);
+    mpclassService.updatempclass("3",pi3);
+      
+      List<MPclass> mpclassList = mpclassService.findAll();
+      if(mpclassList!=null && !mpclassList.isEmpty()) {
+      	m.addAttribute("mpclassList", mpclassList);
+  		return "success/Success3";
+  	}
+      errors.put("pimsg", "請確認輸入值");
+  	return "success/Controllpage2";
+    }
+    
+    @GetMapping("/resetmpclass")
+    public String resetmpclass(Model m) {
+  	  List<MPclass> mpclasscontroll = mpclassService.findAllRow();
+  	  Map<String, String> errors = new HashMap<String, String>();
+  	  m.addAttribute("mpclasscontroll", mpclasscontroll);
+  	  m.addAttribute("errors", errors);
+  	  errors.put("resetmsg", "排序設定已清空");
+  	  mpclassService.resetmpclass();
+  	  return "success/Controllpage2";
+    }
+    
     @GetMapping("/mpclassfindtop5")
     @ResponseBody
     // public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
@@ -105,18 +162,35 @@ public class MPclassController {
         List<MPclass> MPclassList = mpclassService.findAll();
 
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-
-        for (MPclass c : MPclassList) {
-            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
-            ClassBean classBean = c.getClassBean();
-            Member teacher = memberService.findByUid(classBean.getUid());
-
-            classBean.setCurriculumbean(null);
-
-            classTeacherInfo.put("class", classBean);
-            classTeacherInfo.put("teacher", teacher.getMemberInformation());
-            result.add(classTeacherInfo);
+        if(MPclassList!=null && !MPclassList.isEmpty()) {
+	        for (MPclass c : MPclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
+        }else {
+        	List<MPclass> mpclassList = mpclassService.findRow();
+        	for (MPclass c : mpclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
         }
+        
+        
+        
 
         // return ResponseEntity.ok(result);
         return result;
