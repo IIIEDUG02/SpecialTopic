@@ -15,8 +15,8 @@ create table curriculum(
 	chapter nvarchar(50) not null,
 	video_path varchar(100),
 	cid int not null REFERENCES class(cid)
-
 );
+
 create table class_details(
 	cid int not null PRIMARY KEY REFERENCES class(cid) ,
 	descript nvarchar(500) not null,

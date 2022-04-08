@@ -1,8 +1,11 @@
 # 進度管制
 
 ## 會員管理
+![會員管理甘特圖](會員管理甘特圖.svg)
 
 ## 課程管理
+[![](https://mermaid.ink/img/pako:eNpt0cFKw0AQANBfWfacQJK2CDlXbz15EnJZs9MaTBNJNmgpBYtgtQoVkYKgaEU0CBWq6EFo_ybJ9i_cdtOqxTktM_N2GKaJbZ8CNnGNeIxZHhLBHOYC4i9vWXzG4yGPT2SeEgYbflAnDKEtEWqlopbLsgYHthtRCNE-wC54NLQ8WQjBZo7voeTxOfscrTTPP22EMpt-tMXA5KYvZ6KfMBHRFWRohqFqBVUvKahIpeHvnbR_zQfxf8ZQEKkyCOZ6IbLDHn8ay-UQ-gsKSyBoKQfp5TC9miTjUXbaSbp3_Gj8mxSXROBCTpLJOe98Za-D7OJ4ZZIgpSURWNdyM71vT28f5BpJr0thO6otiNy8qOoaQgpao1jBdRB3cKg4XHPmLcx2oA4WNsWTQpVELrOw5bVEa7Q3O9w6dZgfYLNK3BAUTCLmbzY8G5ssiGDRVHZILSD1vKv1DaaWxIM)](https://mermaid.live/edit#pako:eNpt0cFKw0AQANBfWfacQJK2CDlXbz15EnJZs9MaTBNJNmgpBYtgtQoVkYKgaEU0CBWq6EFo_ybJ9i_cdtOqxTktM_N2GKaJbZ8CNnGNeIxZHhLBHOYC4i9vWXzG4yGPT2SeEgYbflAnDKEtEWqlopbLsgYHthtRCNE-wC54NLQ8WQjBZo7voeTxOfscrTTPP22EMpt-tMXA5KYvZ6KfMBHRFWRohqFqBVUvKahIpeHvnbR_zQfxf8ZQEKkyCOZ6IbLDHn8ay-UQ-gsKSyBoKQfp5TC9miTjUXbaSbp3_Gj8mxSXROBCTpLJOe98Za-D7OJ4ZZIgpSURWNdyM71vT28f5BpJr0thO6otiNy8qOoaQgpao1jBdRB3cKg4XHPmLcx2oA4WNsWTQpVELrOw5bVEa7Q3O9w6dZgfYLNK3BAUTCLmbzY8G5ssiGDRVHZILSD1vKv1DaaWxIM)
+
 
 ## 交易系統
 ### 購物車
@@ -14,7 +17,7 @@
 ## 互動系統
 ![互動系統甘特圖](互動平台甘特圖.png)
 
-## 後台統計
+## 數據分析統計
 ![後台統計甘特圖](後台統計甘特圖.png)
 
 

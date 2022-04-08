@@ -12,6 +12,5 @@ gantt
     播放影片功能         : a4, after a3, 3d
     後臺管理課程         : a5, after a4, 10d
     頁面設計及debug      : 2022-04-10  , 7d
-    
 ```
 
