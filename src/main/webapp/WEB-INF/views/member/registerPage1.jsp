@@ -35,14 +35,14 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 	margin: 10px;
 }
 
-<style>.main-box {
-	margin: 50px auto;
-	width: 400px;
-	height: 570px;
-	padding: 50px;
-	box-shadow: 5px 5px 10px #999;
-	border: 1px solid #fff text-align:center;
-	font-size: 1.0em;
+/* <style>.main-box { */
+/* 	margin: 50px auto; */
+/* 	width: 400px; */
+/* 	height: 570px; */
+/* 	padding: 50px; */
+/* 	box-shadow: 5px 5px 10px #999; */
+/* 	border: 1px solid #fff text-align:center; */
+/* 	font-size: 1.0em; */
 }
 </style>
 </head>
@@ -53,6 +53,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 
 	<div class="container">
 		<div class="row">
+		<div class="col"><img src="/SpecialTopic/img/register/littletree.jpg"></div>
 			<div class="col">
 				<div class="header1">
 					<h3 style="text-align: left">帳號註冊</h3>
@@ -125,7 +126,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 					</div>
 				</form>
 			</div>
-			<div class="col">塗片放這邊</div>
+			
 		</div>
 	</div>
 
