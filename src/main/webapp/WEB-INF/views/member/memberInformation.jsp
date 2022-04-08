@@ -32,7 +32,7 @@ h3{
  	/*	box-shadow: 5px 5px 10px #999;*/ 
 /* 	border: 1px solid #fff text-align:center; */
 /* 	font-size: 1.0em; */
-}
+
 
 div .username,div .password,div .fullname,div .phone,div .email,div .address, 
 div .job {
