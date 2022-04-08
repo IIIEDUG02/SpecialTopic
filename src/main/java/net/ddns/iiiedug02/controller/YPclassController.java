@@ -116,6 +116,7 @@ public class YPclassController {
 		return "success/Controllpage1";
 	}
 	
+	ypclassService.resetypclass();
 	ypclassService.updateypclass("1",pi1);
     ypclassService.updateypclass("2",pi2);
     ypclassService.updateypclass("3",pi3);
@@ -148,18 +149,35 @@ public class YPclassController {
         List<YPclass> YPclassList = ypclassService.findAll();
 
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-
-        for (YPclass c : YPclassList) {
-            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
-            ClassBean classBean = c.getClassBean();
-            Member teacher = memberService.findByUid(classBean.getUid());
-
-            classBean.setCurriculumbean(null);
-
-            classTeacherInfo.put("class", classBean);
-            classTeacherInfo.put("teacher", teacher.getMemberInformation());
-            result.add(classTeacherInfo);
+        if(YPclassList!=null && !YPclassList.isEmpty()) {
+	        for (YPclass c : YPclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
+        }else {
+        	List<YPclass> ypclassList = ypclassService.findRow();
+        	for (YPclass c : ypclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
         }
+        
+        
+        
 
         // return ResponseEntity.ok(result);
         return result;

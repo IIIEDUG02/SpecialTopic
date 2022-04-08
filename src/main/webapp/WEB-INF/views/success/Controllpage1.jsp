@@ -72,7 +72,7 @@
 					</table>
 				</form>
 				<form action="resetypclass" method="get">
-					<button type="submit">重新排序</button>
+					<button type="submit">回復正常排序</button>
 					<span>${errors.resetmsg}</span>
 				</form>
 			</div>

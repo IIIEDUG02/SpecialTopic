@@ -36,6 +36,10 @@ public class YPclassService {
 		return YPRepo.findAllRow();
 	}
 	
+	public List<YPclass> findRow(){
+		return YPRepo.findRow();
+	}
+	
 	public void  insert(YPclass yp){
 		YPRepo.save(yp);
 	}
