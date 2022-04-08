@@ -6,12 +6,12 @@
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="/SpecialTopic/">私立雲端大學</a>
+			<a href="/SpecialTopic/">OOXX</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
 				<li><a class="active" href="/SpecialTopic/">首頁</a></li>
-				<li><a href="/SpecialTopic/about">關於本校</a></li>
+				<li><a href="/SpecialTopic/about">關於</a></li>
 				<li><a href="/SpecialTopic/courses">課程</a></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>

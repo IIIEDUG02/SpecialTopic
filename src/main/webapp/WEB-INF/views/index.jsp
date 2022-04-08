@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>雲端大學</title>
+<title>OOXX</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -42,7 +42,7 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container" data-aos="fade-in">
-			<h1>雲端大學</h1>
+			<h1>OOXX</h1>
 			<h2>學習無所不在，隨時、隨地</h2>
 			<img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs"
 				data-aos="zoom-out" data-aos-delay="100">
