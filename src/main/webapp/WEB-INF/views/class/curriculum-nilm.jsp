@@ -1,28 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html lang="zh-tw">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video player example</title>
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>瀏覽課程資訊</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
+
+<!-- jQuery -->
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+
+<title>Video player example</title>
 <link rel="stylesheet" type="text/css"
 	href="/SpecialTopic/css/style.css">
 <style>
 .position_fixed {
-	position: fixed;
+    position: fixed;
 }
 
 .height100 {
-	height: 100px;
+    height: 100px;
 }
 </style>
-<script>
-var clients = ["123"];
-</script>
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -31,7 +42,7 @@ var clients = ["123"];
 	<div class="container">
 		<div class="player m-3 p-3 shadow">
 			<video controls controlsList="nodownload">
-				<source src="/SpecialTopic/classvideo/sintel-short.mp4"
+				<source src="/SpecialTopic/classvideo/123.mp4"
 					type="video/mp4">
 				<!-- fallback content here -->
 			</video>
@@ -43,8 +54,6 @@ var clients = ["123"];
 			<input id="cid" type="hidden" value="${cid}"/>
 		</div>
 	</div>
-
-
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 		aria-labelledby="offcanvasRightLabel">
 		<div class="offcanvas-header">
@@ -57,8 +66,6 @@ var clients = ["123"];
 			</ul>
 		</div>
 	</div>
-
-	<script src="/SpecialTopic/js/custom-player.js"></script>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 
@@ -69,6 +76,7 @@ var clients = ["123"];
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+	<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+	<script src="/SpecialTopic/js/custom-player.js"></script>
 </body>
-</html>
 </html>

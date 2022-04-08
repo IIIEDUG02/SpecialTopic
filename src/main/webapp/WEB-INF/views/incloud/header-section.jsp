@@ -6,12 +6,12 @@
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="/SpecialTopic/">私立雲端大學</a>
+			<a href="/SpecialTopic/">OOXX</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>
 				<li><a class="active" href="/SpecialTopic/">首頁</a></li>
-				<li><a href="/SpecialTopic/about">關於本校</a></li>
+				<li><a href="/SpecialTopic/about">關於</a></li>
 				<li><a href="/SpecialTopic/courses">課程</a></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
@@ -30,18 +30,18 @@
 										<li><a href="#">Deep Drop Down 4</a></li>
 										<li><a href="#">Deep Drop Down 5</a></li>
 									</ul>
-								<li class="dropdown"><a href="#"><span>Deep Drop
-											Down</span> <i class="bi bi-chevron-right"></i></a>
+								<li class="dropdown"><a href="#"><span>課程管理
+											</span> <i class="bi bi-chevron-right"></i></a>
 									<ul>
-										<li><a href="#">Deep Drop Down 1</a></li>
+										<li><a href="class/list">課程清單</a></li>
 										<li><a href="#">Deep Drop Down 2</a></li>
 										<li><a href="#">Deep Drop Down 3</a></li>
 										<li><a href="#">Deep Drop Down 4</a></li>
 										<li><a href="#">Deep Drop Down 5</a></li>
 									</ul></li>
-								<li><a href="#">Drop Down 2</a></li>
-								<li><a href="#">Drop Down 3</a></li>
-								<li><a href="#">Drop Down 4</a></li>
+								<li><a href="inputmain">學員資料統計</a></li>
+								<li><a href="ypclasscontrolltop5">熱門課程管理</a></li>
+								<li><a href="/SpecialTopic/member/editInformation" type="button">個人資料</a></li>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>

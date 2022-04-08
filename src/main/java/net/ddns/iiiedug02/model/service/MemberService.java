@@ -1,6 +1,5 @@
 package net.ddns.iiiedug02.model.service;
 
-import java.util.HashSet;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -31,19 +30,10 @@ public class MemberService implements UserDetailsService {
         return opt.get();
     }
 
-    public Member createMemberBean(Member mb) {
+    public Member save(Member mb) {
 
         String encodedpassword = bCryptPasswordEncoder.encode(mb.getPassword());
         mb.setPassword(encodedpassword);
-
-        MemberRole mrb = new MemberRole();
-        mrb.setRole("normal");
-        mrb.setMember(mb);
-
-        HashSet<MemberRole> rs = new HashSet<>();
-        rs.add(mrb);
-
-        mb.setRoles(rs);
 
         return memberRepository.save(mb);
     }
