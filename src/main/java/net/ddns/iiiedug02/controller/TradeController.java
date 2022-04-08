@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import net.ddns.iiiedug02.exception.NotLoginException;
@@ -112,7 +113,8 @@ public class TradeController {
     // 當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。
     // 若與[ClientBackURL]同時設定，將會以此參數為主。
     @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
-    public String processPaymentResult2(HttpServletRequest request, Principal p, Model m) {
+    public String processPaymentResult2(HttpServletRequest request, Principal p,
+            RedirectAttributes attr) {
 
         Member loginBean = memberService.findByUsername(p.getName());
         Hashtable<String, String> dict = new Hashtable<String, String>();
@@ -153,12 +155,12 @@ public class TradeController {
                 }
                 shoppingCartService.deleteByList(scList);
                 classManagementService.insertByList(cmbList);
-                m.addAttribute("msg", "交易成功");
+                attr.addAttribute("msg", "交易成功");
             } else {
-                m.addAttribute("msg", "交易失敗");
+                attr.addAttribute("msg", "交易失敗");
             }
         } else {
-            m.addAttribute("msg", "交易發生錯誤");
+            attr.addAttribute("msg", "交易發生錯誤");
         }
         return "redirect:/class/list";
     }
