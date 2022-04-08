@@ -2,6 +2,8 @@ package net.ddns.iiiedug02.controller;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
+import net.ddns.iiiedug02.model.bean.MemberRole;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
@@ -50,9 +53,16 @@ public class MemberController {
         mbi.setPhoto(params.get("photo"));
 
         mb = new Member();
+        MemberRole mrb = new MemberRole();
+        mrb.setRole("normal");
+        mrb.setMember(mb);
+        List<MemberRole> rs = new ArrayList<>(1);
+        rs.add(mrb);
+
         mb.setUsername(params.get("username"));
         mb.setPassword(params.get("password"));
         mb.setActivated((short) 0);
+        mb.setRoles(rs);
 
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
@@ -92,12 +102,12 @@ public class MemberController {
         mbi.setAddress(params.get("address"));
         mbi.setEmail(params.get("email"));
         mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));   
-        mbi.setPhone(params.get("phone"));   
+        mbi.setJob(params.get("job"));
+        mbi.setPhone(params.get("phone"));
         mb.setPassword(params.get("password"));
 
-//        mb.setRoles(null);
-        
+        // mb.setRoles(null);
+
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
 

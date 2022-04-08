@@ -1,7 +1,5 @@
 package net.ddns.iiiedug02.model.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -36,15 +34,6 @@ public class MemberService implements UserDetailsService {
 
         String encodedpassword = bCryptPasswordEncoder.encode(mb.getPassword());
         mb.setPassword(encodedpassword);
-
-        if (null == mb.getRoles()) {
-            MemberRole mrb = new MemberRole();
-            mrb.setRole("normal");
-            mrb.setMember(mb);
-
-            List<MemberRole> rs = new ArrayList<>();
-            rs.add(mrb);
-        }
 
         return memberRepository.save(mb);
     }
