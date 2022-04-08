@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,13 +40,16 @@ public class YPclassController {
 
     @GetMapping("/ypclasssavetop5")
     public String processSaveTop5(Model m) {
-        List<Map<String, Integer>> cList = classMService.getYearTop5Class(2022);
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(new Date());
+    	int year = cal.get(Calendar.YEAR);
+        List<Map<String, Integer>> cList = classMService.getYearTop5Class(year);
 
         List<YPclass> ypclassList = new ArrayList<YPclass>();
         for (Map<String, Integer> c : cList) {
             YPclass ypclass = new YPclass();
             ypclass.setClassID(c.get("cid"));
-            ypclass.setYear(2022);
+            ypclass.setYear(year);
             ypclass.setYearAmount(c.get("countcid"));
             ypclassService.insert(ypclass);
 
