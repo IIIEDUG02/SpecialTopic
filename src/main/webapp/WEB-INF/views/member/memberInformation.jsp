@@ -34,8 +34,8 @@ h3{
 /* 	font-size: 1.0em; */
 }
 
-.username, .password, .fullname, .phone, .email, .address, 
-.job {
+div .username,div .password,div .fullname,div .phone,div .email,div .address, 
+div .job {
 	margin: 30px;
 	height: 20px;
 }
@@ -48,6 +48,7 @@ h3{
 
 	<div class="container">
 		<div class="row">
+		<div class="col"><img src="/SpecialTopic/img/register/tree.jpg"></div>
 			<div class="col">
 				<!--  	<div class="main-box"> -->
 				<div>
@@ -98,7 +99,7 @@ h3{
 					<input id="check" type="hidden" value="½T»{">
 				</form>
 			</div>
-		<div class="col"><img src="/SpecialTopic/img/register/tree.jpg"></div>
+		
 		</div>
 	</div>
 	<!--  	</div> -->

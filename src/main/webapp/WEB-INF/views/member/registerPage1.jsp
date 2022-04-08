@@ -53,6 +53,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 
 	<div class="container">
 		<div class="row">
+		<div class="col"><img src="/SpecialTopic/img/register/littletree.jpg"></div>
 			<div class="col">
 				<div class="header1">
 					<h3 style="text-align: left">帳號註冊</h3>
@@ -125,7 +126,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 					</div>
 				</form>
 			</div>
-			<div class="col"><img src="/SpecialTopic/img/register/littletree.jpg"></div>
+			
 		</div>
 	</div>
 
