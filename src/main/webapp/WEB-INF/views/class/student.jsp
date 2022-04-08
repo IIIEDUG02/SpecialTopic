@@ -58,7 +58,7 @@
 												<div class="card-body">
 													<h5 class="card-title">${cb.getTitle()}</h5>
 													<p class="card-text">${cb.getClassType()}</p>
-													<a href="#" class="btn btn-primary">Go somewhere</a>
+													<a href="#" class="btn btn-primary">播放課程</a>
 												</div>
 											</div>
 										</c:forEach>

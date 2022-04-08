@@ -58,7 +58,7 @@ public class MemberController {
         mrb.setMember(mb);
         List<MemberRole> rs = new ArrayList<>(1);
         rs.add(mrb);
-        
+
         mb.setUsername(params.get("username"));
         mb.setPassword(params.get("password"));
         mb.setActivated((short) 0);
@@ -102,12 +102,12 @@ public class MemberController {
         mbi.setAddress(params.get("address"));
         mbi.setEmail(params.get("email"));
         mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));   
-        mbi.setPhone(params.get("phone"));   
+        mbi.setJob(params.get("job"));
+        mbi.setPhone(params.get("phone"));
         mb.setPassword(params.get("password"));
 
-//        mb.setRoles(null);
-        
+        // mb.setRoles(null);
+
         mb.setMemberInformation(mbi);
         mbi.setMember(mb);
 

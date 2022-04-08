@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.Member;
@@ -31,32 +32,30 @@ public class MultiController {
     private ClassManagementService cms;
 
     @GetMapping("viewClass/{cid}")
-    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p) {
+    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p,
+            RedirectAttributes attr) {
 
-        Member loginBean = ms.findByUsername(p.getName());
+
         // 課程資訊
         ClassBean cb = cbs.findById(cid);
         if (cb == null) {
-            m.addAttribute("errMsg", "找不到課程資料");
-            return "class/viewClass";
+            attr.addAttribute("msg", "找不到課程資料");
+            return "redirect:/class/list";
         }
         m.addAttribute("classBean", cb);
 
-
-        // 個人購課紀錄
-        ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
-        if (null != cmb) {
-            m.addAttribute("classManagerBean", cmb);
-        } else {
-            // 購課車
-            ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
-            m.addAttribute("ShoppingCart", sc);
+        if (p != null) {
+            Member loginBean = ms.findByUsername(p.getName());
+            // 個人購課紀錄
+            ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+            if (null != cmb) {
+                m.addAttribute("classManagerBean", cmb);
+            } else {
+                // 購課車
+                ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
+                m.addAttribute("ShoppingCart", sc);
+            }
         }
-
-
-
-        // 留言板
-
 
         return "class/viewClass";
     }

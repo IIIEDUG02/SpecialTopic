@@ -1,5 +1,6 @@
 package net.ddns.iiiedug02.model.bean;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "class")
 @Component
-public class ClassBean {
+public class ClassBean implements Serializable {
+
+	  private static final long serialVersionUID = 2L;
 
   @Id
   @Column(name = "CID")

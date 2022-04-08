@@ -32,6 +32,12 @@
 
 <!-- 購物車 -->
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
+
+<!-- Animate CSS -->
+<link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
+
+<!-- courseComment CSS -->
+<link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
 </head>
 
 <body>
@@ -90,9 +96,15 @@
 
 	</main>
 	<!-- End #main -->
-
+  
+  <!-- courseComment -->
+  <jsp:include page="../comment/courseComment.jsp" />
+  
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
+  
+  <!-- Toast -->
+  <jsp:include page="../article/toast.jsp" />
 
 	<div id="preloader"></div>
 	<a href="#"
@@ -101,7 +113,15 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-
+  
+  <!-- moment js，用來轉換前端較好看的顯示時間 -->
+  <script src="/SpecialTopic/assets/vendor/moment-with-locales.min.js"></script>
+  
+  <!-- Base js -->
+  <script src="/SpecialTopic/js/base.js"></script>
+  
+  <!-- course-comment js -->
+  <script src="/SpecialTopic/js/course-comment.js"></script>
 </body>
 
 </html>

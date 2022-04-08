@@ -33,6 +33,9 @@ public class YPclass implements Serializable {
 
   @Column(name = "YEARAMOUNT")
   private int yearAmount;
+  
+//  @Column(name = "priority")
+//  private String priority;
 
   // @OneToOne(fetch = FetchType.LAZY, mappedBy = "ypteacher", cascade = CascadeType.ALL,
   // targetEntity = MemberInformation.class)
@@ -84,7 +87,8 @@ public ClassBean getClassBean() {
 public void setClassBean(ClassBean classBean) {
 	this.classBean = classBean;
 }
-  
+
+
   
   
 

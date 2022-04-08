@@ -7,5 +7,7 @@ import net.ddns.iiiedug02.model.bean.CurriculumBean;
 
 
 public interface CurriculumRepository extends JpaRepository<CurriculumBean, Integer> {
-  List<CurriculumBean> findAllByClassbean(ClassBean cb);
+    List<CurriculumBean> findAllByClassbean(ClassBean cb);
+
+    public CurriculumBean findByClassbeanAndChapter(ClassBean cb, String chapter);
 }

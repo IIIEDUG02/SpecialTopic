@@ -25,4 +25,12 @@ public class SystemExceptionHandler {
         mav.setViewName("tradeRecord/shopping_cart_info");
         return mav;
     }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ModelAndView roleNotFoundException(RoleNotFoundException e) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("msg", e.getMessage());
+        mav.setViewName("index");
+        return mav;
+    }
 }
