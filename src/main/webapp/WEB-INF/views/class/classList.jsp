@@ -126,5 +126,10 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+	
+	<!-- ======= errMsg ======= -->
+	<c:if test="${not empty msg}">
+		<script>alert("${msg}")</script>
+	</c:if>
 </body>
 </html>
