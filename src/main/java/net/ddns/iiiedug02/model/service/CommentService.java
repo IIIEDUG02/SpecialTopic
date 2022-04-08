@@ -39,13 +39,16 @@ public class CommentService {
   /**
    * 根據課程的 cid 與留言的類型(type)來取得該課程的所有留言
    * 
+   * @param timestamp: Created Before Timestamp
    * @param cid: 課程的 cid
    * @param type: 留言的類型
+   * @param pageSize: 每頁的資料筆數
    * @return 
    */
-  public Page<Comment> getCommentsByCidAndCommentType(int cid, String type, int pageNum, int pageSize) {
-    Pageable pageRequest = PageRequest.of(pageNum, pageSize, Direction.DESC, "post_time");
-    return repository.getCommentsByClassCidAndCommentType(cid, type, pageRequest);
+  public Page<Comment> getCommentsByCidAndCommentType(Long timestamp, int cid, String type, int pageSize) {
+    // 在這裡，每次都指定第零頁，目的是為了能夠告訴前端是否還有資料可以再被加載
+    Pageable pageRequest = PageRequest.of(0, pageSize, Direction.DESC, "post_time");
+    return repository.getCommentsByClassCidAndCommentType(timestamp, cid, type, pageRequest);
   }
 
   public Comment getCommentByUuid(String uuid) {

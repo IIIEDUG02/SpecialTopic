@@ -6,7 +6,7 @@
  * 
  */
 class CourseComment extends Base {
-	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cid={0}&type=course&pageNum={1}&pageSize={2}`
+	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cbt={0}&cid={1}&type=course&limit={2}`
 	static CREATE_URL = `/SpecialTopic/api/comment/create/{0}`;
 	static CREATED_MSG = "您的留言已新增成功！";
 	
@@ -74,36 +74,36 @@ class CourseComment extends Base {
       commentsWrapper: ".comments-wrapper",
       commentsBody: ".comments",
       firstItem: ".first-level-isolated-comment-item",
-      replyButton: ".reply-btn",
+      firstItemUsernameEl: "#firstItemUsername",
+      firstItemSubmitBtn: ".first-item-submit-btn",
+      replyBtn: ".reply-btn",
       commentEl: ".main-comment",
       replyCommentEl: ".reply-comment",
-      submitBtn: ".button--submit",
-      cancelBtn: ".btn-cancel",
+      replyUsernameEl: ".reply-username",
+      replySubmitBtn: ".button--submit",
+      replyCancelBtn: ".btn-cancel",
       observer: ".observer",
       mask: "#commentMask",
       spinner: "#commentSpinner",
-      firstItemUsernameEl: "#firstItemUsername",
-      firstItemBtn: ".first-item-submit-btn",
-      replyItemUsernameEl: ".reply-username",
-      fakeItemEl: ".fake-comment-block",
-      fakeItemBtn: ".fake-item__button", 
+      loadMoreEl: ".fake-comment-block",
+      loadMoreBtn: ".fake-item__button", 
     };
 
-    this.commentsWrapper = document.querySelector(
-      this.elements.commentsWrapper
-    );
-    this.commentsBody = document.querySelector(this.elements.commentsBody);
+    this.commentsWrapper = document.querySelector(this.elements.commentsWrapper);
     this.username = "";
-
-    // 將會從第零頁開始要資料
-    this.pageNum = 0;
-
+    
+    // Created Before Timestamp，某個時間點，由後端回傳，詳見 CommentController
+    this.cbt = parseInt(new Date().getTime() / 1000);
+    
     // 向後端要資料時的指定筆數
-    this.pageSize = 3;
+    this.limit = 3;
     
     this.init();
   }
   
+  get commentsBody() {
+		return document.querySelector(this.elements.commentsBody);
+	}
   // getter 方法，將網址列的課程代號(cid)取出
   get cid() {
 		const cid = location.href.split("/")[location.href.split("/").length - 1];
@@ -111,14 +111,14 @@ class CourseComment extends Base {
 		return isNaN(Number(cid)) ? 0 : Number(cid);
 	}
 	
-	// getter 方法，將 fakeItemEl 動態取出
-	get fakeItemEl() {
-		return document.querySelector(this.elements.fakeItemEl);
+	// getter 方法，將 loadMoreEl 動態取出
+	get loadMoreEl() {
+		return document.querySelector(this.elements.loadMoreEl);
 	}
 	
 	// getter 方法，將 COMMENTS_URL 字串格式化之後回傳
 	get commentsUrl() {
-		return CourseComment.COMMENTS_URL.format(this.cid, this.pageNum, this.pageSize);
+		return CourseComment.COMMENTS_URL.format(this.cbt, this.cid, this.limit);
 	}
 	
 	// getter 方法，取得第一個固定元素，也就是第一個留言區塊
@@ -136,36 +136,46 @@ class CourseComment extends Base {
     this.initIntersectionObserverListener();
   }
 	
+	// 自訂 document.querySelector 的一個簡便寫法
+	getEl(name, el = undefined) {
+		if(el)
+			return el.querySelector(this.elements[name]);
+			
+		return document.querySelector(this.elements[name]);	
+	}
+	
+	// 判斷某個元素是否有某個 class 名稱
+	hasClass(obj, target, className) {
+			return target.classList.contains(obj.elements[className].slice(1));
+	}
+	
 	// 將 click event 註冊在最外層的 container，之後再用事件委派的方式去呼叫相對應的 event handler
 	commentsBodyClickHandler(obj, e) {
 		const t = e.target;
 		const tagName = t.tagName.toLowerCase();
-		const c = t.classList;
 		
-		if (tagName === 'span' && c.contains(obj.elements.replyButton.slice(1))) {
+		if (tagName === "span" && obj.hasClass(obj, t, "replyBtn")) {
 			obj.addReplyCommentElement(obj, t);
 		}
-		else if (tagName === 'button' && c.contains(obj.elements.cancelBtn.slice(1))) {
+		else if (tagName === "button" && obj.hasClass(obj, t, "replyCancelBtn")) {
     	const div = t.closest(obj.elements.commentEl).lastElementChild;
 			obj.removeReplyCommentElement(obj, div);
 		}
-		else if (tagName === 'button' && c.contains(obj.elements.firstItemBtn.slice(1))) {
-			obj.firstItemBtnClickHandler(obj, e);
+		else if (tagName === "button" && obj.hasClass(obj, t, "firstItemSubmitBtn")) {
+			obj.firstItemSubmitBtnClickHandler(obj, e);
 		}
-		else if (tagName === 'button' && c.contains(obj.elements.submitBtn.slice(1))) {
-			obj.submitBtnClickHandler(obj, e);
+		else if (tagName === "button" && obj.hasClass(obj, t, "replySubmitBtn")) {
+			obj.replySubmitBtnClickHandler(obj, e);
 		}
-		else if (tagName === 'button' && c.contains(obj.elements.fakeItemBtn.slice(1))) {
-			obj.fakeItemBtnClickHandler(obj);
+		else if (tagName === "button" && obj.hasClass(obj, t, "loadMoreBtn")) {
+			obj.loadMoreBtnClickHandler(obj);
 		}
 	}
 	
 	// 初始化第一個 Item，也就是留言版區塊的最上面的一個固定元素(就是想要新增留言的區塊)
   initFirstItem() {
-    const firstItem = this.firstItem;
-
-    if (firstItem) {
-      firstItem
+    if (this.firstItem) {
+    	this.firstItem
         .querySelector("textarea")
         .addEventListener("keyup", this.textareaKeyUpHandler.bind(null, this));
     }
@@ -173,7 +183,7 @@ class CourseComment extends Base {
 
   // 用來監聽滾輪滑動，到一定位置時才將留言加載到畫面上
   initIntersectionObserverListener() {
-    const target = document.querySelector(this.elements.observer);
+    const target = this.getEl("observer");
     const observer = new IntersectionObserver(this.observerHandler.bind(null, this), {
       root: null,
       threshold: 1,
@@ -185,17 +195,17 @@ class CourseComment extends Base {
   // 動態設定使用者的名字
   setFirstItemUsername(username) {	
     if (username) {
-			const usernameEl = this.firstItem.querySelector(this.elements.firstItemUsernameEl);
+			const usernameEl = this.getEl("firstItemUsernameEl", this.firstItem);
 			
-			if (usernameEl)
-				this.username = usernameEl.innerText = username;
+		if (usernameEl)
+			this.username = usernameEl.innerText = username;
 		}
 	}
 	
 	// 設定回覆框上面的名字
 	setReplyItemUsername(el) {
-		const replyUsernameEl = el.querySelector(this.elements.replyItemUsernameEl);
-    const usernameEl = document.querySelector(this.elements.firstItemUsernameEl);
+		const replyUsernameEl = this.getEl("replyUsernameEl", el);
+    const usernameEl = this.getEl("firstItemUsernameEl");
     
     replyUsernameEl.innerText = usernameEl.innerText;
 	}
@@ -204,7 +214,7 @@ class CourseComment extends Base {
   showSpinner(element) {
 		if (element) {
 			element.insertAdjacentHTML("beforeend", this.spinner);
-			document.querySelector(this.elements.mask).style.background = "#fff";
+			this.getEl("mask").style.background = "#fff";
 		} else {
 			this.commentsWrapper.insertAdjacentHTML("beforeend", this.spinner);
 		}
@@ -212,8 +222,8 @@ class CourseComment extends Base {
   
 	// 移除載入中的元件
   removeSpinner() {
-    const mask = document.querySelector(this.elements.mask);
-    const spinner = document.querySelector(this.elements.spinner);
+    const mask = this.getEl("mask");
+    const spinner = this.getEl("spinner");
 
     mask.remove();
     spinner.remove();
@@ -222,18 +232,18 @@ class CourseComment extends Base {
   // 回覆 button 的 handler，點擊按鈕後將回覆框動態增加到頁面上
   addReplyCommentElement(obj, el) {
     // 往外層取得指定的 parent element
-    const mainComment = el.closest(obj.elements.commentEl);
+    const comment = el.closest(obj.elements.commentEl);
 
     // 之後取得最後一個元素，也就是包住回覆 button 的 div
-    const div = mainComment.lastElementChild;
+    const div = comment.lastElementChild;
 
-    mainComment.querySelector(obj.elements.replyButton).remove();
+    obj.getEl("replyBtn").remove();
 
     // 將回覆框動態添加到頁面上
     div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate);
     
     // 之後為回覆框上面的元素添加事件
-    const replyComment = mainComment.querySelector(obj.elements.replyCommentEl);
+    const replyComment = obj.getEl("replyCommentEl", comment);
     const textarea = replyComment.querySelector("textarea");
     
     // 設定使用者名字
@@ -248,7 +258,7 @@ class CourseComment extends Base {
   
   // 從頁面上移除回覆框元件
   removeReplyCommentElement(obj, div) {
-    div.querySelector(obj.elements.replyCommentEl).remove();
+    obj.getEl("replyCommentEl", div).remove();
     div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
   }
 	
@@ -285,10 +295,9 @@ class CourseComment extends Base {
   }
   
   // 固定在最上面的新增留言框 click handler
-  async firstItemBtnClickHandler(obj, e) {
+  async firstItemSubmitBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
-		const firstItem = obj.firstItem;
-		const textarea = firstItem.querySelector("textarea");
+		const textarea = obj.firstItem.querySelector("textarea");
 		const data = await obj.resultHandler(obj, url, {
 			title: "!",
 			type: "course",
@@ -300,27 +309,27 @@ class CourseComment extends Base {
 			e.target.disabled = true;
 
       // 新增留言成功後，要將元件新增到頁面上，會新增到最上面，但在第一個元素之後
-			firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
+			obj.firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
 			obj.showToast(CourseComment.CREATED_MSG);
 		}
 	}
 	
   // 當留言 button 按下(送出留言)時的 handler
-  async submitBtnClickHandler(obj, e) {
+  async replySubmitBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
-		const commentEl = e.target.closest(obj.elements.replyCommentEl);
-		const mainCommentEl = commentEl.closest(obj.elements.commentEl);
+		const replyComment = e.target.closest(obj.elements.replyCommentEl);
+		const comment = replyComment.closest(obj.elements.commentEl);
 		
     // 如果是回覆別人的留言，要將父留言的 id 抓出來，會一起傳送到後端
 		const data = await obj.resultHandler(obj, url, {
 			title: "!",
 			type: "course",
-			content: commentEl.querySelector("textarea").value,
-			uuid: mainCommentEl.id.trim(),
+			content: replyComment.querySelector("textarea").value,
+			uuid: comment.id.trim(),
 		});
 		
 		if (data) {
-			const lastItem = mainCommentEl.lastElementChild;
+			const lastItem = comment.lastElementChild;
 			
       // 因為是回覆別人留言，因此畫面會添加在父元素的最後
 			lastItem.insertAdjacentHTML('beforebegin', obj.generateSubCommentMarkup(data.result));
@@ -332,17 +341,18 @@ class CourseComment extends Base {
   // textarea 的 handler
   textareaKeyUpHandler(obj, e) {
     const comment = e.target.closest(".comment-wrap");
-    const submitBtn = comment.querySelector(obj.elements.submitBtn);
+    const replySubmitBtn = obj.getEl("replySubmitBtn", comment);
 
-    if (e.target.value.trim().length !== 0) submitBtn.disabled = false;
-    else submitBtn.disabled = true;
+    if (e.target.value.trim().length !== 0) replySubmitBtn.disabled = false;
+    else replySubmitBtn.disabled = true;
   }
   
   // 載入更多留言的 click event
-  async fakeItemBtnClickHandler(obj) {
-		const data = await obj.resultHandler(obj, obj.commentsUrl, undefined, obj.fakeItemEl);
+  async loadMoreBtnClickHandler(obj) {
+		const data = await obj.resultHandler(obj, obj.commentsUrl, undefined, obj.loadMoreEl);
+		console.log(data);
 		
-		obj.fakeItemEl.remove();
+		obj.loadMoreEl.remove();
 		obj.addCommentElements(data);
 	}
 	
@@ -486,8 +496,8 @@ class CourseComment extends Base {
 
     this.commentsBody.insertAdjacentHTML("beforeend", template);
     
-    if (data.hasNext) 
-			this.pageNum += 1;
+    if (data.hasNext)
+			this.cbt = data.cbt;
   }
 }
 

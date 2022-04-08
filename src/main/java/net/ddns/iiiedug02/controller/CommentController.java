@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -65,24 +66,26 @@ public class CommentController {
   /**
    * 根據課程編號與留言種類來取得該課程的所有留言。
    * 
-   * URL example:
-   * GET: domain:port/comment/comments?cid=2&type=course&pageNum=0&pageSize=10
+   * 使用 Time-based paging 方式來實作分頁，原因是傳統的 Offset-based paging ("numbered pages")
+   * 在呼叫 API 期間時，若有其他操作進來(create, delete)會造成回傳結果被改變。
    * 
+   * 詳見文章: https://www.mixmax.com/engineering/api-paging-built-the-right-way 
+   * 
+   * URL example:
+   * GET: domain:port/comment/comments?cbt=1649439013&cid=2&type=course&limit=10
+   * 
+   * @param cbt: Created Before Timestamp，以該時間點做分頁的條件
    * @param cid: 該課程的編號
    * @param type: 留言的種類
-   * @param pageNum: 頁數，表明當前資料是第幾頁，會由前端傳進來
-   * @param pageSize: 每頁的資料筆數，由前端傳進來
+   * @param limit: 每頁的資料筆數，由前端傳進來
    * @return 符合上述條件的所有留言的 JSON
    */
   @GetMapping("/comments")
-  public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam int cid, @RequestParam String type, 
-      @RequestParam int pageNum, @RequestParam int pageSize, Principal p) {
-    Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
+  public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam Long cbt, @RequestParam int cid, 
+      @RequestParam String type, @RequestParam int limit, Principal p) {
+    Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cbt, cid, type, limit);
     List<Comment> comments = pages.getContent();
     List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
-    
-    System.out.println("Total pages: " + pages.getTotalPages());
-    System.out.println("Current number: " + pages.getNumber());
     
     // 因可能查出來結果為零筆資料
     if (comments.size() != 0)
@@ -97,6 +100,9 @@ public class CommentController {
       result.put("avatar", member.getMemberInformation().getPhoto());
       result.put("result", data);
       result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
+      
+      // 找出父留言中，時間最早的那一筆留言，來當作下次查詢的一個時間點依據
+      result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
       
       return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
@@ -140,6 +146,7 @@ public class CommentController {
     // 不管是不是子留言都要更新 UUID，不使用任何 hash 直接取前 24 個字
     comment.setUuid(UUID.randomUUID().toString().replace("-", "").substring(0, 24));
     comment.setMember(memberService.findByUsername(p.getName()));
+    comment.setTimestamp(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
     
     Comment c = commentService.create(comment);
     Map<String, Object> body = new LinkedHashMap<>();

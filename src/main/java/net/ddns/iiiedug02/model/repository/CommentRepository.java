@@ -10,10 +10,10 @@ import org.springframework.data.jpa.repository.Query;
 import net.ddns.iiiedug02.model.bean.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-  @Query(value = "SELECT * FROM comment WHERE parent_id is null AND class_cid = ?1 AND type = ?2",
-      countQuery = "SELECT count(*) from comment WHERE parent_id is null AND class_cid = ?1 AND type = ?2",
+  @Query(value = "SELECT * FROM comment WHERE timestamp < ?1 AND class_cid = ?2 AND type = ?3 AND parent_id is null",
+      countQuery = "SELECT count(*) from comment WHERE timestamp < ?1 AND class_cid = ?2 AND type = ?3 AND parent_id is null",
       nativeQuery = true)
-  Page<Comment> getCommentsByClassCidAndCommentType(int cid, String type, Pageable pageable);
+  Page<Comment> getCommentsByClassCidAndCommentType(Long timestamp, int cid, String type, Pageable pageable);
   List<Comment> findByUuid(String uuid);
   long deleteByUuid(String uuid);
 }
