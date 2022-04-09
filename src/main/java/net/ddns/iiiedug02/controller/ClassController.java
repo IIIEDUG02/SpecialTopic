@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -64,6 +65,9 @@ public class ClassController {
 
     @Autowired
     private UniversalTool utool;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     /*
      * 進入後臺管理課程，區分admin跟normal身份
@@ -155,9 +159,10 @@ public class ClassController {
         }
         String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String tempDir = System.getProperty("user.dir") + "/WEB-INF/classes/static/classvideo//";
-        // String tempDir = request.getSession().getServletContext().getRealPath("/")
-        // + "../resources/static/classvideo//";
+        String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()
+                + "/classvideo/";
+        // String tempDir = request.getSession().getServletContext().getRealPath("/classvideo/");
+
 
         File tempDirFile = new File(tempDir);
         tempDirFile.mkdirs();
