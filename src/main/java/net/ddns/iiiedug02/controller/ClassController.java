@@ -138,8 +138,9 @@ public class ClassController {
 
     // 創建curriculum
     @PostMapping(path = "/createcurriculum")
-    public String createCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
-            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+    public String createCurriculum(@RequestParam("myVideo") MultipartFile mf,
+            HttpServletRequest request, Model m, HttpSession session,
+            @SessionAttribute ClassBean classbean, Principal p)
             throws IllegalStateException, IOException {
 
         String pattern = "yyyy-MM-dd-HH-mm-ss";
@@ -154,8 +155,10 @@ public class ClassController {
         }
         String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String tempDir = request.getSession().getServletContext().getRealPath("/")
-                + "../resources/static/classvideo//";
+        String tempDir = System.getProperty("user.dir") + "/WEB-INF/classes/static/classvideo//";
+        // String tempDir = request.getSession().getServletContext().getRealPath("/")
+        // + "../resources/static/classvideo//";
+
         File tempDirFile = new File(tempDir);
         tempDirFile.mkdirs();
 
@@ -165,19 +168,20 @@ public class ClassController {
         mf.transferTo(saveFile);
         CurriculumBean cub = new CurriculumBean();
 
-		ClassBean cb = (ClassBean) m.getAttribute("classbean");
-		cub.setClassbean(cb);
-		cub.setChapter(request.getParameter("chapter"));
-		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
-		cus.insert(cub);
-	
-		return this.editCurriculum(request, p, cb.getCid(), m);
-	}
-    
+        ClassBean cb = (ClassBean) m.getAttribute("classbean");
+        cub.setClassbean(cb);
+        cub.setChapter(request.getParameter("chapter"));
+        cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+        cus.insert(cub);
+
+        return this.editCurriculum(request, p, cb.getCid(), m);
+    }
+
     // 創建curriculum
     @PostMapping(path = "/updatecurriculum")
-    public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
-            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+    public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf,
+            HttpServletRequest request, Model m, HttpSession session,
+            @SessionAttribute ClassBean classbean, Principal p)
             throws IllegalStateException, IOException {
 
         String pattern = "yyyy-MM-dd-HH-mm-ss";
@@ -203,16 +207,16 @@ public class ClassController {
         mf.transferTo(saveFile);
         CurriculumBean cub = cus.findById(Integer.parseInt(request.getParameter("cuid")));
 
-		ClassBean cb = (ClassBean) m.getAttribute("classbean");
-		cub.setClassbean(cb);
-		cub.setChapter(request.getParameter("chapter"));
-		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
-		cus.insert(cub);
-	
-		return this.editCurriculum(request, p, cb.getCid(), m);
-	}
-	
-    
+        ClassBean cb = (ClassBean) m.getAttribute("classbean");
+        cub.setClassbean(cb);
+        cub.setChapter(request.getParameter("chapter"));
+        cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+        cus.insert(cub);
+
+        return this.editCurriculum(request, p, cb.getCid(), m);
+    }
+
+
 
     // 計算全部上線課程總數
     @ResponseBody
@@ -348,7 +352,7 @@ public class ClassController {
 
         return "class/viewClass";
     }
-    
+
     @GetMapping("class/showClassType")
     public List<String> showClassType(HttpServletRequest request, Model m) {
         List<String> classTypeList = cbs.findAllClassType();
