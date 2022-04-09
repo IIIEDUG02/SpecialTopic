@@ -183,6 +183,19 @@ textarea {
   color: rgba(0, 0, 0, 0.43);
 }
 
+/* edit comment btn style */
+.btn-edit {
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.marg-l-10 {
+  margin-left: 10px;
+}
+
 /* content text style */
 .isolated-comment-item .profile-image-sm+.comment-wrap .comment-content-edit {
   margin-left: 75px;
@@ -417,15 +430,6 @@ textarea {
 /* reply icon style*/
 .pad-r-5 {
   padding-right: 5px;
-}
-
-.fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Comment style end */

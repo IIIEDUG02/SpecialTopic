@@ -384,6 +384,8 @@ class CourseComment extends Base {
                 <span><span class="hidden-xxs">．</span><time class="time">
                 ${moment(data.postTime).fromNow()}</time></span>
               </a>
+              
+              ${data.isOwner ? this.generateEditBtnMarkup() : ""}
             </div>
 
             <div>
@@ -427,6 +429,8 @@ class CourseComment extends Base {
               <span><span class="hidden-xxs">．</span><time class="time">
               ${moment(data.postTime).fromNow()}</time></span>
             </a>
+            
+            ${data.isOwner ? this.generateEditBtnMarkup() : ""}
           </div>
 
           <div class="comment-content-text-block">
@@ -463,6 +467,16 @@ class CourseComment extends Base {
 					<button class="fake-item__button relative marg-t-50">載入更多留言</button>
 				</div>
 			</div>
+		`;
+	}
+	
+	// 產生 "修改" button 的 Template String
+	generateEditBtnMarkup() {
+		return `
+    <span class="btn-edit marg-l-10 pseudo-btn">
+    	<span aria-hidden="true" class="fa fa-pencil fa-fw"></span>
+    	<span>修改</span>
+    </span>
 		`;
 	}
 	

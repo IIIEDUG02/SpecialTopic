@@ -49,6 +49,13 @@ public class CommentHelper {
     return member.getUid() == classBean.getUid() ? 1 : 0;
   }
   
+  public int isOwner(Member member, Member currentMember) {
+    if (currentMember == null)
+        return 0;
+    
+    return member.getUid() == currentMember.getUid() ? 1 : 0;
+  }
+  
   /**
    * 主要是將回傳给前端的 JSON 做處理，不回傳過多或敏感的資訊
    * 目前主要問題在於關聯到的 Member 物件會再關聯到 MemberInfomation 造成回傳過多的訊息
@@ -138,7 +145,7 @@ public class CommentHelper {
    * @return Map Object
    */
   @SuppressWarnings("unchecked")
-  public List<Map<String, Object>> getResponseBody(List<Comment> comments) {
+  public List<Map<String, Object>> getResponseBody(List<Comment> comments, Member currMember) {
     List<Map<String, Object>> body = new ArrayList<Map<String,Object>>();
     List<Map<String, Object>> childrenList;
     Map<String, Object> parentMap;
@@ -172,6 +179,7 @@ public class CommentHelper {
           childMap.put("postTime", child.getPostTime().format(FORMATTER));
           childMap.put("editTime", child.getEditTime().format(FORMATTER));
           childMap.put("isInstructor", isisInstructor(m, classBean));
+          childMap.put("isOwner", isOwner(m, currMember));
             
           // 子留言的列表，因為可能有多則子留言
           childrenList.add(childMap);
@@ -198,14 +206,16 @@ public class CommentHelper {
       
       // 父留言會再添加子留言的屬性
       parentMap.put("comments", childrenList);
-
-      info = comment.getMember().getMemberInformation();
+      
+      Member m = comment.getMember();
+      info = m.getMemberInformation();
       member.put("username", info.getFullname());
       member.put("avatar", info.getPhoto());
       parentMap.put("member", member);
       parentMap.put("postTime", comment.getPostTime().format(FORMATTER));
       parentMap.put("editTime", comment.getEditTime().format(FORMATTER));
       parentMap.put("isInstructor", isisInstructor(comment.getMember(), classBean));
+      parentMap.put("isOwner", isOwner(m, currMember));
 
       body.add(parentMap);
     }

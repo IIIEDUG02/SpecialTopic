@@ -86,13 +86,17 @@ public class CommentController {
     Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cbt, cid, type, limit);
     List<Comment> comments = pages.getContent();
     List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
+    Member member = null;
+    
+    if (p != null) {
+      member = memberService.findByUsername(p.getName());
+    }
     
     // 因可能查出來結果為零筆資料
     if (comments.size() != 0)
-      data = commentHelper.getResponseBody(comments);
+      data = commentHelper.getResponseBody(comments, member);
     
-    if (p != null) {
-      Member member = memberService.findByUsername(p.getName());
+    if (member != null) {
       Map<String, Object> result = new LinkedHashMap<String, Object>();
       
       // 放入登入者的基本資訊
