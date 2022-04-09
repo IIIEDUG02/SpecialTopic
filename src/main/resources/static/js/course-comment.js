@@ -8,11 +8,12 @@
 class CourseComment extends Base {
 	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cbt={0}&cid={1}&type=course&limit={2}`
 	static CREATE_URL = `/SpecialTopic/api/comment/create/{0}`;
+	static UPDATE_URL = `/SpecialTopic/api/comment/{0}`;
 	static CREATED_MSG = "您的留言已新增成功！";
 	
   constructor() {
     super();
-
+    
     // 回覆留言框的模板
     this.replyCommentTemplate = `
     <div class="sub-comment reply-comment animate__animated animate__fadeIn">
@@ -37,7 +38,7 @@ class CourseComment extends Base {
           <div class="text-right" style="opacity: 1;">
             <div class="comment-description">
               <div class="sc-1xf9k5m-1 button-wrapper">
-              <button class="button--cancel btn-cancel btn-hollow btn-sm marg-r-10">取消</button>
+              <button class="button--cancel reply-btn-cancel btn-hollow btn-sm marg-r-10">取消</button>
                 <button class="button--submit" disabled>留言</button>
               </div>
     
@@ -81,12 +82,13 @@ class CourseComment extends Base {
       replyCommentEl: ".reply-comment",
       replyUsernameEl: ".reply-username",
       replySubmitBtn: ".button--submit",
-      replyCancelBtn: ".btn-cancel",
+      replyCancelBtn: ".reply-btn-cancel",
       observer: ".observer",
       mask: "#commentMask",
       spinner: "#commentSpinner",
       loadMoreEl: ".fake-comment-block",
-      loadMoreBtn: ".fake-item__button", 
+      loadMoreBtn: ".fake-item__button",
+      editBtn: ".btn-edit",
     };
 
     this.commentsWrapper = document.querySelector(this.elements.commentsWrapper);
@@ -156,6 +158,9 @@ class CourseComment extends Base {
 		
 		if (tagName === "span" && obj.hasClass(obj, t, "replyBtn")) {
 			obj.addReplyCommentElement(obj, t);
+		}
+		else if (tagName === "span" && obj.hasClass(obj, t, "editBtn")) {
+			obj.editBtnClickHandler(obj, t);
 		}
 		else if (tagName === "button" && obj.hasClass(obj, t, "replyCancelBtn")) {
     	const div = t.closest(obj.elements.commentEl).lastElementChild;
@@ -237,7 +242,7 @@ class CourseComment extends Base {
     // 之後取得最後一個元素，也就是包住回覆 button 的 div
     const div = comment.lastElementChild;
 
-    obj.getEl("replyBtn").remove();
+    obj.getEl("replyBtn", div).remove();
 
     // 將回覆框動態添加到頁面上
     div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate);
@@ -255,24 +260,89 @@ class CourseComment extends Base {
       obj.textareaKeyUpHandler.bind(null, obj)
     );
   }
-  
+	
   // 從頁面上移除回覆框元件 (按"取消"留言的意思)
   removeReplyCommentElement(obj, div) {
     obj.getEl("replyCommentEl", div).remove();
     div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
   }
+  
+  // 編輯留言 button click handler
+  editBtnClickHandler(obj, t) {
+		// 上一層的父元素
+		const extraInfoEl = t.parentElement;
+		
+		// 下一個同級的元素
+		let nextEl = extraInfoEl.nextElementSibling;
+		const content = nextEl.innerText;
+		
+		t.remove();
+		nextEl.remove();
+		extraInfoEl.insertAdjacentHTML('afterend', obj.generateEditCommentMarkup(content));
+		nextEl = extraInfoEl.nextElementSibling;
+		
+		// 將 "this" 指向 nextEl
+		// 將 button 的事件委派給他們的父親元素
+		nextEl.addEventListener("click", obj.editCommentClickHandler.bind(nextEl, obj, extraInfoEl, content));
+		
+		const textarea = nextEl.querySelector("textarea");
+		const btn = obj.getEl("replySubmitBtn", nextEl);
+		
+		textarea.addEventListener("keyup", function() {
+		content === textarea.value.trim() ? btn.disabled = true : btn.disabled = false;
+		});
+	}
+	
+	// 移除 "修改留言框"
+	removeEditComment(nextEl, obj, extraInfoEl, content) {
+		nextEl.remove();
+		extraInfoEl.insertAdjacentHTML('afterend', obj.generateCommentContentMarkup(content));
+		extraInfoEl.insertAdjacentHTML('beforeend', obj.generateEditBtnMarkup());
+	}
+	
+	// 編輯留言 框的 click handler(事件委派)
+	async editCommentClickHandler(obj, extraInfoEl, content, e) {
+		const t = e.target;
+		const tagName = t.tagName.toLowerCase();
+		
+		// 停止事件冒泡，不會再將 click 事件往外面的父元素傳遞
+		e.stopPropagation();
+		
+		// 取消編輯留言 button 處理
+		if(tagName === "button" && obj.hasClass(obj, t, "replyCancelBtn")) {
+			obj.removeEditComment(this, obj, extraInfoEl, content);
+		}
+		// 送出編輯留言 button 處理
+		else if(tagName === "button" && obj.hasClass(obj, t, "replySubmitBtn")) {
+			// 取得父元素，有可能是父留言，也可能是子留言，因此要 OR
+			const comment = this.closest(".sub-comment") || this.closest(".main-comment");
+			const textarea = this.querySelector("textarea");
+			const url = CourseComment.UPDATE_URL.format(comment.id);
+			
+			// 移除編輯留言框
+			obj.removeEditComment(this, obj, extraInfoEl, textarea.value);
+			
+			// send PATCH request
+			const data = await obj.resultHandler(obj, url, {content: textarea.value}, undefined, false, "PATCH");
+			
+			if (data)
+				console.log(data);
+		}
+	}
 	
   // 從後端回傳的結果統一呼叫這 method
-  async resultHandler(obj, url, payload, element) {
+  async resultHandler(obj, url, payload, element, spinner = true, method) {
 		let result;
 		
 	try {
-  	  obj.showSpinner(element);
-      result = await CourseComment.ajax(url, payload);
+			if(spinner)
+  	  	obj.showSpinner(element);
+      result = await CourseComment.ajax(url, payload, method);
     } catch (error) {
       console.error(error);
     } finally {
-      obj.removeSpinner();
+			if(spinner)
+      	obj.removeSpinner();
     }
     
     return result;
@@ -386,6 +456,7 @@ class CourseComment extends Base {
               </a>
               
               ${data.isOwner ? this.generateEditBtnMarkup() : ""}
+              ${data.postTime !== data.editTime ? this.generateEditdTimeMarkup(data.editTime) : ""}
             </div>
 
             <div>
@@ -431,6 +502,7 @@ class CourseComment extends Base {
             </a>
             
             ${data.isOwner ? this.generateEditBtnMarkup() : ""}
+            ${data.postTime !== data.editTime ? this.generateEditdTimeMarkup(data.editTime) : ""}
           </div>
 
           <div class="comment-content-text-block">
@@ -475,8 +547,46 @@ class CourseComment extends Base {
 		return `
     <span class="btn-edit marg-l-10 pseudo-btn">
     	<span aria-hidden="true" class="fa fa-pencil fa-fw"></span>
-    	<span>修改</span>
+    	修改
     </span>
+		`;
+	}
+	
+	// 產生 修改留言框 的 Template String
+	generateEditCommentMarkup(content) {
+		return `
+		<div class="animate__animated animate__fadeIn">
+	    <div class="comment-content-edit" style="height: auto;">
+	      <textarea id="commentTextarea" placeholder="留言" class="pad-t-10 pad-r-10 pad-b-10 pad-l-10" value="">${content}</textarea>
+	    </div>
+	
+	    <div class="text-right" style="opacity: 1;">
+	      <div class="comment-description">
+	        <div class="sc-1xf9k5m-1 button-wrapper">
+	        <button class="button--cancel reply-btn-cancel btn-hollow btn-sm marg-r-10">取消</button>
+	          <button class="button--submit" disabled>修改</button>
+	        </div>
+	      </div>
+	    </div>
+    </div>
+		`;
+	}
+	
+	// 產生 留言內容 的 Template String
+	generateCommentContentMarkup(content) {
+		return `
+		<div>
+			<div class="comment-content">${content}</div>
+		</div>
+		`;
+	}
+	
+	// 產生 已編輯時間 的 Template String
+	generateEditdTimeMarkup(time) {
+		return `
+		<a class=edited-time" href="javascript:void(0);" title="最後編輯時間: ${time}">
+	    <span><span class="hidden-xxs">．</span>已編輯</span>
+	  </a>
 		`;
 	}
 	

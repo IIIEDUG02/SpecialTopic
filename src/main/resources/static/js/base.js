@@ -45,11 +45,15 @@ class Base {
 
 	// 使用原生(native)的方式(JS)來發 AJAX 請求,async JS 的非同步關鍵字
 	// csrf = Cross Site Request Forgery 跨站請求偽造(防止請求偽造)
-	static async ajax(url, formData = undefined, csrf = undefined) {
+	static async ajax(url, formData = undefined, method = undefined, csrf = undefined) {
 		try {
+			let m = "GET";
+
+			method ? m = method : m = "POST";
+			
 			// fetch 是一個 JS 的函數，能夠用來發送 AJAX 請求
 			const fetchPro = formData ? fetch(url, {
-				method: "POST",
+				method: m,
 				headers: {
 					"Content-Type": "application/json",
 					// 專案目前取消 CSRF，因此先註解
@@ -67,7 +71,7 @@ class Base {
 			]);
 			const data = await res.json();
 
-			if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+			if (!res.ok) console.error(data);
 			return data;
 		} catch (error) {
 			throw error;
