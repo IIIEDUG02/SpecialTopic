@@ -5,39 +5,28 @@
 <head>
 <meta charset="BIG5">
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/SpecialTopic/js/registerjs.js"></script>
 <title>個人資料</title>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 <style>
-
-h3{
-	margin:15px;
+h3 {
+	margin: 15px;
 }
-	
+
 .height100 {
 	height: 100px;
 }
 
 .col {
-	height: 500px;
-	padding: 70px;
+	height: 670px;
+	width: 600px;
 }
 
-
-/* .main-box { */
-/* 	margin: 70px auto; */
-/* 	width: 400px; */
-/* 	height: 540px; */
-/* 	padding: 50px; */
- 	/*	box-shadow: 5px 5px 10px #999;*/ 
-/* 	border: 1px solid #fff text-align:center; */
-/* 	font-size: 1.0em; */
-}
-
-div .username,div .password,div .fullname,div .phone,div .email,div .address, 
-div .job {
+div .username, div .password, div .fullname, div .phone, div .email, div .address,
+	div .job, div .birthday, div .identitycard, div .gender {
 	margin: 30px;
-	height: 20px;
+	font-size:1.3em;
 }
 </style>
 </head>
@@ -48,7 +37,9 @@ div .job {
 
 	<div class="container">
 		<div class="row">
-		<div class="col"><img src="/SpecialTopic/img/register/tree.jpg"></div>
+			<div class="col">
+				<img src="/SpecialTopic/img/register/tree.jpg">
+			</div>
 			<div class="col">
 				<!--  	<div class="main-box"> -->
 				<div>
@@ -57,8 +48,6 @@ div .job {
 				<form action="/SpecialTopic/memberUpdateInformation" method="post">
 					<div class="username">
 						帳號: <a>${mb.getUsername()}</a>
-					</div>
-					<div>
 						<input type="hidden" name="username" value="${mb.getUsername()}">
 					</div>
 					<div class="password">
@@ -84,25 +73,49 @@ div .job {
 							value="${mb.getMemberInformation().getEmail()}">
 						<button>編輯</button>
 					</div>
-					<div class="address">
-						地址: <a>${mb.getMemberInformation().getAddress()}</a> <input
-							type="hidden" name="address"
-							value="${mb.getMemberInformation().getAddress()}">
-						<button>編輯</button>
-					</div>
-					<div class="job">
-						工作: <a>${mb.getMemberInformation().getJob()}</a> <input
-							type="hidden" name="job"
-							value="${mb.getMemberInformation().getJob()}">
-						<button>編輯</button>
-					</div>
-					<input id="check" type="hidden" value="確認">
 				</form>
-			</div>
-		
+				</div>
+				<div class="col">
+					<form action="/SpecialTopic/memberUpdateInformation" method="post">
+						<div class="address">
+							地址: <a>${mb.getMemberInformation().getAddress()}</a> <input
+								type="hidden" name="address"
+								value="${mb.getMemberInformation().getAddress()}">
+							<button>編輯</button>
+						</div>
+						<div class="job">
+							工作: <a>${mb.getMemberInformation().getJob()}</a>
+							<div class="input-group mb-3">
+								<input type="hidden" name="job" class="form-control"
+									placeholder="Recipient's username"
+									aria-label="Recipient's username"
+									aria-describedby="button-addon2" 
+									value="${mb.getMemberInformation().getJob()}">
+								<button class="btn btn-outline-secondary" type="button"
+									id="button-addon2">編輯</button>
+							</div>
+						</div>
+
+						<div class="birthday">
+							生日:<input type="date" name="birthday" required="required" />
+						</div>
+
+						<div class="identitycard">
+							身分證字號:<a>${mb.getMemberInformation().getJob()}</a><input
+								type="hidden" name="identitycard"
+								value="${mb.getMemberInformation().getJob()}">
+							<button>編輯</button>
+						</div>
+
+						<div class="gender">
+							性別: 男<input type="radio" name="gender" value=1 />女<input
+								type="radio" name="gender" value=0 />
+						</div>
+						<input id="check" type="hidden" value="確認">
+					</form>
+				</div>
 		</div>
 	</div>
-	<!--  	</div> -->
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 </body>
