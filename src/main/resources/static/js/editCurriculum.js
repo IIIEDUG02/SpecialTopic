@@ -39,7 +39,7 @@ function editBtnOnclick() {
 	$("input#delBtn").attr("type","hidden");
 	$("input#editBtn").attr("type","hidden");
 	$("input#submitBtn").attr("type","submit");
-	$("form").attr("action","createcurriculum");
+	$("form").attr("action","/SpecialTopic//updatecurriculum");
 	$("form").attr("method","post");
 	
 	$("div#chapterDiv a").html("");

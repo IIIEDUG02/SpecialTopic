@@ -164,17 +164,52 @@ public class ClassController {
 
         mf.transferTo(saveFile);
 
-        CurriculumBean cub = new CurriculumBean();
+		ClassBean cb = (ClassBean) m.getAttribute("classbean");
+		cub.setClassbean(cb);
+		cub.setChapter(request.getParameter("chapter"));
+		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+		cus.insert(cub);
+	
+		return this.editCurriculum(request, p, cb.getCid(), m);
+	}
+	
+	// 創建curriculum
+	@PostMapping(path = "updatecurriculum")
+	public String updatevideo(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
+			 HttpSession session,Principal p) throws IllegalStateException, IOException {
 
-        // ClassBean cb = (ClassBean) m.getAttribute("classbean");
-        cub.setClassbean(classbean);
-        cub.setChapter(request.getParameter("chapter"));
-        cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
-        cus.insert(cub);
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        return "class/editCurriculum";
-    }
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
 
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		if (type.isEmpty()) {
+			return "no video";
+		}
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+
+		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
+
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
+
+		mf.transferTo(saveFile);
+
+		CurriculumBean cub = new CurriculumBean();
+
+		ClassBean cb = (ClassBean) m.getAttribute("classbean");
+		cub.setClassbean(cb);
+		cub.setChapter(request.getParameter("chapter"));
+		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+		cus.update(cub);
+	
+		return this.editCurriculum(request, p, cb.getCid(), m);
+	}
+    
 
     // 計算全部上線課程總數
     @ResponseBody
