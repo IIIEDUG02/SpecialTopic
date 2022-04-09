@@ -67,7 +67,6 @@
 								<h5 class="modal-title" id="exampleModalLabel">登入</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
-
 							</div>
 							<!-- Body -->
 							<div class="modal-body"
@@ -87,6 +86,9 @@
 									<div class="form-group">
 										<input type="checkbox" id="rememberMe-key"
 											name="rememberMe-key" class="remember">記住我的密碼
+											<a href="registerPage1" type="button"
+										class="memberregister" style="float:right;font-size:20px">點擊註冊</a>
+										<span style="float:right;font-size:20px">尚未成為學員?</span> 
 									</div>
 									<!-- 送出按鈕 -->
 									<div>
@@ -100,8 +102,7 @@
 								style="background-color: hsla(89, 43%, 51%, 0.3)">
 								<div class="signup">
 
-									<span>尚未成為會員?</span> <a href="registerPage1" type="button"
-										class="memberregister">立即註冊</a>
+									
 								</div>
 
 							</div>

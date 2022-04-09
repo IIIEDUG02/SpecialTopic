@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="en_US">
 
 <head>
 <meta charset="utf-8">
@@ -281,6 +281,10 @@
 	<!-- ======= errMsg ======= -->
 	<c:if test="${not empty errMsg}">
 		<script>alert("${errMsg}")</script>
+	</c:if>
+	<!-- ======= param.error ======= -->
+	<c:if test="${param.error != null}">
+			<script>alert("帳號或密碼錯誤")</script>
 	</c:if>
 </body>
 
