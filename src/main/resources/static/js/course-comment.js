@@ -160,7 +160,7 @@ class CourseComment extends Base {
 		}
 	}
 	
-	// 初始化第一個 Item，也就是留言版區塊的最上面的一個固定元素(就是想要新增留言的區塊)
+	// 初始化第一個 Item，也就是留言版區塊的最上面的一個固定元素(就是想要新增留言的那個區塊)
   initFirstItem() {
     const firstItem = this.firstItem;
 
@@ -200,7 +200,7 @@ class CourseComment extends Base {
     replyUsernameEl.innerText = usernameEl.innerText;
 	}
 	
-	// 險示載入中的元件
+	// 顯示載入中的元件
   showSpinner(element) {
 		if (element) {
 			element.insertAdjacentHTML("beforeend", this.spinner);
@@ -246,7 +246,7 @@ class CourseComment extends Base {
     );
   }
   
-  // 從頁面上移除回覆框元件
+  // 從頁面上移除回覆框元件 (按"取消"留言的意思)
   removeReplyCommentElement(obj, div) {
     div.querySelector(obj.elements.replyCommentEl).remove();
     div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
@@ -256,8 +256,8 @@ class CourseComment extends Base {
   async resultHandler(obj, url, payload, element) {
 		let result;
 		
-		try {
-			obj.showSpinner(element);
+	try {
+  	  obj.showSpinner(element);
       result = await CourseComment.ajax(url, payload);
     } catch (error) {
       console.error(error);
@@ -268,7 +268,7 @@ class CourseComment extends Base {
     return result;
 	}
 	
-  // 滾輪事件的 handler
+  // 滾輪事件的 handler(處理-確認抵達了購課前問答那塊)
   async observerHandler(obj, entries, observer) {
     const [entry] = entries;
 
@@ -280,32 +280,34 @@ class CourseComment extends Base {
     if (result)
     	obj.firstTimeLoadPage(result);
     
-    // 之後就可以解除監聽
+    // 之後就可以解除監聽 留言板綠色大圈圈只會初次進來轉一次就取消轉圈圈
     observer.unobserve(entry.target);
   }
   
-  // 固定在最上面的新增留言框 click handler
+  // 固定在最上面的新增留言框 click handler //固定最上面的輸入留言欄給人做輸入 
+  //"!"等於特例 可以標題空白不用輸入   //textarea 留言輸入框
   async firstItemBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
 		const firstItem = obj.firstItem;
-		const textarea = firstItem.querySelector("textarea");
+		const textarea = firstItem.querySelector("textarea"); 
 		const data = await obj.resultHandler(obj, url, {
-			title: "!",
+			title: "!",             
 			type: "course",
 			content: textarea.value
 		});
 		
+		//送出留言後留言的字會清掉 恢復成原來空白的留言欄
 		if (data) {
 			textarea.value = "";
 			e.target.disabled = true;
 
-      // 新增留言成功後，要將元件新增到頁面上，會新增到最上面，但在第一個元素之後
+      // 新增留言成功後，要將元件新增到頁面上，會新增到最上面，但在第一個元素之後 //新增留言後，那筆留言會到輸入留言欄那塊底下成為第二筆留言
 			firstItem.insertAdjacentHTML('afterend', obj.generateMainCommentMarkup(data.result));
 			obj.showToast(CourseComment.CREATED_MSG);
 		}
 	}
 	
-  // 當留言 button 按下(送出留言)時的 handler
+  // 當留言 button 按下(送出留言)時的 handler //指按"留言"送出這個動作
   async submitBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
 		const commentEl = e.target.closest(obj.elements.replyCommentEl);
