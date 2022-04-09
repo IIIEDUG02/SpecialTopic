@@ -26,18 +26,50 @@ function register1() {
 	})
 };
 function check() {
+	var re1 = /\s|[　]/g;  //[]裡面是一個全型空白
+	var username = $('input#username');
 	var password = $('input#password');
 	var repassword = $('input#repassword');
+	
 	if (password.val() != repassword.val()) {
 		alert("兩次密碼輸入不一致");
 		return false;
 	}
+	if (username.val() ===''){
+		alert("帳號欄位不能空白!");
+		return false;
+	}
+	if (password.val() ===''){
+		alert("密碼欄位不能空白");
+		return false;
+	}
+	
 	if (!checkEmail()){
 		return false;
 	}
 	
 	$('form#registerform').submit();
 }
+function checkEmail() {
+	var email = $('input#email').val();
+	if (email == '') {
+		alert('請輸入電子信箱');
+		$('#vote_email').focus();
+		return false;
+	} else {
+		var emailRegxp = /[\w-]+@([\w-]+\.)+[\w-]+/; //2009-2-12更正為比較簡單的驗證
+		if (emailRegxp.test(email) != true) {
+			alert('電子信箱格式錯誤');
+			$('#vote_email').focus();
+			$('#vote_email').select();
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
+
 //	var identitycard = $('input#identitycard')
 //	if (!checkID(identitycard.val())) {
 //		return false;
@@ -105,22 +137,5 @@ function check() {
 //	return true;
 //}
 
-function checkEmail() {
-	var email = $('input#email').val();
-	if (email == '') {
-		alert('請輸入電子信箱');
-		$('#vote_email').focus();
-		return false;
-	} else {
-		var emailRegxp = /[\w-]+@([\w-]+\.)+[\w-]+/; //2009-2-12更正為比較簡單的驗證
-		if (emailRegxp.test(email) != true) {
-			alert('電子信箱格式錯誤');
-			$('#vote_email').focus();
-			$('#vote_email').select();
-			return false;
-		} else {
-			return true;
-		}
-	}
-}
+
 
