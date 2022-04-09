@@ -34,7 +34,23 @@ public class MPclassService {
 		return mPRepo.findAll();
 	}
 	
+	public List<MPclass> findAllRow(){
+		return mPRepo.findAllRow();
+	}
+	
+	public List<MPclass> findRow(){
+		return mPRepo.findRow();
+	}
+	
 	public void  insert(MPclass mp){
 		mPRepo.save(mp);
+	}
+	
+	public void updatempclass(String priority, String classid){
+		mPRepo.updatempclass(priority, classid);
+	}
+	
+	public void resetmpclass(){
+		mPRepo.resetmpclass();
 	}
 }

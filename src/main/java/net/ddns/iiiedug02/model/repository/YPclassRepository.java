@@ -26,6 +26,9 @@ public interface YPclassRepository extends JpaRepository<YPclass, Integer> {
 	@Query(value = "update ypClass set priority = null", nativeQuery = true)
 	public void resetypclass();
 	
-	@Query(value = "select * from ypclass", nativeQuery = true)
+	@Query(value = "select * from ypclass order by yearAmount DESC, classID", nativeQuery = true)
 	public List<YPclass> findAllRow();
+	
+	@Query(value = "select top (3) * from ypclass order by yearAmount DESC, classID", nativeQuery = true)
+	public List<YPclass> findRow();
 }

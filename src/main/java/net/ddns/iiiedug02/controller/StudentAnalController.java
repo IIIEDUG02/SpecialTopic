@@ -55,7 +55,7 @@ public class StudentAnalController {
     	m.addAttribute("genderList", GenderList);
 		return "success/Success6";
 	}
-    errors.put("gendermsg", "課程ID不存在");
+    errors.put("gendermsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
   
@@ -77,7 +77,7 @@ public class StudentAnalController {
     	m.addAttribute("agePercentList", agePercentList);
 		return "success/Success7";
 	}
-    errors.put("agemsg", "課程ID不存在");
+    errors.put("agemsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
   
@@ -99,7 +99,7 @@ public class StudentAnalController {
     	m.addAttribute("jobPercentList", jobPercentList);
 		return "success/Success8";
 	}
-    errors.put("jobmsg", "課程ID不存在");
+    errors.put("jobmsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
   
