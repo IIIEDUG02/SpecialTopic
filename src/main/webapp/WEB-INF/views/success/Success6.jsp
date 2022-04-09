@@ -121,7 +121,7 @@
 			});
 	</script>
 	<script type="text/javascript">
-            $(function() {
+            
                 $(".btn").click(function(){
                     $(".table2excel").table2excel({
                         // 不被匯出的表格行的CSS class類
@@ -140,7 +140,7 @@
                         exclude_inputs: false
                     });
                 }); 
-            });
+           
         </script>
 	</div>
 		</div>
