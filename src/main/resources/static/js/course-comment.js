@@ -9,6 +9,7 @@ class CourseComment extends Base {
 	static COMMENTS_URL = `/SpecialTopic/api/comment/comments?cbt={0}&cid={1}&type=course&limit={2}`
 	static CREATE_URL = `/SpecialTopic/api/comment/create/{0}`;
 	static UPDATE_URL = `/SpecialTopic/api/comment/{0}`;
+	static LIKE_URL = `/SpecialTopic/api/comment/{0}/{1}`;
 	static CREATED_MSG = "您的留言已新增成功！";
 	
   constructor() {
@@ -89,6 +90,9 @@ class CourseComment extends Base {
       loadMoreEl: ".fake-comment-block",
       loadMoreBtn: ".fake-item__button",
       editBtn: ".btn-edit",
+      editedTimeEl: ".edited-time",
+      heartBtn: ".heart-container",
+      heartIcon: ".heart-icon",
     };
 
     this.commentsWrapper = document.querySelector(this.elements.commentsWrapper);
@@ -148,16 +152,20 @@ class CourseComment extends Base {
 	
 	// 判斷某個元素是否有某個 class 名稱
 	hasClass(obj, target, className) {
-			return target.classList.contains(obj.elements[className].slice(1));
+		return target.classList.contains(obj.elements[className].slice(1));
 	}
 	
 	// 將 click event 註冊在最外層的 container，之後再用事件委派的方式去呼叫相對應的 event handler
 	commentsBodyClickHandler(obj, e) {
 		const t = e.target;
 		const tagName = t.tagName.toLowerCase();
-		
+
 		if (tagName === "span" && obj.hasClass(obj, t, "replyBtn")) {
 			obj.addReplyCommentElement(obj, t);
+		}
+		else if (tagName === "div" && obj.hasClass(obj, t, "heartBtn") || 
+		tagName === "span" && obj.hasClass(obj, t, "heartIcon")) {
+			obj.heartBtnClickHandler(obj, t, tagName);
 		}
 		else if (tagName === "span" && obj.hasClass(obj, t, "editBtn")) {
 			obj.editBtnClickHandler(obj, t);
@@ -267,6 +275,36 @@ class CourseComment extends Base {
     div.insertAdjacentHTML("beforeend", obj.replyButtonTemp);
   }
   
+  // 愛心 button click handler
+  async heartBtnClickHandler(obj, t, tagName) {
+		// 因愛心本身是 span，父元素是 div，因次想要兩個 click 都觸發進來後
+		// 都需要再重新定位回父元素 div 上面
+		const container = tagName === "div" ? t : t.parentElement;
+		let heart = tagName === "div" ? t.querySelector("span") : t;
+		let url;
+		const l = heart.classList;
+		const comment = heart.closest(".sub-comment") || heart.closest(".main-comment");
+		
+		l.toggle("fa-heart-o");
+		l.toggle("heart");
+		l.toggle("fa-heart");
+		l.toggle("heart--filled");
+		
+		// 如果點了讚，否則就是收回讚
+		if (l.contains("heart--filled")) {
+			container.lastChild.textContent = parseInt(container.lastChild.textContent) + 1;
+			url = CourseComment.LIKE_URL.format(comment.id, "like");
+		} else {
+			container.lastChild.textContent = parseInt(container.lastChild.textContent) - 1;
+			url = CourseComment.LIKE_URL.format(comment.id, "unlike");
+		}
+		
+		const data = await obj.resultHandler(obj, url, true, undefined, false);
+			
+		if (data)
+			console.log(data);
+	}
+	
   // 編輯留言 button click handler
   editBtnClickHandler(obj, t) {
 		// 上一層的父元素
@@ -297,7 +335,11 @@ class CourseComment extends Base {
 	removeEditComment(nextEl, obj, extraInfoEl, content) {
 		nextEl.remove();
 		extraInfoEl.insertAdjacentHTML('afterend', obj.generateCommentContentMarkup(content));
-		extraInfoEl.insertAdjacentHTML('beforeend', obj.generateEditBtnMarkup());
+		
+		if (obj.hasClass(obj, extraInfoEl.lastElementChild, "editedTimeEl"))
+			extraInfoEl.lastElementChild.insertAdjacentHTML("beforebegin", obj.generateEditBtnMarkup());
+		else
+			extraInfoEl.insertAdjacentHTML('beforeend', obj.generateEditBtnMarkup());
 	}
 	
 	// 編輯留言 框的 click handler(事件委派)
@@ -455,6 +497,11 @@ class CourseComment extends Base {
                 ${moment(data.postTime).fromNow()}</time></span>
               </a>
               
+              <div class="heart-container hh-like">
+              	<span theme="white" aria-hidden="true" 
+              				class="heart-icon fa ${data.liked ? 'fa-heart heart--filled' : 'fa-heart-o heart'}"></span>${data.likeCount}
+              </div>
+              
               ${data.isOwner ? this.generateEditBtnMarkup() : ""}
               ${data.postTime !== data.editTime ? this.generateEditdTimeMarkup(data.editTime) : ""}
             </div>
@@ -500,6 +547,11 @@ class CourseComment extends Base {
               <span><span class="hidden-xxs">．</span><time class="time">
               ${moment(data.postTime).fromNow()}</time></span>
             </a>
+            
+            <div class="heart-container hh-like">
+            	<span theme="white" aria-hidden="true" 
+            				class="heart-icon fa ${data.liked ? 'fa-heart heart--filled' : 'fa-heart-o heart'}"></span>${data.likeCount}
+            </div>
             
             ${data.isOwner ? this.generateEditBtnMarkup() : ""}
             ${data.postTime !== data.editTime ? this.generateEditdTimeMarkup(data.editTime) : ""}
@@ -584,7 +636,7 @@ class CourseComment extends Base {
 	// 產生 已編輯時間 的 Template String
 	generateEditdTimeMarkup(time) {
 		return `
-		<a class=edited-time" href="javascript:void(0);" title="最後編輯時間: ${time}">
+		<a class="edited-time" href="javascript:void(0);" title="最後編輯時間: ${time}">
 	    <span><span class="hidden-xxs">．</span>已編輯</span>
 	  </a>
 		`;

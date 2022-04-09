@@ -183,6 +183,34 @@ textarea {
   color: rgba(0, 0, 0, 0.43);
 }
 
+/* like btn style */
+.heart-container {
+  display: inline-block;
+  white-space: nowrap;
+  min-width: 50px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0px 10px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.43);
+  background: inherit;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.heart {
+  padding-right: 3px;
+  transition: color 0.6s ease 0s;
+  color: rgba(0, 0, 0, 0.43);
+}
+
+.heart--filled {
+  padding-right: 3px;
+  transition: color 0.6s ease 0s;
+  color: rgb(240, 80, 80);
+}
+
 /* edit comment btn style */
 .btn-edit {
   cursor: pointer;

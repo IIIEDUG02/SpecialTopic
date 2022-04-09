@@ -33,9 +33,11 @@ import org.springframework.web.bind.annotation.RestController;
 import net.ddns.iiiedug02.helpers.CommentHelper;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Comment;
+import net.ddns.iiiedug02.model.bean.Like;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.CommentService;
+import net.ddns.iiiedug02.model.service.LikeService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 /**
@@ -60,10 +62,13 @@ public class CommentController {
   @Autowired
   private MemberService memberService;
   
+  @Autowired
+  private LikeService likeService;
   
   private final List<String> TYPE = Arrays.asList("course");
-  private CommentHelper commentHelper = CommentHelper.getInstance();
   
+  @Autowired
+  private CommentHelper commentHelper;
   
   /**
    * 根據課程編號與留言種類來取得該課程的所有留言。
@@ -199,6 +204,54 @@ public class CommentController {
     
     // 更新留言
     commentService.updateContentById(content, comment.getId());
+    
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", HttpStatus.OK.value());
+    body.put("result", "OK");
+    
+    return new ResponseEntity<Object>(body, HttpStatus.OK);
+  }
+  
+  /**
+   * 留言點讚，該使用者是第一次點擊留言則新增一筆記錄，否則就更新。
+   * 
+   * @param p: Principal Object
+   * @param uuid: 留言的 uuid
+   * @param like: like or unlike
+   * @return 簡易的 response({status: 200, result: "OK"})
+   */
+  @PostMapping("/{uuid}/{like}")
+  public ResponseEntity<Object> createOrUpdateLike(Principal p, @PathVariable String uuid, @PathVariable String like) {
+    if (p == null)
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    Comment comment = commentService.getCommentByUuid(uuid);
+    
+    if (comment == null)
+      throw new NoSuchElementException("找不到目標留言！");
+    
+    Member member = memberService.findByUsername(p.getName());
+    
+    if (like.equals("like")) {
+      // 如果使用者第一次點讚該該留言
+      if (!likeService.existsByCommentIdAndMembersUid(comment.getId(), member.getUid())) {
+        Like l = Like.builder()
+            .commentId(comment.getId())
+            .membersUid(member.getUid())
+            .liked(1)
+            .build();
+        
+        likeService.create(l);
+      } else {
+        // 更新點讚，原本可能收回讚，現在又點讚
+        likeService.updateByCommentIdAndMembersUid(1, comment.getId(), member.getUid());
+      }
+    }
+    // 收回讚
+    else if (like.equals("unlike")) {
+      likeService.updateByCommentIdAndMembersUid(0, comment.getId(), member.getUid());
+    }
     
     Map<String, Object> body = new LinkedHashMap<>();
     
