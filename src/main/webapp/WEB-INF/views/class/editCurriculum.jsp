@@ -39,7 +39,7 @@
 					<c:when test="${not empty cubList}">
 						<ul class="list-group">
 							<c:forEach items="${cubList}" var="cub">						
-								<li class="list-group-item"  onclick="editCurriculum(${cub.getCuid()})">
+								<li id="li${cub.getCuid()}" class="list-group-item"  onclick="editCurriculum(${cub.getCuid()})">
 									<div>
 										<a>${cub.getChapter()}</a>
 										<input id="cuid${cub.getCuid()}" type="hidden" value="${cub.getCuid()}"/>

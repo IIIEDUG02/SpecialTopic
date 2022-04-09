@@ -25,8 +25,10 @@ public class CurriculumService {
     return cuRepo.save(cub);
   }
 
-  public void deleteById(Integer id) {
+  public boolean deleteById(Integer id) {
     cuRepo.deleteById(id);
+    return true;
+	
   }
 
   public CurriculumBean findById(Integer id) {
