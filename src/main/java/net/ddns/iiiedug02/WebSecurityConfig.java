@@ -46,12 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password").defaultSuccessUrl("/").and().logout()
                 .logoutUrl("/logout").invalidateHttpSession(true);
 
-        // http.formLogin().loginPage("javascript$('div#loginform').modal('toggle');")
-        // .loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
-        // .defaultSuccessUrl("/").and().logout().logoutUrl("/logout").invalidateHttpSession(true);
-
-
-
         http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
 
         http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
