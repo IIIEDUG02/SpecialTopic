@@ -64,3 +64,21 @@ function deleteClassByCid(cid) {
 		}
 	})
 };
+
+function showClassType(){
+	$.ajax({
+		type: "GET",
+		url: "/SpecialTopic/class/showClassType",
+	success: function(data) {
+			if (data) {
+				
+			} else {
+				alert("網頁發生錯誤");
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};
+	

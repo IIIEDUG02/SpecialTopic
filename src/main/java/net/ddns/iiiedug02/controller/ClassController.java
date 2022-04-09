@@ -132,9 +132,8 @@ public class ClassController {
 
 	// 創建curriculum
 	@PostMapping(path = "/createcurriculum")
-	@ResponseBody
 	public String uploadvideo(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
-			@RequestParam Map<String, String> formData, HttpSession session) throws IllegalStateException, IOException {
+			 HttpSession session) throws IllegalStateException, IOException {
 
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -159,13 +158,13 @@ public class ClassController {
 
 		CurriculumBean cub = new CurriculumBean();
 
-		ClassBean cb = (ClassBean) session.getAttribute("classbean");
+		ClassBean cb = (ClassBean) m.getAttribute("classBean");
 		cub.setClassbean(cb);
-		cub.setChapter(formData.get("chapter"));
+		cub.setChapter(request.getParameter("chapter"));
 		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
 		cus.insert(cub);
 
-		return "instructor";
+		return "class/editCurriculum";
 	}
     
 
@@ -266,6 +265,7 @@ public class ClassController {
             ClassBean cb = cbs.findById(cid);
             List<CurriculumBean> cubList = cus.findAllByClassbean(cb);
             m.addAttribute("cubList", cubList);
+            m.addAttribute("classbean", cb);
             return "class/editCurriculum";
         } else {
             m.addAttribute("errMsg", "您無權限執行此操作");
@@ -273,5 +273,12 @@ public class ClassController {
         }
 
     }
-
+    
+    @GetMapping("class/showClassType")
+    public List<String> showClassType(HttpServletRequest request, Model m) {
+        List<String> classTypeList = cbs.findAllClassType();
+        m.addAttribute("classTypeList",classTypeList);
+        return classTypeList;
+    }
+    
 }

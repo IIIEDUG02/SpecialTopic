@@ -50,8 +50,11 @@ public class ClassBeanService {
         return cRepo.findAllByUid(uid);
     }
 
-    public List<ClassBean> findAllClassType() {
+    public List<String> findAllClassType() {
         return cRepo.findAllClassType();
+    }
+    public List<ClassBean> findByClassType(String class_type) {
+    	return cRepo.findByClassType(class_type);
     }
 
     public int countClass() {

@@ -37,7 +37,7 @@
 								<div class="card-body">
 									<h5 class="card-title">${cb.getTitle()}</h5>
 									<p class="card-text">${cb.getClassType()}</p>
-									<a href="/SpecialTopic/classUpdate/${cb.getCid()}" class="btn btn-primary">編輯課程</a> 
+									<a href="/SpecialTopic/class/update/${cb.getCid()}" class="btn btn-primary">編輯課程</a> 
 									<a onclick="deleteClassByCid(${cb.getCid()})" class="btn btn-primary">刪除課程</a> 
 									<a href="/SpecialTopic/class/editCurriculum/${cb.getCid()}" class="btn btn-primary">編輯章節</a>
 								</div>
