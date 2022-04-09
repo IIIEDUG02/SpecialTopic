@@ -32,15 +32,15 @@
 			<div class="col min-vh-100">
 				<div id="tabs">
 					<ul>
-						<li><a href="#p1">JobPercentInput</a></li>
-						<li><a href="#p2">GenderPercentInput</a></li>
-						<li><a href="#p3">AgePercentInput</a></li>
+						<li><a href="#p1">學員工作統計</a></li>
+						<li><a href="#p2">學員性別統計</a></li>
+						<li><a href="#p3">學員年齡統計</a></li>
 					</ul>
 					<div id="p1">
 						<form action="getJobPercentbyID" method="get">
 							<table>
 								<tr>
-									<td>InputID:</td>
+									<td>課程ID:</td>
 									<td><input type="text" name="id" /></td>
 									<td>${errors.jobid}</td>
 								</tr>
@@ -55,7 +55,7 @@
 						<form action="getgenderbyID" method="get">
 							<table>
 								<tr>
-									<td>InputID:</td>
+									<td>課程ID:</td>
 									<td><input type="text" name="id" /></td>
 									<td>${errors.genderid}</td>
 								</tr>
@@ -70,7 +70,7 @@
 						<form action="getAgePercentbyID" method="get">
 							<table>
 								<tr>
-									<td>InputID:</td>
+									<td>課程ID:</td>
 									<td><input type="text" name="id" /></td>
 									<td>${errors.ageid}</td>
 								</tr>

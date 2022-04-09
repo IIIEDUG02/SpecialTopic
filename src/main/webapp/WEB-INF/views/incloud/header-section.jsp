@@ -40,7 +40,17 @@
 										<li><a href="#">Deep Drop Down 5</a></li>
 									</ul></li>
 								<li><a href="inputmain">學員資料統計</a></li>
-								<li><a href="ypclasscontrolltop5">熱門課程管理</a></li>
+								<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
+								<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+								<li class="dropdown"><a href="#"><span>熱門課程管理
+											</span> <i class="bi bi-chevron-right"></i></a>
+									<ul>
+										<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
+										<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+										<li><a href="#">Deep Drop Down 3</a></li>
+										<li><a href="#">Deep Drop Down 4</a></li>
+										<li><a href="#">Deep Drop Down 5</a></li>
+									</ul></li>
 								<li><a href="/SpecialTopic/member/editInformation" type="button">個人資料</a></li>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>

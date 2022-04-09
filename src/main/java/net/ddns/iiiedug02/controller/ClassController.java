@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.ddns.iiiedug02.exception.RoleNotFoundException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassDetailsBean;
@@ -31,11 +33,13 @@ import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.bean.Member;
+import net.ddns.iiiedug02.model.bean.ShoppingCart;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
 import net.ddns.iiiedug02.model.service.CurriculumService;
 import net.ddns.iiiedug02.model.service.MemberService;
+import net.ddns.iiiedug02.model.service.ShoppingCartService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
@@ -56,9 +60,14 @@ public class ClassController {
     @Autowired
     private ClassManagementService cms;
 
+    @Autowired
+    private ShoppingCartService scs;
 
     @Autowired
     private UniversalTool utool;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     /*
      * 進入後臺管理課程，區分admin跟normal身份
@@ -133,8 +142,9 @@ public class ClassController {
 
     // 創建curriculum
     @PostMapping(path = "/createcurriculum")
-    public String createCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
-            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+    public String createCurriculum(@RequestParam("myVideo") MultipartFile mf,
+            HttpServletRequest request, Model m, HttpSession session,
+            @SessionAttribute ClassBean classbean, Principal p)
             throws IllegalStateException, IOException {
 
         String pattern = "yyyy-MM-dd-HH-mm-ss";
@@ -149,8 +159,11 @@ public class ClassController {
         }
         String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String tempDir = request.getSession().getServletContext().getRealPath("/")
-                + "../resources/static/classvideo//";
+        String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()
+                + "/classvideo/";
+        // String tempDir = request.getSession().getServletContext().getRealPath("/classvideo/");
+
+
         File tempDirFile = new File(tempDir);
         tempDirFile.mkdirs();
 
@@ -160,19 +173,20 @@ public class ClassController {
         mf.transferTo(saveFile);
         CurriculumBean cub = new CurriculumBean();
 
-		ClassBean cb = (ClassBean) m.getAttribute("classbean");
-		cub.setClassbean(cb);
-		cub.setChapter(request.getParameter("chapter"));
-		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
-		cus.insert(cub);
-	
-		return this.editCurriculum(request, p, cb.getCid(), m);
-	}
-    
+        ClassBean cb = (ClassBean) m.getAttribute("classbean");
+        cub.setClassbean(cb);
+        cub.setChapter(request.getParameter("chapter"));
+        cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+        cus.insert(cub);
+
+        return this.editCurriculum(request, p, cb.getCid(), m);
+    }
+
     // 創建curriculum
     @PostMapping(path = "/updatecurriculum")
-    public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
-            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+    public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf,
+            HttpServletRequest request, Model m, HttpSession session,
+            @SessionAttribute ClassBean classbean, Principal p)
             throws IllegalStateException, IOException {
 
         String pattern = "yyyy-MM-dd-HH-mm-ss";
@@ -198,16 +212,16 @@ public class ClassController {
         mf.transferTo(saveFile);
         CurriculumBean cub = cus.findById(Integer.parseInt(request.getParameter("cuid")));
 
-		ClassBean cb = (ClassBean) m.getAttribute("classbean");
-		cub.setClassbean(cb);
-		cub.setChapter(request.getParameter("chapter"));
-		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
-		cus.insert(cub);
-	
-		return this.editCurriculum(request, p, cb.getCid(), m);
-	}
-	
-    
+        ClassBean cb = (ClassBean) m.getAttribute("classbean");
+        cub.setClassbean(cb);
+        cub.setChapter(request.getParameter("chapter"));
+        cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+        cus.insert(cub);
+
+        return this.editCurriculum(request, p, cb.getCid(), m);
+    }
+
+
 
     // 計算全部上線課程總數
     @ResponseBody
@@ -313,6 +327,35 @@ public class ClassController {
             return "index";
         }
 
+    }
+
+    @GetMapping("viewClass/{cid}")
+    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p,
+            RedirectAttributes attr) {
+
+
+        // 課程資訊
+        ClassBean cb = cbs.findById(cid);
+        if (cb == null) {
+            attr.addAttribute("msg", "找不到課程資料");
+            return "redirect:/class/list";
+        }
+        m.addAttribute("classBean", cb);
+
+        if (p != null) {
+            Member loginBean = ms.findByUsername(p.getName());
+            // 個人購課紀錄
+            ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+            if (null != cmb) {
+                m.addAttribute("classManagerBean", cmb);
+            } else {
+                // 購課車
+                ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
+                m.addAttribute("ShoppingCart", sc);
+            }
+        }
+
+        return "class/viewClass";
     }
 
     @GetMapping("class/showClassType")

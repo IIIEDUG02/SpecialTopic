@@ -36,8 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/classphoto/**",
                         "/classvideo/**", "/assets/**", "/viewClass/**", "/*",
                         "/getCertByCertId/**", "/**/api/**")
-                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2")
-                .permitAll().antMatchers("/cashflow/**").hasRole("admin");
+                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2");
 
         http.authorizeRequests().anyRequest().authenticated();
 
@@ -45,12 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(mySuccessHandler()).usernameParameter("username")
                 .passwordParameter("password").defaultSuccessUrl("/").and().logout()
                 .logoutUrl("/logout").invalidateHttpSession(true);
-
-        // http.formLogin().loginPage("javascript$('div#loginform').modal('toggle');")
-        // .loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
-        // .defaultSuccessUrl("/").and().logout().logoutUrl("/logout").invalidateHttpSession(true);
-
-
 
         http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
 

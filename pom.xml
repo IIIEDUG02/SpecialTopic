@@ -122,7 +122,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		
+
 		<!-- 使用 security 標籤 -->
 		<!-- http://static.springsource.org/spring-security/site/docs/3.0.x/reference/taglibs.html -->
 		<dependency>

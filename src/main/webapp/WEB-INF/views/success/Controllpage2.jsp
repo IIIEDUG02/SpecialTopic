@@ -30,25 +30,25 @@
 						<tr>
 							<td>資料成功載入:</td>
 							<td>課程ID:</td>
-							<td>年份:</td>
+							<td>月份:</td>
 							<td>數量:</td>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="th" items="${ypclasscontroll}">
+						<c:forEach var="th" items="${mpclasscontroll}">
 							<tr>
 								<td><c:out value="" /></td>
 								<td style="border-top: 1px solid #000"><c:out
 										value="${th.getClassID()}" /></td>
 								<td style="border-top: 1px solid #000"><c:out
-										value="${th.getYear()}年" /></td>
+										value="${th.getMonth()}月" /></td>
 								<td style="border-top: 1px solid #000"><c:out
-										value="共${th.getYearAmount()}筆" /></td>
+										value="共${th.getMonthAmount()}筆" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<form action="ypclasschangetop5" method="get">
+				<form action="mpclasschangetop5" method="get">
 					<table>
 						<tr>
 							<td>輸入第一順位:</td>
@@ -71,7 +71,7 @@
 						</tr>
 					</table>
 				</form>
-				<form action="resetypclass" method="get">
+				<form action="resetmpclass" method="get">
 					<button type="submit">回復正常排序</button>
 					<span>${errors.resetmsg}</span>
 				</form>

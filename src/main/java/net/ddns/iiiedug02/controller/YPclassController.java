@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,13 +40,16 @@ public class YPclassController {
 
     @GetMapping("/ypclasssavetop5")
     public String processSaveTop5(Model m) {
-        List<Map<String, Integer>> cList = classMService.getYearTop5Class(2022);
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(new Date());
+    	int year = cal.get(Calendar.YEAR);
+        List<Map<String, Integer>> cList = classMService.getYearTop5Class(year);
 
         List<YPclass> ypclassList = new ArrayList<YPclass>();
         for (Map<String, Integer> c : cList) {
             YPclass ypclass = new YPclass();
             ypclass.setClassID(c.get("cid"));
-            ypclass.setYear(2022);
+            ypclass.setYear(year);
             ypclass.setYearAmount(c.get("countcid"));
             ypclassService.insert(ypclass);
 
@@ -111,6 +116,7 @@ public class YPclassController {
 		return "success/Controllpage1";
 	}
 	
+	ypclassService.resetypclass();
 	ypclassService.updateypclass("1",pi1);
     ypclassService.updateypclass("2",pi2);
     ypclassService.updateypclass("3",pi3);
@@ -143,18 +149,35 @@ public class YPclassController {
         List<YPclass> YPclassList = ypclassService.findAll();
 
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-
-        for (YPclass c : YPclassList) {
-            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
-            ClassBean classBean = c.getClassBean();
-            Member teacher = memberService.findByUid(classBean.getUid());
-
-            classBean.setCurriculumbean(null);
-
-            classTeacherInfo.put("class", classBean);
-            classTeacherInfo.put("teacher", teacher.getMemberInformation());
-            result.add(classTeacherInfo);
+        if(YPclassList!=null && !YPclassList.isEmpty()) {
+	        for (YPclass c : YPclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
+        }else {
+        	List<YPclass> ypclassList = ypclassService.findRow();
+        	for (YPclass c : ypclassList) {
+	            Map<String, Object> classTeacherInfo = new HashMap<String, Object>();
+	            ClassBean classBean = c.getClassBean();
+	            Member teacher = memberService.findByUid(classBean.getUid());
+	
+	            classBean.setCurriculumbean(null);
+	
+	            classTeacherInfo.put("class", classBean);
+	            classTeacherInfo.put("teacher", teacher.getMemberInformation());
+	            result.add(classTeacherInfo);
+	        }
         }
+        
+        
+        
 
         // return ResponseEntity.ok(result);
         return result;
