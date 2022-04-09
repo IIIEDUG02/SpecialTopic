@@ -1,6 +1,9 @@
 package net.ddns.iiiedug02.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,5 +58,10 @@ public class CommentService {
     List<Comment> comments = repository.findByUuid(uuid);
     
     return comments.size() == 1 ? comments.get(0): null;
+  }
+  
+  @Transactional
+  public void updateContentById(String content, Long id) {
+    repository.updateContentById(content, LocalDateTime.now(), id);
   }
 }

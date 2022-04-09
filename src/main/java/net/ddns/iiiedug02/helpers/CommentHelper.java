@@ -11,6 +11,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -221,5 +224,23 @@ public class CommentHelper {
     }
 
     return body;
+  }
+  
+  /**
+   * 建立 ResponseEntity 的輔助方法，方便直接設定回傳內容
+   * 
+   * @param statusVal: HTTP status code
+   * @param message: 錯誤訊息
+   * @return ResponseEntity Object
+   */
+  public ResponseEntity<Object> generateResponse(int statusVal, Object message) {
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", statusVal);
+    body.put("message", message);
+    
+    return ResponseEntity
+        .status(HttpStatus.BAD_REQUEST)
+        .body(body);
   }
 }

@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -161,7 +163,51 @@ public class CommentController {
     return new ResponseEntity<Object>(body, HttpStatus.CREATED);
   }
   
-  
+  /**
+   * 更新留言，使用局部更新，因為只會要更新留言的內容，其他東西都不會動，因此寫了 SQL 語句來更新，
+   * 否則一次更新留言物件所有內容成本太高。
+   * 
+   * @param fields: 前端傳過來的 JSON(裡面只有 content 一個欄位)
+   * @param uuid: 要更新的留言 uuid
+   * @param p: Principal Object
+   * @return 簡易的 response({status: 200, result: "OK"})
+   */
+  @PatchMapping("/{uuid}")
+  public ResponseEntity<Object> updateComment(@RequestBody Map<String, String> fields, @PathVariable String uuid, Principal p) {
+    
+    if (p == null)
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    if (fields.size() == 0)
+      return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), "資料錯誤！");
+    
+    String content = fields.get("content");
+    
+    if (content == null || content.trim().length() == 0)
+      return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), "留言內容不可空白！");
+    
+    Member loggedInUser = memberService.findByUsername(p.getName());
+    Comment comment = commentService.getCommentByUuid(uuid);
+    
+    if (comment == null)
+      throw new NoSuchElementException("找不到目標留言！");
+    
+    Member member = comment.getMember();
+    
+    if (loggedInUser.getUid() != member.getUid())
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    // 更新留言
+    commentService.updateContentById(content, comment.getId());
+    
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", HttpStatus.OK.value());
+    body.put("result", "OK");
+    
+    return new ResponseEntity<Object>(body, HttpStatus.OK);
+  }
+ 
   /**
    * 某些屬性不可為空，若為空則會引發 MethodArgumentNotValidException 異常
    * 並由此 method 補捉到後做處理，主要會回傳一些錯誤訊息與 HTTP 狀態碼(status code)
@@ -180,8 +226,6 @@ public class CommentController {
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Object> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-    Map<String, Object> body = new LinkedHashMap<>();
-    
     // 收集最主要的錯誤訊息(default message)，否則原始錯誤訊息太長(因為包涵 tracking)
     List<String> messages = e.getBindingResult()
         .getFieldErrors()
@@ -189,13 +233,7 @@ public class CommentController {
         .map(x -> x.getDefaultMessage())
         .collect(Collectors.toList());
     
-    // 回傳給前端較有意義的訊息 
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("message", messages);
-    
-    return ResponseEntity
-        .status(HttpStatus.BAD_REQUEST)
-        .body(body);
+    return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), messages);
   }
   
   /**
@@ -208,13 +246,12 @@ public class CommentController {
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseEntity<Object> NoSuchElementExceptionHandler(NoSuchElementException e) {
-    Map<String, Object> body = new LinkedHashMap<>();
-    
-    body.put("status", HttpStatus.NOT_FOUND.value());
-    body.put("message", e.getMessage());
-    
-    return ResponseEntity
-        .status(HttpStatus.NOT_FOUND)
-        .body(body);
+    return commentHelper.generateResponse(HttpStatus.NOT_FOUND.value(), e.getMessage());
+  }
+  
+  @ExceptionHandler(AccessDeniedException.class)
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  public ResponseEntity<Object> NoSuchElementExceptionHandler(AccessDeniedException e) {
+    return commentHelper.generateResponse(HttpStatus.FORBIDDEN.value(), e.getMessage());
   }
 }
