@@ -104,14 +104,15 @@ public class UniversalTool {
      * @author nilm
      */
     public Member getLoiginBean(HttpSession session, Principal principal) throws NotLoginException {
-        Member loginBean;
-        loginBean = (Member) session.getAttribute("loginBean");
-        if (null == principal) {
-            throw new NotLoginException();
-        } else if (null == loginBean) {
+        Member loginBean = (Member) session.getAttribute("loginBean");
+        if (loginBean != null) {
+            return loginBean;
+        }
+        if (null != principal) {
             loginBean = ms.findByUsername(principal.getName());
             session.setAttribute("loginBean", loginBean);
+            return loginBean;
         }
-        return loginBean;
+        throw new NotLoginException();
     }
 }
