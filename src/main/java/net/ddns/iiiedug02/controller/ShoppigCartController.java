@@ -63,7 +63,7 @@ public class ShoppigCartController {
         return "tradeRecord/shopping_cart_info";
     }
 
-    @DeleteMapping("{cid}")
+    @DeleteMapping("api/{cid}")
     @ResponseBody
     public String deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
 
@@ -81,7 +81,7 @@ public class ShoppigCartController {
 
     }
 
-    @PostMapping("{cid}")
+    @PostMapping("api/{cid}")
     @ResponseBody
     public Object saveById(HttpSession session, Principal p, @PathVariable int cid) {
         Member loginBean = utool.getLoiginBean(session, p);
