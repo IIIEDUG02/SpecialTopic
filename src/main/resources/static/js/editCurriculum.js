@@ -4,7 +4,7 @@ function editCurriculum(cuid) {
 		oriForm.remove();
 	}
 	var formDiv = $('div#formDiv');
-	var form1 = $("<form action='createcurriculum' method='post' enctype='multipart/form-data' ></form>")
+	var form1 = $("<form action='/SpecialTopic/createcurriculum' method='post' enctype='multipart/form-data' ></form>")
 	var chapterDiv = $("<div id='chapterDiv'>章節名稱：<input name='chapter' type='text' /></div>");
 	var cuidInput = $("<input value='" + cuid +"' type='hidden' name='cuid'/>");
 	var videoPathDiv = $("<div id='videoPathDiv'>影片網址：<input name='myVideo' type='file'></input></div>");
@@ -39,7 +39,7 @@ function editBtnOnclick() {
 	$("input#delBtn").attr("type","hidden");
 	$("input#editBtn").attr("type","hidden");
 	$("input#submitBtn").attr("type","submit");
-	$("form").attr("action","createcurriculum");
+	$("form").attr("action","/SpecialTopic//updatecurriculum");
 	$("form").attr("method","post");
 	
 	$("div#chapterDiv a").html("");
