@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import net.ddns.iiiedug02.exception.RoleNotFoundException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
+import net.ddns.iiiedug02.model.bean.ClassDetailsBean;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
@@ -96,6 +100,115 @@ public class ClassController {
         return "backstage/classEdit";
     }
 
+    // 創建class
+    @PostMapping(value = "/createclass", produces = "text/html;charset=utf-8")
+    public String createProcessClass(@RequestParam Map<String, String> formData, Model model) {
+        ClassBean cb = new ClassBean();
+        cb.setClassType(formData.get("classtype"));
+        cb.setTitle(formData.get("classtitle"));
+        cb.setPrice(Integer.parseInt(formData.get("classprice")));
+        cb.setUid(Integer.parseInt(formData.get("teacherid")));
+        model.addAttribute("classbean", cb);
+
+        return "class/createclassdetails";
+    }
+
+    // 創建classdetails
+    @PostMapping(value = "/createclassdetails")
+    public String createProcessClassDetails(@RequestParam Map<String, String> formData,
+            HttpSession session) {
+        ClassDetailsBean cdb = new ClassDetailsBean();
+        cdb.setDescript(formData.get("descript"));
+        cdb.setGoal(formData.get("goal"));
+        cdb.setNeed_tool(formData.get("needed_tool"));
+        cdb.setStu_required(formData.get("stu_required"));
+        cdb.setVideo(formData.get("video"));
+        cdb.setLength_min(Integer.parseInt(formData.get("length_min")));
+        ClassBean cb = (ClassBean) session.getAttribute("classbean");
+        cb.setClassDetailsBean(cdb);
+        cdb.setClassbean(cb);
+        cbs.insert(cb);
+        return "class/createcurriculum";
+    }
+
+    // 創建curriculum
+    @PostMapping(path = "/createcurriculum")
+    public String createCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
+            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+            throws IllegalStateException, IOException {
+
+        String pattern = "yyyy-MM-dd-HH-mm-ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        Random random = new Random();
+        int rNumber = 10000 + random.nextInt(90000);
+
+        String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+        if (type.isEmpty()) {
+            return "no video";
+        }
+        String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+
+        String tempDir = request.getSession().getServletContext().getRealPath("/")
+                + "../resources/static/classvideo//";
+        File tempDirFile = new File(tempDir);
+        tempDirFile.mkdirs();
+
+        String saveFilePath = tempDir + fileName;
+        File saveFile = new File(saveFilePath);
+
+        mf.transferTo(saveFile);
+        CurriculumBean cub = new CurriculumBean();
+
+		ClassBean cb = (ClassBean) m.getAttribute("classbean");
+		cub.setClassbean(cb);
+		cub.setChapter(request.getParameter("chapter"));
+		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+		cus.insert(cub);
+	
+		return this.editCurriculum(request, p, cb.getCid(), m);
+	}
+    
+    // 創建curriculum
+    @PostMapping(path = "/updatecurriculum")
+    public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request,
+            Model m, HttpSession session, @SessionAttribute ClassBean classbean,Principal p)
+            throws IllegalStateException, IOException {
+
+        String pattern = "yyyy-MM-dd-HH-mm-ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        Random random = new Random();
+        int rNumber = 10000 + random.nextInt(90000);
+
+        String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+        if (type.isEmpty()) {
+            return "no video";
+        }
+        String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+
+        String tempDir = request.getSession().getServletContext().getRealPath("/")
+                + "../resources/static/classvideo//";
+        File tempDirFile = new File(tempDir);
+        tempDirFile.mkdirs();
+
+        String saveFilePath = tempDir + fileName;
+        File saveFile = new File(saveFilePath);
+
+        mf.transferTo(saveFile);
+        CurriculumBean cub = cus.findById(Integer.parseInt(request.getParameter("cuid")));
+
+		ClassBean cb = (ClassBean) m.getAttribute("classbean");
+		cub.setClassbean(cb);
+		cub.setChapter(request.getParameter("chapter"));
+		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
+		cus.insert(cub);
+	
+		return this.editCurriculum(request, p, cb.getCid(), m);
+	}
+	
+    
+
     // 計算全部上線課程總數
     @ResponseBody
     @GetMapping(value = "/countclass")
@@ -114,13 +227,7 @@ public class ClassController {
 
         Random random = new Random();
         int rNumber = 10000 + random.nextInt(90000);
-        // 取副檔名方法一
-        // String oName = mf.getOriginalFilename();
-        // int oNameLenghth = oName.length();
-        // String fileName =
-        // simpleDateFormat.format(new Date()) + "-" + rNumber +
-        // oName.substring(oNameLenghth-4,
-        // oNameLenghth);
+
         String type = FilenameUtils.getExtension(mf.getOriginalFilename());
         if (type.isEmpty()) {
             return "no image";
@@ -182,6 +289,16 @@ public class ClassController {
         return false;
     }
 
+    @DeleteMapping("class/delete/curriculum/{cuid}")
+    @ResponseBody
+    public boolean deleteCurriculum(HttpServletRequest request, Principal principal,
+            @PathVariable("cuid") int cuid) {
+        if (utool.hasRole(principal, "admin")) {
+            return cus.deleteById(cuid);
+        }
+        return false;
+    }
+
     @GetMapping("class/editCurriculum/{cid}")
     public String editCurriculum(HttpServletRequest request, Principal principal,
             @PathVariable("cid") int cid, Model m) {
@@ -189,12 +306,20 @@ public class ClassController {
             ClassBean cb = cbs.findById(cid);
             List<CurriculumBean> cubList = cus.findAllByClassbean(cb);
             m.addAttribute("cubList", cubList);
+            m.addAttribute("classbean", cb);
             return "class/editCurriculum";
         } else {
             m.addAttribute("errMsg", "您無權限執行此操作");
             return "index";
         }
 
+    }
+
+    @GetMapping("class/showClassType")
+    public List<String> showClassType(HttpServletRequest request, Model m) {
+        List<String> classTypeList = cbs.findAllClassType();
+        m.addAttribute("classTypeList", classTypeList);
+        return classTypeList;
     }
 
 }
