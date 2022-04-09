@@ -15,7 +15,7 @@ function editCurriculum(cuid) {
 	if (cuid != 0) {
 		cuidInput.val($("input#cuid" + cuid).val());
 		chapterDiv.html("章節名稱：<a>" + $("input#chapter" + cuid).val() + "</a><input name='chapter' type='hidden' value='"+ $("input#chapter" + cuid).val() + "' >");
-		videoPathDiv.html("影片：<video controls src='" + $("input#videoPath" + cuid).val() + "'></video><input name='video_path' type='hidden' value='" + $("input#videoPath" + cuid).val() + "'></input>");
+		videoPathDiv.html("影片：<video controls src='" + $("input#videoPath" + cuid).val() + "'></video><input name='myVideo' type='hidden' value='" + $("input#videoPath" + cuid).val() + "'></input>");
 		submitBtn.attr("type","hidden");
 		editBtn.attr("type","button");
 		delBtn.attr("type","button");
@@ -39,7 +39,7 @@ function editBtnOnclick() {
 	$("input#delBtn").attr("type","hidden");
 	$("input#editBtn").attr("type","hidden");
 	$("input#submitBtn").attr("type","submit");
-	$("form").attr("action","/SpecialTopic//updatecurriculum");
+	$("form").attr("action","/SpecialTopic/updatecurriculum");
 	$("form").attr("method","post");
 	
 	$("div#chapterDiv a").html("");
