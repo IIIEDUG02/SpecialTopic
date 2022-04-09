@@ -26,7 +26,7 @@ h3 {
 div .username, div .password, div .fullname, div .phone, div .email, div .address,
 	div .job, div .birthday, div .identitycard, div .gender {
 	margin: 30px;
-	font-size:1.3em;
+	font-size: 1.3em;
 }
 </style>
 </head>
@@ -47,73 +47,123 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 				</div>
 				<form action="/SpecialTopic/memberUpdateInformation" method="post">
 					<div class="username">
-						帳號: <a>${mb.getUsername()}</a>
-						<input type="hidden" name="username" value="${mb.getUsername()}">
+						<div class="mb-3">
+							<label for="formFile" class="form-label">上傳照片</label> 
+							<input class="form-control" type="file"
+								id="formFile">
+						</div>
+						帳號: <a>${mb.getUsername()}</a> <input type="hidden"
+							name="username" value="${mb.getUsername()}">
 					</div>
 					<div class="password">
-						密碼: <a>************</a> <input type="hidden" name="password"
-							value="${mb.getPassword()}">
-						<button>編輯</button>
+						密碼: <a>************</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="password" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2" value="${mb.getPassword()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
+						</div>
 					</div>
 					<div class="fullname">
-						姓名: <a>${mb.getMemberInformation().getFullname()}</a> <input
-							type="hidden" name="fullname"
-							value="${mb.getMemberInformation().getFullname()}">
-						<button>編輯</button>
+						姓名: <a>${mb.getMemberInformation().getFullname()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="fullname" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getFullname()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
+						</div>
 					</div>
 					<div class="phone">
-						手機: <a>${mb.getMemberInformation().getPhone()}</a> <input
-							type="hidden" name="phone"
-							value="${mb.getMemberInformation().getPhone()}">
-						<button>編輯</button>
+						手機: <a>${mb.getMemberInformation().getPhone()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="phone" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getPhone()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
+						</div>
 					</div>
 					<div class="email">
-						信箱: <a>${mb.getMemberInformation().getEmail()}</a> <input
-							type="hidden" name="email"
-							value="${mb.getMemberInformation().getEmail()}">
-						<button>編輯</button>
+						信箱: <a>${mb.getMemberInformation().getEmail()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="email" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getEmail()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
+						</div>
 					</div>
 				</form>
-				</div>
-				<div class="col">
-					<form action="/SpecialTopic/memberUpdateInformation" method="post">
-						<div class="address">
-							地址: <a>${mb.getMemberInformation().getAddress()}</a> <input
-								type="hidden" name="address"
-								value="${mb.getMemberInformation().getAddress()}">
-							<button>編輯</button>
+			</div>
+			<div class="col">
+				<form action="/SpecialTopic/memberUpdateInformation" method="post">
+					<div class="address">
+						地址: <a>${mb.getMemberInformation().getAddress()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="address" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getAddress()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
 						</div>
-						<div class="job">
-							工作: <a>${mb.getMemberInformation().getJob()}</a>
-							<div class="input-group mb-3">
-								<input type="hidden" name="job" class="form-control"
-									placeholder="Recipient's username"
-									aria-label="Recipient's username"
-									aria-describedby="button-addon2" 
-									value="${mb.getMemberInformation().getJob()}">
-								<button class="btn btn-outline-secondary" type="button"
-									id="button-addon2">編輯</button>
-							</div>
+					</div>
+					<div class="job">
+						工作: <a>${mb.getMemberInformation().getJob()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="job" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getJob()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
 						</div>
+					</div>
 
-						<div class="birthday">
-							生日:<input type="date" name="birthday" required="required" />
-						</div>
+					<div class="birthday">
+						生日:<input type="date" name="birthday" required="required" />
+					</div>
 
-						<div class="identitycard">
-							身分證字號:<a>${mb.getMemberInformation().getJob()}</a><input
-								type="hidden" name="identitycard"
-								value="${mb.getMemberInformation().getJob()}">
-							<button>編輯</button>
+					<div class="identitycard">
+						身分證字號:<a>${mb.getMemberInformation().getIdentitycard()}</a>
+						<div class="input-group mb-3">
+							<input type="hidden" name="identitycard" class="form-control"
+								placeholder="Recipient's username"
+								aria-label="Recipient's username"
+								aria-describedby="button-addon2"
+								value="${mb.getMemberInformation().getIdentitycard()}"
+								onkeyup="this.value=this.value.replace(/\s+/g,'')">
+							<button class="btn btn-outline-secondary" type="button"
+								id="button-addon2">編輯</button>
 						</div>
+					</div>
 
-						<div class="gender">
-							性別: 男<input type="radio" name="gender" value=1 />女<input
-								type="radio" name="gender" value=0 />
-						</div>
-						<input id="check" type="hidden" value="確認">
-					</form>
-				</div>
+					<div class="gender">
+						性別: 男<input type="radio" name="gender" value=1 />女<input
+							type="radio" name="gender" value=0 />
+					</div>
+				</form>
+				<input id="check" type="hidden" class="btn btn-success" value="確認">
+				<input id="check1" type="hidden" style="margin-left: 50px"
+					class="btn btn-secondary" value="重置">
+			</div>
 		</div>
 	</div>
 	<!-- ======= Footer ======= -->
@@ -129,6 +179,7 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 		$(this).parent().children("input").attr("type", "text");
 		$(this).remove();
 		$('input#check').attr("type", "submit");
+		$('input#check1').attr("type", "reset");
 	}
 
 	$('button').click(editMemberInformation);

@@ -61,34 +61,28 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 				<form action="/SpecialTopic/registerAction1" id="registerform"
 					METHOD="POST">
 					<div class="form-group1">
-						帳號:<input type="text" id="username" name="username" class="username"
+						帳號:<input type="text" onkeyup="this.value=this.value.replace(/\s+/g,'')" id="username" name="username" class="username"
 							placeholder="帳號:" required="required" maxlength="16" />
 					</div>
 					<div class="form-group1">
-						密碼:<input type="password" id="password" name="password"
+						密碼:<input type="password" id="password" name="password" onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							class="password" placeholder="密碼:" required="required"
 							maxlength="20" />
 					</div>
 					<div class="form-group1">
-						確認密碼:<input type="password" id="repassword" name="repassword"
+						確認密碼:<input type="password" id="repassword" name="repassword" onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							class="repassword" required="required" maxlength="20"
 							placeholder="確認密碼:" />
 					</div>
-<!-- 					<div class="form-group1"> -->
-<!-- 						<input type="text" name="fullname" required="required" -->
-<!-- 							class="fullname" placeholder="姓名:" /> -->
-<!-- 					</div> -->
-
 					<div class="form-group1">
-						電子信箱:<input type="text" name="email" id="email" required="required"
+						電子信箱:<input type="text" onkeyup="this.value=this.value.replace(/\s+/g,'')" name="email" id="email" required="required"
 							class="email" placeholder="電子信箱:" />
 					</div>
 
 
 					<div class="form-group1">
-						<input type="button" value="送 出" onclick="check()" /> <input
-							type="button"
-							onclick="javascript:window.location = '/SpecialTopic/'"
+						<input type="button" value="送 出" onclick="check()" /> 
+						<input type="button" style="margin-left:160px" onclick="javascript:window.location = '/SpecialTopic/'"
 							value="返 回 首 頁" />
 					</div>
 				</form>
