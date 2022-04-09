@@ -6,6 +6,7 @@
 <meta charset="BIG5">
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="/SpecialTopic/js/registerjs.js"></script>
+
 <title>個人資料</title>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
@@ -37,20 +38,17 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 
 	<div class="container">
 		<div class="row">
-			<div class="col">
+			<div class="col-4">
 				<img src="/SpecialTopic/img/register/tree.jpg">
 			</div>
-			<div class="col">
-				<!--  	<div class="main-box"> -->
-				<div>
-					<h3 class="h3">個人資料</h3>
-				</div>
-				<form action="/SpecialTopic/memberUpdateInformation" method="post">
+
+			<form action="/SpecialTopic/memberUpdateInformation" method="post">
+				<h3 class="h3">個人資料</h3>
+				<div class="col-4">
 					<div class="username">
 						<div class="mb-3">
-							<label for="formFile" class="form-label">上傳照片</label> 
-							<input class="form-control" type="file"
-								id="formFile">
+							<label for="formFile" class="form-label">上傳照片</label> <input
+								class="form-control" type="file" id="formFile">
 						</div>
 						帳號: <a>${mb.getUsername()}</a> <input type="hidden"
 							name="username" value="${mb.getUsername()}">
@@ -106,10 +104,10 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 								id="button-addon2">編輯</button>
 						</div>
 					</div>
-				</form>
-			</div>
-			<div class="col">
-				<form action="/SpecialTopic/memberUpdateInformation" method="post">
+
+				</div>
+				<div class="col-4">
+
 					<div class="address">
 						地址: <a>${mb.getMemberInformation().getAddress()}</a>
 						<div class="input-group mb-3">
@@ -159,15 +157,20 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 						性別: 男<input type="radio" name="gender" value=1 />女<input
 							type="radio" name="gender" value=0 />
 					</div>
-				</form>
-				<input id="check" type="hidden" class="btn btn-success" value="確認">
-				<input id="check1" type="hidden" style="margin-left: 50px"
-					class="btn btn-secondary" value="重置">
-			</div>
+
+					<input id="check" type="hidden" class="btn btn-success" value="確認">
+					<input id="check1" type="hidden" style="margin-left: 50px"
+						class="btn btn-secondary" value="重置">
+				</div>
+			</form>
 		</div>
+
 	</div>
+
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
+	<!-- Templete JS -->
+	<jsp:include page="../incloud/body-js.jsp" />
 </body>
 <script>
 	function editMemberInformation() {
