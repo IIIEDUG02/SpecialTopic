@@ -108,7 +108,7 @@ public class UniversalTool {
         if (loginBean != null) {
             return loginBean;
         }
-        if (null != principal) {
+        if (principal != null) {
             loginBean = ms.findByUsername(principal.getName());
             session.setAttribute("loginBean", loginBean);
             return loginBean;

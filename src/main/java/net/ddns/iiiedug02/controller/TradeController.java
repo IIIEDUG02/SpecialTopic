@@ -9,7 +9,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,38 +30,37 @@ import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.EcpayRecordService;
 import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.ShoppingCartService;
+import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
 public class TradeController {
 
     @Autowired
     private EcpayRecordService ecpayRecordService;
-
     @Autowired
     private ShoppingCartService shoppingCartService;
-
     @Autowired
     private MemberService memberService;
-
     @Autowired
     private ClassBeanService classService;
-
     @Autowired
     private ClassManagementService classManagementService;
-
-    private static AllInOne all = new AllInOne("");
+    @Autowired
+    private UniversalTool utool;
+    @Autowired
+    private AllInOne all;
 
     /*
-     * 接收form表單資料，新增資料至綠界交易紀錄，使用genAioCheckOutALL()
+     * 接收form表單資料，新增交易紀錄
      */
-    @RequestMapping(value = "ECPayServer", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
+    @RequestMapping(value = "ECPayServer", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String processPayment(HttpServletRequest request, HttpSession session) {
+    public String processPayment(HttpServletRequest request, Principal p) {
         EcpayRecord er = new EcpayRecord();
 
         String merchantTradeNo = String.format("J123G02%d", new Date().getTime());
         er.setCids(request.getParameter("CidList"));
-        er.setMember((Member) session.getAttribute("loginBean"));
+        er.setMember(utool.getLoiginBean(request.getSession(), p));
         er.setOrderId(merchantTradeNo);
         er.setTradeAmount(Integer.parseInt(request.getParameter("TotalAmount")));
         ecpayRecordService.save(er);
@@ -70,7 +68,9 @@ public class TradeController {
         return genAioCheckOutALL(request, merchantTradeNo);
     }
 
-    // 將購物車資料送至綠界api-2
+    /*
+     * 接收form表單資料，呼叫綠界API
+     */
     private String genAioCheckOutALL(HttpServletRequest request, String merchantTradeNo) {
         AioCheckOutALL obj = new AioCheckOutALL();
 
@@ -86,14 +86,14 @@ public class TradeController {
         return all.aioCheckOut(obj, null);
     }
 
-    // 【ECPayServer.java】obj.setOrderResultURL("http://localhost:8080/ecpay/ECPayServer3");
-    // 當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。
-    // 若與[ClientBackURL]同時設定，將會以此參數為主。
-    @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8") // 預設response的字元編碼為ISO-8859-1
+    /*
+     * 接收綠界回傳的資料
+     */
+    @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8")
     public String processPaymentResult2(HttpServletRequest request, Principal p,
             RedirectAttributes attr) {
 
-        Member loginBean = memberService.findByUsername(p.getName());
+        Member loginBean = utool.getLoiginBean(request.getSession(), p);
         Hashtable<String, String> dict = new Hashtable<String, String>();
         Enumeration<String> enumeration = request.getParameterNames();
         while (enumeration.hasMoreElements()) {
@@ -102,11 +102,10 @@ public class TradeController {
             dict.put(paramName, paramValue);
         }
 
-        boolean checkStatus = all.compareCheckMacValue(dict); // true：表示資料未被竄改
-        // 消費者付款成功且檢查碼正確的時候： (RtnCode:交易狀態(1:成功，其餘為失敗))
+        boolean checkStatus = all.compareCheckMacValue(dict);
+
         if ("1".equals(dict.get("RtnCode")) && checkStatus) {
 
-            // 交易ID
             EcpayRecord er = ecpayRecordService.findByOrderId(dict.get("MerchantTradeNo"));
             java.sql.Date orderDate = new java.sql.Date(new Date().getTime());
 
@@ -142,6 +141,9 @@ public class TradeController {
         return "redirect:/class/list";
     }
 
+    /*
+     * 
+     */
     @GetMapping("tradeRecord/teacher")
     public String tradeRecordTeacher(Principal p, Model m) {
         if (null == p) {
@@ -150,18 +152,17 @@ public class TradeController {
         Member mb = memberService.findByUsername(p.getName());
 
         List<ClassBean> classList = classService.findAllByUid(mb.getUid());
-        Map<ClassBean, List<ClassManagementBean>> class_cmbList_Map =
+        Map<ClassBean, List<ClassManagementBean>> classCmbListMap =
                 new HashMap<ClassBean, List<ClassManagementBean>>();
 
         for (ClassBean classBean : classList) {
             List<ClassManagementBean> tradeList =
                     classManagementService.findByCid(classBean.getCid());
-            class_cmbList_Map.put(classBean, tradeList);
+            classCmbListMap.put(classBean, tradeList);
         }
 
-        m.addAttribute("class_cmbList_Map", class_cmbList_Map);
+        m.addAttribute("class_cmbList_Map", classCmbListMap);
         return "tradeRecord/teacher";
-
     }
 
 }
