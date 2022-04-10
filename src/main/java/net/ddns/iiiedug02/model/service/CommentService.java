@@ -64,4 +64,9 @@ public class CommentService {
   public void updateContentById(String content, Long id) {
     repository.updateContentById(content, LocalDateTime.now(), id);
   }
+  
+  @Transactional
+  public void updateLikeCountById(int count, Long id) {
+    repository.updateLikeCountById(count, id);
+  }
 }

@@ -23,4 +23,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   @Modifying
   @Query("UPDATE Comment SET content = :content, edit_time = :editTime WHERE id = :id")
   public void updateContentById(String content,  LocalDateTime editTime, Long id);
+  
+  @Modifying
+  @Query("UPDATE Comment SET like_count = :count WHERE id = :id")
+  public void updateLikeCountById(int count, Long id);
 }

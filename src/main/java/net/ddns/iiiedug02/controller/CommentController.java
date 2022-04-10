@@ -247,10 +247,13 @@ public class CommentController {
         // 更新點讚，原本可能收回讚，現在又點讚
         likeService.updateByCommentIdAndMembersUid(1, comment.getId(), member.getUid());
       }
+      
+      commentService.updateLikeCountById(comment.getLikeCount() + 1, comment.getId());
     }
     // 收回讚
     else if (like.equals("unlike")) {
       likeService.updateByCommentIdAndMembersUid(0, comment.getId(), member.getUid());
+      commentService.updateLikeCountById(comment.getLikeCount() - 1, comment.getId());
     }
     
     Map<String, Object> body = new LinkedHashMap<>();

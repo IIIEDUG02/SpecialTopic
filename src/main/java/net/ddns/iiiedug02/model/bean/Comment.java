@@ -90,4 +90,7 @@ public class Comment {
   
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private Long timestamp;
+  
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private int likeCount;
 }

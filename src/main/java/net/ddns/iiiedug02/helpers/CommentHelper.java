@@ -128,7 +128,7 @@ public class CommentHelper {
     body.put("editTime", comment.getEditTime().format(FORMATTER));
     body.put("isInstructor", isisInstructor(comment.getMember(), classBean));
     body.put("isOwner", 1);
-    body.put("likeCount", 0);
+    body.put("likeCount", comment.getLikeCount());
     
     return body;
   }
@@ -210,7 +210,7 @@ public class CommentHelper {
           childMap.put("isInstructor", isisInstructor(m, classBean));
           childMap.put("isOwner", isOwner(m, currMember));
           childMap.put("liked", liked(child, currMember));
-          childMap.put("likeCount", likeService.countByCommentId(child.getId()));
+          childMap.put("likeCount", child.getLikeCount());
             
           // 子留言的列表，因為可能有多則子留言
           childrenList.add(childMap);
@@ -248,7 +248,7 @@ public class CommentHelper {
       parentMap.put("isInstructor", isisInstructor(comment.getMember(), classBean));
       parentMap.put("isOwner", isOwner(m, currMember));
       parentMap.put("liked", liked(comment, currMember));
-      parentMap.put("likeCount", likeService.countByCommentId(comment.getId()));
+      parentMap.put("likeCount", comment.getLikeCount());
 
       body.add(parentMap);
     }
