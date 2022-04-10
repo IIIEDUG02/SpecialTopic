@@ -65,6 +65,45 @@ function deleteClassByCid(cid) {
 	})
 };
 
+function changeStatusToOne(cid) {
+	$.ajax({
+		type: "post",
+		url: "/SpecialTopic/class/api/classmanagement/on/" + cid,
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data) {
+			if (data) {
+			
+			} else {
+				alert("網頁發生錯誤");
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};
+function changeStatusToZero(cid) {
+	$.ajax({
+		type: "post",
+		url: "/SpecialTopic/class/api/classmanagement/off/" + cid,
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data) {
+			if (data) {
+				
+			} else {
+				alert("網頁發生錯誤");
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};
+
+
+
 function showClassType(){
 	$.ajax({
 		type: "GET",

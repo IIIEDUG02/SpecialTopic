@@ -77,12 +77,15 @@ public class ClassController {
 			List<ClassManagementBean> cmbList = cms.findByUid(loginBean.getUid());
 			List<ClassBean> completeList = new ArrayList<ClassBean>();
 			List<ClassBean> uncompleteList = new ArrayList<ClassBean>();
+			List<ClassBean> completeCMList = new ArrayList<ClassBean>();
+			List<ClassBean> uncompleteCMList = new ArrayList<ClassBean>();
 
 			if (!cmbList.isEmpty()) {
 				for (ClassManagementBean cmb : cmbList) {
 					ClassBean cb = cbs.findById(cmb.getCid());
 					if (cmb.getStatus() == 1) {
 						completeList.add(cb);
+						
 					} else {
 						uncompleteList.add(cb);
 					}
@@ -239,36 +242,6 @@ public class ClassController {
 		return cbs.countClass();
 	}
 
-	// 課程圖片上傳 api
-	@PostMapping(path = "class/api/uploadphoto")
-	@ResponseBody
-	public String uploadPhoto(@RequestParam("myPhoto") MultipartFile mf, HttpServletRequest request, Model m)
-			throws IllegalStateException, IOException {
-
-		String pattern = "yyyy-MM-dd-HH-mm-ss";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-		Random random = new Random();
-		int rNumber = 10000 + random.nextInt(90000);
-
-		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-		if (type.isEmpty()) {
-			return "no image";
-		}
-		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-
-		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classphoto//";
-		File tempDirFile = new File(tempDir);
-		tempDirFile.mkdirs();
-
-		String saveFilePath = tempDir + fileName;
-		File saveFile = new File(saveFilePath);
-
-		mf.transferTo(saveFile);
-
-		m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
-		return "...";
-	}
 
 	// 尋找全部上線課程,api
 	@GetMapping(path = "class/allonline")
@@ -341,5 +314,26 @@ public class ClassController {
 		m.addAttribute("classTypeList", classTypeList);
 		return classTypeList;
 	}
-
+	@GetMapping("class/showClassType/{classType}")
+	public List<ClassBean> showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
+		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
+		m.addAttribute("classOneTypeList", classOneTypeList);
+		return classOneTypeList;
+	}
+	@PostMapping("class/api/classmanagement/on/{cid}")
+	public String manageClassToOn(@PathVariable("cid")int cid,Principal principal) {
+		Member loginBean = ms.findByUsername(principal.getName());
+		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+		cmb.setStatus(1);
+		cms.update(cmb);
+		return "class/classList";
+	}
+	@PostMapping("class/api/classmanagement/off/{cid}")
+	public String manageClassToOff(@PathVariable("cid")int cid,Principal principal) {
+		Member loginBean = ms.findByUsername(principal.getName());
+		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+		cmb.setStatus(0);
+		cms.update(cmb);
+		return "class/classList";
+	}
 }
