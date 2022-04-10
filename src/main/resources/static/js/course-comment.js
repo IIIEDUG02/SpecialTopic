@@ -299,7 +299,7 @@ class CourseComment extends Base {
 			url = CourseComment.LIKE_URL.format(comment.id, "unlike");
 		}
 		
-		const data = await obj.resultHandler(obj, url, true, undefined, false);
+		const data = await obj.resultHandler("POST", url, undefined,  obj, undefined, false);
 			
 		if (data)
 			console.log(data);
@@ -365,7 +365,7 @@ class CourseComment extends Base {
 			obj.removeEditComment(this, obj, extraInfoEl, textarea.value);
 			
 			// send PATCH request
-			const data = await obj.resultHandler(obj, url, {content: textarea.value}, undefined, false, "PATCH");
+			const data = await obj.resultHandler("PATCH", url, {content: textarea.value}, obj, undefined, false);
 			
 			if (data)
 				console.log(data);
@@ -373,13 +373,13 @@ class CourseComment extends Base {
 	}
 	
   // 從後端回傳的結果統一呼叫這 method
-  async resultHandler(obj, url, payload, element, spinner = true, method) {
+  async resultHandler(method, url, payload, obj, element, spinner = true) {
 		let result;
 		
 	try {
 			if(spinner)
   	  	obj.showSpinner(element);
-      result = await CourseComment.ajax(url, payload, method);
+      result = await CourseComment.ajax(method, url, payload);
     } catch (error) {
       console.error(error);
     } finally {
@@ -397,7 +397,7 @@ class CourseComment extends Base {
     if (!entry.isIntersecting) return;
 
     // 向後端要資料
-    const result = await obj.resultHandler(obj, obj.commentsUrl);
+    const result = await obj.resultHandler("GET", obj.commentsUrl, undefined, obj);
     
     if (result)
     	obj.firstTimeLoadPage(result);
@@ -411,11 +411,11 @@ class CourseComment extends Base {
   async firstItemSubmitBtnClickHandler(obj, e) {
 		const url = CourseComment.CREATE_URL.format(obj.cid);
 		const textarea = obj.firstItem.querySelector("textarea");
-		const data = await obj.resultHandler(obj, url, {
+		const data = await obj.resultHandler("POST", url, {
 			title: "!",             
 			type: "course",
 			content: textarea.value
-		});
+		}, obj);
 		
 		//送出留言後留言的字會清掉 恢復成原來空白的留言欄
 		if (data) {
@@ -435,12 +435,12 @@ class CourseComment extends Base {
 		const comment = replyComment.closest(obj.elements.commentEl);
 		
     // 如果是回覆別人的留言，要將父留言的 id 抓出來，會一起傳送到後端
-		const data = await obj.resultHandler(obj, url, {
+		const data = await obj.resultHandler("POST", url, {
 			title: "!",
 			type: "course",
 			content: replyComment.querySelector("textarea").value,
 			uuid: comment.id.trim(),
-		});
+		}, obj);
 		
 		if (data) {
 			const lastItem = comment.lastElementChild;
@@ -463,7 +463,7 @@ class CourseComment extends Base {
   
   // 載入更多留言的 click event
   async loadMoreBtnClickHandler(obj) {
-		const data = await obj.resultHandler(obj, obj.commentsUrl, undefined, obj.loadMoreEl);
+		const data = await obj.resultHandler("GET", obj.commentsUrl, undefined, obj, obj.loadMoreEl);
 		
 		obj.loadMoreEl.remove();
 		obj.addCommentElements(data);
