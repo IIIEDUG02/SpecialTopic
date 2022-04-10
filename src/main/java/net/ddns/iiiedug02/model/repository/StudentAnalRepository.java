@@ -39,5 +39,13 @@ public interface StudentAnalRepository extends JpaRepository<StudentAnalysis, In
 	      		+ "group by c.cid, md.job) as a where cid = ?1",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getJobPercentbyID(String cid);
+  
+  @Query(
+	      value = "select date, sum(totalprice) as money from\r\n"
+	      		+ "(select *, price*count(cid) as totalprice \r\n"
+	      		+ "FROM(select convert(nvarchar(7),order_date,120) as date, c.cid , price from classmanagement c join class a on c.cid=a.cid)\r\n"
+	      		+ "as a group by date, price, cid)as a group by date",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> getMoney();
 
 }

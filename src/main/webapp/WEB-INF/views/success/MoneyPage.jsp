@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="../incloud/head-css.jsp" />
 <title>Success</title>
-<link rel="stylesheet" href="/css/ordersystem.css">
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
 <script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+<script src="https://cdn.highcharts.com.cn/highcharts/modules/oldie.js"></script>
 <script src="/SpecialTopic/js/jquery.table2excel.js"></script>
 <style>
 .position_fixed {
@@ -32,86 +33,65 @@
 	<table class="table2excel">
 		<thead>
 			<tr>
-				<td>資料成功存入:</td>
-				<td>課程ID:</td>
-				<td>年齡:</td>
-				<td>該年齡數量:</td>
-				<td>該年齡占比:</td>
+				<td>資料成功載入:</td>
+				<td>時間:</td>
+				<td>銷售額:</td>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="th" items="${agePercentList}">
+			<c:forEach var="my" items="${moneyList}">
 				<tr>
 					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.get('cid')}" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('age')}歲" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="共${th.get('agecount')}筆" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('ratio')} %" /></td>				
+					<td style="border-top:1px solid #000"><c:out value="${my.get('date')}" /></td>				
+					<td style="border-top:1px solid #000"><c:out value="${my.get('money')}元" /></td>							
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<input class="btn" type="button"  value="點選匯出excel">
-	<div id="container" style="height: 400px"></div>
+	<div id="container" style="min-width:400px;height:400px"></div>
 	<script>
 
-	Highcharts.chart('container',{
-			  chart: {
-			    type: 'pie',
-			    options3d: {
-			      enabled: true,
-			      alpha: 45,
-			      beta: 0
-			    }
-			  },
-			  title: {
-			    text: '學員年齡分布比例'
-			  },
-			  tooltip: {
-			    pointFormat: '{series.name}: <b>{point.mycustomLabel}</b>'
-			    // pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			  },
-			  plotOptions: {
-			    pie: {
-			      allowPointSelect: true,
-			      cursor: 'pointer',
-			      depth: 35,
-			      dataLabels: {
-			        enabled: true,
-			        format: '{point.name}'
-			      }
-			    }
-			  },
-			  series: [{
-			    type: 'pie',
-			    name: 'Browser share',
-			    data: [
-// 			      [`${genderList[0]["gender"]}`,   ${genderList[0]["ratio"]}],
-// 			      [`${genderList[0]["gender"]}`,   ${genderList[0]["ratio"]}],
-			      
-			      
-			    	<c:set var="count" scope="page" value="${0}"/>
-			    	<c:forEach var="age" items="${agePercentList}">
-				    	<c:choose>
-					        <c:when test="${count==0}">
-					        {
-						        name: `${age.get("age")}歲 `+`(${age.get("ratio")}%)`,
-						        y: ${age.get("ratio")},
-						        sliced: true,
-						        selected: true,
-						        mycustomLabel: 'ithelp-ithelp-ithelp-ithelp'
-						      },
-					    	 <c:set var="count" scope="page" value="${count + 1}"/>
-					    	 </c:when>
-					    	    
-					    	 <c:otherwise>
-					    	 	[`${age.get("age")}歲 `+`(${age.get("ratio")}%)`,   ${age.get("ratio")}],
-					    	 </c:otherwise>
-				    	</c:choose>
-			    	</c:forEach>	
-			    ]
-			  }]
-			});
+	var chart = Highcharts.chart('container', {
+	    chart: {
+	        type: 'line'
+	    },
+	    title: {
+	        text: '月銷售額'
+	    },
+	   
+	    xAxis: {
+	        categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	    },
+	    yAxis: {
+	        title: {
+	            text: '總額 (TWD)'
+	        }
+	    },
+	    plotOptions: {
+	        line: {
+	            dataLabels: {
+	                // 开启数据标签
+	                enabled: true          
+	            },
+	            // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+	            enableMouseTracking: false
+	        }
+	    },
+	    series: [{
+	        name: '2021',
+	        data: [2340, 12340, 20340, 23400, 23330, 30500, 14030, 34550, 31020, 25600, 20320, 14530]
+	    }, {
+	        name: '2022',
+	        data: [
+	        	<c:forEach var="my" items="${moneyList}">
+		    	
+			    	[${my.get('money')}],
+			    	 
+	    		</c:forEach>	
+		        ]
+	    }]
+	});
 	</script>
 	<script type="text/javascript">
             
@@ -147,7 +127,6 @@
 
 				<!-- Templete JS -->
 				<jsp:include page="../incloud/body-js.jsp" />
-	
 
 </body>
 </html>

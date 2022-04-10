@@ -103,6 +103,19 @@ public class StudentAnalController {
 	return "success/MainPercentInput";
   }
   
+  @GetMapping("/getMoney")
+  public String getMoney(Model m) {
+    List<Map<String, Integer>> moneyList = analyService.getMoney();
+    
+    
+	m.addAttribute("moneyList", moneyList);
+	
+    
+	return "success/MoneyPage";
+  }
+  
+  
+  
   
 
 }

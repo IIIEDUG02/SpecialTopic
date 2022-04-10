@@ -42,6 +42,7 @@
 								<li><a href="inputmain">學員資料統計</a></li>
 								<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
 								<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+								<li><a href="getMoney">銷售額統計</a></li>
 								<li class="dropdown"><a href="#"><span>熱門課程管理
 											</span> <i class="bi bi-chevron-right"></i></a>
 									<ul>
