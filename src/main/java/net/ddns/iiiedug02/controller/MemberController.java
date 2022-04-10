@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
-import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.MemberRole;
@@ -55,13 +54,24 @@ public class MemberController {
 			m.addAttribute("errMsg", "帳號已註冊");
 			return "member/registerPage1";
 		}
-		mb = new Member();
-
+		MemberInformation mbi = new MemberInformation();
+		
 		mb.setUsername(params.get("username"));
 		mb.setPassword(params.get("password"));
+		mbi.setEmail(params.get("email"));
 		mb.setActivated((short) 0);
 
-		ms.save(mb);
+		
+		  mb = new Member();
+	        MemberRole mrb = new MemberRole();
+	        mrb.setRole("normal");
+	        mrb.setMember(mb);
+	        List<MemberRole> rs = new ArrayList<>(1);
+	        rs.add(mrb);
+	        
+	        mbi.setMember(mb);
+	        mb.setMemberInformation(mbi);
+	        ms.save(mb);
 		session.setAttribute("registerBean", mb);
 		return "redirect:/";
 	}
@@ -100,7 +110,7 @@ public class MemberController {
 		}
 	}
 
-	@PostMapping(value = "/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@PostMapping(value = "/member/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session, Model m,
 			HttpServletRequest request) throws ParseException {
 
@@ -111,6 +121,9 @@ public class MemberController {
 		mbi.setEmail(params.get("email"));
 		mbi.setFullname(params.get("fullname"));
 		mbi.setJob(params.get("job"));
+		mbi.setIdentitycard(params.get("identitycard"));
+		mbi.setPassportname(params.get("passportname"));
+		mbi.setGender(Integer.parseInt(params.get("gender")));
 		mbi.setPhone(params.get("phone"));
 		mb.setPassword(params.get("password"));
 
@@ -124,19 +137,20 @@ public class MemberController {
 		ms.save(mb);
 
 		session.setAttribute("registerBean", mb);
-		return "redirect:/";
+		return "member/memberInformation";
 	}
+	
+	@GetMapping("/member/membermanage")
+	public String MemberDelete(){
 
-	public String processDelete(Principal p) {
-
-		if (ut.hasRole(p, "admin")) {
+//		if (ut.hasRole(p, "admin")) {
 //			ms.deleteByUsername(params.get("username"));
-		}
-		return "delete OK";
+		return "/member/membermanage";
+//		}
 	}
 
 	@PostMapping(path = "/creatembphoto")
-	public String createphoto(@RequestParam("photo") MultipartFile mf, Map<String, String> params, HttpServletRequest request, Model m,
+	public String createphoto(@RequestParam("photo") MultipartFile mf, Map<String, String> params,Principal principal, HttpServletRequest request, Model m,
 			HttpSession session, @SessionAttribute Member member, Principal p)
 			throws IllegalStateException, IOException {
 
@@ -162,7 +176,8 @@ public class MemberController {
 
 		mf.transferTo(saveFile);
 		
-		Member mb = new Member();
+		Member mb = ut.getLoiginBean(session, principal);
+		
 		MemberInformation mbi = new MemberInformation();
 		
 		mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
@@ -171,8 +186,10 @@ public class MemberController {
 		mbi.setFullname(params.get("fullname"));
 		mbi.setJob(params.get("job"));
 		mbi.setPhone(params.get("phone"));
+		mbi.setGender(Integer.parseInt(params.get("gender")));
 		
 		mb.setPassword(params.get("password"));
+		m.addAttribute("mb", mb);
 		
 		
 		return "member/memberInformation/";
