@@ -105,20 +105,43 @@ public class ClassController {
 
 	// 創建class
 	@PostMapping(value = "/createclass", produces = "text/html;charset=utf-8")
-	public String createProcessClass(@RequestParam Map<String, String> formData, Model model) {
+	public String createProcessClass(@RequestParam Map<String, String> formData, Model model,
+			@RequestParam("photopath") MultipartFile mf) throws IOException {
+			
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		if (type.isEmpty()) {
+			return "no photo";
+		}
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classphoto/";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
+
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
+
+		mf.transferTo(saveFile);
+		
 		ClassBean cb = new ClassBean();
+		cb.setPhoto("/SpecialTopic/classphoto/" + fileName);
 		cb.setClassType(formData.get("classtype"));
 		cb.setTitle(formData.get("classtitle"));
 		cb.setPrice(Integer.parseInt(formData.get("classprice")));
 		cb.setUid(Integer.parseInt(formData.get("teacherid")));
 		model.addAttribute("classbean", cb);
-
+		
 		return "class/createclassdetails";
 	}
 
 	// 創建classdetails
 	@PostMapping(value = "/createclassdetails")
-	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session) {
+	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,Model model) {
 		ClassDetailsBean cdb = new ClassDetailsBean();
 		cdb.setDescript(formData.get("descript"));
 		cdb.setGoal(formData.get("goal"));
@@ -130,7 +153,9 @@ public class ClassController {
 		cb.setClassDetailsBean(cdb);
 		cdb.setClassbean(cb);
 		cbs.insert(cb);
-		return "class/createcurriculum";
+		List<ClassBean> cbList = cbs.findAll();
+		model.addAttribute("allCbList", cbList);
+		return "class/classList";
 	}
 
 	// 創建curriculum

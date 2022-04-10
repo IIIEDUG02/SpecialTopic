@@ -30,16 +30,24 @@
 			<div class="col min-vh-100">
 				<c:choose>
 					<c:when test="${not empty allCbList}">
+					<div class="row"><a href="/SpecialTopic/create" class="btn btn-primary">新增課程</a></div>
+						<div class="row">
+						<div class="col-2"><h5>課程名稱</h5></div>
+						<div class="col-2"><h5>課程類型</h5></div>
+						<div class="col-5"><h5>編輯課程</h5></div>
+						</div>
 						<c:forEach items="${allCbList}" var="cb">
-							<div id="classDiv${cb.getCid()}" class="card m-3" style="width: 18rem;">
-								<img class="card-img-top" src="${cb.getPhoto()}"
-									alt="Card image cap">
-								<div class="card-body">
-									<h5 class="card-title">${cb.getTitle()}</h5>
-									<p class="card-text">${cb.getClassType()}</p>
+							<div id="classDiv${cb.getCid()}" class="row shadow">
+								<div class="col-2">
+									<p class="title">${cb.getTitle()}</p>
+								</div>
+								<div class="col-2">
+									<p class="text">${cb.getClassType()}</p>
+								</div>
+								<div class="col-5">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}" class="btn btn-primary">編輯課程</a> 
-									<a onclick="deleteClassByCid(${cb.getCid()})" class="btn btn-primary">刪除課程</a> 
 									<a href="/SpecialTopic/class/editCurriculum/${cb.getCid()}" class="btn btn-primary">編輯章節</a>
+									<a onclick="deleteClassByCid(${cb.getCid()})" class="btn btn-danger">刪除課程</a> 
 								</div>
 							</div>
 						</c:forEach>
@@ -126,7 +134,7 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-	
+
 	<!-- ======= errMsg ======= -->
 	<c:if test="${not empty msg}">
 		<script>alert("${msg}")</script>
