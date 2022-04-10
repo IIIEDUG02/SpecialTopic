@@ -97,7 +97,7 @@
 
 				<!-- 判斷使用者是否已登入並且有 admin 角色才能夠新增文章 -->
         <c:if test = "${empty tag}">
-  				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
+  				<sec:authorize access="isAuthenticated() and (hasRole('ROLE_admin') or hasRole('ROLE_teacher'))">
   					<div class="create-article">
   						<a href="articles/create" class="get-started-btn">發佈文章</a>
               <a class="get-started-btn" data-bs-toggle="offcanvas" 

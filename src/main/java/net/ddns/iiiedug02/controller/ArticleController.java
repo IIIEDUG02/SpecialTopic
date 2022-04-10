@@ -44,7 +44,7 @@ public class ArticleController {
   // Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
   private ArticleHelper articleHelper = ArticleHelper.getInstance();
 
-  // 含有 admin 角色的人才能新增文章
+  // 含有 admin or teacher 角色的人才能新增/編輯/刪除文章
   private String ADMIN = "admin";
   private String TEACHER = "teacher";
 
