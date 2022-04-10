@@ -29,10 +29,10 @@
 				<td><label>老師ID:</label><input type="text" id="teacherid"
 					name="teacherid" /></td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td><label>課程圖片:</label><input type="file" id="photopath" -->
-<!-- 					name="photopath" /></td> -->
-<!-- 			</tr> -->
+			<tr>
+				<td><label>課程圖片:</label><input type="file" id="photopath"
+					name="photopath" /></td>
+			</tr>
 			<tr>
 				<td><input type="submit" value="下一步" /> <input type="button"
 					onclick="javascript:window.location = '/'" value="返回首頁" /></td>
@@ -44,27 +44,27 @@
 			<div class="td"></div>
 	</div>
 	</div>
-<!-- 	<script> 
-// 		//預覽上傳照片(時機：選檔變更事件)
-// 		$("#phottpath").change(function() {
-// 			$("#preview .table .td").html("");//先清除前次預覽的<img>
-// 			previewImg(this.files);
-// 		});
-// 		function previewImg(files) {
-// 			if (files.length == 0)
-// 				return;
-// 			var file = files[0];
-// 			var fr = new FileReader();
-// 			//註冊：選檔被讀取完成後之事件處理器
-// 			fr.onload = function() {
-// 				var img = $("<img>").attr({
-// 					src : fr.result
-// 				});
+	<script> 
+ 		//預覽上傳照片(時機：選檔變更事件)
+ 		$("#phottpath").change(function() {
+ 			$("#preview .table .td").html("");//先清除前次預覽的<img>
+ 			previewImg(this.files);
+ 		});
+ 		function previewImg(files) {
+			if (files.length == 0)
+				return;
+			var file = files[0];
+ 			var fr = new FileReader();
+			//註冊：選檔被讀取完成後之事件處理器
+			fr.onload = function() {
+				var img = $("<img>").attr({
+ 					src : fr.result
+ 				});
 
-// 				$("#preview .table .td").html(img);
-// 			};
-// 			fr.readAsDataURL(file);
-// 		}
- 	</script> -->
+ 				$("#preview .table .td").html(img);
+ 			};
+ 			fr.readAsDataURL(file);
+ 		}
+ 	</script> 
 </body>
 </html>
