@@ -84,8 +84,6 @@ public class ClassController {
 			List<ClassManagementBean> cmbList = cms.findByUid(loginBean.getUid());
 			List<ClassBean> completeList = new ArrayList<ClassBean>();
 			List<ClassBean> uncompleteList = new ArrayList<ClassBean>();
-			List<ClassBean> completeCMList = new ArrayList<ClassBean>();
-			List<ClassBean> uncompleteCMList = new ArrayList<ClassBean>();
 
 			if (!cmbList.isEmpty()) {
 				for (ClassManagementBean cmb : cmbList) {
