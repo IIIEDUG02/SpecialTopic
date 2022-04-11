@@ -57,5 +57,11 @@ public interface StudentAnalRepository extends JpaRepository<StudentAnalysis, In
 	      		+ "group by c.cid, md.job) as b) as b where rank = 1",
 	      nativeQuery = true)
   public List<Map<String, Integer>> mostjob();
+  
+  @Query(
+	      value = "select c.cid, a.title, a.class_type, count(c.cid) as count from classmanagement c join class a on c.cid=a.cid \r\n"
+	      		+ "group by c.cid, a.title, a.class_type ",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> getClassList();
 
 }

@@ -33,7 +33,12 @@ public class StudentAnalController {
   private ClassManagementService classMService;
   
   @RequestMapping(path = "/inputmain", method = RequestMethod.GET)
-	public String processMainAction() {
+	public String processMainAction(Model m) {
+	  List<Map<String, Integer>> classList = analyService.getClassList();
+	    
+	    
+		m.addAttribute("classList", classList);
+	  
 		return "success/MainPercentInput";
 	}
 
@@ -123,10 +128,6 @@ public class StudentAnalController {
 	return "success/All";
   }
   
-  
-  
-  
-
 }
 
 

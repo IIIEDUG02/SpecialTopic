@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
+			<div>
+					<table>
+						<tr>
+							<td>課程ID:</td>
+							<td>課程名稱:</td>
+							<td>課程種類:</td>
+							<td>訂單數量:</td>
+						</tr>
+						<c:forEach var="ca" items="${classList}">
+							<tr>
+								<td ><c:out value="" /></td>
+								<td style="border-top:1px solid #000"><c:out value="${ca.get('cid')}" /></td>				
+								<td style="border-top:1px solid #000"><c:out value="${ca.get('title')}" /></td>				
+								<td style="border-top:1px solid #000"><c:out value="${ca.get('class_type')}" /></td>							
+								<td style="border-top:1px solid #000"><c:out value="共${ca.get('count')}筆" /></td>							
+							</tr>
+						</c:forEach>
+					</table>
+			</div>			
 				<div id="tabs">
 					<ul>
 						<li><a href="#p1">學員工作統計</a></li>

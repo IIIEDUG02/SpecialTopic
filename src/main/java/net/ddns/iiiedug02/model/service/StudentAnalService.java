@@ -57,4 +57,8 @@ public class StudentAnalService {
 	public List<Map<String, Integer>> mostjob(){
 		return analRepo.mostjob();
 	}
+	
+	public List<Map<String, Integer>> getClassList(){
+		return analRepo.getClassList();
+	}
 }
