@@ -32,8 +32,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addViewController("/pricing").setViewName("pricing");
         registry.addViewController("/contact").setViewName("contact");
     }
-
-
+    
+    
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();

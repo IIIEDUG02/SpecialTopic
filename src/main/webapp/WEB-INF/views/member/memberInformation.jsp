@@ -1,14 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="/SpecialTopic/js/registerjs.js"></script>
-<title>­Ó¤H¸ê®Æ</title>
+
+<title>å€‹äººè³‡æ–™</title>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
+<!-- Templete JS -->
+<jsp:include page="../incloud/body-js.jsp" />
 <style>
 h3 {
 	margin: 15px;
@@ -26,7 +29,7 @@ h3 {
 div .username, div .password, div .fullname, div .phone, div .email, div .address,
 	div .job, div .birthday, div .identitycard, div .gender {
 	margin: 30px;
-	font-size:1.3em;
+	font-size: 1.3em;
 }
 </style>
 </head>
@@ -36,88 +39,145 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 	<div class="height100"></div>
 
 	<div class="container">
-		<div class="row">
-			<div class="col">
-				<img src="/SpecialTopic/img/register/tree.jpg">
-			</div>
-			<div class="col">
-				<!--  	<div class="main-box"> -->
-				<div>
-					<h3 class="h3">­Ó¤H¸ê®Æ</h3>
+		<form action="/SpecialTopic/memberUpdateInformation" method="post">
+			<div class="row">
+				<div class="col-4">
+
+					<img src="/SpecialTopic/img/register/tree.jpg">
 				</div>
-				<form action="/SpecialTopic/memberUpdateInformation" method="post">
-					<div class="username">
-						±b¸¹: <a>${mb.getUsername()}</a>
-						<input type="hidden" name="username" value="${mb.getUsername()}">
+				<div class="col-8">
+
+					<div class="row">
+						<h3>å€‹äººè³‡æ–™</h3>
 					</div>
-					<div class="password">
-						±K½X: <a>************</a> <input type="hidden" name="password"
-							value="${mb.getPassword()}">
-						<button>½s¿è</button>
-					</div>
-					<div class="fullname">
-						©m¦W: <a>${mb.getMemberInformation().getFullname()}</a> <input
-							type="hidden" name="fullname"
-							value="${mb.getMemberInformation().getFullname()}">
-						<button>½s¿è</button>
-					</div>
-					<div class="phone">
-						¤â¾÷: <a>${mb.getMemberInformation().getPhone()}</a> <input
-							type="hidden" name="phone"
-							value="${mb.getMemberInformation().getPhone()}">
-						<button>½s¿è</button>
-					</div>
-					<div class="email">
-						«H½c: <a>${mb.getMemberInformation().getEmail()}</a> <input
-							type="hidden" name="email"
-							value="${mb.getMemberInformation().getEmail()}">
-						<button>½s¿è</button>
-					</div>
-				</form>
-				</div>
-				<div class="col">
-					<form action="/SpecialTopic/memberUpdateInformation" method="post">
-						<div class="address">
-							¦a§}: <a>${mb.getMemberInformation().getAddress()}</a> <input
-								type="hidden" name="address"
-								value="${mb.getMemberInformation().getAddress()}">
-							<button>½s¿è</button>
-						</div>
-						<div class="job">
-							¤u§@: <a>${mb.getMemberInformation().getJob()}</a>
-							<div class="input-group mb-3">
-								<input type="hidden" name="job" class="form-control"
-									placeholder="Recipient's username"
-									aria-label="Recipient's username"
-									aria-describedby="button-addon2" 
-									value="${mb.getMemberInformation().getJob()}">
-								<button class="btn btn-outline-secondary" type="button"
-									id="button-addon2">½s¿è</button>
+					<div class="row">
+						<div class="col-6">
+							<div class="username">
+								<div class="mb-3">
+									<label for="formFile" class="form-label">ä¸Šå‚³ç…§ç‰‡</label> <input
+										class="form-control" type="file" id="formFile">
+								</div>
+								å¸³è™Ÿ: <a>${mb.getUsername()}</a> <input type="hidden"
+									name="username" value="${mb.getUsername()}">
+							</div>
+							<div class="password">
+								å¯†ç¢¼: <a>************</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="password" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										required="required"
+										aria-describedby="button-addon2" value="${mb.getPassword()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
+							<div class="fullname">
+								å§“å: <a>${mb.getMemberInformation().getFullname()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="fullname" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getFullname()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
+							<div class="phone">
+								æ‰‹æ©Ÿ: <a>${mb.getMemberInformation().getPhone()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="phone" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getPhone()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
+							<div class="email">
+								ä¿¡ç®±: <a>${mb.getMemberInformation().getEmail()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="email" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getEmail()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
 							</div>
 						</div>
+						<div class="col-6">
+							<div class="address">
+								åœ°å€: <a>${mb.getMemberInformation().getAddress()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="address" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getAddress()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
+							<div class="job">
+								å·¥ä½œ: <a>${mb.getMemberInformation().getJob()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="job" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getJob()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
+							<div class="birthday">
+								ç”Ÿæ—¥:<input type="date" name="birthday" required="required" />
+							</div>
+							<div class="identitycard">
+								èº«åˆ†è­‰å­—è™Ÿ:<a>${mb.getMemberInformation().getIdentitycard()}</a>
+								<div class="input-group mb-3">
+									<input type="hidden" name="identitycard" class="form-control"
+										placeholder="Recipient's username"
+										aria-label="Recipient's username"
+										aria-describedby="button-addon2"
+										required="required"
+										value="${mb.getMemberInformation().getIdentitycard()}"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')">
+									<button class="btn btn-outline-secondary" type="button"
+										id="button-addon2">ç·¨è¼¯</button>
+								</div>
+							</div>
 
-						<div class="birthday">
-							¥Í¤é:<input type="date" name="birthday" required="required" />
+							<div class="gender">
+								æ€§åˆ¥: ç”·<a>${mb.getMemberInformation().getGender()}</a>
+								<input type="radio" name="gender" value=1 />å¥³<input
+									type="radio" name="gender" value=0 />
+							</div>
+							<input id="check" type="hidden" class="btn btn-success"
+								value="ç¢ºèª"> 
+								<input id="check1" type="hidden"
+								style="margin-left: 50px" class="btn btn-secondary" value="é‡ç½®">
 						</div>
-
-						<div class="identitycard">
-							¨­¤ÀÃÒ¦r¸¹:<a>${mb.getMemberInformation().getJob()}</a><input
-								type="hidden" name="identitycard"
-								value="${mb.getMemberInformation().getJob()}">
-							<button>½s¿è</button>
-						</div>
-
-						<div class="gender">
-							©Ê§O: ¨k<input type="radio" name="gender" value=1 />¤k<input
-								type="radio" name="gender" value=0 />
-						</div>
-						<input id="check" type="hidden" value="½T»{">
-					</form>
+					</div>
 				</div>
-		</div>
+			</div>
+		</form>
 	</div>
-	<!-- ======= Footer ======= -->
-	<jsp:include page="../incloud/footer-section.jsp" />
 </body>
 <script>
 	function editMemberInformation() {
@@ -129,8 +189,10 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 		$(this).parent().children("input").attr("type", "text");
 		$(this).remove();
 		$('input#check').attr("type", "submit");
+		$('input#check1').attr("type", "reset");
 	}
-
 	$('button').click(editMemberInformation);
 </script>
+<!-- ======= Footer ======= -->
+<jsp:include page="../incloud/footer-section.jsp" />
 </html>

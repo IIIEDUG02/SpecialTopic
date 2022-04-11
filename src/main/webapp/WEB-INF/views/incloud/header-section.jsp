@@ -48,6 +48,7 @@
 										<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
 									</ul></li>
 								<li><a href="/SpecialTopic/member/editInformation" type="button">個人資料</a></li>
+								<li><a href="/SpecialTopic/member/membermanage" type="button">學員管理</a></li>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
@@ -73,7 +74,6 @@
 								<h5 class="modal-title" id="exampleModalLabel">登入</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
-
 							</div>
 							<!-- Body -->
 							<div class="modal-body"
@@ -82,17 +82,22 @@
 									<!-- username -->
 									<div class="form-group">
 										<input type="text" name="username" required="required"
-											class="username form-control" placeholder="帳號 :">
+											class="username form-control" placeholder="帳號: ">
+											
 									</div>
 									<!-- passowrd -->
 									<div class="form-group">
 										<input type="password" name="password" required="required"
-											class="password form-control" placeholder="密碼 :">
+											class="password form-control" placeholder="密碼: ">
+											
 									</div>
 									<!-- checkbox -->
 									<div class="form-group">
 										<input type="checkbox" id="rememberMe-key"
 											name="rememberMe-key" class="remember">記住我的密碼
+											<a href="registerPage1" type="button"
+										class="memberregister" style="float:right;font-size:20px">點擊註冊</a>
+										<span style="float:right;font-size:20px">尚未成為學員?</span> 
 									</div>
 									<!-- 送出按鈕 -->
 									<div>
@@ -106,8 +111,7 @@
 								style="background-color: hsla(89, 43%, 51%, 0.3)">
 								<div class="signup">
 
-									<span>尚未成為會員?</span> <a href="registerPage1" type="button"
-										class="memberregister">立即註冊</a>
+									
 								</div>
 
 							</div>
