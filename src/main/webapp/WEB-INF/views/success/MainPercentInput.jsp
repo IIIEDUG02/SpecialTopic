@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <jsp:include page="../incloud/head-css.jsp" />
 <title>MainPercentInput</title>
-<link href="/SpecialTopic/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="/SpecialTopic/css/jquery-ui.css" rel="stylesheet" />
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/jquery-ui.min.js"></script>
 <script>
@@ -23,6 +23,14 @@
 .height100 {
 	height: 100px;
 }
+.width{
+	width: 600px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: rgb(210, 244, 224   ); 
+ }
+
 </style>
 </head>
 <body>
@@ -32,25 +40,24 @@
 		<div class="row">
 			<div class="col min-vh-100">
 			<div>
-					<table>
+					<table  align="center" class="width table table-striped">
 						<tr>
-							<td>課程ID:</td>
-							<td>課程名稱:</td>
-							<td>課程種類:</td>
-							<td>訂單數量:</td>
+							<td align="center" style="border-bottom:5px solid #000">課程ID:</td>
+							<td align="center" style="border-bottom:5px solid #000">課程名稱:</td>
+							<td align="center" style="border-bottom:5px solid #000">課程種類:</td>
+							<td align="center" style="border-bottom:5px solid #000">訂單數量:</td>
 						</tr>
 						<c:forEach var="ca" items="${classList}">
 							<tr>
-								<td ><c:out value="" /></td>
-								<td style="border-top:1px solid #000"><c:out value="${ca.get('cid')}" /></td>				
-								<td style="border-top:1px solid #000"><c:out value="${ca.get('title')}" /></td>				
-								<td style="border-top:1px solid #000"><c:out value="${ca.get('class_type')}" /></td>							
-								<td style="border-top:1px solid #000"><c:out value="共${ca.get('count')}筆" /></td>							
+								<td align="center"><c:out value="${ca.get('cid')}" /></td>				
+								<td align="center"><c:out value="${ca.get('title')}" /></td>				
+								<td align="center"><c:out value="${ca.get('class_type')}" /></td>							
+								<td align="center"><c:out value="共${ca.get('count')}筆" /></td>							
 							</tr>
 						</c:forEach>
 					</table>
-			</div>			
-				<div id="tabs">
+			</div >			
+				<div id="tabs" class="width" >
 					<ul>
 						<li><a href="#p1">學員工作統計</a></li>
 						<li><a href="#p2">學員性別統計</a></li>
@@ -61,7 +68,7 @@
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input type="text" name="id" /></td>
+									<td><input  class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
 									<td>${errors.jobid}</td>
 								</tr>
 								<tr>
@@ -76,7 +83,7 @@
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input type="text" name="id" /></td>
+									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
 									<td>${errors.genderid}</td>
 								</tr>
 								<tr>
@@ -91,11 +98,11 @@
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input type="text" name="id" /></td>
+									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
 									<td>${errors.ageid}</td>
 								</tr>
 								<tr>
-									<td><button type="submit" value="login">送出</button></td>
+									<td><button type="submit" style="background-color:#92F9BC" value="login">送出</button></td>
 									<td>${errors.agemsg}</td>
 								</tr>
 							</table>
