@@ -43,7 +43,7 @@ public class MemberController {
 	private UniversalTool ut;
 
 	@Autowired
-    private ResourceLoader resourceLoader;
+	private ResourceLoader resourceLoader;
 
 	@PostMapping(value = "/registerAction1", produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String registerAction1(@RequestParam Map<String, String> params, HttpSession session, Model m,
@@ -54,24 +54,26 @@ public class MemberController {
 			m.addAttribute("errMsg", "帳號已註冊");
 			return "member/registerPage1";
 		}
-		MemberInformation mbi = new MemberInformation();
 		
+		MemberInformation mbi = new MemberInformation();
+		mbi.setEmail(params.get("email"));
+
+		mb = new Member();
+		MemberRole mrb = new MemberRole();
+		mrb.setRole("normal");
+		mrb.setMember(mb);
+		List<MemberRole> rs = new ArrayList<>(1);
+		rs.add(mrb);
+
 		mb.setUsername(params.get("username"));
 		mb.setPassword(params.get("password"));
-		mbi.setEmail(params.get("email"));
 		mb.setActivated((short) 0);
-
+		mb.setRoles(rs);
 		
-		  mb = new Member();
-	        MemberRole mrb = new MemberRole();
-	        mrb.setRole("normal");
-	        mrb.setMember(mb);
-	        List<MemberRole> rs = new ArrayList<>(1);
-	        rs.add(mrb);
-	        
-	        mbi.setMember(mb);
-	        mb.setMemberInformation(mbi);
-	        ms.save(mb);
+		mb.setMemberInformation(mbi);
+		mbi.setMember(mb);
+		ms.save(mb);
+		
 		session.setAttribute("registerBean", mb);
 		return "redirect:/";
 	}
@@ -88,29 +90,28 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/editInformation")
-	public String editInformation(@RequestParam Map<String, String> params, Model m, HttpSession session,
-			Principal principal) throws ParseException {
+	public String editInformation(Model m, HttpSession session, Principal principal) {
 
 		Member mb = ut.getLoiginBean(session, principal);
 		m.addAttribute("mb", mb);
 		return "member/memberInformation";
 	}
 
-	@GetMapping("/member/editInformation/{uid}")
-	public String editInformationAdmin(Model m, HttpSession session, Principal principal, PathVariable pathVariable) {
-
-		if (ut.hasRole(principal, "admin")) {
-
+//	@GetMapping("/member/editInformation/{uid}")
+//	public String editInformationAdmin(Model m, HttpSession session, Principal principal, PathVariable pathVariable) {
+//
+//		if (ut.hasRole(principal, "admin")) {
+//
 //			Member mb = ut.getUsername(mb, uid);
 //			m.addAttribute("mb", mb);
+//
+//			return "member/memberInformation/{uid}";
+//		} else {
+//			return null;
+//		}
+//	}
 
-			return "member/memberInformation/{uid}";
-		} else {
-			return null;
-		}
-	}
-
-	@PostMapping(value = "/member/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@PostMapping(value = "/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session, Model m,
 			HttpServletRequest request) throws ParseException {
 
@@ -126,22 +127,17 @@ public class MemberController {
 		mbi.setGender(Integer.parseInt(params.get("gender")));
 		mbi.setPhone(params.get("phone"));
 		mb.setPassword(params.get("password"));
-
-		// mb.setRoles(null);
-
 		mb.setMemberInformation(mbi);
 		mbi.setMember(mb);
-
-		System.out.println(mb.getRoles().get(0));
 
 		ms.save(mb);
 
 		session.setAttribute("registerBean", mb);
-		return "member/memberInformation";
+		return "redirect:/";
 	}
-	
+
 	@GetMapping("/member/membermanage")
-	public String MemberDelete(){
+	public String MemberDelete() {
 
 //		if (ut.hasRole(p, "admin")) {
 //			ms.deleteByUsername(params.get("username"));
@@ -149,49 +145,49 @@ public class MemberController {
 //		}
 	}
 
-	@PostMapping(path = "/creatembphoto")
-	public String createphoto(@RequestParam("photo") MultipartFile mf, Map<String, String> params,Principal principal, HttpServletRequest request, Model m,
-			HttpSession session, @SessionAttribute Member member, Principal p)
-			throws IllegalStateException, IOException {
-
-		String pattern = "yyyy-MM-dd-HH-mm-ss";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-		Random random = new Random();
-		int rNumber = 10000 + random.nextInt(90000);
-
-		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-		if (type.isEmpty()) {
-			return "no photo";
-		}
-		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
-	
-		File tempDirFile = new File(tempDir);
-		tempDirFile.mkdirs();
-
-		String saveFilePath = tempDir + fileName;
-		File saveFile = new File(saveFilePath);
-
-		mf.transferTo(saveFile);
-		
-		Member mb = ut.getLoiginBean(session, principal);
-		
-		MemberInformation mbi = new MemberInformation();
-		
-		mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
-		mbi.setAddress(params.get("address"));
-		mbi.setEmail(params.get("email"));
-		mbi.setFullname(params.get("fullname"));
-		mbi.setJob(params.get("job"));
-		mbi.setPhone(params.get("phone"));
-		mbi.setGender(Integer.parseInt(params.get("gender")));
-		
-		mb.setPassword(params.get("password"));
-		m.addAttribute("mb", mb);
-		
-		
-		return "member/memberInformation/";
-	}
+//	@PostMapping(path = "/creatembphoto")
+//	public String createphoto(@RequestParam("photo") MultipartFile mf, Map<String, String> params,Principal principal, HttpServletRequest request, Model m,
+//			HttpSession session, @SessionAttribute Member member, Principal p)
+//			throws IllegalStateException, IOException {
+//
+//		String pattern = "yyyy-MM-dd-HH-mm-ss";
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//
+//		Random random = new Random();
+//		int rNumber = 10000 + random.nextInt(90000);
+//
+//		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+//		if (type.isEmpty()) {
+//			return "no photo";
+//		}
+//		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+//
+//		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
+//	
+//		File tempDirFile = new File(tempDir);
+//		tempDirFile.mkdirs();
+//
+//		String saveFilePath = tempDir + fileName;
+//		File saveFile = new File(saveFilePath);
+//
+//		mf.transferTo(saveFile);
+//		
+//		Member mb = ut.getLoiginBean(session, principal);
+//		
+//		MemberInformation mbi = new MemberInformation();
+//		
+//		mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
+//		mbi.setAddress(params.get("address"));
+//		mbi.setEmail(params.get("email"));
+//		mbi.setFullname(params.get("fullname"));
+//		mbi.setJob(params.get("job"));
+//		mbi.setPhone(params.get("phone"));
+//		mbi.setGender(Integer.parseInt(params.get("gender")));
+//		
+//		mb.setPassword(params.get("password"));
+//		m.addAttribute("mb", mb);
+//		
+//		
+//		return "member/memberInformation/";
+//	}
 }
