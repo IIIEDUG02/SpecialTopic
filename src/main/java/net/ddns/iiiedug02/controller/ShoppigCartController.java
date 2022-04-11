@@ -66,7 +66,7 @@ public class ShoppigCartController {
 
     @DeleteMapping("api/{cid}")
     @ResponseBody
-    public String deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
+    public ClassBean deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
 
         Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
@@ -76,24 +76,25 @@ public class ShoppigCartController {
         ShoppingCart sc = shoppigCartService.findByUidAndClassBean(loginBean.getUid(), cb);
         if (null != sc) {
             shoppigCartService.deleteById(sc.getId());
-            return "success";
+            return cb;
         }
-        return "fail";
+        return null;
 
     }
 
     @PostMapping("api/{cid}")
     @ResponseBody
-    public Object saveById(HttpSession session, Principal p, @PathVariable int cid) {
+    public ClassBean saveById(HttpSession session, Principal p, @PathVariable int cid) {
         Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
-            return "fail";
+            return null;
         }
 
         ShoppingCart sci = new ShoppingCart();
         ClassBean classBean = classBeanService.findById(cid);
         sci.setUid(loginBean.getUid());
         sci.setClassBean(classBean);
-        return shoppigCartService.save(sci);
+        shoppigCartService.save(sci);
+        return classBean;
     }
 }

@@ -1,14 +1,23 @@
+let CHECKOUTUTL = "/SpecialTopic/ShoppingCart/getInfo";
+
 function sc_del(cid) {
 	$('button#sc_btn_' + cid).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	$.ajax({
 		type: "delete",
 		url: "/SpecialTopic/ShoppingCart/api/" + cid,
+		dataType: "json",
+		contentType: "application/json",
 		success: function(data) {
-			if (data == "success") {
+			if (data != null) {
 				if ($('a#sum').length > 0) {
 					$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + cid).html()))
 				}
 				$('a#total').html(parseInt($('a#total').html()) - 1)
+				if ($('a#total').html() == "0") {
+					$('a#total').html("");
+					$('a.checkout').attr("href", "")
+				}
+				$('li.scitem' + cid).remove();
 
 				if (typeof ($('div#item1')[0]) != 'undefined') {
 					$('div#item' + cid).remove();
@@ -20,7 +29,6 @@ function sc_del(cid) {
 				}
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 			} else {
-				alert("網頁發生錯誤");
 				alert("網頁發生錯誤");
 			}
 		},
@@ -46,6 +54,11 @@ function sc_add(cid) {
 				$('button#sc_btn_' + cid).addClass("btn-danger");
 				$('button#sc_btn_' + cid).attr('onclick', "sc_del(" + cid + ")");
 				$('button#sc_btn_' + cid).html("從購物車中移出");
+				$('a.checkout').attr("href", CHECKOUTUTL);
+				
+				var ul = $('ul.shopping-cart-items');
+				var li = addItem(data);
+				ul.append(li);
 			} else {
 				alert("網頁發生錯誤");
 			}
@@ -61,7 +74,7 @@ function checkout() {
 	$('input#TotalAmount').val($('a#sum').html());
 	$('input#TradeDesc').val("TEST");
 	$('input#ItemName').val("");
-	$('h4#class_title').each(function() {
+	$('h3#class_title').each(function() {
 		if ($('input#ItemName').val() != "") {
 			$('input#ItemName').val($('input#ItemName').val() + "#")
 		}
@@ -86,7 +99,7 @@ function getShoppingCartList() {
 		dataType: "json",
 		contentType: "application/json",
 		success: function(data) {
-			indexRender(data)
+			listRender(data)
 		},
 		error: function() {
 			console.log("Error")
@@ -94,7 +107,7 @@ function getShoppingCartList() {
 	})
 }
 
-function indexRender(data) {
+function listRender(data) {
 	if (data != null) {
 		var count = Object.keys(data).length;
 		// badge build
@@ -119,32 +132,35 @@ function indexRender(data) {
 		var ul = $('ul.shopping-cart-items');
 		for (var i = 0; i < count; i++) {
 			var classBean = data[i]["classBean"];
-			var li = $('<li class="row"></li>');
-			var divImg = $('<div class="col-3"></div>')
-			var img = $('<img alt="item" width=60 hight=40 src="' + classBean["photo"] + '" />')
-			divImg.append(img);
-
-			var divItem = $('<div class="col-9"></div>');
-			var divName = $('<div class="item-name"></div>');
-			divName.append(classBean["title"]);
-			var divPrice = $('<div class="item-price"></div>');
-			var aPrice = $("<a></a>")
-			aPrice.append(classBean["price"]);
-			divPrice.append("$");
-			divPrice.append(aPrice);
-			divItem.append(divName);
-			divItem.append(divPrice);
-
-			li.append(divImg);
-			li.append(divItem);
+			var li = addItem(classBean);
 			ul.append(li);
-			ul.append("<hr / >");
+			
 		}
-
-
-
-
 	}
+}
+
+function addItem(classBean) {
+	var li = $('<li class="row scitem' + classBean["cid"] + '"></li>');
+	
+	var divItem = $('<div class="col-9"></div>');
+	var divName = $('<div class="item-name"></div>');
+	divName.append(classBean["title"]);
+	var divPrice = $('<div class="item-price"></div>');
+	var aPrice = $("<a></a>")
+	aPrice.append(classBean["price"]);
+	divPrice.append("$");
+	divPrice.append(aPrice);
+	divItem.append(divName);
+	divItem.append(divPrice);
+	
+	var divI = $('<div class="col-3"></div>')
+	var iR = Trash = $('<i class="fa fa-trash fa-2x"></i>')
+	divI.append(iR);
+
+	li.append(divItem);
+	li.append(divI);
+	li.append("<hr / >");
+	return li;
 }
 
 getShoppingCartList();	
