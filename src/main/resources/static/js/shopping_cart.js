@@ -2,7 +2,7 @@ function sc_del(cid) {
 	$('button#sc_btn_' + cid).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	$.ajax({
 		type: "delete",
-		url: "/SpecialTopic/ShoppingCart/" + cid,
+		url: "/SpecialTopic/ShoppingCart/api/" + cid,
 		success: function(data) {
 			if (data == "success") {
 				if ($('a#sum').length > 0) {
@@ -21,6 +21,7 @@ function sc_del(cid) {
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 			} else {
 				alert("網頁發生錯誤");
+				alert("網頁發生錯誤");
 			}
 		},
 		error: function(xhr, status) {
@@ -33,7 +34,7 @@ function sc_add(cid) {
 	$('button#sc_btn_' + cid).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 	$.ajax({
 		type: "post",
-		url: "http://localhost:8080/SpecialTopic/ShoppingCart/" + cid,
+		url: "/SpecialTopic/ShoppingCart/api/" + cid,
 		dataType: "json",
 		contentType: "application/json",
 		success: function(data) {
@@ -115,17 +116,18 @@ function indexRender(data) {
 		// item list build
 		var ul = $('ul.shopping-cart-items');
 		for (var i = 0; i < count; i++) {
+			var classBean = data[i]["classBean"];
 			var li = $('<li class="row"></li>');
 			var divImg = $('<div class="col-3"></div>')
-			var img = $('<img alt="item" width=60 hight=40 src="' + data[0]["classBean"]["photo"] + '" />')
+			var img = $('<img alt="item" width=60 hight=40 src="' + classBean["photo"] + '" />')
 			divImg.append(img);
 
 			var divItem = $('<div class="col-9"></div>');
 			var divName = $('<div class="item-name"></div>');
-			divName.append(data[0]["classBean"]["title"]);
+			divName.append(classBean["title"]);
 			var divPrice = $('<div class="item-price"></div>');
 			var aPrice = $("<a></a>")
-			aPrice.append(data[0]["classBean"]["price"]);
+			aPrice.append(classBean["price"]);
 			divPrice.append("$");
 			divPrice.append(aPrice);
 			divItem.append(divName);
