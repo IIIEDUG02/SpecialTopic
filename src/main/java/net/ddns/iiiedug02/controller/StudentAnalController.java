@@ -103,6 +103,28 @@ public class StudentAnalController {
 	return "success/MainPercentInput";
   }
   
+  @GetMapping("/getMoney")
+  public String getMoney(Model m) {
+    List<Map<String, Integer>> moneyList2022 = analyService.getMoney();
+    
+	m.addAttribute("moneyList2022", moneyList2022);
+	    
+	return "success/MoneyPage";
+  }
+  
+  @GetMapping("/getMostJob")
+  public String mostjob(Model m) {
+    List<Map<String, Integer>> mostjobList = analyService.mostjob();
+    
+    
+	m.addAttribute("mostjobList", mostjobList);
+	
+    
+	return "success/All";
+  }
+  
+  
+  
   
 
 }

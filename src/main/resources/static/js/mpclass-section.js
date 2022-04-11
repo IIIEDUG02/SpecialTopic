@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8080/SpecialTopic/mpclassfindtop5",
+		url: "/SpecialTopic/mpclassfindtop5",
 		contentType: "application/json",
 		dataType: "json",
 		success: function(data) {
