@@ -11,5 +11,3 @@
 <!-- Template Main JS File -->
 <script src="/SpecialTopic/assets/js/main.js"></script>
 
-<!-- 購物車 -->
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
