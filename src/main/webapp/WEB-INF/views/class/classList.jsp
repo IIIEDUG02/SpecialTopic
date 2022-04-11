@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 <script type="text/javascript" src="/SpecialTopic/js/class.js"></script>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
