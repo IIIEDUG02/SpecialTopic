@@ -8,16 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +33,11 @@ import org.springframework.web.bind.annotation.RestController;
 import net.ddns.iiiedug02.helpers.CommentHelper;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Comment;
+import net.ddns.iiiedug02.model.bean.Like;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.CommentService;
+import net.ddns.iiiedug02.model.service.LikeService;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 /**
@@ -56,41 +62,58 @@ public class CommentController {
   @Autowired
   private MemberService memberService;
   
+  @Autowired
+  private LikeService likeService;
   
   private final List<String> TYPE = Arrays.asList("course");
-  private CommentHelper commentHelper = CommentHelper.getInstance();
   
+  @Autowired
+  private CommentHelper commentHelper;
   
   /**
    * 根據課程編號與留言種類來取得該課程的所有留言。
    * 
-   * URL example:
-   * GET: domain:port/comment/comments?cid=2&type=course&pageNum=0&pageSize=10
+   * 使用 Time-based paging 方式來實作分頁，原因是傳統的 Offset-based paging ("numbered pages")
+   * 在呼叫 API 期間時，若有其他操作進來(create, delete)會造成回傳結果被改變。
    * 
+   * 詳見文章: https://www.mixmax.com/engineering/api-paging-built-the-right-way 
+   * 
+   * URL example:
+   * GET: domain:port/comment/comments?cbt=1649439013&cid=2&type=course&limit=10
+   * 
+   * @param cbt: Created Before Timestamp，以該時間點做分頁的條件
    * @param cid: 該課程的編號
    * @param type: 留言的種類
-   * @param pageNum: 頁數，表明當前資料是第幾頁，會由前端傳進來
-   * @param pageSize: 每頁的資料筆數，由前端傳進來
+   * @param limit: 每頁的資料筆數，由前端傳進來
    * @return 符合上述條件的所有留言的 JSON
    */
   @GetMapping("/comments")
-  public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam int cid, @RequestParam String type, 
-      @RequestParam int pageNum, @RequestParam int pageSize, Principal p) {
-    List<Comment> comments = commentService.getCommentsByCidAndCommentType(cid, type, pageNum, pageSize);
+  public ResponseEntity<Object> retrieveCommentsByCidAndType(@RequestParam Long cbt, @RequestParam int cid, 
+      @RequestParam String type, @RequestParam int limit, Principal p) {
+    Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cbt, cid, type, limit);
+    List<Comment> comments = pages.getContent();
     List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
+    Member member = null;
+    
+    if (p != null) {
+      member = memberService.findByUsername(p.getName());
+    }
     
     // 因可能查出來結果為零筆資料
     if (comments.size() != 0)
-      data = commentHelper.getResponseBody(comments);
+      data = commentHelper.getResponseBody(comments, member);
     
-    if (p != null) {
-      Member member = memberService.findByUsername(p.getName());
+    if (member != null) {
       Map<String, Object> result = new LinkedHashMap<String, Object>();
       
       // 放入登入者的基本資訊
       result.put("username", member.getMemberInformation().getFullname());
       result.put("avatar", member.getMemberInformation().getPhoto());
       result.put("result", data);
+      result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
+      
+      // 找出父留言中，時間最早的那一筆留言，來當作下次查詢的一個時間點依據
+      result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
       
       return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
@@ -134,6 +157,7 @@ public class CommentController {
     // 不管是不是子留言都要更新 UUID，不使用任何 hash 直接取前 24 個字
     comment.setUuid(UUID.randomUUID().toString().replace("-", "").substring(0, 24));
     comment.setMember(memberService.findByUsername(p.getName()));
+    comment.setTimestamp(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
     
     Comment c = commentService.create(comment);
     Map<String, Object> body = new LinkedHashMap<>();
@@ -144,7 +168,102 @@ public class CommentController {
     return new ResponseEntity<Object>(body, HttpStatus.CREATED);
   }
   
+  /**
+   * 更新留言，使用局部更新，因為只會要更新留言的內容，其他東西都不會動，因此寫了 SQL 語句來更新，
+   * 否則一次更新留言物件所有內容成本太高。
+   * 
+   * @param fields: 前端傳過來的 JSON(裡面只有 content 一個欄位)
+   * @param uuid: 要更新的留言 uuid
+   * @param p: Principal Object
+   * @return 簡易的 response({status: 200, result: "OK"})
+   */
+  @PatchMapping("/{uuid}")
+  public ResponseEntity<Object> updateComment(@RequestBody Map<String, String> fields, @PathVariable String uuid, Principal p) {
+    
+    if (p == null)
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    if (fields.size() == 0)
+      return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), "資料錯誤！");
+    
+    String content = fields.get("content");
+    
+    if (content == null || content.trim().length() == 0)
+      return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), "留言內容不可空白！");
+    
+    Member loggedInUser = memberService.findByUsername(p.getName());
+    Comment comment = commentService.getCommentByUuid(uuid);
+    
+    if (comment == null)
+      throw new NoSuchElementException("找不到目標留言！");
+    
+    Member member = comment.getMember();
+    
+    if (loggedInUser.getUid() != member.getUid())
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    // 更新留言
+    commentService.updateContentById(content, comment.getId());
+    
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", HttpStatus.OK.value());
+    body.put("result", "OK");
+    
+    return new ResponseEntity<Object>(body, HttpStatus.OK);
+  }
   
+  /**
+   * 留言點讚，該使用者是第一次點擊留言則新增一筆記錄，否則就更新。
+   * 
+   * @param p: Principal Object
+   * @param uuid: 留言的 uuid
+   * @param like: like or unlike
+   * @return 簡易的 response({status: 200, result: "OK"})
+   */
+  @PostMapping("/{uuid}/{like}")
+  public ResponseEntity<Object> createOrUpdateLike(Principal p, @PathVariable String uuid, @PathVariable String like) {
+    if (p == null)
+      throw new AccessDeniedException("您無此操作權限！");
+    
+    Comment comment = commentService.getCommentByUuid(uuid);
+    
+    if (comment == null)
+      throw new NoSuchElementException("找不到目標留言！");
+    
+    Member member = memberService.findByUsername(p.getName());
+    
+    if (like.equals("like")) {
+      // 如果使用者第一次點讚該該留言
+      if (!likeService.existsByCommentIdAndMembersUid(comment.getId(), member.getUid())) {
+        Like l = Like.builder()
+            .commentId(comment.getId())
+            .membersUid(member.getUid())
+            .liked(1)
+            .build();
+        
+        likeService.create(l);
+      } else {
+        // 更新點讚，原本可能收回讚，現在又點讚
+        likeService.updateByCommentIdAndMembersUid(1, comment.getId(), member.getUid());
+      }
+      
+      commentService.updateLikeCountById(comment.getLikeCount() + 1, comment.getId());
+    }
+    // 收回讚
+    else if (like.equals("unlike")) {
+      likeService.updateByCommentIdAndMembersUid(0, comment.getId(), member.getUid());
+      commentService.updateLikeCountById(comment.getLikeCount() - 1, comment.getId());
+    }
+    
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", HttpStatus.OK.value());
+    body.put("result", "OK");
+    
+    return new ResponseEntity<Object>(body, HttpStatus.OK);
+  }
+ 
   /**
    * 某些屬性不可為空，若為空則會引發 MethodArgumentNotValidException 異常
    * 並由此 method 補捉到後做處理，主要會回傳一些錯誤訊息與 HTTP 狀態碼(status code)
@@ -163,8 +282,6 @@ public class CommentController {
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Object> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
-    Map<String, Object> body = new LinkedHashMap<>();
-    
     // 收集最主要的錯誤訊息(default message)，否則原始錯誤訊息太長(因為包涵 tracking)
     List<String> messages = e.getBindingResult()
         .getFieldErrors()
@@ -172,13 +289,7 @@ public class CommentController {
         .map(x -> x.getDefaultMessage())
         .collect(Collectors.toList());
     
-    // 回傳給前端較有意義的訊息 
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("message", messages);
-    
-    return ResponseEntity
-        .status(HttpStatus.BAD_REQUEST)
-        .body(body);
+    return commentHelper.generateResponse(HttpStatus.BAD_REQUEST.value(), messages);
   }
   
   /**
@@ -191,13 +302,12 @@ public class CommentController {
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseEntity<Object> NoSuchElementExceptionHandler(NoSuchElementException e) {
-    Map<String, Object> body = new LinkedHashMap<>();
-    
-    body.put("status", HttpStatus.NOT_FOUND.value());
-    body.put("message", e.getMessage());
-    
-    return ResponseEntity
-        .status(HttpStatus.NOT_FOUND)
-        .body(body);
+    return commentHelper.generateResponse(HttpStatus.NOT_FOUND.value(), e.getMessage());
+  }
+  
+  @ExceptionHandler(AccessDeniedException.class)
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  public ResponseEntity<Object> NoSuchElementExceptionHandler(AccessDeniedException e) {
+    return commentHelper.generateResponse(HttpStatus.FORBIDDEN.value(), e.getMessage());
   }
 }

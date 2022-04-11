@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
@@ -21,14 +18,12 @@
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
-
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
-<!-- 購物車的JS -->
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+<!-- JavaScript -->
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script src="/SpecialTopic/js/shopping_cart.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 </head>
@@ -89,7 +84,7 @@
 					</h3>
 					<div class="text-end">
 						<form id="idFormAioCheckOut" method="post"
-							action="/SpecialTopic/ECPayServer" target="blank_">
+							action="/SpecialTopic/ECPayServer">
 							<input type="hidden" name="TotalAmount" id="TotalAmount" /> <input
 								type="hidden" name="TradeDesc" id="TradeDesc" /> <input
 								type="hidden" name="ItemName" id="ItemName" /> <input
@@ -105,7 +100,7 @@
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<div class="modal-header">
+										<div class="modal-header h-100">
 											<h5 class="modal-title" id="exampleModalLabel">確認付款</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
@@ -114,7 +109,8 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">取消</button>
-											<button type="button" class="btn btn-primary" onclick="checkout()">確認</button>
+											<button type="button" class="btn btn-primary"
+												onclick="checkout()">確認</button>
 										</div>
 									</div>
 								</div>
@@ -125,6 +121,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />

@@ -11,13 +11,20 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Comment;
+import net.ddns.iiiedug02.model.bean.Like;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
+import net.ddns.iiiedug02.model.service.LikeService;
 
 /**
  * @author Anna
@@ -25,19 +32,19 @@ import net.ddns.iiiedug02.model.bean.MemberInformation;
  * CommentController 的輔助類別，目前先求功能正常，之後要再做重構與修正。
  *
  */
+/**
+ * @author USER
+ *
+ */
+@Component
 public class CommentHelper {
+  @Autowired
+  private LikeService likeService;
+  
   // 前端顯示的時間會做格式化
   private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-  private static CommentHelper instance;
-  
-  
-  public static synchronized CommentHelper getInstance() {
-    if (instance == null)
-      instance = new CommentHelper();
 
-    return instance;
-  }
-  
+
   /**
    * 判斷留言的人是不是授課老師本人
    * 
@@ -47,6 +54,33 @@ public class CommentHelper {
    */
   public int isisInstructor(Member member, ClassBean classBean) {
     return member.getUid() == classBean.getUid() ? 1 : 0;
+  }
+  
+  public int isOwner(Member member, Member currentMember) {
+    if (currentMember == null)
+        return 0;
+    
+    return member.getUid() == currentMember.getUid() ? 1 : 0;
+  }
+  
+  
+  /**
+   * 判斷當下登入的使用者是否對這則留言點過讚，若點過則顯示紅愛心。
+   * 
+   * @param comment: Comment Object
+   * @param member: logged in user
+   * @return int: 0 or 1
+   */
+  public int liked(Comment comment, Member member) {
+    if (member == null)
+      return 0;
+    
+    List<Like> list = likeService.findByCommentIdAndMembersUid(comment.getId(), member.getUid());
+    
+    if (list.size() == 0)
+      return 0;
+    
+    return list.get(0).getLiked();
   }
   
   /**
@@ -93,6 +127,8 @@ public class CommentHelper {
     body.put("postTime", comment.getPostTime().format(FORMATTER));
     body.put("editTime", comment.getEditTime().format(FORMATTER));
     body.put("isInstructor", isisInstructor(comment.getMember(), classBean));
+    body.put("isOwner", 1);
+    body.put("likeCount", comment.getLikeCount());
     
     return body;
   }
@@ -138,7 +174,7 @@ public class CommentHelper {
    * @return Map Object
    */
   @SuppressWarnings("unchecked")
-  public List<Map<String, Object>> getResponseBody(List<Comment> comments) {
+  public List<Map<String, Object>> getResponseBody(List<Comment> comments, Member currMember) {
     List<Map<String, Object>> body = new ArrayList<Map<String,Object>>();
     List<Map<String, Object>> childrenList;
     Map<String, Object> parentMap;
@@ -172,6 +208,9 @@ public class CommentHelper {
           childMap.put("postTime", child.getPostTime().format(FORMATTER));
           childMap.put("editTime", child.getEditTime().format(FORMATTER));
           childMap.put("isInstructor", isisInstructor(m, classBean));
+          childMap.put("isOwner", isOwner(m, currMember));
+          childMap.put("liked", liked(child, currMember));
+          childMap.put("likeCount", child.getLikeCount());
             
           // 子留言的列表，因為可能有多則子留言
           childrenList.add(childMap);
@@ -198,18 +237,40 @@ public class CommentHelper {
       
       // 父留言會再添加子留言的屬性
       parentMap.put("comments", childrenList);
-
-      info = comment.getMember().getMemberInformation();
+      
+      Member m = comment.getMember();
+      info = m.getMemberInformation();
       member.put("username", info.getFullname());
       member.put("avatar", info.getPhoto());
       parentMap.put("member", member);
       parentMap.put("postTime", comment.getPostTime().format(FORMATTER));
       parentMap.put("editTime", comment.getEditTime().format(FORMATTER));
       parentMap.put("isInstructor", isisInstructor(comment.getMember(), classBean));
+      parentMap.put("isOwner", isOwner(m, currMember));
+      parentMap.put("liked", liked(comment, currMember));
+      parentMap.put("likeCount", comment.getLikeCount());
 
       body.add(parentMap);
     }
 
     return body;
+  }
+  
+  /**
+   * 建立 ResponseEntity 的輔助方法，方便直接設定回傳內容
+   * 
+   * @param statusVal: HTTP status code
+   * @param message: 錯誤訊息
+   * @return ResponseEntity Object
+   */
+  public ResponseEntity<Object> generateResponse(int statusVal, Object message) {
+    Map<String, Object> body = new LinkedHashMap<>();
+    
+    body.put("status", statusVal);
+    body.put("message", message);
+    
+    return ResponseEntity
+        .status(HttpStatus.BAD_REQUEST)
+        .body(body);
   }
 }

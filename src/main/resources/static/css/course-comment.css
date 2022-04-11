@@ -70,6 +70,10 @@ textarea {
   overflow-y: auto;
   outline: 0;
 }
+
+.relative {
+  position: relative;
+}
 /* Global style end */
 
 
@@ -98,7 +102,7 @@ textarea {
 }
 
 /* 購課前問 */
-.bRHHsq {
+.pb-mb-border-b {
   margin: 0px 0px 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -177,6 +181,47 @@ textarea {
 .comments .comment-extra-info,
 .comments .comment-extra-info a {
   color: rgba(0, 0, 0, 0.43);
+}
+
+/* like btn style */
+.heart-container {
+  display: inline-block;
+  white-space: nowrap;
+  min-width: 50px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0px 10px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.43);
+  background: inherit;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.heart {
+  padding-right: 3px;
+  transition: color 0.6s ease 0s;
+  color: rgba(0, 0, 0, 0.43);
+}
+
+.heart--filled {
+  padding-right: 3px;
+  transition: color 0.6s ease 0s;
+  color: rgb(240, 80, 80);
+}
+
+/* edit comment btn style */
+.btn-edit {
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.marg-l-10 {
+  margin-left: 10px;
 }
 
 /* content text style */
@@ -307,16 +352,6 @@ textarea {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.pad-rl-20 {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-
-.pad-tb-20 {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
 .marg-b-20 {
   margin-bottom: 20px;
 }
@@ -425,16 +460,86 @@ textarea {
   padding-right: 5px;
 }
 
-.fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Comment style end */
+
+/* Fake comment item start */
+.fake-comment-block {
+  position: relative;
 }
 
-/* Comment style end */
+.isolated-comment-item.fake-comment-item {
+  width: 100%;
+  min-height: 100px;
+  position: absolute;
+}
+
+.avatar .no-pointer {
+  cursor: auto;
+}
+
+.isolated-comment-item.fake-comment-item .comment-extra-info {
+  width: 200px;
+}
+
+.isolated-comment-item.fake-comment-item .comment-content,
+.isolated-comment-item.fake-comment-item .comment-extra-info {
+  height: 15px;
+  background: rgb(234, 234, 234);
+}
+
+.isolated-comment-item.fake-comment-item .comment-content {
+  width: 100%;
+}
+
+.isolated-comment-item.fake-comment-item::after {
+  content: "";
+  display: block;
+  width: calc(100% + 2px);
+  height: 100%;
+  position: absolute;
+  top: 1px;
+  left: -1px;
+  background: linear-gradient(rgba(243, 243, 241, 0) 0%, rgb(243, 243, 241) 100%);
+}
+
+/* button */
+.fake-item__button {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid rgba(0, 0, 0, 0.43);
+  white-space: nowrap;
+  user-select: none;
+  font-weight: 400;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.65);
+  padding: 5px 40px;
+  font-size: 20px;
+  border-radius: 3px;
+  min-width: 260px;
+  line-height: 1.8em;
+}
+
+.fake-item__button:hover {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.43);
+  color: rgb(250, 139, 0);
+}
+
+.fake-item__button:active {
+  background-color: transparent;
+  border-color: rgb(250, 139, 0);
+  color: rgb(250, 139, 0);
+}
+
+.marg-t-50 {
+  margin-top: 50px;
+}
+
+/* Fake comment item end */
 
 /* Media query start */
 @media (min-width: 768px) {

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import net.ddns.iiiedug02.exception.RoleNotFoundException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
@@ -33,6 +35,7 @@ import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
+@SessionAttributes({"classbean"})
 public class ClassController {
     @Autowired
     private CurriculumService cus;
@@ -48,6 +51,7 @@ public class ClassController {
 
     @Autowired
     private ClassManagementService cms;
+
 
     @Autowired
     private UniversalTool utool;
@@ -81,7 +85,7 @@ public class ClassController {
             }
             return "class/classList";
         }
-        return null;
+        throw new RoleNotFoundException();
     }
 
     // 進入編輯課程頁面
@@ -114,7 +118,8 @@ public class ClassController {
         // String oName = mf.getOriginalFilename();
         // int oNameLenghth = oName.length();
         // String fileName =
-        // simpleDateFormat.format(new Date()) + "-" + rNumber + oName.substring(oNameLenghth-4,
+        // simpleDateFormat.format(new Date()) + "-" + rNumber +
+        // oName.substring(oNameLenghth-4,
         // oNameLenghth);
         String type = FilenameUtils.getExtension(mf.getOriginalFilename());
         if (type.isEmpty()) {
@@ -133,8 +138,7 @@ public class ClassController {
         mf.transferTo(saveFile);
 
         m.addAttribute("photopath", "/SpecialTopic/classphoto/" + fileName);
-
-        return saveFilePath;
+        return "...";
     }
 
     // 尋找全部上線課程,api

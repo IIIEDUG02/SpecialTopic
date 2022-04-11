@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>雲端大學</title>
+<title>OOXX</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -18,12 +18,13 @@
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
   
-<!-- jQuery -->
+<!-- JavaScript -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
 <script src="/SpecialTopic/js/mpclass-section.js"></script>
+<script src="/SpecialTopic/js/shopping_cart.js"></script>
 
 
 <!-- =======================================================
@@ -41,7 +42,7 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container" data-aos="fade-in">
-			<h1>雲端大學</h1>
+			<h1>OOXX</h1>
 			<h2>學習無所不在，隨時、隨地</h2>
 			<img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs"
 				data-aos="zoom-out" data-aos-delay="100">
@@ -257,121 +258,6 @@
 			</div>
 		</section>
 		<!-- End Features Section -->
-
-		<!-- ======= Popular Courses Section ======= -->
-<!-- 		<section id="popular-courses" class="courses"> -->
-<!-- 			<div class="container" data-aos="fade-up"> -->
-
-<!-- 				<div class="section-title"> -->
-<!-- 					<h2>Courses</h2> -->
-<!-- 					<p>熱門課程</p> -->
-<!-- 				</div> -->
-<!-- 				======= TODO：宥竣 ======= -->
-<!-- 				<div class="row" data-aos="zoom-in" data-aos-delay="100"> -->
-
-<!-- 					<div class="col-lg-4 col-md-6 d-flex align-items-stretch"> -->
-<!-- 						<div class="course-item"> -->
-<!-- 							<img src="assets/img/course-1.jpg" class="img-fluid" alt="..."> -->
-<!-- 							<div class="course-content"> -->
-<!-- 								<div -->
-<!-- 									class="d-flex justify-content-between align-items-center mb-3"> -->
-<!-- 									<h4>Web Development</h4> -->
-<!-- 									<p class="price">$169</p> -->
-<!-- 								</div> -->
-
-<!-- 								<h3> -->
-<!-- 									<a href="course-details.html">Website Design</a> -->
-<!-- 								</h3> -->
-<!-- 								<p>Et architecto provident deleniti facere repellat nobis -->
-<!-- 									iste. Id facere quia quae dolores dolorem tempore.</p> -->
-<!-- 								<div -->
-<!-- 									class="trainer d-flex justify-content-between align-items-center"> -->
-<!-- 									<div class="trainer-profile d-flex align-items-center"> -->
-<!-- 										<img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" -->
-<!-- 											alt=""> <span>Antonio</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="trainer-rank d-flex align-items-center"> -->
-<!-- 										<i class="bx bx-user"></i>&nbsp;50 &nbsp;&nbsp; <i -->
-<!-- 											class="bx bx-heart"></i>&nbsp;65 -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					End Course Item -->
-
-<!-- 					<div -->
-<!-- 						class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0"> -->
-<!-- 						<div class="course-item"> -->
-<!-- 							<img src="assets/img/course-2.jpg" class="img-fluid" alt="..."> -->
-<!-- 							<div class="course-content"> -->
-<!-- 								<div -->
-<!-- 									class="d-flex justify-content-between align-items-center mb-3"> -->
-<!-- 									<h4>Marketing</h4> -->
-<!-- 									<p class="price">$250</p> -->
-<!-- 								</div> -->
-
-<!-- 								<h3> -->
-<!-- 									<a href="course-details.html">Search Engine Optimization</a> -->
-<!-- 								</h3> -->
-<!-- 								<p>Et architecto provident deleniti facere repellat nobis -->
-<!-- 									iste. Id facere quia quae dolores dolorem tempore.</p> -->
-<!-- 								<div -->
-<!-- 									class="trainer d-flex justify-content-between align-items-center"> -->
-<!-- 									<div class="trainer-profile d-flex align-items-center"> -->
-<!-- 										<img src="assets/img/trainers/trainer-2.jpg" class="img-fluid" -->
-<!-- 											alt=""> <span>Lana</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="trainer-rank d-flex align-items-center"> -->
-<!-- 										<i class="bx bx-user"></i>&nbsp;35 &nbsp;&nbsp; <i -->
-<!-- 											class="bx bx-heart"></i>&nbsp;42 -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					End Course Item -->
-
-
-<!-- 					<div -->
-<!-- 						class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0"> -->
-<!-- 						<div class="course-item"> -->
-<!-- 							<img src="assets/img/course-3.jpg" class="img-fluid" alt="..."> -->
-<!-- 							<div class="course-content"> -->
-<!-- 								<div -->
-<!-- 									class="d-flex justify-content-between align-items-center mb-3"> -->
-<!-- 									<h4>Content</h4> -->
-<!-- 									<p class="price">$180</p> -->
-<!-- 								</div> -->
-
-<!-- 								<h3> -->
-<!-- 									<a href="course-details.html">Copywriting</a> -->
-<!-- 								</h3> -->
-<!-- 								<p>Et architecto provident deleniti facere repellat nobis -->
-<!-- 									iste. Id facere quia quae dolores dolorem tempore.</p> -->
-<!-- 								<div -->
-<!-- 									class="trainer d-flex justify-content-between align-items-center"> -->
-<!-- 									<div class="trainer-profile d-flex align-items-center"> -->
-<!-- 										<img src="assets/img/trainers/trainer-3.jpg" class="img-fluid" -->
-<!-- 											alt=""> <span>Brandon</span> -->
-<!-- 									</div> -->
-<!-- 									<div class="trainer-rank d-flex align-items-center"> -->
-<!-- 										<i class="bx bx-user"></i>&nbsp;20 &nbsp;&nbsp; <i -->
-<!-- 											class="bx bx-heart"></i>&nbsp;85 -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					End Course Item -->
-<!-- 					======= END:TODO ======= -->
-<!-- 				</div> -->
-
-
-<!-- 			</div> -->
-<!-- 		</section> -->
-		<!-- End Popular Courses Section -->
-
 
     <!-- ======= Trainers Section ======= -->
 <%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>

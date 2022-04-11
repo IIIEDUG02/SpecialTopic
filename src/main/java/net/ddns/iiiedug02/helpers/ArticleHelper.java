@@ -43,6 +43,8 @@ public class ArticleHelper {
   }
 
   public boolean hasRole(Principal principal, String role) {
+    String prefix = "ROLE_";
+    
     // 如果有登入過，可以取得 principal 物件，否則 principal 物件為 null
     if (principal != null) {
       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +54,7 @@ public class ArticleHelper {
       Set<String> roles = authentication.getAuthorities().stream().map(r -> r.getAuthority())
           .collect(Collectors.toSet());
 
-      return roles.contains(role);
+      return roles.contains(prefix + role);
     }
 
     return false;
