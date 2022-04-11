@@ -40,9 +40,10 @@
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
 	<div class="container">
-		<div class="player m-3 p-3 shadow">
+		<div id="video-container" class="player m-3 p-3 shadow">
+			<input id="cuid" type="hidden" value="${CurriculumList[0].getCuid()}"/>
 			<video controls controlsList="nodownload">
-				<source src="/SpecialTopic/classvideo/123.mp4"
+				<source src="${CurriculumList[0].getVideo_path()}"
 					type="video/mp4">
 				<!-- fallback content here -->
 			</video>
