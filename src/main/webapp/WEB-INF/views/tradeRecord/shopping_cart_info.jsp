@@ -13,8 +13,7 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<jsp:include page="../incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
@@ -22,17 +21,16 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
 <!-- JavaScript -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
+<jsp:include page="../incloud/head-js.jsp" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	
 </head>
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-	<!-- ======= Breadcrumbs ======= -->
-	<div class="breadcrumbs" data-aos="fade-in"></div>
-	<!-- End Breadcrumbs -->
+
+	<div class="height100"></div>
 
 	<!-- main start -->
 	<div class="container  min-vh-100">
@@ -56,19 +54,19 @@
 				<hr class="border-2 border-top border-black">
 				<c:forEach var="item" items="${shoppingCartList}">
 					<div id="item${item.getClassBean().getCid()}"
-						class="row m-3 shadow p-1">
-						<div class="col-6">
-							<h4 id="class_title">${item.getClassBean().getTitle()}</h4>
+						class="row m-3 p-1">
+						<div class="col-6 d-inline-flex">
+							<h3 id="class_title" class="p-2">${item.getClassBean().getTitle()}</h3>
 						</div>
-						<div class="col-4">
-							<h4 id="price${item.getClassBean().getCid()}">${item.getClassBean().getPrice()}</h4>
+						<div class="col-4 d-inline-flex">
+							<h3 id="price${item.getClassBean().getCid()}"  class="p-2">${item.getClassBean().getPrice()}</h3>
 						</div>
 						<input type="hidden" id="hidden_cid"
 							value="${item.getClassBean().getCid()}" />
-						<div class="col-2">
+						<div class="col-2 p-2">
 							<button type="button" class="btn btn-danger"
 								id="sc_btn_${item.getClassBean().getCid()}"
-								onclick="sc_del(${item.getClassBean().getCid()})">從購物車中移出</button>
+								onclick="sc_del(${item.getClassBean().getCid()})"><i class="fa fa-trash fa-2x"></i></button>
 						</div>
 					</div>
 				</c:forEach>
@@ -100,12 +98,12 @@
 								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<div class="modal-header h-100">
-											<h5 class="modal-title" id="exampleModalLabel">確認付款</h5>
+										<div class="modal-header">
+											<h3 class="modal-title" id="exampleModalLabel">確認付款</h3>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">請確認購買的課程及付款金額，確定後將前往綠界付款API</div>
+										<div class="modal-body">請確認購買的<font color="red">課程</font>及<font color="red">付款金額</font>，確定後將前往綠界付款API。</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">取消</button>

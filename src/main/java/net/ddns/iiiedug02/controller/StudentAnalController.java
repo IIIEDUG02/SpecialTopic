@@ -55,7 +55,7 @@ public class StudentAnalController {
     	m.addAttribute("genderList", GenderList);
 		return "success/Success6";
 	}
-    errors.put("gendermsg", "課程ID不存在");
+    errors.put("gendermsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
   
@@ -77,7 +77,7 @@ public class StudentAnalController {
     	m.addAttribute("agePercentList", agePercentList);
 		return "success/Success7";
 	}
-    errors.put("agemsg", "課程ID不存在");
+    errors.put("agemsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
   
@@ -99,9 +99,31 @@ public class StudentAnalController {
     	m.addAttribute("jobPercentList", jobPercentList);
 		return "success/Success8";
 	}
-    errors.put("jobmsg", "課程ID不存在");
+    errors.put("jobmsg", "訂單中無此課程");
 	return "success/MainPercentInput";
   }
+  
+  @GetMapping("/getMoney")
+  public String getMoney(Model m) {
+    List<Map<String, Integer>> moneyList2022 = analyService.getMoney();
+    
+	m.addAttribute("moneyList2022", moneyList2022);
+	    
+	return "success/MoneyPage";
+  }
+  
+  @GetMapping("/getMostJob")
+  public String mostjob(Model m) {
+    List<Map<String, Integer>> mostjobList = analyService.mostjob();
+    
+    
+	m.addAttribute("mostjobList", mostjobList);
+	
+    
+	return "success/All";
+  }
+  
+  
   
   
 

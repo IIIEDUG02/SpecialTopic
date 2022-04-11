@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ecpay.payment.integration.AllInOne;
 import net.ddns.iiiedug02.util.UniversalTool;
 
 @Configuration
@@ -18,6 +19,11 @@ public class BeanConfig {
     @Bean
     public UniversalTool universalTool() {
         return new UniversalTool();
+    }
+
+    @Bean
+    public AllInOne allInOne() {
+        return new AllInOne("");
     }
 
 }

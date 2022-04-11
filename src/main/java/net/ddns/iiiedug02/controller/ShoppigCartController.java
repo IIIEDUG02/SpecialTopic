@@ -21,36 +21,37 @@ import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ShoppingCartService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
+/*
+ * 購物車相關的Controller
+ */
 @Controller
 @RequestMapping("ShoppingCart")
 public class ShoppigCartController {
 
     @Autowired
     private UniversalTool utool;
-
     @Autowired
     private ShoppingCartService shoppigCartService;
-
     @Autowired
     private ClassBeanService classBeanService;
 
+    /*
+     * RESTfull API，取的購物車清單
+     */
     @GetMapping("api/getList")
     @ResponseBody
     @CrossOrigin(origins = "*")
     public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
         Member loginBean = utool.getLoiginBean(session, p);
-        if (null == loginBean) {
-            throw new NotLoginException();
-        }
         return shoppigCartService.findAllByUid(loginBean.getUid());
     }
 
+    /*
+     * 導向購物車頁面，傳遞購物車清單、總價
+     */
     @GetMapping("getInfo")
     public String getShoppingCart(HttpSession session, Principal p, Model m) {
         Member loginBean = utool.getLoiginBean(session, p);
-        if (null == loginBean) {
-            throw new NotLoginException();
-        }
 
         List<ShoppingCart> scl = shoppigCartService.findAllByUid(loginBean.getUid());
         int sum = 0;
@@ -63,9 +64,9 @@ public class ShoppigCartController {
         return "tradeRecord/shopping_cart_info";
     }
 
-    @DeleteMapping("{cid}")
+    @DeleteMapping("api/{cid}")
     @ResponseBody
-    public String deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
+    public ClassBean deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
 
         Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
@@ -75,24 +76,25 @@ public class ShoppigCartController {
         ShoppingCart sc = shoppigCartService.findByUidAndClassBean(loginBean.getUid(), cb);
         if (null != sc) {
             shoppigCartService.deleteById(sc.getId());
-            return "success";
+            return cb;
         }
-        return "fail";
+        return null;
 
     }
 
-    @PostMapping("{cid}")
+    @PostMapping("api/{cid}")
     @ResponseBody
-    public Object saveById(HttpSession session, Principal p, @PathVariable int cid) {
+    public ClassBean saveById(HttpSession session, Principal p, @PathVariable int cid) {
         Member loginBean = utool.getLoiginBean(session, p);
         if (null == loginBean) {
-            return "fail";
+            return null;
         }
 
         ShoppingCart sci = new ShoppingCart();
         ClassBean classBean = classBeanService.findById(cid);
         sci.setUid(loginBean.getUid());
         sci.setClassBean(classBean);
-        return shoppigCartService.save(sci);
+        shoppigCartService.save(sci);
+        return classBean;
     }
 }

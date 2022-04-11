@@ -32,17 +32,17 @@
 form .username, form .password, form .repassword, form .fullname, form .email,
 	form .address, form .phone, form .job, form .identitycard {
 	border-radius: 10px;
-	margin: 10px;
+	margin: 30px;
 }
 
-<style>.main-box {
-	margin: 50px auto;
-	width: 400px;
-	height: 570px;
-	padding: 50px;
-	box-shadow: 5px 5px 10px #999;
-	border: 1px solid #fff text-align:center;
-	font-size: 1.0em;
+/* <style>.main-box { */
+/* 	margin: 50px auto; */
+/* 	width: 400px; */
+/* 	height: 570px; */
+/* 	padding: 50px; */
+/* 	box-shadow: 5px 5px 10px #999; */
+/* 	border: 1px solid #fff text-align:center; */
+/* 	font-size: 1.0em; */
 }
 </style>
 </head>
@@ -53,6 +53,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 
 	<div class="container">
 		<div class="row">
+		<div class="col"><img src="/SpecialTopic/img/register/littletree.jpg"></div>
 			<div class="col">
 				<div class="header1">
 					<h3 style="text-align: left">帳號註冊</h3>
@@ -60,72 +61,33 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 				<form action="/SpecialTopic/registerAction1" id="registerform"
 					METHOD="POST">
 					<div class="form-group1">
-						<input type="text" id="username" name="username" class="username"
+						帳號:<input type="text" onkeyup="this.value=this.value.replace(/\s+/g,'')" id="username" name="username" class="username"
 							placeholder="帳號:" required="required" maxlength="16" />
 					</div>
 					<div class="form-group1">
-						<input type="password" id="password" name="password"
+						密碼:<input type="password" id="password" name="password" onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							class="password" placeholder="密碼:" required="required"
 							maxlength="20" />
 					</div>
 					<div class="form-group1">
-						<input type="password" id="repassword" name="repassword"
+						確認密碼:<input type="password" id="repassword" name="repassword" onkeyup="this.value=this.value.replace(/\s+/g,'')"
 							class="repassword" required="required" maxlength="20"
 							placeholder="確認密碼:" />
 					</div>
 					<div class="form-group1">
-						<input type="text" name="fullname" required="required"
-							class="fullname" placeholder="姓名:" />
-					</div>
-
-					<div class="form-group1">
-						<input type="text" name="email" id="email" required="required"
+						電子信箱:<input type="text" onkeyup="this.value=this.value.replace(/\s+/g,'')" name="email" id="email" required="required"
 							class="email" placeholder="電子信箱:" />
 					</div>
 
-					<div class="form-group1">
-						<input type="text" name="address" required="required"
-							class="address" placeholder="地址:" />
-					</div>
 
 					<div class="form-group1">
-						<input type="text" name="phone" id="phone" required="required"
-							class="phone" placeholder="手機:" />
-					</div>
-
-					<div class="form-group1">
-						生日:<input type="date" name="birthday" required="required" />
-					</div>
-
-					<div class="form-group1">
-						<input type="text" name="job" required="required" class="job"
-							placeholder="工作:" />
-					</div>
-
-					<div class="form-group1">
-						<input type="text" id="identitycard" name="identitycard"
-							required="required" class="identitycard" placeholder="身分證字號:" />
-					</div>
-
-					<div class="form-group1">
-						<input type="text" name="passportname" required="required"
-							class="address" class="passportname" placeholder="護照英文名子:" />
-					</div>
-
-					<div class="form-group1">
-						性別: 男<input type="radio" name="gender" value=1 />女<input
-							type="radio" name="gender" value=0 />
-					</div>
-
-					<div class="form-group1">
-						<input type="button" value="送 出" onclick="check()" /> <input
-							type="button"
-							onclick="javascript:window.location = '/SpecialTopic/'"
+						<input type="button" value="送 出" onclick="check()" /> 
+						<input type="button" style="margin-left:160px" onclick="javascript:window.location = '/SpecialTopic/'"
 							value="返 回 首 頁" />
 					</div>
 				</form>
 			</div>
-			<div class="col">塗片放這邊</div>
+			
 		</div>
 	</div>
 

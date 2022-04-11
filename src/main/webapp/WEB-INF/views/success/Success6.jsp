@@ -8,7 +8,11 @@
 <meta charset="UTF-8">
 <jsp:include page="../incloud/head-css.jsp" />
 <title>Success</title>
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+<script src="/SpecialTopic/js/jquery.table2excel.js"></script>
 <style>
 .position_fixed {
 	position: fixed;
@@ -28,18 +32,19 @@
 				<div class="col min-vh-100">
 	
 	
-	<table>
-		<thead>
+	
+	<table class="table2excel">
+		
 			<tr>
 				<td>資料成功存入:</td>
 				<td>課程ID:</td>
 				<td>性別:</td>
 				<td>該性別數量:</td>
 				<td>該性別占比:</td>
-<%-- 				<td>${fn:length(genderList)}</td> --%>
+
 			</tr>
-		</thead>
-		<tbody>		
+		
+			
 			<c:forEach var="th" items="${genderList}">
 				<tr>
 					<td ><c:out value="" /></td>
@@ -48,10 +53,14 @@
 					<td style="border-top:1px solid #000"><c:out value="共${th.get('countgender')}筆" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="${th.get('ratio')} %" /></td>				
 				</tr>
-			</c:forEach>		
-		</tbody>
+			</c:forEach>	
+				
+		
 	</table>
+	<input class="btn" type="button"  value="點選匯出excel">
+	
 	<div id="container" style="height: 400px"></div>
+	
 	<script>
 
 	Highcharts.chart('container',{
@@ -112,6 +121,28 @@
 			  }]
 			});
 	</script>
+	<script type="text/javascript">
+            
+                $(".btn").click(function(){
+                    $(".table2excel").table2excel({
+                        // 不被匯出的表格行的CSS class類
+                        exclude: ".noExl",
+                        // 匯出的Excel文件的名稱
+                        name: "Excel Document Name",
+                        // Excel檔案的名稱
+                        filename: "test",
+                        //檔案字尾名
+                        fileext: ".xls",
+                        //是否排除匯出圖片
+                        exclude_img: false,
+                        //是否排除匯出超連結
+                        exclude_links: false,
+                        //是否排除匯出輸入框中的內容
+                        exclude_inputs: false
+                    });
+                }); 
+           
+        </script>
 	</div>
 		</div>
 	</div>

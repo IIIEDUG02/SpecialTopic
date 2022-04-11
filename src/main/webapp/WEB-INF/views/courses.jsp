@@ -13,13 +13,7 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+<jsp:include page="incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
@@ -28,6 +22,8 @@
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
 <script src="/SpecialTopic/js/class.js"></script>
+<!-- Head js -->
+<jsp:include page="incloud/head-js.jsp" />
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
@@ -40,20 +36,9 @@
 
 	<!-- ======= Header ======= -->
 	<jsp:include page="incloud/header-section.jsp" />
+	<div class="height100"></div>
 
 	<main id="main" data-aos="fade-in">
-
-		<!-- ======= Breadcrumbs ======= -->
-		<div class="breadcrumbs">
-			<div class="container">
-				<h2>Courses</h2>
-				<p>Est dolorum ut non facere possimus quibusdam eligendi
-					voluptatem. Quia id aut similique quia voluptas sit quaerat
-					debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo
-					harum praesentium.</p>
-			</div>
-		</div>
-		<!-- End Breadcrumbs -->
 
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">

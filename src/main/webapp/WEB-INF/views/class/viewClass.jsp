@@ -36,6 +36,9 @@
 <!-- Animate CSS -->
 <link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
 </head>

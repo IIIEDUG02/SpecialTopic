@@ -49,4 +49,12 @@ public class StudentAnalService {
 	public List<Map<String, Integer>> getJobPercentbyID(String cid){
 		return analRepo.getJobPercentbyID(cid);
 	}
+	
+	public List<Map<String, Integer>> getMoney(){
+		return analRepo.getMoney();
+	}
+	
+	public List<Map<String, Integer>> mostjob(){
+		return analRepo.mostjob();
+	}
 }

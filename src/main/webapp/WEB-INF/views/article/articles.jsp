@@ -97,7 +97,7 @@
 
 				<!-- 判斷使用者是否已登入並且有 admin 角色才能夠新增文章 -->
         <c:if test = "${empty tag}">
-  				<sec:authorize access="hasRole('ROLE_admin') and isAuthenticated()">
+  				<sec:authorize access="isAuthenticated() and (hasRole('ROLE_admin') or hasRole('ROLE_teacher'))">
   					<div class="create-article">
   						<a href="articles/create" class="get-started-btn">發佈文章</a>
               <a class="get-started-btn" data-bs-toggle="offcanvas" 
@@ -117,7 +117,7 @@
 							<div id="authorMeta" class="author-meta">
 								<div class="author-meta__author"></div>
 								<!-- 取出發布文章的人，顯示 username -->
-								${article.getMember().getUsername()}
+								${article.getMember().getMemberInformation().getFullname()}
 							</div>
 
 							<!-- publishDateMeta -->
@@ -307,9 +307,9 @@
   	    
   	    try {
   	      // 向後端發送 AJAX 請求並等待結果回傳,await=等待
-  	      const result = await ArticlesPage.ajax(ArticlesPage.DELETE_URL, {uuid: uuid})
+  	      const result = await ArticlesPage.ajax("POST", ArticlesPage.DELETE_URL, {uuid: uuid})
   	     	
-  	      if (result.response === ArticlesPage.HTTP_OK) {
+  	      if (result.response) {
   	    		console.log(result)
   	        li.remove()
   	        article.remove()

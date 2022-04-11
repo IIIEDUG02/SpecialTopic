@@ -12,6 +12,8 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
   public Optional<Member> findByUid(int uid);
   
+  public boolean deleteByUsername(String username);
+  
   @Query(value = "select count(*) from members", nativeQuery = true)
   public int countMember();
 
