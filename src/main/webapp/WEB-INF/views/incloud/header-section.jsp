@@ -133,13 +133,6 @@
 	<ul class="shopping-cart-items">
 		
 	</ul>
-	<!-- 購物車總價 -->
-	<div class="shopping-cart-header">
-		<div class="shopping-cart-total">
-			<span class="lighter-text">總價:</span> <span class="main-color-text">$2,229.97</span>
-		</div>
-	</div>
-
 	<!-- 結帳 -->
 	<a class="btn btn-success checkout" href="/SpecialTopic/ShoppingCart/getInfo"
 		class="button">結帳</a>
