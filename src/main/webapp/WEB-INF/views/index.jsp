@@ -21,8 +21,10 @@
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
 
+<!-- Head js -->
+<jsp:include page="incloud/head-js.jsp" />
+
 <!-- JavaScript -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
