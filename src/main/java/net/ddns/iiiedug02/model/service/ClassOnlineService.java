@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,17 @@ public class ClassOnlineService {
 		return coRepo.findAll();
 	}
 	
+	public List<ClassOnlineBean> findAllOnlineClass() {
+		return coRepo.findAllOnlineClass();
+	}
+	
+	public ClassOnlineBean findByCid(Integer cid) {
+        Optional<ClassOnlineBean> op1 = coRepo.findById(cid);
+
+        if (op1.isEmpty()) {
+            return null;
+        }
+
+        return op1.get();
+    }
 }	

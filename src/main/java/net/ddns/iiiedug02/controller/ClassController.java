@@ -77,8 +77,6 @@ public class ClassController {
 			List<ClassManagementBean> cmbList = cms.findByUid(loginBean.getUid());
 			List<ClassBean> completeList = new ArrayList<ClassBean>();
 			List<ClassBean> uncompleteList = new ArrayList<ClassBean>();
-			List<ClassBean> completeCMList = new ArrayList<ClassBean>();
-			List<ClassBean> uncompleteCMList = new ArrayList<ClassBean>();
 
 			if (!cmbList.isEmpty()) {
 				for (ClassManagementBean cmb : cmbList) {
@@ -247,7 +245,7 @@ public class ClassController {
 	@GetMapping(path = "class/allonline")
 	@ResponseBody
 	public List<ClassBean> findAllOnlineClass() {
-		List<ClassOnlineBean> coList = cos.findAll();
+		List<ClassOnlineBean> coList = cos.findAllOnlineClass();
 		List<ClassBean> cbList = new ArrayList<ClassBean>();
 		for (ClassOnlineBean co : coList) {
 			ClassBean cb = cbs.findById(co.getCid());
@@ -308,32 +306,55 @@ public class ClassController {
 
 	}
 
-	@GetMapping("class/showClassType")
-	public List<String> showClassType(HttpServletRequest request, Model m) {
+	@GetMapping("courses")
+	public String showClassType(HttpServletRequest request, Model m) {
 		List<String> classTypeList = cbs.findAllClassType();
 		m.addAttribute("classTypeList", classTypeList);
-		return classTypeList;
+		return "courses";
 	}
-	@GetMapping("class/showClassType/{classType}")
+	@GetMapping("class/api/showClassType/{classType}")
+	@ResponseBody
 	public List<ClassBean> showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
 		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
 		m.addAttribute("classOneTypeList", classOneTypeList);
 		return classOneTypeList;
 	}
+	/*
+	*更改classmanagement status to 1
+	*/
 	@PostMapping("class/api/classmanagement/on/{cid}")
+	@ResponseBody
 	public String manageClassToOn(@PathVariable("cid")int cid,Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(1);
 		cms.update(cmb);
-		return "class/classList";
+		return "sucesss";
 	}
+	/*
+	*更改classmanagement status to 1
+	*/
 	@PostMapping("class/api/classmanagement/off/{cid}")
+	@ResponseBody
 	public String manageClassToOff(@PathVariable("cid")int cid,Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(0);
 		cms.update(cmb);
-		return "class/classList";
+		return "sucesss";
 	}
+	/*
+	* set class to online
+	*/
+//	@PostMapping("class/api/postToOnline/{cid}/{status}")
+//	public boolean postToOnline(@PathVariable("status")int status,@PathVariable("cid")int cid,Principal principal,HttpServletRequest request) {
+//		 if (utool.hasRole(principal, "admin")) {
+//			 throw new RoleNotFoundException();
+//		 }
+//		 if (null == cos.findByCid(cid)) {
+//			 
+//		 }
+//		return true;
+//	}
+
 }
