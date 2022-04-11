@@ -1,6 +1,8 @@
 package net.ddns.iiiedug02.model.bean;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,8 @@ import lombok.Setter;
 public class ProgressRecord {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id = 0;
 
     private int uid;
 
