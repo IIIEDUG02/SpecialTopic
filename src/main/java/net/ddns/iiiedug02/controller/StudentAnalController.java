@@ -105,13 +105,22 @@ public class StudentAnalController {
   
   @GetMapping("/getMoney")
   public String getMoney(Model m) {
-    List<Map<String, Integer>> moneyList = analyService.getMoney();
+    List<Map<String, Integer>> moneyList2022 = analyService.getMoney();
+    
+	m.addAttribute("moneyList2022", moneyList2022);
+	    
+	return "success/MoneyPage";
+  }
+  
+  @GetMapping("/getMostJob")
+  public String mostjob(Model m) {
+    List<Map<String, Integer>> mostjobList = analyService.mostjob();
     
     
-	m.addAttribute("moneyList", moneyList);
+	m.addAttribute("mostjobList", mostjobList);
 	
     
-	return "success/MoneyPage";
+	return "success/All";
   }
   
   
