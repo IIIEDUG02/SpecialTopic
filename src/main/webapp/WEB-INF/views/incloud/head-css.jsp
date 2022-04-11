@@ -43,6 +43,7 @@
 }
 
 .height100 {
-	height: 100px;
+	margin-top: 40px;
+	padding-top: 60px;
 }
 </style>
