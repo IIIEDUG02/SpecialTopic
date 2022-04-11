@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ClassNotFoundException extends RuntimeException {
 
     /**
-     * 
+     * 回傳找不到課程
      */
     private static final long serialVersionUID = 1L;
 

@@ -16,7 +16,7 @@ import lombok.Setter;
 
 @Entity
 @Component
-@Table(name = "certification_calsses")
+@Table(name = "certification_classes")
 @Setter
 @Getter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

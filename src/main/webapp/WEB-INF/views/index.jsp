@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<fmt:setBundle basename="messages" />
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html lang="en_US">
 
 <head>
 <meta charset="utf-8">
@@ -17,7 +20,7 @@
 
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
-  
+
 <!-- JavaScript -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
@@ -63,7 +66,8 @@
 
 					<div class="col-lg-3 col-6 text-center">
 						<span data-purecounter-start="0" data-purecounter-end="0"
-							data-purecounter-duration="1" class="purecounter" id="countmember"></span>
+							data-purecounter-duration="1" class="purecounter"
+							id="countmember"></span>
 						<p>位學生</p>
 						<!-- ======= TODO:聰賢 ======= -->
 					</div>
@@ -259,9 +263,9 @@
 		</section>
 		<!-- End Features Section -->
 
-    <!-- ======= Trainers Section ======= -->
-<%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>
-    <jsp:include page="incloud/class-section.jsp" />
+		<!-- ======= Trainers Section ======= -->
+		<%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>
+		<jsp:include page="incloud/class-section.jsp" />
 
 
 	</main>
@@ -281,6 +285,10 @@
 	<!-- ======= errMsg ======= -->
 	<c:if test="${not empty errMsg}">
 		<script>alert("${errMsg}")</script>
+	</c:if>
+	<!-- ======= param.error ======= -->
+	<c:if test="${param.error != null}">
+			<script>alert("帳號或密碼錯誤")</script>
 	</c:if>
 </body>
 
