@@ -25,7 +25,8 @@ function sc_del(cid) {
 			}
 		},
 		error: function(xhr, status) {
-			console.log("Error")
+			console.log(xhr);
+			console.log(status);
 		}
 	})
 }
@@ -50,7 +51,8 @@ function sc_add(cid) {
 			}
 		},
 		error: function(xhr, status) {
-			console.log("Error")
+			console.log(xhr);
+			console.log(status);
 		}
 	})
 }
