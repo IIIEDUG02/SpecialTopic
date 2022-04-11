@@ -13,8 +13,7 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<jsp:include page="incloud/favicons.jsp" />
 
 <!-- Google Fonts -->
 <link
@@ -24,8 +23,8 @@
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Head js -->
+<jsp:include page="incloud/head-js.jsp" />
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
   * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
