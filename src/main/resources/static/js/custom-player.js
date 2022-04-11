@@ -1,5 +1,6 @@
 const media = $('video').get(0);
 
+
 var startTime;
 var pauseTime;
 
@@ -31,7 +32,7 @@ function playPauseMedia() {
 function postRecord(duration, sumTime, ended) {
 	$.ajax({
 		type: "POST",
-		url: "/SpecialTopic/ProgressRecord/api/9",
+		url: "/SpecialTopic/ProgressRecord/api/"+$('input#cuid').val(),
 		//dataType: "json",
 		data: {
 			"duration": duration,
@@ -49,8 +50,9 @@ function postRecord(duration, sumTime, ended) {
 	})
 }
 
-function changeVideoSrc(url) {
+function changeVideoSrc(url,cuid) {
 	media.src=url;
+	$('input#cuid').attr("value",cuid)
 }
 
 $.ajax({
@@ -60,8 +62,11 @@ $.ajax({
 	contentType: "application/json;charset=utf-8",
 	success: function(data) {
 		for (var i = 0 ; i < data.length ; i++) {
-			let li = $("<li class='list-group-item' onclick=changeVideoSrc(\'" + data[i]['video_path'] + "\') >第" + data[i]['chapter'] + "章</li>")
+			let li = $("<li class='list-group-item' onclick=changeVideoSrc(\'" + data[i]['video_path'] + "\',"+data[i]['cuid']+") >章節名稱:" + data[i]['chapter'] + "</li>")
 			$('ul.list-group').append(li)
+			
+
+			
 		}
 	},
 	error: function(xhr, status) {

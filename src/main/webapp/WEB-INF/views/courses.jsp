@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,8 +44,19 @@
 
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">
-			<div class="container" data-aos="fade-up">
 
+			<div class="container" data-aos="fade-up">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button"
+						id="dropdownMenuButton1" data-bs-toggle="dropdown"
+						aria-expanded="false">Dropdown button</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<c:forEach var="classtype" items="${classTypeList}">
+								<li><a class="dropdown-item" href="#">${classtype}</a></li>							
+						</c:forEach>
+						
+					</ul>
+				</div>
 
 
 				<div id="row" class="row" data-aos="zoom-in" data-aos-delay="100">
