@@ -85,7 +85,7 @@ function getShoppingCartList() {
 		success: function(data) {
 			indexRender(data)
 		},
-		error: function(xhr, status) {
+		error: function() {
 			console.log("Error")
 		}
 	})
@@ -94,19 +94,51 @@ function getShoppingCartList() {
 function indexRender(data) {
 	if (data != null) {
 		var count = Object.keys(data).length;
-
-		var a1 = $("<a class='position-relative' href='/SpecialTopic/ShoppingCart/getInfo'></a>");
-		var i1 = $('<i class="fa fa-shopping-cart" style="font-size: 24px; color: #5fcf80"></i>');
-		var s2 = $('<span id="shoppingcart_count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>');
+		// badge build
+		var a1 = $("<a id='cart' class='position-relative' href='#'></a>");
+		var icon = $('<i class="fa fa-shopping-cart" style="font-size: 24px; color: #5fcf80"></i>');
+		var badge = $('<span id="shoppingcart_count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>');
 
 		if (count != 0) {
-			s2.append(count);
+			badge.append(count);
 		}
 
-		a1.append(i1);
-		a1.append(s2);
+		a1.append(icon);
+		a1.append(badge);
 
 		$('li#scl').append(a1);
+
+		a1.on("click", function() {
+			$(".shopping-cart").fadeToggle("fast");
+		});
+
+		// item list build
+		var ul = $('ul.shopping-cart-items');
+		for (var i = 0; i < count; i++) {
+			var li = $('<li class="row"></li>');
+			var divImg = $('<div class="col-3"></div>')
+			var img = $('<img alt="item" width=60 hight=40 src="' + data[0]["classBean"]["photo"] + '" />')
+			divImg.append(img);
+
+			var divItem = $('<div class="col-9"></div>');
+			var divName = $('<div class="item-name"></div>');
+			divName.append(data[0]["classBean"]["title"]);
+			var divPrice = $('<div class="item-price"></div>');
+			var aPrice = $("<a></a>")
+			aPrice.append(data[0]["classBean"]["price"]);
+			divPrice.append("$");
+			divPrice.append(aPrice);
+			divItem.append(divName);
+			divItem.append(divPrice);
+
+			li.append(divImg);
+			li.append(divItem);
+			ul.append(li);
+			ul.append("<hr / >");
+		}
+
+
+
 
 	}
 }

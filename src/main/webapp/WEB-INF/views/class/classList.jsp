@@ -10,16 +10,6 @@
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 <title>student</title>
-
-<style>
-.position_fixed {
-	position: fixed;
-}
-
-.height100 {
-	height: 100px;
-}
-</style>
 </head>
 <body>
 	<!-- ======= Header ======= -->
