@@ -19,12 +19,27 @@
 <jsp:include page="../incloud/head-css.jsp" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<style>
+body {
+	background-color: rgb(243, 243, 241);
+}
+
+#amount{
+	background-color: rgb(255,255,255);
+}
+
+img{
+	background-color: rgb(255,255,255);
+	padding:5px;
+	border: 1px rgb(0,0,0) solid;
+}
+
+</style>
 
 <!-- JavaScript -->
 <jsp:include page="../incloud/head-js.jsp" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-	
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -44,41 +59,43 @@
 					</small>
 				</h4>
 				<div class="row m-3 p-1">
-					<div class="col-6">
-						<a>課程名稱:</a>
+					<div class="col-8">
+						<a>課程:</a>
 					</div>
-					<div class="col-6">
+					<div class="col-4">
 						<a>價格:</a>
 					</div>
 				</div>
 				<hr class="border-2 border-top border-black">
 				<c:forEach var="item" items="${shoppingCartList}">
-					<div id="item${item.getClassBean().getCid()}"
-						class="row m-3 p-1">
+					<div id="item${item.getClassBean().getCid()}" class="row item m-3 p-1">
+						<div class="col-2 d-inline-flex">
+							<img width=100 height=100 src="${item.getClassBean().getPhoto()}">
+						</div>
 						<div class="col-6 d-inline-flex">
 							<h3 id="class_title" class="p-2">${item.getClassBean().getTitle()}</h3>
 						</div>
-						<div class="col-4 d-inline-flex">
-							<h3 id="price${item.getClassBean().getCid()}"  class="p-2">${item.getClassBean().getPrice()}</h3>
+						<div class="col-2 d-inline-flex">
+							<h3 id="price${item.getClassBean().getCid()}" class="p-2">${item.getClassBean().getPrice()}</h3>
 						</div>
 						<input type="hidden" id="hidden_cid"
 							value="${item.getClassBean().getCid()}" />
-						<div class="col-2 p-2">
+						<div class="col-2 p-2 d-inline-flex">
 							<button type="button" class="btn btn-danger"
 								id="sc_btn_${item.getClassBean().getCid()}"
-								onclick="sc_del(${item.getClassBean().getCid()})"><i class="fa fa-trash fa-2x"></i></button>
+								onclick="sc_del(${item.getClassBean().getCid()})">
+								<i class="fa fa-trash fa-2x"></i>
+							</button>
 						</div>
 					</div>
 				</c:forEach>
 
 			</div>
 			<div class="col-sm-3 mt-5 mb-3">
-				<div class="shadow p-3">
-					<h5 class="mt-3">訂單明細</h5>
-					<hr class="border-2 border-top border-black">
-					<div>小記</div>
+				<div id="amount" class="shadow p-3">
+					<h3>總記</h3>
 					<h3 class="text-end">
-						新台幣：<a id="sum">${ sum }</a>
+						新台幣：<a id="sum">${ sum }</a>元
 					</h3>
 					<div class="text-end">
 						<form id="idFormAioCheckOut" method="post"
@@ -103,7 +120,9 @@
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">請確認購買的<font color="red">課程</font>及<font color="red">付款金額</font>，確定後將前往綠界付款API。</div>
+										<div class="modal-body">
+											請確認購買的<font color="red">課程</font>及<font color="red">付款金額</font>，確定後將前往綠界付款API。
+										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">取消</button>
@@ -133,6 +152,7 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
+
 
 </body>
 </html>
