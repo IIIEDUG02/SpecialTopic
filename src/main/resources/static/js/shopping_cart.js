@@ -10,7 +10,7 @@ function sc_del(cid) {
 		success: function(data) {
 			if (data != null) {
 				if ($('a#sum').length > 0) {
-					$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h4#price' + cid).html()))
+					$('a#sum').html(parseInt($('a#sum').html()) - parseInt($('h3#price' + cid).html()))
 				}
 				$('a#total').html(parseInt($('a#total').html()) - 1)
 				if ($('a#total').html() == "0") {
@@ -124,8 +124,11 @@ function listRender(data) {
 
 		$('li#scl').append(a1);
 
+		// 點擊出現框框
 		a1.on("click", function() {
-			$(".shopping-cart").fadeToggle("fast");
+			if ($('span#shoppingcart_count').html() > 0 ) {
+				$(".shopping-cart").fadeToggle("fast");
+			}
 		});
 
 		// item list build
@@ -154,7 +157,7 @@ function addItem(classBean) {
 	divItem.append(divPrice);
 	
 	var divI = $('<div class="col-3"></div>')
-	var iR = Trash = $('<i class="fa fa-trash fa-2x"></i>')
+	var iR = Trash = $('<a href="javascript:sc_del(' + classBean["cid"] + ')"><i class="fa fa-trash fa-2x"></i></a>')
 	divI.append(iR);
 
 	li.append(divItem);
