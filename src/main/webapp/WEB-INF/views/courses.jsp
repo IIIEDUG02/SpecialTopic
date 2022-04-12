@@ -21,7 +21,6 @@
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 
-<script src="/SpecialTopic/js/class.js"></script>
 <!-- Head js -->
 <jsp:include page="incloud/head-js.jsp" />
 <!-- =======================================================
@@ -61,45 +60,53 @@
 					</ul>
 				</div>
 
+				<div id="row" class="row m-3" data-aos="zoom-in" data-aos-delay="100">
+					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
 
-				<div id="row" class="row" data-aos="zoom-in" data-aos-delay="100">
-					<div id="class_wrap" class="row">
-<!--  						<div class="col" id="loadingCircle">
-							<div
-								class="spinner-border text-success d-flex justify-content-center"
-								role="status" style="width: 10rem; height: 10rem;">
-								<span class="sr-only">Loading...</span>
+						<c:forEach items="${classOneTypeList}" var="cb">
+							<div class="course-item m-2">
+								<img src="${cb.getPhoto()}" class="img-fluid" alt="...">
+								<div class="course-content">
+									<div
+										class="d-flex justify-content-between align-items-center mb-3">
+										<h4>${cb.getClassType()}</h4>
+										<p class="price">${cb.getPrice()}</p>
+									</div>
+
+									<h3>
+										<a href="/SpecialTopic/viewClass/${cb.getCid()}">${cb.getTitle()}</a>
+									</h3>
+									<p>Et architecto provident deleniti facere repellat nobis
+										iste. Id facere quia quae dolores dolorem tempore.</p>
+									<div
+										class="trainer d-flex justify-content-between align-items-center">
+										<div class="trainer-profile d-flex align-items-center">
+											<img src="assets/img/trainers/trainer-1.jpg"
+												class="img-fluid" alt=""> <span>Antonio</span>
+										</div>
+										<div class="trainer-rank d-flex align-items-center">
+											<i class="bx bx-user"></i>&nbsp;50 &nbsp;&nbsp; <i
+												class="bx bx-heart"></i>&nbsp;65
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>      -->
+						</c:forEach>
+
+
 					</div>
-
-					<!--           <div class="col-lg-4 col-md-6 d-flex align-items-stretch"> -->
-					<!--             <div class="course-item"> -->
-					<!--               <img src="assets/img/course-1.jpg" class="img-fluid" alt="..."> -->
-					<!--               <div class="course-content"> -->
-					<!--                 <div class="d-flex justify-content-between align-items-center mb-3"> -->
-					<!--                   <h4>Web Development</h4> -->
-					<!--                   <p class="price">$169</p> -->
-					<!--                 </div> -->
-
-					<!--                 <h3><a href="course-details.html">Website Design</a></h3> -->
-					<!--                 <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p> -->
-					<!--                 <div class="trainer d-flex justify-content-between align-items-center"> -->
-					<!--                   <div class="trainer-profile d-flex align-items-center"> -->
-					<!--                     <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt=""> -->
-					<!--                     <span>Antonio</span> -->
-					<!--                   </div> -->
-					<!--                   <div class="trainer-rank d-flex align-items-center"> -->
-					<!--                     <i class="bx bx-user"></i>&nbsp;50 -->
-					<!--                     &nbsp;&nbsp; -->
-					<!--                     <i class="bx bx-heart"></i>&nbsp;65 -->
-					<!--                   </div> -->
-					<!--                 </div> -->
-					<!--               </div> -->
-					<!--             </div> -->
-					<!--           </div> End Course Item -->
-
 				</div>
+			</div>
+			<div class="d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav>
 			</div>
 		</section>
 		<!-- End Courses Section -->

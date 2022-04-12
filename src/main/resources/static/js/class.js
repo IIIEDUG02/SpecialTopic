@@ -163,16 +163,19 @@ function changeStatusToZero(cid) {
 function getClassTypes() {
 	$.ajax({
 		type: "GET",
-		url: "/SpecialTopic/class/showClassType",
+		url: "/SpecialTopic/getClassTypeList",
 		success: function(data) {
 			if (data) {
 				//location.reload()
 				var typeList = $('ul#typeList');
-				$.each(data, function(i, classType) {
-					alert(classType);
-					typeList.append("<li><a href='class/showClassType/" + classType + "'>" + classType + "</a></li>");
-				});
-
+				var count = Object.keys(data).length;
+				var dropdownUL  = $('ul.dropdown-menu');
+				for (var i = 0 ; i < count ; i++) {
+					typeList.append("<li><a href='/SpecialTopic/class/showClassType/" + data[i] + "'>" + data[i] + "</a></li>");
+					if ($('button#dropdownMenuButton1').length > 0 ) {
+						dropdownUL.append("<li><a class='dropdown-item' href='/SpecialTopic/class/showClassType/" + data[i] + "'>" + data[i] + "</a></li>");
+					}
+				}
 
 			} else {
 				alert("網頁發生錯誤");

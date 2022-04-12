@@ -16,16 +16,14 @@
 			<ul>
 				<li><a class="active" href="/SpecialTopic/">首頁</a></li>
 				<li><a href="/SpecialTopic/about">關於</a></li>
-				<li><a href="/SpecialTopic/courses">課程</a>
+				<li class="dropdown"><a href="#"><span>課程</span> <i
+						class="bi bi-chevron-down"></i></a>
 					<ul id="typeList">
-						
-						
-					</ul>
-				</li>
 
+					</ul></li>
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
-				<li><a href="contact">聯繫我們</a></li>
+				<li class="dropdown"><a href="contact">聯繫我們</a></li>
 				<c:choose>
 					<c:when test="${not empty pageContext.request.userPrincipal.name}">
 						<li class="dropdown"><a href="#"> <span>後台功能</span><i

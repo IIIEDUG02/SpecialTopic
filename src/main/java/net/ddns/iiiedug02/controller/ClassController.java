@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -57,7 +59,7 @@ public class ClassController {
 
 	@Autowired
 	private ClassOnlineService cos;
-	
+
 	@Autowired
 	private ResourceLoader resourceLoader;
 
@@ -66,9 +68,9 @@ public class ClassController {
 
 	@Autowired
 	private UniversalTool utool;
-	
+
 	@Autowired
-    private ShoppingCartService scs;
+	private ShoppingCartService scs;
 
 	/*
 	 * 進入後臺管理課程，區分admin跟normal身份
@@ -90,7 +92,7 @@ public class ClassController {
 					ClassBean cb = cbs.findById(cmb.getCid());
 					if (cmb.getStatus() == 1) {
 						completeList.add(cb);
-						
+
 					} else {
 						uncompleteList.add(cb);
 					}
@@ -115,7 +117,7 @@ public class ClassController {
 	@PostMapping(value = "/createclass", produces = "text/html;charset=utf-8")
 	public String createProcessClass(@RequestParam Map<String, String> formData, Model model,
 			@RequestParam("photopath") MultipartFile mf) throws IOException {
-			
+
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -127,7 +129,7 @@ public class ClassController {
 			return "no photo";
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classphoto/";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classphoto/";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -135,7 +137,7 @@ public class ClassController {
 		File saveFile = new File(saveFilePath);
 
 		mf.transferTo(saveFile);
-		
+
 		ClassBean cb = new ClassBean();
 		cb.setPhoto("/SpecialTopic/classphoto/" + fileName);
 		cb.setClassType(formData.get("classtype"));
@@ -143,13 +145,14 @@ public class ClassController {
 		cb.setPrice(Integer.parseInt(formData.get("classprice")));
 		cb.setUid(Integer.parseInt(formData.get("teacherid")));
 		model.addAttribute("classbean", cb);
-		
+
 		return "class/createclassdetails";
 	}
 
 	// 創建classdetails
 	@PostMapping(value = "/createclassdetails")
-	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,Model model) {
+	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,
+			Model model) {
 		ClassDetailsBean cdb = new ClassDetailsBean();
 		cdb.setDescript(formData.get("descript"));
 		cdb.setGoal(formData.get("goal"));
@@ -183,8 +186,9 @@ public class ClassController {
 			return "no video";
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
-		//String tempDir = request.getSession().getServletContext().getRealPath("/") + "/classvideo//";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classvideo/";
+		// String tempDir = request.getSession().getServletContext().getRealPath("/") +
+		// "/classvideo//";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -220,8 +224,9 @@ public class ClassController {
 			return "no video";
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
-		//String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classvideo/";
+		// String tempDir = request.getSession().getServletContext().getRealPath("/") +
+		// "../resources/static/classvideo//";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -246,7 +251,6 @@ public class ClassController {
 	public int processCountClass() {
 		return cbs.countClass();
 	}
-
 
 	// 尋找全部上線課程,api
 	@GetMapping(path = "class/allonline")
@@ -312,95 +316,98 @@ public class ClassController {
 		}
 
 	}
-	
+
 	@GetMapping("viewClass/{cid}")
-    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p,
-            RedirectAttributes attr) {
+	public String viewClass(@PathVariable("cid") int cid, Model m, Principal p, RedirectAttributes attr) {
 
+		// 課程資訊
+		ClassBean cb = cbs.findById(cid);
+		if (cb == null) {
+			attr.addAttribute("msg", "找不到課程資料");
+			return "redirect:/class/list";
+		}
+		m.addAttribute("classBean", cb);
 
-        // 課程資訊
-        ClassBean cb = cbs.findById(cid);
-        if (cb == null) {
-            attr.addAttribute("msg", "找不到課程資料");
-            return "redirect:/class/list";
-        }
-        m.addAttribute("classBean", cb);
+		if (p != null) {
+			Member loginBean = ms.findByUsername(p.getName());
+			// 個人購課紀錄
+			ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+			if (null != cmb) {
+				m.addAttribute("classManagerBean", cmb);
+			} else {
+				// 購課車
+				ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
+				m.addAttribute("ShoppingCart", sc);
+			}
+		}
 
-        if (p != null) {
-            Member loginBean = ms.findByUsername(p.getName());
-            // 個人購課紀錄
-            ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
-            if (null != cmb) {
-                m.addAttribute("classManagerBean", cmb);
-            } else {
-                // 購課車
-                ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
-                m.addAttribute("ShoppingCart", sc);
-            }
-        }
-
-        return "class/viewClass";
-    }
-
-	@GetMapping("courses")
-	public String showClassType(HttpServletRequest request, Model m) {
-		List<String> classTypeList = cbs.findAllClassType();
-		m.addAttribute("classTypeList", classTypeList);
-		return "courses";
+		return "class/viewClass";
 	}
-	@GetMapping("class/api/showClassType/{classType}")
+
+	@GetMapping("getClassTypeList")
 	@ResponseBody
-	public List<ClassBean> showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
+	public List<String> showClassType(HttpServletRequest request, Model m) {
+		List<String> classTypeList = cbs.findAllClassType();
+		return classTypeList;
+	}
+
+	@GetMapping("class/showClassType/{classType}")
+	public String showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
 		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
 		m.addAttribute("classOneTypeList", classOneTypeList);
-		return classOneTypeList;
+		return "courses";
 	}
+
 	/*
-	*更改classmanagement status to 1
-	*/
+	 * 更改classmanagement status to 1
+	 */
 	@PostMapping("class/api/classmanagement/on/{cid}")
 	@ResponseBody
-	public String manageClassToOn(@PathVariable("cid")int cid,Principal principal) {
+	public String manageClassToOn(@PathVariable("cid") int cid, Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(1);
 		cms.update(cmb);
 		return "sucesss";
 	}
+
 	/*
-	*更改classmanagement status to 1
-	*/
+	 * 更改classmanagement status to 1
+	 */
 	@PostMapping("class/api/classmanagement/off/{cid}")
 	@ResponseBody
-	public String manageClassToOff(@PathVariable("cid")int cid,Principal principal) {
+	public String manageClassToOff(@PathVariable("cid") int cid, Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(0);
 		cms.update(cmb);
 		return "sucesss";
 	}
+
 	/*
-	* set class to online
-	*/
+	 * set class to online
+	 */
 	@PostMapping("class/api/postToOnline/{cid}/{online}")
-	public boolean postToOnline(@PathVariable("online")int online,@PathVariable("cid")int cid,Principal principal,HttpServletRequest request) {
-		 if (utool.hasRole(principal, "admin")) {
-			 throw new RoleNotFoundException();
-		 }
-		 if (null == cos.findByCid(cid)) {
-			 ClassOnlineBean cob = new ClassOnlineBean();
-			 cob.setCid(cid);
-			 cob.setOnline(1);
-			 cos.insert(cob);
-			 return true;
-		 }else if(1==online){
-			 ClassOnlineBean cob = cos.findByCid(cid);
-			 cob.setOnline(0);
-			 return false;
-		 }else {			 		 
-			 ClassOnlineBean cob = cos.findByCid(cid);
-			 cob.setOnline(0);
-		return true;
-	}}
+	public boolean postToOnline(@PathVariable("online") int online, @PathVariable("cid") int cid, Principal principal,
+			HttpServletRequest request) {
+		if (utool.hasRole(principal, "admin")) {
+			throw new RoleNotFoundException();
+		}
+		if (null == cos.findByCid(cid)) {
+			ClassOnlineBean cob = new ClassOnlineBean();
+			cob.setCid(cid);
+			cob.setOnline(1);
+			cos.insert(cob);
+			return true;
+		} else if (1 == online) {
+			ClassOnlineBean cob = cos.findByCid(cid);
+			cob.setOnline(0);
+			return false;
+		} else {
+			ClassOnlineBean cob = cos.findByCid(cid);
+			cob.setOnline(0);
+			return true;
+		}
+	}
 
 }
