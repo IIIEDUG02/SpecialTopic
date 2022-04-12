@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
@@ -55,8 +56,11 @@
 								</sec:authorize>
 								<li><a href="/SpecialTopic/member/editInformation"
 									type="button">個人資料</a></li>
-								<li><a href="/SpecialTopic/member/membermanage"
-									type="button">學員管理</a></li>
+								<sec:authorize
+									access="hasRole('ROLE_admin') and isAuthenticated()">
+									<li><a href="/SpecialTopic/member/membermanage"
+										type="button">學員管理</a></li>
+								</sec:authorize>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>

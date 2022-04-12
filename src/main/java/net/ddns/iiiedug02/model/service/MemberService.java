@@ -17,13 +17,13 @@ import net.ddns.iiiedug02.model.repository.MemberRepository;
 @Transactional
 public class MemberService implements UserDetailsService {
     @Autowired
-    private MemberRepository mRepo;
+    private MemberRepository mbRepo;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Member findByUsername(String username) {
-        Optional<Member> opt = mRepo.findByUsername(username);
+        Optional<Member> opt = mbRepo.findByUsername(username);
         if (opt.isEmpty()) {
             return null;
         }
@@ -35,7 +35,7 @@ public class MemberService implements UserDetailsService {
         String encodedpassword = bCryptPasswordEncoder.encode(mb.getPassword());
         mb.setPassword(encodedpassword);
 
-        return mRepo.save(mb);
+        return mbRepo.save(mb);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member findByUid(int uid) {
-        Optional<Member> mb = mRepo.findByUid(uid); // User類別第三參數為權限設定，目前先以List空值表示
+        Optional<Member> mb = mbRepo.findByUid(uid); // User類別第三參數為權限設定，目前先以List空值表示
         if (mb.isEmpty()) {
             throw new UserNotFoundException();
         }
@@ -63,11 +63,11 @@ public class MemberService implements UserDetailsService {
     }
 
     public int countMember() {
-        return mRepo.countMember();
+        return mbRepo.countMember();
     }
     
     public void deleteByUsername(String username) {
-    	mRepo.deleteByUsername(username);
+    	mbRepo.deleteByUsername(username);
     }
 
 }
