@@ -14,7 +14,13 @@
 			<ul>
 				<li><a class="active" href="/SpecialTopic/">首頁</a></li>
 				<li><a href="/SpecialTopic/about">關於</a></li>
-				<li><a href="/SpecialTopic/courses">課程</a></li>
+				<li><a href="/SpecialTopic/courses">課程</a>
+					<ul id="typeList">
+						
+						
+					</ul>
+				</li>
+
 				<li><a href="/SpecialTopic/trainers">教師</a></li>
 				<li><a href="/SpecialTopic/articles">知識補給站</a></li>
 				<li><a href="contact">聯繫我們</a></li>

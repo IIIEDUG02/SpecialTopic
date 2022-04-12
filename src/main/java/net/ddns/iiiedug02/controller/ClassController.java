@@ -203,7 +203,7 @@ public class ClassController {
 		return this.editCurriculum(request, p, cb.getCid(), m);
 	}
 
-	// 創建curriculum
+	// 編輯curriculum
 	@PostMapping(path = "/updatecurriculum")
 	public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
 			HttpSession session, @SessionAttribute ClassBean classbean, Principal p)
@@ -220,8 +220,8 @@ public class ClassController {
 			return "no video";
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-
-		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
+		//String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -382,15 +382,25 @@ public class ClassController {
 	/*
 	* set class to online
 	*/
-//	@PostMapping("class/api/postToOnline/{cid}/{status}")
-//	public boolean postToOnline(@PathVariable("status")int status,@PathVariable("cid")int cid,Principal principal,HttpServletRequest request) {
-//		 if (utool.hasRole(principal, "admin")) {
-//			 throw new RoleNotFoundException();
-//		 }
-//		 if (null == cos.findByCid(cid)) {
-//			 
-//		 }
-//		return true;
-//	}
+	@PostMapping("class/api/postToOnline/{cid}/{online}")
+	public boolean postToOnline(@PathVariable("online")int online,@PathVariable("cid")int cid,Principal principal,HttpServletRequest request) {
+		 if (utool.hasRole(principal, "admin")) {
+			 throw new RoleNotFoundException();
+		 }
+		 if (null == cos.findByCid(cid)) {
+			 ClassOnlineBean cob = new ClassOnlineBean();
+			 cob.setCid(cid);
+			 cob.setOnline(1);
+			 cos.insert(cob);
+			 return true;
+		 }else if(1==online){
+			 ClassOnlineBean cob = cos.findByCid(cid);
+			 cob.setOnline(0);
+			 return false;
+		 }else {			 		 
+			 ClassOnlineBean cob = cos.findByCid(cid);
+			 cob.setOnline(0);
+		return true;
+	}}
 
 }
