@@ -39,7 +39,8 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 	<div class="height100"></div>
 
 	<div class="container">
-		<form action="/SpecialTopic/memberUpdateInformation" method="post">
+		<form id="mbiform" action="/SpecialTopic/memberUpdateInformation"
+			method="post">
 			<div class="row">
 				<div class="col-4">
 
@@ -145,7 +146,7 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 										pattern="yyyy/MM/dd" />
 								</a>
 								<div class="input-group mb-3">
-									<input id="check2" type="hidden" name="birthday"
+									<input id="check6" type="text" name="birthday"
 										class="form-control" placeholder="Recipient's username"
 										aria-label="Recipient's username"
 										aria-describedby="button-addon2" required="required"
@@ -171,9 +172,13 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 							</div>
 
 							<div class="gender">
-								性別: 男<a>${mb.getMemberInformation().getGender()}</a> <input
-									id="gender" type="radio" name="gender" value=1 />女<input
-									type="radio" name="gender" value=0 />
+								性別: 男<input id="gender1" type="radio" name="gender" value=1 />
+								女<input id="gender0" type="radio" name="gender" value=0 />
+								<script type="text/javascript">
+									$(
+											'#gender${mb.getMemberInformation().getGender()}')
+											.prop("checked", true);
+								</script>
 							</div>
 							<input id="check" onclick="check3()" type="hidden"
 								class="btn btn-success" value="確認"> <input id="check1"
@@ -195,25 +200,25 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 		$(this).parent().children("a").html("");
 		$(this).parent().children("input").attr("type", "text");
 		$(this).remove();
-		$('input#check').attr("type", "submit");
+		$('input#check').attr("type", "button");
 		$('input#check1').attr("type", "reset");
-		$('input#check2').attr("type", "date");
+		$('input#check6').attr("type", "date");
 	}
 	$('button').click(editMemberInformation);
 
 	function check3() {
-		
+
 		var identitycard = $('input#identitycard')
 		var reg = /^(([0-9]{3,4})|[0-9]{3,4}-)[0-9]{7,8}$/;
-		
+
 		if (!checkID(identitycard.val())) {
 			return false;
-		}		
+		}
 		if (!reg.test($('input#phone').val())) {
 			alert('電話號碼輸入有誤！');
 			return false;
 		}
-		return false;
+		$('form#mbiform').submit();
 	}
 	function checkID(idStr) {
 		// 依照字母的編號排列，存入陣列備用。
