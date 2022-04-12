@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -48,8 +49,15 @@ public class ShoppigCartController {
 	@ResponseBody
 	// @CrossOrigin(origins = "*")
 	public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
-		Member loginBean = utool.getLoiginBean(session, p);
-		return shoppigCartService.findAllByUid(loginBean.getUid());
+		List<ShoppingCart> result;
+		try {
+			Member loginBean = utool.getLoiginBean(session, p);
+			result = shoppigCartService.findAllByUid(loginBean.getUid());
+		} catch (Exception e) {
+			result = new ArrayList<ShoppingCart>(0);
+		}
+
+		return result;
 	}
 
 	/*

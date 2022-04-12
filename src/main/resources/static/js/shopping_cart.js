@@ -101,14 +101,14 @@ function getShoppingCartList() {
 		success: function(data) {
 			listRender(data)
 		},
-		error: function() {
-			console.log("Error")
+		error: function(data) {
+			console.log(data)
 		}
 	})
 }
 
 function listRender(data) {
-	if (data != null) {
+	if (data.length > 0) {
 		var count = Object.keys(data).length;
 		// badge build
 		var a1 = $("<a id='cart' class='position-relative' href='#'></a>");
