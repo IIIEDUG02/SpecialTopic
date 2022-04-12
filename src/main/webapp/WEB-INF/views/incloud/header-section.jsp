@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
@@ -21,20 +22,10 @@
 				<li><a href="contact">聯繫我們</a></li>
 				<c:choose>
 					<c:when test="${not empty pageContext.request.userPrincipal.name}">
-						<li class="dropdown">
-							<a href="#">
-								<span>後台功能</span><i class="bi bi-chevron-down"></i>
-							</a>
+						<li class="dropdown"><a href="#"> <span>後台功能</span><i
+								class="bi bi-chevron-down"></i>
+						</a>
 							<ul>
-								<li class="dropdown"><a href="#"><span>金流</span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="/SpecialTopic/tradeRecord/teacher">教師售課紀錄</a></li>
-										<li><a href="#">Deep Drop Down 2</a></li>
-										<li><a href="#">Deep Drop Down 3</a></li>
-										<li><a href="#">Deep Drop Down 4</a></li>
-										<li><a href="#">Deep Drop Down 5</a></li>
-									</ul>
 								<li class="dropdown"><a href="#"><span>課程管理 </span> <i
 										class="bi bi-chevron-right"></i></a>
 									<ul>
@@ -44,15 +35,16 @@
 										<li><a href="#">Deep Drop Down 4</a></li>
 										<li><a href="#">Deep Drop Down 5</a></li>
 									</ul></li>
-								<sec:authorize access="isAuthenticated() and hasRole('ROLE_admin')">
-								<li><a href="inputmain">學員資料統計</a></li>
-								<li><a href="getMoney">銷售額統計</a></li>
-								<li class="dropdown"><a href="#"><span>熱門課程管理 </span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
-										<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
-									</ul></li>
+								<sec:authorize
+									access="isAuthenticated() and hasRole('ROLE_admin')">
+									<li><a href="inputmain">學員資料統計</a></li>
+									<li><a href="getMoney">銷售額統計</a></li>
+									<li class="dropdown"><a href="#"><span>熱門課程管理 </span>
+											<i class="bi bi-chevron-right"></i></a>
+										<ul>
+											<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
+											<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+										</ul></li>
 								</sec:authorize>
 								<li><a href="/SpecialTopic/member/editInformation"
 									type="button">個人資料</a></li>
