@@ -113,7 +113,7 @@ public class MemberController {
 
 	@PostMapping(value = "/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session, Model m,
-			HttpServletRequest request) throws ParseException {
+			HttpServletRequest request ) throws ParseException {
 
 		Member mb = ms.findByUsername(params.get("username"));
 
@@ -126,6 +126,7 @@ public class MemberController {
 		mbi.setPassportname(params.get("passportname"));
 		mbi.setGender(Integer.parseInt(params.get("gender")));
 		mbi.setPhone(params.get("phone"));
+		mbi.setBirthday(params.get("birthday"));
 		mb.setPassword(params.get("password"));
 		mb.setMemberInformation(mbi);
 		mbi.setMember(mb);
