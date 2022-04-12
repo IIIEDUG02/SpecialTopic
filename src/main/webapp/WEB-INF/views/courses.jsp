@@ -18,6 +18,10 @@
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
 
+<!-- jQuery -->
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+
+<script src="/SpecialTopic/js/class.js"></script>
 <!-- Head js -->
 <jsp:include page="incloud/head-js.jsp" />
 <!-- =======================================================
@@ -43,26 +47,32 @@
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton1" data-bs-toggle="dropdown"
-						aria-expanded="false">Dropdown button</button>
+						aria-expanded="false">請選擇課程類型</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 						<c:forEach var="classtype" items="${classTypeList}">
-								<li><a class="dropdown-item" href="#">${classtype}</a></li>							
+							<script>
+								console
+										.log("javascript:findAllClassByClassType('${classtype}')")
+							</script>
+							<li><a class="dropdown-item"
+								href="javascript:findAllClassByClassType('${classtype}')">${classtype}</a></li>
 						</c:forEach>
-						
+
 					</ul>
 				</div>
 
 
 				<div id="row" class="row" data-aos="zoom-in" data-aos-delay="100">
-					<div class="col" id="loadingCircle">
-						<div
-							class="spinner-border text-success d-flex justify-content-center"
-							role="status" style="width: 10rem; height: 10rem;">
-							<span class="sr-only">Loading...</span>
-						</div>
+					<div id="class_wrap" class="row">
+<!--  						<div class="col" id="loadingCircle">
+							<div
+								class="spinner-border text-success d-flex justify-content-center"
+								role="status" style="width: 10rem; height: 10rem;">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</div>      -->
 					</div>
 
-					<script src="/SpecialTopic/js/class.js"></script>
 					<!--           <div class="col-lg-4 col-md-6 d-flex align-items-stretch"> -->
 					<!--             <div class="course-item"> -->
 					<!--               <img src="assets/img/course-1.jpg" class="img-fluid" alt="..."> -->

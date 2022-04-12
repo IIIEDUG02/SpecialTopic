@@ -10,6 +10,12 @@
 <script type="text/javascript" src="/SpecialTopic/js/class.js"></script>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
+
+<style>
+.row{
+margin: 10px;
+}
+</style>
 <title>student</title>
 </head>
 <body>
@@ -22,7 +28,7 @@
 				<c:choose>
 					<c:when test="${not empty allCbList}">
 						<div class="row">
-							<a href="/SpecialTopic/create" class="btn btn-primary">新增課程</a>
+							<div class="col m-auto"><a href="/SpecialTopic/create" class="btn btn-primary">新增課程</a></div>
 						</div>
 						<div class="row">
 							<div class="col-2">

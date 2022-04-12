@@ -42,9 +42,13 @@ public class ClassBean implements Serializable {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
+  
 
 
-  public Set<CurriculumBean> getCurriculumbean() {
+
+
+
+public Set<CurriculumBean> getCurriculumbean() {
     return curriculumbean;
   }
 

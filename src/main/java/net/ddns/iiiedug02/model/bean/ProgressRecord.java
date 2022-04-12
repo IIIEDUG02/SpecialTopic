@@ -18,7 +18,7 @@ public class ProgressRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id = 0;
+    private int id;
 
     private int uid;
 
