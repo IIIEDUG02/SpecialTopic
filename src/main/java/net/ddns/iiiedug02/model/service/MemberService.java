@@ -37,6 +37,11 @@ public class MemberService implements UserDetailsService {
 
         return mbRepo.save(mb);
     }
+    
+    public Member update(Member mb) {
+
+        return mbRepo.save(mb);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
