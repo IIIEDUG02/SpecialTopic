@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import net.ddns.iiiedug02.annotation.LogInfo;
 import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
@@ -58,6 +59,7 @@ public class TradeController {
 	 * 
 	 * @author Nilm
 	 */
+	@LogInfo
 	@RequestMapping(value = "ECPayServer", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String processPayment(HttpServletRequest request, Principal p) {
@@ -100,6 +102,7 @@ public class TradeController {
 	 * @author Nilm
 	 */
 	@PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8")
+	@LogInfo
 	public String processPaymentResult2(HttpServletRequest request, Principal p, RedirectAttributes attr) {
 
 		Member loginBean = utool.getLoiginBean(request.getSession(), p);
@@ -155,6 +158,7 @@ public class TradeController {
 	 * @author Nilm
 	 */
 	@GetMapping("tradeRecord/teacher")
+	@LogInfo
 	public String tradeRecordTeacher(Principal p, Model m) {
 		if (null == p) {
 			throw new NotLoginException();

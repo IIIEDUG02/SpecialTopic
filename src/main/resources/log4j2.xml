@@ -3,7 +3,7 @@
         <!--路徑依日期分類-->
         <Property name="LOG_FILE_PATH">./LogFile/${date:yyyy-MM-dd}</Property>
         <!--設置 Log 輸出格式-->
-        <Property name="PATTERN_FORMAT">%d{[yyyy-MM-dd] [HH:mm:ss]} [%-5level] %class{36} %L %M - %msg%xEx%n</Property>
+        <Property name="PATTERN_FORMAT">%d{[yyyy-MM-dd] [HH:mm:ss]} [%-5level] - %msg%xEx%n</Property>
     </Properties>
     
     <Appenders>
@@ -40,12 +40,10 @@
         
         <Logger name="net.ddns.iiiedug02" level="WARN">
         	<AppenderRef ref="MyErrors"/>
-        	<AppenderRef ref="Console"/>
         </Logger>
         
         <Logger name="net.ddns.iiiedug02" level="INFO">
         	<AppenderRef ref="MyInfos"/>
-        	<AppenderRef ref="Console"/>
         </Logger>
         
         <Root level="WARN">

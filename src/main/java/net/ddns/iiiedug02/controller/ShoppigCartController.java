@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.ddns.iiiedug02.annotation.LogInfo;
 import net.ddns.iiiedug02.exception.NotLoginException;
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
@@ -47,6 +48,7 @@ public class ShoppigCartController {
 	 */
 	@GetMapping("api/getList")
 	@ResponseBody
+	@LogInfo
 	// @CrossOrigin(origins = "*")
 	public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
 		List<ShoppingCart> result;
@@ -66,6 +68,7 @@ public class ShoppigCartController {
 	 * @author Nilm
 	 */
 	@GetMapping("getInfo")
+	@LogInfo
 	public String getShoppingCart(HttpSession session, Principal p, Model m) {
 		Member loginBean = utool.getLoiginBean(session, p);
 
@@ -87,6 +90,7 @@ public class ShoppigCartController {
 	 */
 	@DeleteMapping("api/{cid}")
 	@ResponseBody
+	@LogInfo
 	public ClassBean deleteByCid(HttpSession session, Principal p, @PathVariable int cid) {
 
 		Member loginBean = utool.getLoiginBean(session, p);
@@ -110,6 +114,7 @@ public class ShoppigCartController {
 	 */
 	@PostMapping("api/{cid}")
 	@ResponseBody
+	@LogInfo
 	public ClassBean saveById(HttpSession session, Principal p, @PathVariable int cid) {
 		Member loginBean = utool.getLoiginBean(session, p);
 		if (null == loginBean) {
