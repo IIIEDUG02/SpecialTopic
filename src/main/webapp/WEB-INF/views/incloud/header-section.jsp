@@ -30,15 +30,9 @@
 								class="bi bi-chevron-down"></i>
 						</a>
 							<ul>
-								<li class="dropdown"><a href="#"><span>課程管理 </span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="/SpecialTopic/class/list">課程清單</a></li>
-										<li><a href="#">Deep Drop Down 2</a></li>
-										<li><a href="#">Deep Drop Down 3</a></li>
-										<li><a href="#">Deep Drop Down 4</a></li>
-										<li><a href="#">Deep Drop Down 5</a></li>
-									</ul></li>
+								<li class="dropdown">
+								<a href="/SpecialTopic/class/list"><span>課程管理</span></a>
+								</li>
 								<sec:authorize
 									access="isAuthenticated() and hasRole('ROLE_admin')">
 									<li><a href="inputmain">學員資料統計</a></li>

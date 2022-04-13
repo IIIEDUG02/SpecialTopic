@@ -43,26 +43,16 @@
 		<section id="courses" class="courses">
 
 			<div class="container" data-aos="fade-up">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton1" data-bs-toggle="dropdown"
-						aria-expanded="false">請選擇課程類型</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<c:forEach var="classtype" items="${classTypeList}">
-							<script>
-								console
-										.log("javascript:findAllClassByClassType('${classtype}')")
-							</script>
-							<li><a class="dropdown-item"
-								href="javascript:findAllClassByClassType('${classtype}')">${classtype}</a></li>
-						</c:forEach>
 
-					</ul>
-				</div>
 
 				<div id="row" class="row m-3" data-aos="zoom-in" data-aos-delay="100">
+				<c:choose>
+				<c:when test="${empty classOneTypeList}">
+				<h3>尚無此類型課程</h3>
+				</c:when>
+				</c:choose>
 					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-
+						
 						<c:forEach items="${classOneTypeList}" var="cb">
 							<div class="course-item m-2">
 								<img src="${cb.getPhoto()}" class="img-fluid" alt="...">
@@ -97,17 +87,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-center">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			</div>
+
 		</section>
 		<!-- End Courses Section -->
 

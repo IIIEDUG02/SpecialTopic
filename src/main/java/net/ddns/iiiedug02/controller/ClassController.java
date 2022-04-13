@@ -171,6 +171,52 @@ public class ClassController {
 		model.addAttribute("allCbList", cbList);
 		return "class/classList";
 	}
+	// 編輯課程
+	@PostMapping(value = "/updateclass/{cid}")
+	public String updateClassImformation(@RequestParam Map<String, String> formData, HttpSession session,
+			Model model,@RequestParam("photopath") MultipartFile mf,@PathVariable("cid") int cid) throws IOException {
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classphoto/";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
+
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
+
+		mf.transferTo(saveFile);
+		
+		ClassBean cb = cbs.findById(cid);
+		ClassDetailsBean cdb = cb.getClassDetailsBean();
+		cdb.setDescript(formData.get("descript"));
+		cdb.setGoal(formData.get("goal"));
+		cdb.setNeed_tool(formData.get("needed_tool"));
+		cdb.setStu_required(formData.get("stu_required"));
+		cdb.setVideo(formData.get("video"));
+		cdb.setLength_min(Integer.parseInt(formData.get("length_min")));
+		
+		cb.setPhoto("/SpecialTopic/classphoto/" + fileName);
+		cb.setClassType(formData.get("classType"));
+		cb.setTitle(formData.get("title"));
+		cb.setPrice(Integer.parseInt(formData.get("price")));
+		cb.setUid(Integer.parseInt(formData.get("uid")));
+		
+		cb.setClassDetailsBean(cdb);
+		cdb.setClassbean(cb);
+		cbs.update(cb);
+
+		List<ClassBean> cbList = cbs.findAll();
+		model.addAttribute("allCbList", cbList);
+		
+		return "class/classList";
+	}
 
 	// 創建curriculum
 	@PostMapping(path = "/createcurriculum")
@@ -209,11 +255,12 @@ public class ClassController {
 
 		return this.editCurriculum(request, p, cb.getCid(), m);
 	}
-
-	// 編輯curriculum
+	/*
+	*編輯curriculum
+	*/
 	@PostMapping(path = "/updatecurriculum")
 	public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
-			HttpSession session, @SessionAttribute ClassBean classbean, Principal p)
+			HttpSession session, Principal p)
 			throws IllegalStateException, IOException {
 
 		String pattern = "yyyy-MM-dd-HH-mm-ss";

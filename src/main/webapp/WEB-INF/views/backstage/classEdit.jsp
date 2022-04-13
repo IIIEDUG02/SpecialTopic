@@ -21,8 +21,8 @@
 		<div class="container"></div>
 	</div>
 
-
-	<form action="Action" method="POST">
+	
+	<form action="/SpecialTopic/updateclass/${classBean.getCid()}" method="post" enctype="multipart/form-data">
 		<table>
 			<tbody>
 				<tr>
@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<td>圖片</td>
-					<td><input type = "file" name="photo"
+					<td><input type = "file" name="photopath"
 						value="${classBean.getPhoto()}" /></td>
 				</tr>
 				<tr>

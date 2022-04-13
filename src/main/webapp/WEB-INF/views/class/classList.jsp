@@ -7,13 +7,24 @@
 <meta charset="UTF-8">
 <!-- Head js -->
 <jsp:include page="../incloud/head-js.jsp" />
-<script type="text/javascript" src="/SpecialTopic/js/class.js"></script>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
 <style>
+body {
+	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.65);
+	background-color: rgb(243, 243, 241);
+	margin: 10px;
+	padding: 0px;
+	min-height: 100vh;
+}
+div{
+background-color: white;
+}
 .row{
-margin: 10px;
+margin: 20px;
 }
 </style>
 <title>student</title>
@@ -27,29 +38,29 @@ margin: 10px;
 			<div class="col min-vh-100">
 				<c:choose>
 					<c:when test="${not empty allCbList}">
-						<div class="row">
-							<div class="col m-auto"><a href="/SpecialTopic/create" class="btn btn-primary">新增課程</a></div>
-						</div>
+
 						<div class="row">
 							<div class="col-2">
-								<h5>課程名稱</h5>
+								<h3>課程名稱</h3>
 							</div>
 							<div class="col-2">
-								<h5>課程類型</h5>
+								<h3>課程類型</h3>
 							</div>
 							<div class="col-5">
-								<h5>編輯課程</h5>
+								<h3>編輯課程</h3>
 							</div>
 						</div>
+						<hr>
 						<c:forEach items="${allCbList}" var="cb">
-							<div id="classDiv${cb.getCid()}" class="row shadow">
+							<div id="classDiv${cb.getCid()}"
+								class="row align-items-center shadow">
 								<div class="col-2">
 									<p class="title">${cb.getTitle()}</p>
 								</div>
 								<div class="col-2">
 									<p class="text">${cb.getClassType()}</p>
 								</div>
-								<div id="btnwrap" class="col-5">
+								<div id="btnwrap" class="col justify-content-end">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}"
 										class="btn btn-primary">編輯課程</a> <a
 										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
@@ -76,6 +87,12 @@ margin: 10px;
 								</div>
 							</div>
 						</c:forEach>
+						<div class="row ">
+							<div class="col m-auto">
+								<a href="/SpecialTopic/create"
+									class="btn btn-primary align-items-center">新增課程</a>
+							</div>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
