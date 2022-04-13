@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <header id="header" class="fixed-top">
 
 	<div id="header2" class="container d-flex align-items-center">
@@ -39,14 +41,16 @@
 										<li><a href="#">Deep Drop Down 4</a></li>
 										<li><a href="#">Deep Drop Down 5</a></li>
 									</ul></li>
-								<li><a href="inputmain">學員資料統計</a></li>
-								<li><a href="getMoney">銷售額統計</a></li>
+								<sec:authorize access=" hasRole('ROLE_admin') ">
+								<li><a href="/SpecialTopic/inputmain">學員資料統計</a></li>
+								<li><a href="/SpecialTopic/getMoney">銷售額統計</a></li>
 								<li class="dropdown"><a href="#"><span>熱門課程管理
 											</span> <i class="bi bi-chevron-right"></i></a>
 									<ul>
-										<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
-										<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+										<li><a href="/SpecialTopic/ypclasscontrolltop5">年度熱門課程</a></li>
+										<li><a href="/SpecialTopic/mpclasscontrolltop5">當月熱門課程</a></li>
 									</ul></li>
+									</sec:authorize>
 								<li><a href="/SpecialTopic/member/editInformation" type="button">個人資料</a></li>
 								<li><a href="/SpecialTopic/member/membermanage" type="button">學員管理</a></li>
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
