@@ -106,16 +106,18 @@ public class ClassController {
 		}
 		throw new RoleNotFoundException();
 	}
-
-	// 進入編輯課程頁面
+	/*
+	*進入編輯課程頁面
+	*/ 
 	@GetMapping(value = "class/update/{cid}")
 	public String updatePage(@PathVariable int cid, Model model) {
 		ClassBean cb = cbs.findById(cid);
 		model.addAttribute("classBean", cb);
-		return "backstage/classEdit";
+		return "class/editclassinformation";
 	}
-
-	// 創建class
+	/*
+	*創建class
+	*/
 	@PostMapping(value = "/createclass", produces = "text/html;charset=utf-8")
 	public String createProcessClass(@RequestParam Map<String, String> formData, Model model,
 			@RequestParam("photopath") MultipartFile mf) throws IOException {
@@ -150,8 +152,9 @@ public class ClassController {
 
 		return "class/createclassdetails";
 	}
-
-	// 創建classdetails
+	/*
+	*創建classdetails
+	*/
 	@PostMapping(value = "/createclassdetails")
 	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,
 			Model model,SessionStatus status) {
@@ -171,7 +174,9 @@ public class ClassController {
 		model.addAttribute("allCbList", cbList);
 		return "class/classList";
 	}
-	// 編輯課程
+	/*
+	 *  編輯課程
+	 */
 	@PostMapping(value = "/updateclass/{cid}")
 	public String updateClassImformation(@RequestParam Map<String, String> formData, HttpSession session,
 			Model model,@RequestParam("photopath") MultipartFile mf,@PathVariable("cid") int cid) throws IOException {
@@ -218,7 +223,9 @@ public class ClassController {
 		return "class/classList";
 	}
 
-	// 創建curriculum
+	/*
+	 *  創建curriculum
+	 */
 	@PostMapping(path = "/createcurriculum")
 	public String createCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
 			HttpSession session, @SessionAttribute ClassBean classbean, Principal p)
@@ -295,14 +302,18 @@ public class ClassController {
 		return this.editCurriculum(request, p, cb.getCid(), m);
 	}
 
-	// 計算全部上線課程總數
+	/*
+	 *  計算全部上線課程總數
+	 */
 	@ResponseBody
 	@GetMapping(value = "/countclass")
 	public int processCountClass() {
 		return cbs.countClass();
 	}
 
-	// 尋找全部上線課程,api
+	/*
+	 *  尋找全部上線課程,api
+	 */
 	@GetMapping(path = "class/allonline")
 	@ResponseBody
 	public List<ClassBean> findAllOnlineClass() {
@@ -316,7 +327,9 @@ public class ClassController {
 		}
 		return cbList;
 	}
-
+	/*
+	 * 進入播放影片頁面
+	 */
 	@GetMapping("class/curriculums/{cid}")
 	public String classtest(Model m, @PathVariable("cid") int cid) {
 		ClassBean cb = cbs.findById(cid);
@@ -325,14 +338,18 @@ public class ClassController {
 		m.addAttribute("cid", cid);
 		return "class/class-player";
 	}
-
+	/*
+	 * 尋找該課程所有課程章節
+	 */
 	@GetMapping("class/curriculums/api/{cid}")
 	@ResponseBody
 	public List<CurriculumBean> getCurListJson(Model m, @PathVariable("cid") int cid) {
 		ClassBean cb = cbs.findById(cid);
 		return cus.findAllByClassbean(cb);
 	}
-
+	/*
+	 * 刪除課程
+	 */
 	@DeleteMapping("class/delete/{cid}")
 	@ResponseBody
 	public boolean deleteClass(HttpServletRequest request, Principal principal, @PathVariable("cid") int cid) {
@@ -341,7 +358,9 @@ public class ClassController {
 		}
 		return false;
 	}
-
+	/*
+	 * 刪除課程章節
+	 */
 	@DeleteMapping("class/delete/curriculum/{cuid}")
 	@ResponseBody
 	public boolean deleteCurriculum(HttpServletRequest request, Principal principal, @PathVariable("cuid") int cuid) {
@@ -350,7 +369,9 @@ public class ClassController {
 		}
 		return false;
 	}
-
+	/*
+	 * 更新課程章節
+	 */
 	@GetMapping("class/editCurriculum/{cid}")
 	public String editCurriculum(HttpServletRequest request, Principal principal, @PathVariable("cid") int cid,
 			Model m) {
@@ -366,7 +387,9 @@ public class ClassController {
 		}
 
 	}
-
+	/*
+	 * 進入課程頁面
+	 */
 	@GetMapping("viewClass/{cid}")
 	public String viewClass(@PathVariable("cid") int cid, Model m, Principal p, RedirectAttributes attr) {
 
@@ -393,14 +416,18 @@ public class ClassController {
 
 		return "class/viewClass";
 	}
-
+	/*
+	 * 取得所有課程類型
+	 */
 	@GetMapping("getClassTypeList")
 	@ResponseBody
 	public List<String> showClassType(HttpServletRequest request, Model m) {
 		List<String> classTypeList = cbs.findAllClassType();
 		return classTypeList;
 	}
-
+	/*
+	 * 找出該類型所有已上線課程
+	 */
 	@GetMapping("class/showClassType/{classType}")
 	public String showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
 		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
