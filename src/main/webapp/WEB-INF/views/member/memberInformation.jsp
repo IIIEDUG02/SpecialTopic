@@ -141,9 +141,10 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 								</div>
 							</div>
 							<div id="publishDateMeta" class="birthday">
-								生日:<a> <!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd --> <fmt:formatDate
-										value="${mb.getMemberInformation().getBirthday()}"
-										pattern="yyyy/MM/dd" />
+								生日:<a> ${mb.getMemberInformation().getBirthday()}<!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd --> 
+<%-- 								<fmt:formatDate --%>
+<%-- 										value="" --%>
+<%-- 										pattern="yyyy/MM/dd" /> --%>
 								</a>
 								<div class="input-group mb-3">
 									<input id="check6" type="text" name="birthday"
@@ -218,6 +219,7 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 			alert('電話號碼輸入有誤！');
 			return false;
 		}
+		alert("資料更改成功");
 		$('form#mbiform').submit();
 	}
 	function checkID(idStr) {
