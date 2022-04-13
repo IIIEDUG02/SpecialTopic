@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 <jsp:include page="../incloud/head-css.jsp" />
 <jsp:include page="../incloud/head-css.jsp" />
-<title>Success</title>
-<link rel="stylesheet" href="/css/ordersystem.css">
+<title>當月熱門課程</title>
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .position_fixed {
 	position: fixed;
@@ -17,6 +18,16 @@
 .height100 {
 	height: 100px;
 }
+.width{
+	width: 400px;
+}
+.twidth{
+	width: 75px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: rgb(210, 244, 224   ); 
+ }
 </style>
 </head>
 <body>
@@ -25,56 +36,82 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
-				<table>
+				<table class="table2excel width table table-striped">
 					<thead>
 						<tr>
-							<td>資料成功載入:</td>
-							<td>課程ID:</td>
-							<td>月份:</td>
-							<td>數量:</td>
+							<td align="center" style="border-bottom:5px solid #000">課程ID</td>
+							<td align="center" style="border-bottom:5px solid #000">年份</td>
+							<td align="center" style="border-bottom:5px solid #000">數量</td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="th" items="${mpclasscontroll}">
 							<tr>
-								<td><c:out value="" /></td>
-								<td style="border-top: 1px solid #000"><c:out
+								<td align="center"><c:out
 										value="${th.getClassID()}" /></td>
-								<td style="border-top: 1px solid #000"><c:out
+								<td align="center"><c:out
 										value="${th.getMonth()}月" /></td>
-								<td style="border-top: 1px solid #000"><c:out
+								<td align="center"><c:out
 										value="共${th.getMonthAmount()}筆" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<form action="mpclasschangetop5" method="get">
-					<table>
-						<tr>
-							<td>輸入第一順位:</td>
-							<td><input type="text" name="pi1" /></td>
-							<td>${errors.pi1}</td>
-						</tr>
-						<tr>
-							<td>輸入第二順位:</td>
-							<td><input type="text" name="pi2" /></td>
-							<td>${errors.pi2}</td>
-						</tr>
-						<tr>
-							<td>輸入第三順位:</td>
-							<td><input type="text" name="pi3" /></td>
-							<td>${errors.pi3}</td>
-						</tr>
-						<tr>
-							<td><button type="submit">送出</button></td>
-							<td>${errors.pimsg}</td>
-						</tr>
-					</table>
-				</form>
-				<form action="resetmpclass" method="get">
-					<button type="submit">回復正常排序</button>
-					<span>${errors.resetmsg}</span>
-				</form>
+				<form action="ypclasschangetop5" method="get" id="rankForm">
+				<div style="border-width:2px;border-style:dashed;border-color:#DEE2DF;padding:5px;" class="width">
+					
+							<div class="row g-3 align-items-center" style="margin:1px;">
+								<div class="col-auto">
+									<label for="inputPassword6" class="col-form-label">首頁排序一</label>
+								</div>
+								<div class="col-auto">
+									<input id="pi1ID" type="text" class="form-control twidth" name="pi1" placeholder="課程ID">
+								</div>
+								<div class="col-auto">
+									<span class="form-text"><font id="errorpi1" color="red"></font></span>
+								</div>
+							</div>
+							
+
+							<div class="row g-3 align-items-center" style="margin:1px;">
+								<div class="col-auto">
+									<label for="inputPassword6" class="col-form-label">首頁排序二</label>
+								</div>
+								<div class="col-auto">
+									<input id="pi2ID" type="text" class="form-control twidth" name="pi2" placeholder="課程ID">
+								</div>
+								<div class="col-auto">
+									<span class="form-text"><font id="errorpi2" color="red"></font></span>
+								</div>
+							</div>
+
+
+
+
+							<div class="row g-3 align-items-center" style="margin:1px;">
+								<div class="col-auto">
+									<label for="inputPassword6" class="col-form-label">首頁排序三</label>
+								</div>
+								<div class="col-auto">
+									<input id="pi3ID" type="text" class="form-control twidth" name="pi3" placeholder="課程ID">
+								</div>
+								<div class="col-auto">
+									<span class="form-text"><font id="errorpi3" color="red"></font></span>
+								</div>
+							</div>
+						</div>
+						
+							
+							<div class="col-auto">
+									<input type="button" onclick="sendRank()" class="btn btn-success" value="送出" />
+									<span class="form-text"><font color="red">${errors.pimsg}</font></span>
+									<span>
+										<input type="button" onclick="reset()" class="btn btn-danger" value="回復正常排序" />
+										<span>${errors.resetmsg}</span>
+									</span>
+							</div>					
+				</form>	
+						
 			</div>
 		</div>
 	</div>
