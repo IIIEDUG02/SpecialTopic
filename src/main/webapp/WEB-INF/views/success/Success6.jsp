@@ -21,6 +21,13 @@
 .height100 {
 	height: 100px;
 }
+.width{
+	width: 400px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: rgb(210, 244, 224   ); 
+ }
 </style>
 
 </head>
@@ -33,31 +40,29 @@
 	
 	
 	
-	<table class="table2excel">
+	<table class="table2excel width table table-striped">
 		
 			<tr>
-				<td>資料成功存入:</td>
-				<td>課程ID:</td>
-				<td>性別:</td>
-				<td>該性別數量:</td>
-				<td>該性別占比:</td>
+				<td align="center" style="border-bottom:5px solid #000">課程ID</td>
+				<td align="center" style="border-bottom:5px solid #000">性別</td>
+				<td align="center" style="border-bottom:5px solid #000">該性別數量</td>
+				<td align="center" style="border-bottom:5px solid #000">該性別占比</td>
 
 			</tr>
 		
 			
 			<c:forEach var="th" items="${genderList}">
 				<tr>
-					<td ><c:out value="" /></td>
-					<td style="border-top:1px solid #000"><c:out value="${th.get('cid')}" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('gender')}" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="共${th.get('countgender')}筆" /></td>				
-					<td style="border-top:1px solid #000"><c:out value="${th.get('ratio')} %" /></td>				
+					<td align="center"><c:out value="${th.get('cid')}" /></td>				
+					<td align="center"><c:out value="${th.get('gender')}" /></td>				
+					<td align="center"><c:out value="共${th.get('countgender')}筆" /></td>				
+					<td align="center"><c:out value="${th.get('ratio')} %" /></td>				
 				</tr>
 			</c:forEach>	
 				
 		
 	</table>
-	<input class="btn" type="button"  value="點選匯出excel">
+	<input class="btn btn-success" class="btn" type="button"  value="點選匯出excel">
 	
 	<div id="container" style="height: 400px"></div>
 	

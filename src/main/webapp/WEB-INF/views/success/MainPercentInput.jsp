@@ -26,9 +26,14 @@
 .width{
 	width: 600px;
 }
+
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: rgb(210, 244, 224   ); 
+ }
+ #tabs{
+ margin-left: auto;
+ margin-right:auto;
  }
 
 </style>
@@ -57,53 +62,53 @@
 						</c:forEach>
 					</table>
 			</div >			
-				<div id="tabs" class="width" >
+				<div id="tabs" class="width marg-auto"  >
 					<ul>
 						<li><a href="#p1">學員工作統計</a></li>
 						<li><a href="#p2">學員性別統計</a></li>
 						<li><a href="#p3">學員年齡統計</a></li>
 					</ul>
 					<div id="p1">
-						<form action="getJobPercentbyID" method="get">
+						<form action="getJobPercentbyID" method="get" id="jobform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input  class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
-									<td>${errors.jobid}</td>
+									<td><input  class="form-control" placeholder="請輸入ID" type="text" name="id" id="jobid" /></td>
+									<td ><font id="jobmsg" color="red"></font></td>
 								</tr>
 								<tr>
-									<td><button type="submit" value="login">送出</button></td>
-									<td>${errors.jobmsg}</td>
+									<td><input type="button" onclick="checkjob()" class="btn btn-success" value="送出" /></td>
+									<td><font color="red">${errors.jobmsg}</font></td>
 								</tr>
 							</table>
 						</form>
 					</div>
 					<div id="p2">
-						<form action="getgenderbyID" method="get">
+						<form action="getgenderbyID" method="get" id="genderform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
-									<td>${errors.genderid}</td>
+									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" id="genderid" /></td>
+									<td><font id="gendermsg" color="red"></font></td>
 								</tr>
 								<tr>
-									<td><button type="submit" value="login">送出</button></td>
-									<td>${errors.gendermsg}</td>
+									<td><input type="button" onclick="checkgender()" class="btn btn-success" value="送出" /></td>
+									<td><font color="red">${errors.gendermsg}</font></td>
 								</tr>
 							</table>
 						</form>
 					</div>
 					<div id="p3">
-						<form action="getAgePercentbyID" method="get">
+						<form action="getAgePercentbyID" method="get" id="ageform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
-									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" /></td>
-									<td>${errors.ageid}</td>
+									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" id="ageid" /></td>
+									<td><font id="agemsg" color="red"></font></td>
 								</tr>
 								<tr>
-									<td><button type="submit" style="background-color:#92F9BC" value="login">送出</button></td>
-									<td>${errors.agemsg}</td>
+									<td><input type="button" onclick="checkage()" class="btn btn-success" value="送出" /></td>
+									<td><font color="red">${errors.agemsg}</font></td>
 								</tr>
 							</table>
 						</form>
@@ -112,6 +117,51 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	function checkgender() {
+		var genderid = $('input#genderid');
+		
+		
+		if (genderid.val() ==='') {
+			$('font#gendermsg').html('請輸入課程ID');
+			return false;
+		}else{
+			$('form#genderform').submit();
+		}
+
+		
+		
+	}
+	function checkjob() {
+
+		var jobid = $('input#jobid');
+
+		
+		if (jobid.val() ==='') {
+			$('font#jobmsg').html('請輸入課程ID');
+			return false;
+		}else{
+			$('form#jobform').submit();
+		}
+
+		
+		
+	}
+	function checkage() {
+
+		var ageid = $('input#ageid');
+		
+		if (ageid.val() ==='') {
+			$('font#agemsg').html('請輸入課程ID');
+			return false;
+		}else{
+			$('form#ageform').submit();
+		}
+
+		
+		
+	}
+	</script>
 	<jsp:include page="../incloud/footer-section.jsp" />
 
 				<div id="preloader"></div>

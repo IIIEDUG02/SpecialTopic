@@ -22,6 +22,14 @@
 .height100 {
 	height: 100px;
 }
+.width{
+	width: 600px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: rgb(210, 244, 224   ); 
+ }
+
 </style>
 </head>
 <body>
@@ -31,89 +39,74 @@
 		<div class="row">
 			<div class="col min-vh-100">
 	<div class="table2excel">
-	<table style="display:inline;">
+	<table style= "display:inline;" class="width table table-striped">
 		<thead>
 			<tr>
-				<td>資料成功載入:</td>
-				<td>時間:</td>
-				<td>銷售額:</td>
+				<td>2021年</td>
+				<td>銷售額</td>
 			</tr>
 		</thead>
 		<tbody>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-01" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="2340 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-02" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="12340 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-03" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="20340 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-04" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="23400 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-05" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="23330 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-06" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="30500 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-07" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="14030 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-08" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="34550 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-09" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="31020 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-10" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="25600 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-11" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="20320 元" /></td>							
 				</tr>
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="2021-12" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="14530 元" /></td>							
 				</tr>
 		</tbody>
 	</table>
-	<table style="display:inline;">
+	<table style="display:inline;" class="width table table-striped">
 		<thead>
 			<tr>
-				<td>資料成功載入:</td>
-				<td>時間:</td>
-				<td>銷售額:</td>
+				<td>2021 年</td>
+				<td>銷售額</td>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="my" items="${moneyList2022}">
 				<tr>
-					<td ><c:out value="" /></td>
 					<td style="border-top:1px solid #000"><c:out value="${my.get('date')}" /></td>				
 					<td style="border-top:1px solid #000"><c:out value="${my.get('money')} 元" /></td>							
 				</tr>
@@ -121,7 +114,7 @@
 		</tbody>
 	</table>
 	</div>
-	<input class="btn" type="button"  value="點選匯出excel">
+	<input class="btn btn-success" type="button" value="點選匯出excel">
 	<div id="container" style="min-width:400px;height:400px"></div>
 	<script>
 
