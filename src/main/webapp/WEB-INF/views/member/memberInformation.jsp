@@ -67,7 +67,8 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 									<input id="password" type="hidden" name="password"
 										class="form-control" placeholder="Recipient's username"
 										aria-label="Recipient's username" required="required"
-										aria-describedby="button-addon2" value="${mb.getPassword()}"
+										maxlength="20" aria-describedby="button-addon2"
+										value="${mb.getPassword()}"
 										onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<button class="btn btn-outline-secondary" type="button"
 										id="button-addon2">編輯</button>
@@ -141,10 +142,9 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 								</div>
 							</div>
 							<div id="publishDateMeta" class="birthday">
-								生日:<a> ${mb.getMemberInformation().getBirthday()}<!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd --> 
-<%-- 								<fmt:formatDate --%>
-<%-- 										value="" --%>
-<%-- 										pattern="yyyy/MM/dd" /> --%>
+								生日:<a> ${mb.getMemberInformation().getBirthday()}<!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd -->
+									<%-- 								<fmt:formatDate --%> <%-- 										value="" --%>
+									<%-- 										pattern="yyyy/MM/dd" /> --%>
 								</a>
 								<div class="input-group mb-3">
 									<input id="check6" type="text" name="birthday"
