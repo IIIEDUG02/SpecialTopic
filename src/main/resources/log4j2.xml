@@ -1,0 +1,58 @@
+<Configuration status="ALL" monitorInterval="30">
+    <Properties>
+        <!--路徑依日期分類-->
+        <Property name="LOG_FILE_PATH">./LogFile/${date:yyyy-MM-dd}</Property>
+        <!--設置 Log 輸出格式-->
+        <Property name="PATTERN_FORMAT">%d{[yyyy-MM-dd] [HH:mm:ss]} [%-5level] %class{36} %L %M - %msg%xEx%n</Property>
+    </Properties>
+    
+    <Appenders>
+        <!--輸出到 Console-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN_FORMAT}"/>
+        </Console>
+                        
+        <!--Error Log-->
+        <RollingFile name="MyErrors" fileName="${LOG_FILE_PATH}/error.log"
+                     filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${PATTERN_FORMAT}</pattern>
+            </PatternLayout>
+			<Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
+        
+        <!--Info Log-->
+        <RollingFile name="MyInfos" fileName="${LOG_FILE_PATH}/info.log"
+                     filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${PATTERN_FORMAT}</pattern>
+            </PatternLayout>
+        </RollingFile>
+        
+	</Appenders>
+	
+	<!-- Info Level to file -->
+	<Loggers>
+        <Logger name="org.springframework" level="INFO"/>
+        
+        <Logger name="net.ddns.iiiedug02" level="WARN">
+        	<AppenderRef ref="MyErrors"/>
+        	<AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Logger name="net.ddns.iiiedug02" level="INFO">
+        	<AppenderRef ref="MyInfos"/>
+        	<AppenderRef ref="Console"/>
+        </Logger>
+        
+        <Root level="WARN">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+    
+    
+       
+</Configuration>

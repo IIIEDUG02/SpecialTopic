@@ -1,32 +1,24 @@
 package net.ddns.iiiedug02.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 
+import net.ddns.iiiedug02.annotation.LogInfo;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.MemberRole;
@@ -54,7 +46,7 @@ public class MemberController {
 			m.addAttribute("errMsg", "帳號已註冊");
 			return "member/registerPage1";
 		}
-		
+
 		MemberInformation mbi = new MemberInformation();
 		mbi.setEmail(params.get("email"));
 
@@ -69,11 +61,11 @@ public class MemberController {
 		mb.setPassword(params.get("password"));
 		mb.setActivated((short) 0);
 		mb.setRoles(rs);
-		
+
 		mb.setMemberInformation(mbi);
 		mbi.setMember(mb);
 		ms.save(mb);
-		
+
 		session.setAttribute("registerBean", mb);
 		return "redirect:/";
 	}
@@ -90,6 +82,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/editInformation")
+	@LogInfo
 	public String editInformation(Model m, HttpSession session, Principal principal) {
 
 		Member mb = ut.getLoiginBean(session, principal);
