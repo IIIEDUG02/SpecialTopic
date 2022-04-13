@@ -49,13 +49,30 @@ margin: 10px;
 								<div class="col-2">
 									<p class="text">${cb.getClassType()}</p>
 								</div>
-								<div class="col-5">
+								<div id="btnwrap" class="col-5">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}"
 										class="btn btn-primary">編輯課程</a> <a
 										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
 										class="btn btn-primary">編輯章節</a> <a
 										onclick="deleteClassByCid(${cb.getCid()})"
 										class="btn btn-danger">刪除課程</a>
+									<c:choose>
+										<c:when test="${null==cb.getClassOnlineBean()}">
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-primary">上架課程</a>
+										</c:when>
+										<c:when test="${0==cb.getClassOnlineBean().getOnline()}">
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-primary">上架課程</a>
+										</c:when>
+										<c:otherwise>
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-danger">下架課程</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</c:forEach>

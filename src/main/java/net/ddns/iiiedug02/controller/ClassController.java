@@ -12,6 +12,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Status;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -152,7 +154,7 @@ public class ClassController {
 	// 創建classdetails
 	@PostMapping(value = "/createclassdetails")
 	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,
-			Model model) {
+			Model model,SessionStatus status) {
 		ClassDetailsBean cdb = new ClassDetailsBean();
 		cdb.setDescript(formData.get("descript"));
 		cdb.setGoal(formData.get("goal"));
@@ -164,6 +166,7 @@ public class ClassController {
 		cb.setClassDetailsBean(cdb);
 		cdb.setClassbean(cb);
 		cbs.insert(cb);
+		status.setComplete();
 		List<ClassBean> cbList = cbs.findAll();
 		model.addAttribute("allCbList", cbList);
 		return "class/classList";
@@ -273,7 +276,7 @@ public class ClassController {
 		List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
 		m.addAttribute("CurriculumList", cusList);
 		m.addAttribute("cid", cid);
-		return "class/curriculum-nilm";
+		return "class/class-player";
 	}
 
 	@GetMapping("class/curriculums/api/{cid}")
@@ -354,7 +357,17 @@ public class ClassController {
 	@GetMapping("class/showClassType/{classType}")
 	public String showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
 		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
-		m.addAttribute("classOneTypeList", classOneTypeList);
+		List<ClassBean> classOnlineClassOneTypeList = new ArrayList<ClassBean>();
+		for(ClassBean cb:classOneTypeList) {
+			if(null==cb.getClassOnlineBean()) {
+				continue;
+			}else if(0==cb.getClassOnlineBean().getOnline()) {
+				continue;
+			}else {
+				classOnlineClassOneTypeList.add(cb);
+			}		
+		}
+		m.addAttribute("classOneTypeList", classOnlineClassOneTypeList);
 		return "courses";
 	}
 
@@ -387,25 +400,26 @@ public class ClassController {
 	/*
 	 * set class to online
 	 */
-	@PostMapping("class/api/postToOnline/{cid}/{online}")
-	public boolean postToOnline(@PathVariable("online") int online, @PathVariable("cid") int cid, Principal principal,
+	@PostMapping("class/api/postToOnline/{cid}")
+	@ResponseBody
+	public boolean postToOnline(@PathVariable("cid") int cid, Principal principal,
 			HttpServletRequest request) {
-		if (utool.hasRole(principal, "admin")) {
-			throw new RoleNotFoundException();
-		}
 		if (null == cos.findByCid(cid)) {
 			ClassOnlineBean cob = new ClassOnlineBean();
-			cob.setCid(cid);
+			ClassBean cb = cbs.findById(cid);			
 			cob.setOnline(1);
+			cob.setClassbean(cb);
 			cos.insert(cob);
 			return true;
-		} else if (1 == online) {
+		} else if (1==( cbs.findById(cid).getClassOnlineBean().getOnline())) {
 			ClassOnlineBean cob = cos.findByCid(cid);
 			cob.setOnline(0);
+			cos.update(cob);
 			return false;
 		} else {
 			ClassOnlineBean cob = cos.findByCid(cid);
-			cob.setOnline(0);
+			cob.setOnline(1);
+			cos.update(cob);
 			return true;
 		}
 	}

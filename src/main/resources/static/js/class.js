@@ -157,6 +157,27 @@ function changeStatusToZero(cid) {
 	})
 };
 
+function changeClassOnlineStatus(cid) {
+	$.ajax({
+		type: "post",
+		url: "/SpecialTopic/class/api/postToOnline/"+cid,
+		success: function(data) {
+			if (data) {
+				$("a#onlinebtn"+cid).attr("class","btn btn-danger")
+				$("a#onlinebtn"+cid).html("下架課程")
+				console.log(true)
+			} else {
+				$("a#onlinebtn"+cid).attr("class","btn btn-primary")
+				$("a#onlinebtn"+cid).html("上架課程")
+				console.log(false)
+			}
+		},
+		error: function(xhr, status) {
+			console.log("Error")
+		}
+	})
+};
+
 
 
 // 取得課程類別清單
