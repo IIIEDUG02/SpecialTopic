@@ -46,8 +46,8 @@ function check() {
 	if (!checkEmail()){
 		return false;
 	}
-	
 	$('form#registerform').submit();
+	alert("註冊成功!!");
 }
 function checkEmail() {
 	var email = $('input#email').val();
