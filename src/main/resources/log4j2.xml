@@ -11,6 +11,18 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${PATTERN_FORMAT}"/>
         </Console>
+        
+        <!--Info Log-->
+        <RollingFile name="MyInfos" fileName="${LOG_FILE_PATH}/info.log"
+                     filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${PATTERN_FORMAT}</pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingFile>
                         
         <!--Error Log-->
         <RollingFile name="MyErrors" fileName="${LOG_FILE_PATH}/error.log"
@@ -24,29 +36,16 @@
             </Policies>
         </RollingFile>
         
-        <!--Info Log-->
-        <RollingFile name="MyInfos" fileName="${LOG_FILE_PATH}/info.log"
-                     filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
-            <PatternLayout>
-                <pattern>${PATTERN_FORMAT}</pattern>
-            </PatternLayout>
-        </RollingFile>
-        
 	</Appenders>
 	
 	<!-- Info Level to file -->
-	<Loggers>
-        <Logger name="org.springframework" level="INFO"/>
-        
-        <Logger name="net.ddns.iiiedug02" level="WARN">
+	<Loggers>       
+        <Logger name="net.ddns.iiiedug02" level="ERROR">
         	<AppenderRef ref="MyErrors"/>
         </Logger>
-        
-        <Logger name="net.ddns.iiiedug02" level="INFO">
-        	<AppenderRef ref="MyInfos"/>
-        </Logger>
-        
-        <Root level="WARN">
+                
+        <Root level="INFO">
+            <AppenderRef ref="MyInfos"/>
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
