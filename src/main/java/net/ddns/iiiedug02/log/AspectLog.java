@@ -17,24 +17,17 @@ public class AspectLog {
 
     @Around("@annotation(net.ddns.iiiedug02.annotation.AspectLogAnnotation)")
     public Object logInfo(ProceedingJoinPoint joinPoint) throws Throwable {
-        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        String annotatedMethodName = joinPoint.getSignature().getName();
 
         int i = 0;
         Object[] args = joinPoint.getArgs();
 
-        log.info("----- ClassName:[{}], Function:[{}({} args)]  - > start -----", className,
-                annotatedMethodName, args.length);
-
+        log.info("----- [start] -> {} -----", joinPoint.toString());
         for (Object obj : args) {
             i++;
-            log.info("{} arg: {}", i, obj.toString());
+            log.info("arg-{}: {}", i, obj.toString());
         }
-
         Object object = joinPoint.proceed();
-        log.info(joinPoint.getSignature().toLongString());
-        log.info("----- ClassName:[{}], Function:[{}({} args)]  - > end -----", className,
-                annotatedMethodName);
+        log.info("----- [end] -> {} -----", object);
         return object;
     }
 }
