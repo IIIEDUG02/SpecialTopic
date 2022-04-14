@@ -35,22 +35,11 @@
 
 	<main id="main">
 		<!-- ======= Breadcrumbs ======= -->
-		<div class="breadcrumbs" data-aos="fade-in">
-			<div class="container">
-				<h2>About Us</h2>
-				<p>Est dolorum ut non facere possimus quibusdam eligendi
-					voluptatem. Quia id aut similique quia voluptas sit quaerat
-					debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo
-					harum praesentium.</p>
-			</div>
-		</div>
+		<div class="height100"></div>
 		<!-- End Breadcrumbs -->
 
 		<!-- ======= About Section ======= -->
 		<jsp:include page="incloud/about-section.jsp" />
-
-		<!-- ======= Counts Section ======= -->
-		<jsp:include page="incloud/counts-section.jsp" />
 
 		<!-- ======= Testimonials Section ======= -->
 		<section id="testimonials" class="testimonials">

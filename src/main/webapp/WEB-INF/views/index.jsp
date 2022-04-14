@@ -8,23 +8,17 @@
 <html lang="en_US">
 
 <head>
-
 <title>EAZY LEARN 首頁</title>
-
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="description">
 <meta content="" name="keywords">
-
 <!-- Favicons -->
 <jsp:include page="incloud/favicons.jsp" />
-
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
-
 <!-- Head js -->
 <jsp:include page="incloud/head-js.jsp" />
-
 <!-- JavaScript -->
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
@@ -55,12 +49,9 @@
 	<!-- End Hero Section -->
 
 	<main id="main">
-
 		<!-- ======= About Section ======= -->
 		<jsp:include page="incloud/about-section.jsp" />
-
-		<!-- ======= Trainers Section ======= -->
-		<%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>
+		<!-- ======= Classe Section ======= -->
 		<jsp:include page="incloud/class-section.jsp" />
 
 	</main>
