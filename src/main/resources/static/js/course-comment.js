@@ -279,14 +279,19 @@ class CourseComment extends Base {
   async heartBtnClickHandler(obj, t, tagName) {
 		// 因愛心本身是 span，父元素是 div，因次想要兩個 click 都觸發進來後
 		// 都需要再重新定位回父元素 div 上面
+		//按讚收回讚的愛心是搭配哪一則留言(找父留言)
 		const container = tagName === "div" ? t : t.parentElement;
 		let heart = tagName === "div" ? t.querySelector("span") : t;
 		let url;
 		const l = heart.classList;
 		const comment = heart.closest(".sub-comment") || heart.closest(".main-comment");
 		
+		//切換按讚收回讚的實心空心愛心
+		//空心愛心
 		l.toggle("fa-heart-o");
 		l.toggle("heart");
+		
+		//實心愛心
 		l.toggle("fa-heart");
 		l.toggle("heart--filled");
 		
@@ -306,11 +311,12 @@ class CourseComment extends Base {
 	}
 	
   // 編輯留言 button click handler
+  //obj物件，t=target 目標物件(修改的那個按鈕本身,按它的時候會被傳進來)
   editBtnClickHandler(obj, t) {
-		// 上一層的父元素
+		// 上一層的父元素 //找最近的父親div
 		const extraInfoEl = t.parentElement;
 		
-		// 下一個同級的元素
+		// 下一個同級的元素 //修改這個動作會找它搭配的留言
 		let nextEl = extraInfoEl.nextElementSibling;
 		const content = nextEl.innerText;
 		
@@ -321,17 +327,20 @@ class CourseComment extends Base {
 		
 		// 將 "this" 指向 nextEl
 		// 將 button 的事件委派給他們的父親元素
+		// 點擊"修改"這個動作會傳給父親div，父親div會去做觸發，打開下面要修改的留言欄這個動作。
 		nextEl.addEventListener("click", obj.editCommentClickHandler.bind(nextEl, obj, extraInfoEl, content));
 		
+		//textarea 指被打開的留言欄
 		const textarea = nextEl.querySelector("textarea");
 		const btn = obj.getEl("replySubmitBtn", nextEl);
 		
+		//監聽你有沒有做修改內容的動作，沒修改不能按修改
 		textarea.addEventListener("keyup", function() {
 		content === textarea.value.trim() ? btn.disabled = true : btn.disabled = false;
 		});
 	}
 	
-	// 移除 "修改留言框"
+	// 移除 "修改留言框" (沒修改內容，按"取消"的這個動作)
 	removeEditComment(nextEl, obj, extraInfoEl, content) {
 		nextEl.remove();
 		extraInfoEl.insertAdjacentHTML('afterend', obj.generateCommentContentMarkup(content));
@@ -470,6 +479,7 @@ class CourseComment extends Base {
 	}
 	
   // 動態創建 Template String，因為會要將後端回傳的資料添加上去，這裡是父留言
+  //502行 fill就是實心愛心、heart-o就是空心愛心判斷使用哪一個
   generateMainCommentMarkup(data) {
     const subComments = data.comments;
 
