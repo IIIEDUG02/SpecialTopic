@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.YPclass;
@@ -22,6 +25,7 @@ import net.ddns.iiiedug02.model.service.YPclassService;
 
 
 @Controller
+@SessionAttributes({"ypclasscontroll"})
 public class YPclassController {
     @Autowired
     private YPclassService ypclassService;
@@ -124,7 +128,7 @@ public class YPclassController {
     List<YPclass> ypclassList = ypclassService.findAll();
     if(ypclassList!=null && !ypclassList.isEmpty()) {
     	m.addAttribute("ypclassList", ypclassList);
-		return "success/Success3";
+		return "index";
 	}
     errors.put("pimsg", "請確認輸入值");
 	return "success/Controllpage1";
@@ -138,7 +142,7 @@ public class YPclassController {
 	  m.addAttribute("errors", errors);
 	  errors.put("resetmsg", "排序設定已清空");
 	  ypclassService.resetypclass();
-	  return "success/Controllpage1";
+	  return "index";
   }
   
     @GetMapping("/ypclassfindtop5")
