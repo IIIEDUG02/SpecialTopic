@@ -28,6 +28,9 @@ function sc_del(cid) {
 					$('button#sc_btn_' + cid).html("加入至購物車");
 				}
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
+				if (parseInt($('span#shoppingcart_count').html()) == 0) {
+					$('div.shopping-cart').attr("style","display: none")
+				}
 			} else {
 				alert("網頁發生錯誤");
 			}
