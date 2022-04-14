@@ -11,18 +11,26 @@
 <jsp:include page="../incloud/head-css.jsp" />
 
 <style>
+div.min-vh-100{
+background-color:#F0FFF0	;
+border-radius: 50px;
+}
+
+div.shadow{
+background-color:white;
+}
+div#btnwrap{
+text-align: right;
+}
 body {
 	font-family: "PingFang TC", 微軟正黑體, sans-serif;
 	font-size: 16px;
 	color: rgba(0, 0, 0, 0.65);
-	background-color: rgb(243, 243, 241);
 	margin: 10px;
 	padding: 0px;
 	min-height: 100vh;
 }
-div{
-background-color: white;
-}
+
 .row{
 margin: 20px;
 }
@@ -46,9 +54,7 @@ margin: 20px;
 							<div class="col-2">
 								<h3>課程類型</h3>
 							</div>
-							<div class="col-5">
-								<h3>編輯課程</h3>
-							</div>
+
 						</div>
 						<hr>
 						<c:forEach items="${allCbList}" var="cb">
