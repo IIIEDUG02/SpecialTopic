@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
  * @author nilm
  *
  */
-public @interface LogInfo {
+public @interface AspectLogAnnotation {
 
 }

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import net.ddns.iiiedug02.annotation.LogInfo;
+import net.ddns.iiiedug02.annotation.AspectLogAnnotation;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.MemberRole;
@@ -89,7 +89,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/editInformation")
-    @LogInfo
+    @AspectLogAnnotation
     public String editInformation(Model m, HttpSession session, Principal principal) {
 
         Member mb = ut.getLoiginBean(session, principal);
