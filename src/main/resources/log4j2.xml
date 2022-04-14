@@ -13,7 +13,7 @@
         </Console>
         
         <!--Info Log-->
-        <RollingFile name="MyInfos" fileName="${LOG_FILE_PATH}/info.log"
+        <RollingFile name="SystemLog" fileName="${LOG_FILE_PATH}/info.log"
                      filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
@@ -25,7 +25,7 @@
         </RollingFile>
                         
         <!--Error Log-->
-        <RollingFile name="MyErrors" fileName="${LOG_FILE_PATH}/error.log"
+        <RollingFile name="SystemError" fileName="${LOG_FILE_PATH}/error.log"
                      filePattern="${LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
@@ -40,12 +40,11 @@
 	
 	<!-- Info Level to file -->
 	<Loggers>       
-        <Logger name="net.ddns.iiiedug02" level="ERROR">
-        	<AppenderRef ref="MyErrors"/>
+        <Logger name="net.ddns.iiiedug02" level="INFO">
+        	<AppenderRef ref="SystemLog"/>
         </Logger>
-                
-        <Root level="INFO">
-            <AppenderRef ref="MyInfos"/>
+        <Root level="ERROR">
+            <AppenderRef ref="SystemError"/>
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
