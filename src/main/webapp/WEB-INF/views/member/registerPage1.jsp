@@ -35,16 +35,6 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 	border-radius: 10px;
 	margin: 30px;
 }
-
-/* <style>.main-box { */
-/* 	margin: 50px auto; */
-/* 	width: 400px; */
-/* 	height: 570px; */
-/* 	padding: 50px; */
-/* 	box-shadow: 5px 5px 10px #999; */
-/* 	border: 1px solid #fff text-align:center; */
-/* 	font-size: 1.0em; */
-}
 </style>
 </head>
 <body>

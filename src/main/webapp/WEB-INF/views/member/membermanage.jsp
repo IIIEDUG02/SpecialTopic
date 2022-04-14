@@ -7,9 +7,27 @@
 <jsp:include page="../incloud/body-js.jsp" />
 <html>
 <head>
+<!-- ======= Header ======= -->
+<jsp:include page="../member/manageHeader.jsp" />
 <meta charset="UTF-8">
 <title>admin</title>
 <style>
+a.a {
+	color: #5FCF80;
+}
+
+span.bgfunction {
+	color: #5FCF80;
+}
+
+li.dropdown {
+	background-color: rgb(60, 60, 60);
+}
+
+ul.mydropdown {
+	background-color: rgb(60, 60, 60);
+}
+
 .divtable1 {
 	margin: 70px;
 }
@@ -17,18 +35,21 @@
 .search {
 	margin: 20px 300px;
 }
+i.dropdown{
+	color: #5FCF80;
+}
 </style>
+
 </head>
-<body>
-	<!-- ======= Header ======= -->
-	<jsp:include page="../incloud/header-section.jsp" />
+<body style="background-color: rgb(210, 210, 210)">
+
 	<div style="height: 100px"></div>
 	<div class="divtable1">
 		<div>
 			<div class="search">
 				<div class="input-group">
-					<input type="text" class="form-control"
-						placeholder="搜尋帳戶"
+					<input type="text" class="form-control" placeholder="搜尋帳戶"
+						style="background-color: rgb(210, 210, 210); border-color: rgb(60, 60, 60)"
 						aria-label="Recipient's username with two button addons">
 					<button class="btn btn-outline-secondary" type="button">搜尋</button>
 					<button class="btn btn-outline-secondary" type="button">清除</button>
@@ -72,7 +93,6 @@
 			</tbody>
 		</table>
 	</div>
+	
 </body>
-<!-- ======= Footer ======= -->
-<jsp:include page="../incloud/footer-section.jsp" />
 </html>

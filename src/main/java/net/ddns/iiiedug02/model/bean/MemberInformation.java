@@ -41,7 +41,7 @@ public class MemberInformation implements Serializable {
   @Column(name = "email")
   private String email = "";
   @Column(name = "birthday")
-  private Date birthday;
+  private String birthday;
   @Column(name = "job")
   private String job = "";
   @Column(name = "photo")
