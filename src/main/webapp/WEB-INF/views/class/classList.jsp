@@ -16,8 +16,9 @@ background-color:#F0FFF0	;
 border-radius: 50px;
 }
 
-div.shadow{
+div.align-items-center{
 background-color:white;
+border-radius: 50px;
 }
 div#btnwrap{
 text-align: right;
@@ -59,7 +60,7 @@ margin: 20px;
 						<hr>
 						<c:forEach items="${allCbList}" var="cb">
 							<div id="classDiv${cb.getCid()}"
-								class="row align-items-center shadow">
+								class="row align-items-center ">
 								<div class="col-2">
 									<p class="title">${cb.getTitle()}</p>
 								</div>
@@ -68,7 +69,7 @@ margin: 20px;
 								</div>
 								<div id="btnwrap" class="col justify-content-end">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}"
-										class="btn btn-primary">編輯課程</a> <a
+										class="btn btn-success">編輯課程</a> <a
 										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
 										class="btn btn-primary">編輯章節</a> <a
 										onclick="deleteClassByCid(${cb.getCid()})"

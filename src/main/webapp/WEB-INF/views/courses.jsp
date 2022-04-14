@@ -11,6 +11,18 @@
 <title>Courses - Mentor Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+<style>
+.position_fixed {
+	position: fixed;
+}
+div#header-title{
+background-color:#93FF93	;
+}
+
+.height100 {
+	height: 100px;
+}
+</style>
 
 <!-- Favicons -->
 <jsp:include page="incloud/favicons.jsp" />
@@ -38,7 +50,10 @@
 	<div class="height100"></div>
 
 	<main id="main" data-aos="fade-in">
-
+	<div id="header-title" class="container">
+	<h2>請自由探索喜歡課程</h2>
+	<div></div>
+	</div>
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">
 
@@ -60,15 +75,14 @@
 									<div
 										class="d-flex justify-content-between align-items-center mb-3">
 										<h4>${cb.getClassType()}</h4>
-										<p class="price">${cb.getPrice()}</p>
+										<p class="price">NT$${cb.getPrice()}</p>
 									</div>
 
 									<h3>
 										<a href="/SpecialTopic/viewClass/${cb.getCid()}">${cb.getTitle()}</a>
 									</h3>
-									<p>Et architecto provident deleniti facere repellat nobis
-										iste. Id facere quia quae dolores dolorem tempore.</p>
-									<div
+									<p>${cb.getClassDetailsBean().getDescript()}</p>
+<!--  									<div
 										class="trainer d-flex justify-content-between align-items-center">
 										<div class="trainer-profile d-flex align-items-center">
 											<img src="assets/img/trainers/trainer-1.jpg"
@@ -77,8 +91,8 @@
 										<div class="trainer-rank d-flex align-items-center">
 											<i class="bx bx-user"></i>&nbsp;50 &nbsp;&nbsp; <i
 												class="bx bx-heart"></i>&nbsp;65
-										</div>
-									</div>
+										</div>  
+									</div> -->
 								</div>
 							</div>
 						</c:forEach>
