@@ -40,13 +40,20 @@ public class ClassBean implements Serializable {
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private ClassDetailsBean classDetailsBean;
 
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
+  private ClassOnlineBean classOnlineBean;
+
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
   private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
   
 
+public ClassOnlineBean getClassOnlineBean() {
+	return classOnlineBean;
+}
 
-
-
+public void setClassOnlineBean(ClassOnlineBean classOnlineBean) {
+	this.classOnlineBean = classOnlineBean;
+}
 
 public Set<CurriculumBean> getCurriculumbean() {
     return curriculumbean;

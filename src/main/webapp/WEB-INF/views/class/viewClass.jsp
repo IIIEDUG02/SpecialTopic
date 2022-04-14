@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-tw">
 
 <head>
 <meta charset="utf-8">
@@ -12,18 +12,38 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+<style>
+.position_fixed {
+	position: fixed;
+}
+
+.height100 {
+	height: 100px;
+}
+div#shoppingcart{
+    text-align: center;
+}
+h1{
+font-size: 40px;
+}
+</style>
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- Head js -->
-<jsp:include page="../incloud/head-js.jsp" />
+<!-- jQuery -->
+<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+
+<!-- 購物車 -->
+<script src="/SpecialTopic/js/shopping_cart.js"></script>
+
+<!-- Animate CSS -->
+<link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
 
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
@@ -34,48 +54,74 @@
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
 	<main id="main">
-		<div class="container">
+		<div id="class-detail-container" class="container">
 			<c:choose>
 				<c:when test="${not empty errMsg}">
 					${errMsg}
 				</c:when>
 				<c:otherwise>
-					<div class="row">
-						<!-- 課程介紹 -->
-						<div class="col-8 min-vh-100">
-							<div class="shadow p-3">
-								<h3>${classBean.getTitle()}</h3>
-								<img src="${classBean.getPhoto()}" alt="課程圖片" width="300"
-									height="200"> <a>${classBean.getClassType()}</a>
-							</div>
-						</div>
+					<div class="shadow">
+						<h1>${classBean.getTitle()}</h1>
+						<div class="row">
+							<!-- 課程介紹 -->
+							<div class="col-8 min-vh-100">
+								<div class="shadow p-3">
 
-						<!-- 購物車 -->
-						<div class="col-4">
-							<div class="shadow p-3 position_fixed">
-								<h3>價格:${classBean.getPrice()}</h3>
-								<c:choose>
-									<c:when test="${not empty classManagerBean}">
-										<h3>課程已購買</h3>
-									</c:when>
-									<c:otherwise>
-										<c:choose>
-											<c:when test="${not empty ShoppingCart}">
-												<button id="sc_btn_${classBean.getCid()}"
-													class="btn btn-danger"
-													onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
-											</c:when>
-											<c:otherwise>
-												<button id="sc_btn_${classBean.getCid()}"
-													class="btn btn-success"
-													onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
-											</c:otherwise>
-										</c:choose>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</div>
+									<img src="${classBean.getPhoto()}" alt="課程圖片" width="300"
+										height="200">
+								</div>
+								<div class="shadow p-3">
+									<div>
+										<h2>課程目標</h2>
+									</div>
+									<div>${classBean.getClassDetailsBean().getGoal()}</div>
+								</div>
+								<div class="shadow p-3">
+									<div>
+										<h2>學生需要具備條件</h2>
+									</div>
 
+									<div>
+										${classBean.getClassDetailsBean().getStu_required()}</div>
+								</div>
+								<div class="shadow p-3">
+									<div>
+										<h2>使用工具</h2>
+									</div>
+									<div>${classBean.getClassDetailsBean().getNeeded_tool()}
+									</div>
+								</div>
+
+							</div>
+
+							<!-- 購物車 -->
+							<div id="shoppingcart" class="col-4">
+								<div class="shadow p-3 position_fixed">
+									<div>課程售價</div>
+									<h3>NT$${classBean.getPrice()}</h3>
+									<c:choose>
+										<c:when test="${not empty classManagerBean}">
+											<h3>課程已購買</h3>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${not empty ShoppingCart}">
+													<button id="sc_btn_${classBean.getCid()}"
+														class="btn btn-danger"
+														onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
+												</c:when>
+												<c:otherwise>
+													<button id="sc_btn_${classBean.getCid()}"
+														class="btn btn-success"
+														onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
+												</c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</c:otherwise>
 			</c:choose>

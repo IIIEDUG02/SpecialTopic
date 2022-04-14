@@ -11,6 +11,18 @@
 <title>Courses - Mentor Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+<style>
+.position_fixed {
+	position: fixed;
+}
+div#header-title{
+background-color:#93FF93	;
+}
+
+.height100 {
+	height: 100px;
+}
+</style>
 
 <!-- Favicons -->
 <jsp:include page="incloud/favicons.jsp" />
@@ -38,31 +50,24 @@
 	<div class="height100"></div>
 
 	<main id="main" data-aos="fade-in">
-
+	<div id="header-title" class="container">
+	<h2>請自由探索喜歡課程</h2>
+	<div></div>
+	</div>
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">
 
 			<div class="container" data-aos="fade-up">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton1" data-bs-toggle="dropdown"
-						aria-expanded="false">請選擇課程類型</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<c:forEach var="classtype" items="${classTypeList}">
-							<script>
-								console
-										.log("javascript:findAllClassByClassType('${classtype}')")
-							</script>
-							<li><a class="dropdown-item"
-								href="javascript:findAllClassByClassType('${classtype}')">${classtype}</a></li>
-						</c:forEach>
 
-					</ul>
-				</div>
 
 				<div id="row" class="row m-3" data-aos="zoom-in" data-aos-delay="100">
+				<c:choose>
+				<c:when test="${empty classOneTypeList}">
+				<h3>尚無此類型課程</h3>
+				</c:when>
+				</c:choose>
 					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-
+						
 						<c:forEach items="${classOneTypeList}" var="cb">
 							<div class="course-item m-2">
 								<img src="${cb.getPhoto()}" class="img-fluid" alt="...">
@@ -70,15 +75,14 @@
 									<div
 										class="d-flex justify-content-between align-items-center mb-3">
 										<h4>${cb.getClassType()}</h4>
-										<p class="price">${cb.getPrice()}</p>
+										<p class="price">NT$${cb.getPrice()}</p>
 									</div>
 
 									<h3>
 										<a href="/SpecialTopic/viewClass/${cb.getCid()}">${cb.getTitle()}</a>
 									</h3>
-									<p>Et architecto provident deleniti facere repellat nobis
-										iste. Id facere quia quae dolores dolorem tempore.</p>
-									<div
+									<p>${cb.getClassDetailsBean().getDescript()}</p>
+<!--  									<div
 										class="trainer d-flex justify-content-between align-items-center">
 										<div class="trainer-profile d-flex align-items-center">
 											<img src="assets/img/trainers/trainer-1.jpg"
@@ -87,8 +91,8 @@
 										<div class="trainer-rank d-flex align-items-center">
 											<i class="bx bx-user"></i>&nbsp;50 &nbsp;&nbsp; <i
 												class="bx bx-heart"></i>&nbsp;65
-										</div>
-									</div>
+										</div>  
+									</div> -->
 								</div>
 							</div>
 						</c:forEach>
@@ -97,17 +101,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-center">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			</div>
+
 		</section>
 		<!-- End Courses Section -->
 

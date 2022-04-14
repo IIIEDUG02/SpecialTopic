@@ -23,22 +23,34 @@
 
 <style>
 body {
-    font-family: "PingFang TC", 微軟正黑體, sans-serif;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.65);
-    background-color: rgb(243, 243, 241);
-    margin: 0px;
-    padding: 0px;
-    min-height: 100vh;
-    text-align: initial;
+	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.65);
+	margin: 10px;
+	padding: 0px;
+	min-height: 100vh;
 }
+
+div#title{
+
+}
+
+label {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
 .input-wrap {
-    overflow: auto;
-    min-width: 380px;
-    background-color: white;
-    margin-bottom: 60px;
-    padding: 15px 30px 45px;
-    box-sizing: border-box;
+	min-width: 380px;
+	margin: 10px;
+	background-color: #F0FFF0;
+	margin-bottom: 60px;
+	padding: 15px 30px 45px;
+	border-radius: 50px;
+}
+
+img {
+	margin-top: 20px;
 }
 </style>
 <!-- Head js -->
@@ -52,31 +64,32 @@ body {
 	<div class="height100"></div>
 
 	<div class="container ">
+		<div id="title" class="shawdow row " style="text-align:center"><h3><strong>課程標題</strong></h3></div>
 		<div class="shawdow input-wrap">
-			<h3>課程創建</h3>
+			
 			<form action="createclass" METHOD="POST"
 				enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="classtitle">課程標題</label> <input type="text"
 						class="form-control" id="classtitle" name="classtitle"
-						placeholder="輸入文字">
+						placeholder="請輸入文字" required="required">
 				</div>
 				<div class="form-group">
 					<label for="classtype">課程類型</label> <input type="text"
 						class="form-control" id="classtype" name="classtype"
-						placeholder="輸入文字">
+						placeholder="請輸入文字" required="required">
 				</div>
 				<div class="form-group">
 					<label for="classprice">價錢</label> <input type="text"
 						class="form-control" id="classprice" name="classprice"
-						placeholder="輸入文字">
+						placeholder="請輸入文字" required="required">
 				</div>
 				<div class="form-group">
-					<label for="classprice">老師ID</label> <input type="text"
+					<label for="teacherid">老師ID</label> <input type="text"
 						class="form-control" id="teacherid" name="teacherid"
-						placeholder="輸入文字">
+						placeholder="請輸入ID" required="required">
 				</div>
-				<div class="form-group row">
+				<div class="form-group row align-items-center justify-content-center">
 					<div class="col">
 						<label for="photopath">課程圖片</label> <input type="file"
 							class="form-control" id="photopath" name="photopath"
@@ -84,14 +97,12 @@ body {
 					</div>
 					<div class="col">
 						<img id="preview_img" src="img/class/defaultclass.jpg" alt="預覽圖片"
-							style="width: 180px; height: 180px" />
+							style="width: 260px; height: 200px ; border:solid"/>
 					</div>
 				</div>
 
 
-				<input type="submit" class="btn btn-primary" value="下一步" /> <input
-					type="button" class="btn btn-primary"
-					onclick="javascript:window.location = '/'" value="返回首頁" />
+				<input type="submit" class="btn btn-primary" value="下一步" />
 
 			</form>
 
