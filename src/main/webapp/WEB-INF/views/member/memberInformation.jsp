@@ -39,12 +39,13 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 	<div class="height100"></div>
 
 	<div class="container">
-		<form id="mbiform" action="/SpecialTopic/memberUpdateInformation"
+		<form id="mbiform" enctype="multipart/form-data" action="/SpecialTopic/memberUpdateInformation"
 			method="post">
 			<div class="row">
 				<div class="col-4">
 
-					<img src="/SpecialTopic/img/register/tree.jpg">
+					<img id="preview_img" src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
+                            style="width: 260px; height: 200px ; border:solid"/>
 				</div>
 				<div class="col-8">
 
@@ -56,7 +57,7 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 							<div class="username">
 								<div class="mb-3">
 									<label for="formFile" class="form-label">上傳照片</label> <input
-										class="form-control" type="file" id="formFile">
+										class="form-control" name="mbphoto" type="file" id="formFile">
 								</div>
 								帳號: <a>${mb.getUsername()}</a> <input type="hidden"
 									name="username" value="${mb.getUsername()}">
@@ -271,6 +272,21 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 		}
 		return true;
 	}
+	
+	$("input#formFile").change(function(){
+	    $("#preview_img").attr('src', "");
+	  readURL(this);
+	});
+	function readURL(input){
+	  if(input.files && input.files[0]){
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	       $("#preview_img").attr('src', e.target.result);
+	    }
+	    reader.readAsDataURL(input.files[0]);
+	  }
+	}
+
 </script>
 <!-- ======= Footer ======= -->
 <jsp:include page="../incloud/footer-section.jsp" />
