@@ -20,10 +20,8 @@ import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.EcpayRecord;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.ShoppingCart;
-import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.EcpayRecordService;
-import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.ShoppingCartService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
@@ -34,10 +32,6 @@ public class TradeController {
     private EcpayRecordService ecpayRecordService;
     @Autowired
     private ShoppingCartService shoppingCartService;
-    @Autowired
-    private MemberService memberService;
-    @Autowired
-    private ClassBeanService classService;
     @Autowired
     private ClassManagementService classManagementService;
     @Autowired
@@ -88,7 +82,7 @@ public class TradeController {
     }
 
     /*
-     * 接收綠界回傳的資料
+     * 接收綠界回傳的資料，並導回課程清單畫面
      * 
      * @author Nilm
      */

@@ -11,7 +11,9 @@ import lombok.extern.log4j.Log4j2;
 @Component
 
 /*
- * Log記錄器，使用@AspectLogAnnotation可以將Class、Method名稱及參數記錄到Log裏面，詳細設定請參照 src/main/resource/log4j2.xml
+ * 使用@AspectLogAnnotation可以將Class、Method名稱及參數記錄到Log裏面，檔案設定請參照 src/main/resource/log4j2.xml
+ *
+ * @author Nilm
  */
 public class AspectLog {
 
