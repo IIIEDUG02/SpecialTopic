@@ -58,7 +58,7 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 							onkeyup="this.value=this.value.replace(/\s+/g,'')" id="username"
 							name="username" class="username" placeholder="帳號:"
 							required="required" maxlength="20" />
-							<a>英文+數字不超過20字</a>
+							<a style="color:bule">英文+數字不超過20字</a>
 					</div>
 					<div class="form-group1">
 						密碼:<input type="password" id="password" name="password"
