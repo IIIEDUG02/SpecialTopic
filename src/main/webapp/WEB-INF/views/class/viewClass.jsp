@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="zh-tw">
+<html>
 
 <head>
 <meta charset="utf-8">
@@ -12,32 +12,18 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<style>
-.position_fixed {
-	position: fixed;
-}
-
-.height100 {
-	height: 100px;
-}
-</style>
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
-<!-- 購物車 -->
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
-
-<!-- Animate CSS -->
-<link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
@@ -46,8 +32,7 @@
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-	<div class="height100">
-	</div>
+	<div class="height100"></div>
 	<main id="main">
 		<div class="container">
 			<c:choose>
@@ -61,8 +46,7 @@
 							<div class="shadow p-3">
 								<h3>${classBean.getTitle()}</h3>
 								<img src="${classBean.getPhoto()}" alt="課程圖片" width="300"
-									height="200">
-								<a>${classBean.getClassType()}</a>
+									height="200"> <a>${classBean.getClassType()}</a>
 							</div>
 						</div>
 
@@ -77,11 +61,13 @@
 									<c:otherwise>
 										<c:choose>
 											<c:when test="${not empty ShoppingCart}">
-												<button id="sc_btn_${classBean.getCid()}" class="btn btn-danger"
+												<button id="sc_btn_${classBean.getCid()}"
+													class="btn btn-danger"
 													onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
 											</c:when>
 											<c:otherwise>
-												<button id="sc_btn_${classBean.getCid()}" class="btn btn-success"
+												<button id="sc_btn_${classBean.getCid()}"
+													class="btn btn-success"
 													onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
 											</c:otherwise>
 										</c:choose>
@@ -99,15 +85,15 @@
 
 	</main>
 	<!-- End #main -->
-  
-  <!-- courseComment -->
-  <jsp:include page="../comment/courseComment.jsp" />
-  
+
+	<!-- courseComment -->
+	<jsp:include page="../comment/courseComment.jsp" />
+
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
-  
-  <!-- Toast -->
-  <jsp:include page="../article/toast.jsp" />
+
+	<!-- Toast -->
+	<jsp:include page="../article/toast.jsp" />
 
 	<div id="preloader"></div>
 	<a href="#"
@@ -116,15 +102,15 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-  
-  <!-- moment js，用來轉換前端較好看的顯示時間 -->
-  <script src="/SpecialTopic/assets/vendor/moment-with-locales.min.js"></script>
-  
-  <!-- Base js -->
-  <script src="/SpecialTopic/js/base.js"></script>
-  
-  <!-- course-comment js -->
-  <script src="/SpecialTopic/js/course-comment.js"></script>
+
+	<!-- moment js，用來轉換前端較好看的顯示時間 -->
+	<script src="/SpecialTopic/assets/vendor/moment-with-locales.min.js"></script>
+
+	<!-- Base js -->
+	<script src="/SpecialTopic/js/base.js"></script>
+
+	<!-- course-comment js -->
+	<script src="/SpecialTopic/js/course-comment.js"></script>
 </body>
 
 </html>

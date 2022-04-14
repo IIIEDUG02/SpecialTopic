@@ -289,7 +289,7 @@
 	</c:if>
 	<!-- ======= param.error ======= -->
 	<c:if test="${param.error != null}">
-			<script>alert("帳號或密碼錯誤")</script>
+		<script>alert("帳號或密碼錯誤")</script>
 	</c:if>
 </body>
 
