@@ -195,16 +195,19 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/membermanage") // {username}
-	public String MemberDelete(@RequestBody Map<String, String> params, Principal principal) { // @PathVariable("username") String username
+	public String MemberDelete() { // @PathVariable("username") String username
 		// ms.deleteByUsername(username);
-		String badRequest = "{\"response\":\"405\"}";
 		
-		if(!ut.hasRole(principal,"admin")) {
-			return badRequest;
-		}else {
+//		Member mb = ms.findByUsername(params.get("username"));
+//		
+//		String badRequest = "{\"response\":\"405\"}";
+//		
+//		if(!ut.hasRole(principal,"admin")) {
+//			return badRequest;
+//		}else {
 			return "/member/membermanage";
 		}
-		
-	}
+//		
+//	}
 
 }
