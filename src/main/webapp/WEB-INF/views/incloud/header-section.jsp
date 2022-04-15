@@ -63,8 +63,12 @@
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
+						<li><img id="preview_img"
+								src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
+								style="width: 30px; height: 30px; border-radius: 50% ;margin-left:20px  "></li>
 					</c:when>
 				</c:choose>
+				
 			</ul>
 		</nav>
 		<!-- .navbar -->
