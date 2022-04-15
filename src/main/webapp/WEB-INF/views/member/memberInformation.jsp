@@ -187,8 +187,9 @@ div.img1 {
 							</div>
 
 							<div class="gender">
-								性別: 男<input id="gender1" type="radio" name="gender" value="${mb.getMemberInformation().getGender()}" />
-								女<input id="gender0" type="radio" name="gender" value="${mb.getMemberInformation().getGender()}" />
+								性別: <a>${mb.getMemberInformation().getGender()}"</a>
+								男<input id="gender1" type="radio" name="gender" value="男" />
+								女<input id="gender0" type="radio" name="gender" value="女" />
 								<script type="text/javascript"> 
 										'#gender${mb.getMemberInformation().getGender()}')
 										.prop("checked", true);
