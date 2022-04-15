@@ -93,6 +93,7 @@ public class CommentController {
     Page<Comment> pages = commentService.getCommentsByCidAndCommentType(cbt, cid, type, limit);
     List<Comment> comments = pages.getContent();
     List<Map<String, Object>> data = new ArrayList<Map<String,Object>>();
+    Map<String, Object> result = new LinkedHashMap<String, Object>();
     Member member = null;
     
     if (p != null) {
@@ -104,21 +105,18 @@ public class CommentController {
       data = commentHelper.getResponseBody(comments, member);
     
     if (member != null) {
-      Map<String, Object> result = new LinkedHashMap<String, Object>();
-      
       // 放入登入者的基本資訊
       result.put("username", member.getMemberInformation().getFullname());
       result.put("avatar", member.getMemberInformation().getPhoto());
-      result.put("result", data);
-      result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
-      
-      // 找出父留言中，時間最早的那一筆留言，來當作下次查詢的一個時間點依據
-      result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
-      
-      return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
     
-    return new ResponseEntity<Object>(data, HttpStatus.OK);
+    result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
+    
+    // 找出父留言中，時間最早的那一筆留言，來當作下次查詢的一個時間點依據
+    result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
+    result.put("result", data);
+    
+    return new ResponseEntity<Object>(result, HttpStatus.OK);
   }
   
   

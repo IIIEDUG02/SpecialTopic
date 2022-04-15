@@ -163,8 +163,8 @@ class CourseComment extends Base {
 		if (tagName === "span" && obj.hasClass(obj, t, "replyBtn")) {
 			obj.addReplyCommentElement(obj, t);
 		}
-		else if (tagName === "div" && obj.hasClass(obj, t, "heartBtn") || 
-		tagName === "span" && obj.hasClass(obj, t, "heartIcon")) {
+		else if ( obj.username && (tagName === "div" && obj.hasClass(obj, t, "heartBtn") || 
+		tagName === "span" && obj.hasClass(obj, t, "heartIcon")) ) {
 			obj.heartBtnClickHandler(obj, t, tagName);
 		}
 		else if (tagName === "span" && obj.hasClass(obj, t, "editBtn")) {
@@ -480,7 +480,7 @@ class CourseComment extends Base {
 	
   // 動態創建 Template String，因為會要將後端回傳的資料添加上去，這裡是父留言
   //502行 fill就是實心愛心、heart-o就是空心愛心判斷使用哪一個
-  generateMainCommentMarkup(data) {
+  generateMainCommentMarkup(data, username) {
     const subComments = data.comments;
 
     return `
@@ -525,12 +525,9 @@ class CourseComment extends Base {
         </div>
       </div>
 
-      ${subComments ? subComments.map((x) => this.generateSubCommentMarkup(x)).join("") : ""}
-
-      <div class="reply-block">
-        <hr class="marg-b-10">
-        <span class="reply-btn reply-text pseudo-btn"><i class="bi bi-reply-fill pad-r-5"></i>回覆</span>
-      </div>
+      ${subComments ? subComments.map((x) => this.generateSubCommentMarkup(x, username)).join("") : ""}
+      ${username ? this.generateReplyBtnMarkup() : ""}
+      
     </div>
     `;
   }
@@ -652,9 +649,18 @@ class CourseComment extends Base {
 		`;
 	}
 	
+	generateReplyBtnMarkup() {
+		return `
+		<div class="reply-block">
+      <hr class="marg-b-10">
+      <span class="reply-btn reply-text pseudo-btn"><i class="bi bi-reply-fill pad-r-5"></i>回覆</span>
+    </div>
+		`;	
+	}
+	
   // 最後產生的總 Template String 會在這被 join 後回傳
   generateCommentsMarkup(data) {
-		let markup = data.result.map((x) => this.generateMainCommentMarkup(x)).join("");
+		let markup = data.result.map((x) => this.generateMainCommentMarkup(x, data.username)).join("");
 		
 		if (data.hasNext)
 			return markup += this.generateFakeCommitItemMarkup();
