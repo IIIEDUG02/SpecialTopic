@@ -133,8 +133,12 @@ public class MemberController {
             mbi.setFullname(params.get("fullname"));
             mbi.setJob(params.get("job"));
             mbi.setIdentitycard(params.get("identitycard"));
+            if(params.get("identitycard").substring(1, 2).equals ("1")) {
+            	mbi.setGender("男");
+            }else {
+            	mbi.setGender("女");
+            }
             mbi.setPassportname(params.get("passportname"));
-            mbi.setGender(params.get("gender"));
             mbi.setPhone(params.get("phone"));
             mbi.setBirthday(params.get("birthday"));
             // 如果輸入值是空白,不應該set password
@@ -143,6 +147,8 @@ public class MemberController {
             }
             mb.setMemberInformation(mbi);
             mbi.setMember(mb);
+            
+            
 
             if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
                 ms.save(mb);
@@ -171,6 +177,11 @@ public class MemberController {
         mbi.setFullname(params.get("fullname"));
         mbi.setJob(params.get("job"));
         mbi.setIdentitycard(params.get("identitycard"));
+        if(params.get("identitycard").substring(1, 2).equals ("1")) {
+        	mbi.setGender("男");
+        }else{
+        	mbi.setGender("女");
+        }
         mbi.setPassportname(params.get("passportname"));
         mbi.setGender(params.get("gender"));
         mbi.setPhone(params.get("phone"));
