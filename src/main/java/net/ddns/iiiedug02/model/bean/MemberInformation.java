@@ -1,7 +1,6 @@
 package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +50,7 @@ public class MemberInformation implements Serializable {
   @Column(name = "identitycard")
   private String identitycard;
   @Column(name = "gender")
-  private Integer gender;
+  private String gender;
 
 
 }

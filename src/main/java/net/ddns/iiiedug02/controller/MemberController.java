@@ -137,7 +137,7 @@ public class MemberController {
 			mbi.setJob(params.get("job"));
 			mbi.setIdentitycard(params.get("identitycard"));
 			mbi.setPassportname(params.get("passportname"));
-			mbi.setGender(Integer.parseInt(params.get("gender")));
+			mbi.setGender(params.get("gender"));
 			mbi.setPhone(params.get("phone"));
 			mbi.setBirthday(params.get("birthday"));
 			// 如果輸入值是空白,不應該set password
@@ -174,7 +174,7 @@ public class MemberController {
 		mbi.setJob(params.get("job"));
 		mbi.setIdentitycard(params.get("identitycard"));
 		mbi.setPassportname(params.get("passportname"));
-		mbi.setGender(Integer.parseInt(params.get("gender")));
+		mbi.setGender(params.get("gender"));
 		mbi.setPhone(params.get("phone"));
 		mbi.setBirthday(params.get("birthday"));
 		mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
@@ -209,5 +209,11 @@ public class MemberController {
 		}
 //		
 //	}
+	
+	  @GetMapping("getMemberPhoto")
+	    @ResponseBody
+	    public String getMemberBean(HttpServletRequest request, Principal p) {
+	        return ut.getLoiginBean(request.getSession(), p).getMemberInformation().getPhoto();
+	    }
 
 }

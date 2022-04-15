@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header id="header" class="fixed-top">
 
@@ -22,36 +23,19 @@
 						<li class="dropdown"><a href="#"> <span>後台功能</span><i
 								class="bi bi-chevron-down"></i></a>
 							<ul>
-								<li class="dropdown"><a href="#"><span>金流</span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="/SpecialTopic/tradeRecord/teacher">教師售課紀錄</a></li>
-										<li><a href="#">Deep Drop Down 2</a></li>
-										<li><a href="#">Deep Drop Down 3</a></li>
-										<li><a href="#">Deep Drop Down 4</a></li>
-										<li><a href="#">Deep Drop Down 5</a></li>
-									</ul>
-								<li class="dropdown"><a href="#"><span>課程管理 </span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="class/list">課程清單</a></li>
-										<li><a href="#">Deep Drop Down 2</a></li>
-										<li><a href="#">Deep Drop Down 3</a></li>
-										<li><a href="#">Deep Drop Down 4</a></li>
-										<li><a href="#">Deep Drop Down 5</a></li>
-									</ul></li>
-								<li><a href="inputmain">學員資料統計</a></li>
-								<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
-								<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
-								<li class="dropdown"><a href="#"><span>熱門課程管理 </span> <i
-										class="bi bi-chevron-right"></i></a>
-									<ul>
-										<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
-										<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
-										<li><a href="#">Deep Drop Down 3</a></li>
-										<li><a href="#">Deep Drop Down 4</a></li>
-										<li><a href="#">Deep Drop Down 5</a></li>
-									</ul></li>
+								<li class="dropdown"><a href="/SpecialTopic/class/list"><span>課程管理</span></a>
+								</li>
+								<sec:authorize
+									access="isAuthenticated() and hasRole('ROLE_admin')">
+									<li><a href="inputmain">學員資料統計</a></li>
+									<li><a href="getMoney">銷售額統計</a></li>
+									<li class="dropdown"><a href="#"><span>熱門課程管理 </span>
+											<i class="bi bi-chevron-right"></i></a>
+										<ul>
+											<li><a href="ypclasscontrolltop5">年度熱門課程</a></li>
+											<li><a href="mpclasscontrolltop5">當月熱門課程</a></li>
+										</ul></li>
+								</sec:authorize>
 								<li><a href="/SpecialTopic/member/editInformation"
 									type="button">個人資料</a></li>
 								<sec:authorize
@@ -59,16 +43,17 @@
 									<li><a href="/SpecialTopic/member/membermanage"
 										type="button">學員管理</a></li>
 								</sec:authorize>
-
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
-						<li><img id="preview_img"
-								src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
-								style="width: 30px; height: 30px; border-radius: 50% ;margin-left:20px  "></li>
+						
+						<li><img id="mbphoto1" src="" alt="預覽圖片"
+							style="width: 30px; height: 30px; border-radius: 50%; margin-left: 20px"></li>
+							<script>getMemberPhoto();</script>
+						
 					</c:when>
 				</c:choose>
-				
+
 			</ul>
 		</nav>
 		<!-- .navbar -->
@@ -135,3 +120,13 @@
 	</div>
 </header>
 <!-- End Header -->
+<!-- 購物車 -->
+<div class="shopping-cart shadow">
+	<!-- 購物車清單 -->
+	<ul class="shopping-cart-items">
+
+	</ul>
+	<!-- 結帳 -->
+	<a class="btn btn-success checkout"
+		href="/SpecialTopic/ShoppingCart/getInfo" class="button">結帳</a>
+</div>
