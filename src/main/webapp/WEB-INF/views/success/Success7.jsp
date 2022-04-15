@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../incloud/head-css.jsp" />
-<title>Success</title>
+<title>統計結果</title>
 <link rel="stylesheet" href="/css/ordersystem.css">
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>

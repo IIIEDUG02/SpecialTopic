@@ -137,7 +137,7 @@ public class MPclassController {
       List<MPclass> mpclassList = mpclassService.findAll();
       if(mpclassList!=null && !mpclassList.isEmpty()) {
       	m.addAttribute("mpclassList", mpclassList);
-  		return "success/Success3";
+  		return "index";
   	}
       errors.put("pimsg", "請確認輸入值");
   	return "success/Controllpage2";
@@ -151,7 +151,7 @@ public class MPclassController {
   	  m.addAttribute("errors", errors);
   	  errors.put("resetmsg", "排序設定已清空");
   	  mpclassService.resetmpclass();
-  	  return "success/Controllpage2";
+  	  return "index";
     }
     
     @GetMapping("/mpclassfindtop5")

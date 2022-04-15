@@ -31,32 +31,46 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 	margin: 30px;
 	font-size: 1.3em;
 }
+
+div.img1 {
+
+	z-index: 2;
+	margin-left: 37%;
+	margin-top: 25%;
+}
 </style>
 </head>
-<body>
+<body style="background:url(/SpecialTopic/img/register/background.jpg) no-repeat ;background-size:cover;">
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
 
 	<div class="container">
-		<form id="mbiform" action="/SpecialTopic/memberUpdateInformation"
-			method="post">
+		<form id="mbiform" enctype="multipart/form-data"
+			action="/SpecialTopic/memberUpdateInformation" method="post">
 			<div class="row">
 				<div class="col-4">
-
-					<img src="/SpecialTopic/img/register/tree.jpg">
+					<div>
+						<div class="img1">
+							<img id="preview_img"
+								src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
+								style="width: 120px; height: 120px; border-radius: 50%">
+						</div>
+<!-- 							<img src="/SpecialTopic/img/register/tree.jpg" -->
+<!-- 								style="width: 347px; height: auto"> -->
+					</div>
 				</div>
 				<div class="col-8">
 
 					<div class="row">
-						<h3>個人資料</h3>
+						<h3 style="margin-left: 50px">個人資料</h3>
 					</div>
 					<div class="row">
 						<div class="col-6">
 							<div class="username">
 								<div class="mb-3">
 									<label for="formFile" class="form-label">上傳照片</label> <input
-										class="form-control" type="file" id="formFile">
+										class="form-control" name="mbphoto" type="file" id="formFile">
 								</div>
 								帳號: <a>${mb.getUsername()}</a> <input type="hidden"
 									name="username" value="${mb.getUsername()}">
@@ -270,6 +284,20 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 			return false;
 		}
 		return true;
+	}
+
+	$("input#formFile").change(function() {
+		$("#preview_img").attr('src', "");
+		readURL(this);
+	});
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#preview_img").attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
 	}
 </script>
 <!-- ======= Footer ======= -->

@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import net.ddns.iiiedug02.annotation.AspectLogAnnotation;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.MemberInformation;
 import net.ddns.iiiedug02.model.bean.MemberRole;
@@ -89,7 +87,6 @@ public class MemberController {
     }
 
     @GetMapping("/member/editInformation")
-    @AspectLogAnnotation
     public String editInformation(Model m, HttpSession session, Principal principal) {
 
         Member mb = ut.getLoiginBean(session, principal);
@@ -106,7 +103,6 @@ public class MemberController {
             Member mb = ms.findByUid(uid);
             m.addAttribute("mb", mb);
 
-
             return "member/memberInformation";
         } else {
             return null;
@@ -115,53 +111,13 @@ public class MemberController {
 
     @PostMapping(value = "/memberUpdateInformation",
             produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public String UpdateInformation(@RequestParam Map<String, String> params, HttpSession session,
-            Model m, HttpServletRequest request) throws ParseException {
+    public String UpdateInformation(@RequestParam Map<String, String> params,
+            @RequestParam("mbphoto") MultipartFile mf, HttpSession session, Model m,
+            HttpServletRequest request) throws IllegalStateException, IOException {
 
         Member mb = ms.findByUsername(params.get("username"));
 
         MemberInformation mbi = mb.getMemberInformation();
-        mbi.setAddress(params.get("address"));
-        mbi.setEmail(params.get("email"));
-        mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));
-        mbi.setIdentitycard(params.get("identitycard"));
-        mbi.setPassportname(params.get("passportname"));
-        mbi.setGender(Integer.parseInt(params.get("gender")));
-        mbi.setPhone(params.get("phone"));
-        mbi.setBirthday(params.get("birthday"));
-        // 如果輸入值是空白,不應該set password
-        if (params.get("password").length() != 0) {
-            mb.setPassword(params.get("password"));
-        }
-
-        mb.setMemberInformation(mbi);
-        mbi.setMember(mb);
-
-        if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
-            ms.save(mb);
-        } else {
-            ms.update(mb);
-        }
-
-        session.setAttribute("registerBean", mb);
-        return "redirect:/";
-    }
-
-    @GetMapping("/member/membermanage") // {username}
-    public String MemberDelete() { // @PathVariable("username") String username
-        // ms.deleteByUsername(username);
-
-
-        return "/member/membermanage";
-
-    }
-
-    @PostMapping(path = "/creatembphoto")
-    public String createphoto(@RequestParam("photo") MultipartFile mf, Map<String, String> params,
-            Principal principal, HttpServletRequest request, Model m, HttpSession session,
-            @SessionAttribute Member member, Principal p)
-            throws IllegalStateException, IOException {
 
         String pattern = "yyyy-MM-dd-HH-mm-ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -171,8 +127,32 @@ public class MemberController {
         // 取得後綴
         String type = FilenameUtils.getExtension(mf.getOriginalFilename());
         if (type.isEmpty()) {
-            return "no photo";
+
+            mbi.setAddress(params.get("address"));
+            mbi.setEmail(params.get("email"));
+            mbi.setFullname(params.get("fullname"));
+            mbi.setJob(params.get("job"));
+            mbi.setIdentitycard(params.get("identitycard"));
+            mbi.setPassportname(params.get("passportname"));
+            mbi.setGender(params.get("gender"));
+            mbi.setPhone(params.get("phone"));
+            mbi.setBirthday(params.get("birthday"));
+            // 如果輸入值是空白,不應該set password
+            if (params.get("password").length() != 0) {
+                mb.setPassword(params.get("password"));
+            }
+            mb.setMemberInformation(mbi);
+            mbi.setMember(mb);
+
+            if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
+                ms.save(mb);
+            } else {
+                ms.update(mb);
+            }
+            session.setAttribute("registerBean", mb);
+            return "redirect:/";
         }
+
         String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
         String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()
@@ -186,22 +166,46 @@ public class MemberController {
 
         mf.transferTo(saveFile);
 
-        Member mb = ut.getLoiginBean(session, principal);
-
-        MemberInformation mbi = new MemberInformation();
-
-        mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
         mbi.setAddress(params.get("address"));
         mbi.setEmail(params.get("email"));
         mbi.setFullname(params.get("fullname"));
         mbi.setJob(params.get("job"));
+        mbi.setIdentitycard(params.get("identitycard"));
+        mbi.setPassportname(params.get("passportname"));
+        mbi.setGender(params.get("gender"));
         mbi.setPhone(params.get("phone"));
-        mbi.setGender(Integer.parseInt(params.get("gender")));
+        mbi.setBirthday(params.get("birthday"));
+        mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
+        // 如果輸入值是空白,不應該set password
+        if (params.get("password").length() != 0) {
+            mb.setPassword(params.get("password"));
+        }
+        mb.setMemberInformation(mbi);
+        mbi.setMember(mb);
 
-        mb.setPassword(params.get("password"));
-        m.addAttribute("mb", mb);
-
-
-        return "member/memberInformation/";
+        if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
+            ms.save(mb);
+        } else {
+            ms.update(mb);
+        }
+        session.setAttribute("registerBean", mb);
+        return "redirect:/";
     }
+
+    @GetMapping("/member/membermanage") // {username}
+    public String MemberDelete() { // @PathVariable("username") String username
+        // ms.deleteByUsername(username);
+
+        // Member mb = ms.findByUsername(params.get("username"));
+        //
+        // String badRequest = "{\"response\":\"405\"}";
+        //
+        // if(!ut.hasRole(principal,"admin")) {
+        // return badRequest;
+        // }else {
+        return "/member/membermanage";
+    }
+    //
+    // }
+
 }
