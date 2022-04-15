@@ -1,14 +1,11 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Deploy
+name: 'Tomcat Deploy'
 
 on:
   push:
     branches: [ deploy ]
 
 jobs:
-  build_and_deploy:
+  Tomcat_Deploy:
     runs-on: self-hosted
     
     steps:

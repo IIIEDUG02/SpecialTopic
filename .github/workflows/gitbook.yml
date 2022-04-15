@@ -1,10 +1,10 @@
-name: 'Gitbook Action Build'
+name: 'Gitbook Deploy'
 on:
   push:
     branches:
       - deploy
 jobs:
-  build:
+  Gitbook_Deploy:
     runs-on: self-hosted
 
     steps:
