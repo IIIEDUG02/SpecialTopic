@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/classphoto/**",
                         "/classvideo/**", "/assets/**", "/viewClass/**", "/*",
-                        "/getCertByCertId/**", "/**/api/**")
-                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2");
+                        "/getCertByCertId/**", "/**/api/**","/class/showClassType/**")
+                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2").permitAll();
 
         http.authorizeRequests().anyRequest().authenticated();
 
@@ -49,7 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
                 .logoutSuccessUrl("/");
-
 
         http.cors().and().csrf().disable();
     }

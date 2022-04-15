@@ -9,11 +9,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Status;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.repository.query.parser.Part.Type;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,7 +62,7 @@ public class ClassController {
 
 	@Autowired
 	private ClassOnlineService cos;
-	
+
 	@Autowired
 	private ResourceLoader resourceLoader;
 
@@ -66,9 +71,9 @@ public class ClassController {
 
 	@Autowired
 	private UniversalTool utool;
-	
+
 	@Autowired
-    private ShoppingCartService scs;
+	private ShoppingCartService scs;
 
 	/*
 	 * 進入後臺管理課程，區分admin跟normal身份
@@ -84,15 +89,13 @@ public class ClassController {
 			List<ClassManagementBean> cmbList = cms.findByUid(loginBean.getUid());
 			List<ClassBean> completeList = new ArrayList<ClassBean>();
 			List<ClassBean> uncompleteList = new ArrayList<ClassBean>();
-			List<ClassBean> completeCMList = new ArrayList<ClassBean>();
-			List<ClassBean> uncompleteCMList = new ArrayList<ClassBean>();
 
 			if (!cmbList.isEmpty()) {
 				for (ClassManagementBean cmb : cmbList) {
 					ClassBean cb = cbs.findById(cmb.getCid());
 					if (cmb.getStatus() == 1) {
 						completeList.add(cb);
-						
+
 					} else {
 						uncompleteList.add(cb);
 					}
@@ -105,19 +108,23 @@ public class ClassController {
 		throw new RoleNotFoundException();
 	}
 
-	// 進入編輯課程頁面
+	/*
+	 * 進入編輯課程頁面
+	 */
 	@GetMapping(value = "class/update/{cid}")
 	public String updatePage(@PathVariable int cid, Model model) {
 		ClassBean cb = cbs.findById(cid);
 		model.addAttribute("classBean", cb);
-		return "backstage/classEdit";
+		return "class/editclassinformation";
 	}
 
-	// 創建class
+	/*
+	 * 創建class
+	 */
 	@PostMapping(value = "/createclass", produces = "text/html;charset=utf-8")
 	public String createProcessClass(@RequestParam Map<String, String> formData, Model model,
 			@RequestParam("photopath") MultipartFile mf) throws IOException {
-			
+		ClassBean cb = new ClassBean();
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -125,11 +132,19 @@ public class ClassController {
 		int rNumber = 10000 + random.nextInt(90000);
 
 		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		// 如果沒上傳檔案,則維持不變
 		if (type.isEmpty()) {
-			return "no photo";
+
+			cb.setClassType(formData.get("classtype"));
+			cb.setTitle(formData.get("classtitle"));
+			cb.setPrice(Integer.parseInt(formData.get("classprice")));
+			cb.setUid(Integer.parseInt(formData.get("teacherid")));
+			model.addAttribute("classbean", cb);
+
+			return "class/createclassdetails";
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classphoto/";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classphoto/";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -137,21 +152,23 @@ public class ClassController {
 		File saveFile = new File(saveFilePath);
 
 		mf.transferTo(saveFile);
-		
-		ClassBean cb = new ClassBean();
+
 		cb.setPhoto("/SpecialTopic/classphoto/" + fileName);
 		cb.setClassType(formData.get("classtype"));
 		cb.setTitle(formData.get("classtitle"));
 		cb.setPrice(Integer.parseInt(formData.get("classprice")));
 		cb.setUid(Integer.parseInt(formData.get("teacherid")));
 		model.addAttribute("classbean", cb);
-		
+
 		return "class/createclassdetails";
 	}
 
-	// 創建classdetails
+	/*
+	 * 創建classdetails
+	 */
 	@PostMapping(value = "/createclassdetails")
-	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,Model model) {
+	public String createProcessClassDetails(@RequestParam Map<String, String> formData, HttpSession session,
+			Model model, SessionStatus status) {
 		ClassDetailsBean cdb = new ClassDetailsBean();
 		cdb.setDescript(formData.get("descript"));
 		cdb.setGoal(formData.get("goal"));
@@ -163,17 +180,21 @@ public class ClassController {
 		cb.setClassDetailsBean(cdb);
 		cdb.setClassbean(cb);
 		cbs.insert(cb);
+		status.setComplete();
 		List<ClassBean> cbList = cbs.findAll();
 		model.addAttribute("allCbList", cbList);
 		return "class/classList";
 	}
 
-	// 創建curriculum
+	/*
+	 * 創建curriculum
+	 */
 	@PostMapping(path = "/createcurriculum")
 	public String createCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
 			HttpSession session, @SessionAttribute ClassBean classbean, Principal p)
 			throws IllegalStateException, IOException {
-
+		CurriculumBean cub = new CurriculumBean();
+		ClassBean cb = (ClassBean) m.getAttribute("classbean");
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -181,12 +202,18 @@ public class ClassController {
 		int rNumber = 10000 + random.nextInt(90000);
 
 		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		// 如果沒上傳檔案,則維持不變
 		if (type.isEmpty()) {
-			return "no video";
+			cub.setClassbean(cb);
+			cub.setChapter(request.getParameter("chapter"));
+			cus.insert(cub);
+
+			return this.editCurriculum(request, p, cb.getCid(), m);
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()+"/classvideo/";
-		//String tempDir = request.getSession().getServletContext().getRealPath("/") + "/classvideo//";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classvideo/";
+		// String tempDir = request.getSession().getServletContext().getRealPath("/") +
+		// "/classvideo//";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -194,9 +221,7 @@ public class ClassController {
 		File saveFile = new File(saveFilePath);
 
 		mf.transferTo(saveFile);
-		CurriculumBean cub = new CurriculumBean();
 
-		ClassBean cb = (ClassBean) m.getAttribute("classbean");
 		cub.setClassbean(cb);
 		cub.setChapter(request.getParameter("chapter"));
 		cub.setVideo_path("/SpecialTopic/classvideo/" + fileName);
@@ -205,12 +230,13 @@ public class ClassController {
 		return this.editCurriculum(request, p, cb.getCid(), m);
 	}
 
-	// 創建curriculum
+	/*
+	 * 編輯curriculum
+	 */
 	@PostMapping(path = "/updatecurriculum")
 	public String updateCurriculum(@RequestParam("myVideo") MultipartFile mf, HttpServletRequest request, Model m,
-			HttpSession session, @SessionAttribute ClassBean classbean, Principal p)
-			throws IllegalStateException, IOException {
-
+			HttpSession session, Principal p) throws IllegalStateException, IOException {
+		CurriculumBean cub = cus.findById(Integer.parseInt(request.getParameter("cuid")));
 		String pattern = "yyyy-MM-dd-HH-mm-ss";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -218,12 +244,19 @@ public class ClassController {
 		int rNumber = 10000 + random.nextInt(90000);
 
 		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		// 如果沒上傳檔案,則維持不變
 		if (type.isEmpty()) {
-			return "no video";
+			ClassBean cb = (ClassBean) m.getAttribute("classbean");
+			cub.setClassbean(cb);
+			cub.setChapter(request.getParameter("chapter"));
+			cus.insert(cub);
+
+			return this.editCurriculum(request, p, cb.getCid(), m);
 		}
 		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
-
-		String tempDir = request.getSession().getServletContext().getRealPath("/") + "../resources/static/classvideo//";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classvideo/";
+		// String tempDir = request.getSession().getServletContext().getRealPath("/") +
+		// "../resources/static/classvideo//";
 		File tempDirFile = new File(tempDir);
 		tempDirFile.mkdirs();
 
@@ -231,7 +264,6 @@ public class ClassController {
 		File saveFile = new File(saveFilePath);
 
 		mf.transferTo(saveFile);
-		CurriculumBean cub = cus.findById(Integer.parseInt(request.getParameter("cuid")));
 
 		ClassBean cb = (ClassBean) m.getAttribute("classbean");
 		cub.setClassbean(cb);
@@ -242,19 +274,95 @@ public class ClassController {
 		return this.editCurriculum(request, p, cb.getCid(), m);
 	}
 
-	// 計算全部上線課程總數
+	/*
+	 * 編輯課程
+	 */
+	@PostMapping(value = "/updateclass/{cid}")
+	public String updateClassImformation(@RequestParam Map<String, String> formData, HttpServletRequest request,
+			HttpSession session, Model model, @RequestParam("photopath") MultipartFile mf, @PathVariable("cid") int cid)
+			throws IOException {
+		ClassBean cb = cbs.findById(cid);
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		// 如果沒上傳檔案,則維持不變
+		if (type.isEmpty()) {
+			ClassDetailsBean cdb = cb.getClassDetailsBean();
+			cdb.setDescript(formData.get("descript"));
+			cdb.setGoal(formData.get("goal"));
+			cdb.setNeed_tool(formData.get("needed_tool"));
+			cdb.setStu_required(formData.get("stu_required"));
+			cdb.setVideo(formData.get("video"));
+			cdb.setLength_min(Integer.parseInt(formData.get("length_min")));
+
+			cb.setClassType(formData.get("classtype"));
+			cb.setTitle(formData.get("classtitle"));
+			cb.setPrice(Integer.parseInt(formData.get("classprice")));
+			cb.setUid(Integer.parseInt(formData.get("uid")));
+
+			cb.setClassDetailsBean(cdb);
+			cdb.setClassbean(cb);
+			cbs.update(cb);
+
+			List<ClassBean> cbList = cbs.findAll();
+			model.addAttribute("allCbList", cbList);
+
+			return "class/classList";
+		}
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/classphoto/";
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
+
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
+
+		mf.transferTo(saveFile);
+
+		ClassDetailsBean cdb = cb.getClassDetailsBean();
+		cdb.setDescript(formData.get("descript"));
+		cdb.setGoal(formData.get("goal"));
+		cdb.setNeed_tool(formData.get("needed_tool"));
+		cdb.setStu_required(formData.get("stu_required"));
+		cdb.setVideo(formData.get("video"));
+		cdb.setLength_min(Integer.parseInt(formData.get("length_min")));
+
+		cb.setPhoto("/SpecialTopic/classphoto/" + fileName);
+		cb.setClassType(formData.get("classtype"));
+		cb.setTitle(formData.get("classtitle"));
+		cb.setPrice(Integer.parseInt(formData.get("classprice")));
+		cb.setUid(Integer.parseInt(formData.get("uid")));
+
+		cb.setClassDetailsBean(cdb);
+		cdb.setClassbean(cb);
+		cbs.update(cb);
+
+		List<ClassBean> cbList = cbs.findAll();
+		model.addAttribute("allCbList", cbList);
+
+		return "class/classList";
+	}
+
+	/*
+	 * 計算全部上線課程總數
+	 */
 	@ResponseBody
 	@GetMapping(value = "/countclass")
 	public int processCountClass() {
 		return cbs.countClass();
 	}
 
-
-	// 尋找全部上線課程,api
+	/*
+	 * 尋找全部上線課程,api
+	 */
 	@GetMapping(path = "class/allonline")
 	@ResponseBody
 	public List<ClassBean> findAllOnlineClass() {
-		List<ClassOnlineBean> coList = cos.findAll();
+		List<ClassOnlineBean> coList = cos.findAllOnlineClass();
 		List<ClassBean> cbList = new ArrayList<ClassBean>();
 		for (ClassOnlineBean co : coList) {
 			ClassBean cb = cbs.findById(co.getCid());
@@ -265,15 +373,21 @@ public class ClassController {
 		return cbList;
 	}
 
+	/*
+	 * 進入播放影片頁面
+	 */
 	@GetMapping("class/curriculums/{cid}")
 	public String classtest(Model m, @PathVariable("cid") int cid) {
 		ClassBean cb = cbs.findById(cid);
 		List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
 		m.addAttribute("CurriculumList", cusList);
 		m.addAttribute("cid", cid);
-		return "class/curriculum-nilm";
+		return "class/class-player";
 	}
 
+	/*
+	 * 尋找該課程所有課程章節
+	 */
 	@GetMapping("class/curriculums/api/{cid}")
 	@ResponseBody
 	public List<CurriculumBean> getCurListJson(Model m, @PathVariable("cid") int cid) {
@@ -281,6 +395,9 @@ public class ClassController {
 		return cus.findAllByClassbean(cb);
 	}
 
+	/*
+	 * 刪除課程
+	 */
 	@DeleteMapping("class/delete/{cid}")
 	@ResponseBody
 	public boolean deleteClass(HttpServletRequest request, Principal principal, @PathVariable("cid") int cid) {
@@ -290,6 +407,9 @@ public class ClassController {
 		return false;
 	}
 
+	/*
+	 * 刪除課程章節
+	 */
 	@DeleteMapping("class/delete/curriculum/{cuid}")
 	@ResponseBody
 	public boolean deleteCurriculum(HttpServletRequest request, Principal principal, @PathVariable("cuid") int cuid) {
@@ -299,6 +419,9 @@ public class ClassController {
 		return false;
 	}
 
+	/*
+	 * 更新課程章節
+	 */
 	@GetMapping("class/editCurriculum/{cid}")
 	public String editCurriculum(HttpServletRequest request, Principal principal, @PathVariable("cid") int cid,
 			Model m) {
@@ -315,61 +438,116 @@ public class ClassController {
 
 	}
 
-	@GetMapping("class/showClassType")
+	/*
+	 * 進入課程頁面
+	 */
+	@GetMapping("viewClass/{cid}")
+	public String viewClass(@PathVariable("cid") int cid, Model m, Principal p, RedirectAttributes attr) {
+
+		// 課程資訊
+		ClassBean cb = cbs.findById(cid);
+		if (cb == null) {
+			attr.addAttribute("msg", "找不到課程資料");
+			return "redirect:/class/list";
+		}
+		m.addAttribute("classBean", cb);
+
+		if (p != null) {
+			Member loginBean = ms.findByUsername(p.getName());
+			// 個人購課紀錄
+			ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
+			if (null != cmb) {
+				m.addAttribute("classManagerBean", cmb);
+			} else {
+				// 購課車
+				ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
+				m.addAttribute("ShoppingCart", sc);
+			}
+		}
+
+		return "class/viewClass";
+	}
+
+	/*
+	 * 取得所有課程類型
+	 */
+	@GetMapping("getClassTypeList")
+	@ResponseBody
 	public List<String> showClassType(HttpServletRequest request, Model m) {
 		List<String> classTypeList = cbs.findAllClassType();
-		m.addAttribute("classTypeList", classTypeList);
 		return classTypeList;
 	}
+
+	/*
+	 * 找出該類型所有已上線課程
+	 */
 	@GetMapping("class/showClassType/{classType}")
-	public List<ClassBean> showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
+	public String showOneClassType(HttpServletRequest request, Model m, @PathVariable("classType") String classtype) {
 		List<ClassBean> classOneTypeList = cbs.findByClassType(classtype);
-		m.addAttribute("classOneTypeList", classOneTypeList);
-		return classOneTypeList;
+		List<ClassBean> classOnlineClassOneTypeList = new ArrayList<ClassBean>();
+		for (ClassBean cb : classOneTypeList) {
+			if (null == cb.getClassOnlineBean()) {
+				continue;
+			} else if (0 == cb.getClassOnlineBean().getOnline()) {
+				continue;
+			} else {
+				classOnlineClassOneTypeList.add(cb);
+			}
+		}
+		m.addAttribute("classOneTypeList", classOnlineClassOneTypeList);
+		return "courses";
 	}
+
+	/*
+	 * 更改classmanagement status to 1
+	 */
 	@PostMapping("class/api/classmanagement/on/{cid}")
-	public String manageClassToOn(@PathVariable("cid")int cid,Principal principal) {
+	@ResponseBody
+	public String manageClassToOn(@PathVariable("cid") int cid, Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(1);
 		cms.update(cmb);
-		return "class/classList";
+		return "sucesss";
 	}
+
+	/*
+	 * 更改classmanagement status to 1
+	 */
 	@PostMapping("class/api/classmanagement/off/{cid}")
-	public String manageClassToOff(@PathVariable("cid")int cid,Principal principal) {
+	@ResponseBody
+	public String manageClassToOff(@PathVariable("cid") int cid, Principal principal) {
 		Member loginBean = ms.findByUsername(principal.getName());
 		ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
 		cmb.setStatus(0);
 		cms.update(cmb);
-		return "class/classList";
+		return "sucesss";
 	}
-	
-	@GetMapping("viewClass/{cid}")
-    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p,
-            RedirectAttributes attr) {
 
+	/*
+	 * set class to online
+	 */
+	@PostMapping("class/api/postToOnline/{cid}")
+	@ResponseBody
+	public boolean postToOnline(@PathVariable("cid") int cid, Principal principal, HttpServletRequest request) {
+		if (null == cos.findByCid(cid)) {
+			ClassOnlineBean cob = new ClassOnlineBean();
+			ClassBean cb = cbs.findById(cid);
+			cob.setOnline(1);
+			cob.setClassbean(cb);
+			cos.insert(cob);
+			return true;
+		} else if (1 == (cbs.findById(cid).getClassOnlineBean().getOnline())) {
+			ClassOnlineBean cob = cos.findByCid(cid);
+			cob.setOnline(0);
+			cos.update(cob);
+			return false;
+		} else {
+			ClassOnlineBean cob = cos.findByCid(cid);
+			cob.setOnline(1);
+			cos.update(cob);
+			return true;
+		}
+	}
 
-        // 課程資訊
-        ClassBean cb = cbs.findById(cid);
-        if (cb == null) {
-            attr.addAttribute("msg", "找不到課程資料");
-            return "redirect:/class/list";
-        }
-        m.addAttribute("classBean", cb);
-
-        if (p != null) {
-            Member loginBean = ms.findByUsername(p.getName());
-            // 個人購課紀錄
-            ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
-            if (null != cmb) {
-                m.addAttribute("classManagerBean", cmb);
-            } else {
-                // 購課車
-                ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
-                m.addAttribute("ShoppingCart", sc);
-            }
-        }
-
-        return "class/viewClass";
-    }
 }

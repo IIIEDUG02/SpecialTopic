@@ -8,10 +8,11 @@
 <html lang="en_US">
 
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>OOXX</title>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -21,14 +22,14 @@
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
 
+<!-- Head js -->
+<jsp:include page="incloud/head-js.jsp" />
+
 <!-- JavaScript -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
 <script src="/SpecialTopic/js/mpclass-section.js"></script>
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
-
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0

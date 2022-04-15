@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice()
 public class SystemExceptionHandler {
 
-    @ExceptionHandler(NotLoginException.class)
+	@ExceptionHandler(NotLoginException.class)
     public ModelAndView noLoginException(NotLoginException e) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("errMsg", e.getMessage());
@@ -29,7 +29,7 @@ public class SystemExceptionHandler {
     @ExceptionHandler(RoleNotFoundException.class)
     public ModelAndView roleNotFoundException(RoleNotFoundException e) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("msg", e.getMessage());
+        mav.addObject("errMsg", e.getMessage());
         mav.setViewName("index");
         return mav;
     }

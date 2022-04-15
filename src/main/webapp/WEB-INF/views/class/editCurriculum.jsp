@@ -21,6 +21,15 @@
 .height100 {
 	height: 100px;
 }
+
+video{
+width: 854px;
+height: 480px;
+}
+.btn-success{
+margin-bottom: 50px;
+}
+
 </style>
 </head>
 <body>
@@ -29,7 +38,9 @@
 	<div class="height100"></div>
 	<div class="container">
 		<div class="row">
+			<div style="text-align:center">
 			<button onclick='editCurriculum(0)' class="button btn-success">新增章節</button>
+			</div>
 			<div class="col shadow">
 				<div id="formDiv"></div>
 			</div>
