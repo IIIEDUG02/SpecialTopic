@@ -185,16 +185,6 @@ div.img1 {
 										id="button-addon2">編輯</button>
 								</div>
 							</div>
-
-							<div class="gender">
-								性別: <a>${mb.getMemberInformation().getGender()}"</a>
-								男<input id="gender1" type="radio" name="gender" value="男" />
-								女<input id="gender0" type="radio" name="gender" value="女" />
-								<script type="text/javascript"> 
-										'#gender${mb.getMemberInformation().getGender()}')
-										.prop("checked", true);
-								</script>
-							</div>
 							<input id="check" onclick="check3()" type="hidden"
 								class="btn btn-success" value="確認"> <input id="check1"
 								type="hidden" style="margin-left: 50px"
