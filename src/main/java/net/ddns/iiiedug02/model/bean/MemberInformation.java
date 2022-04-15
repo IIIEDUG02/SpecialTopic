@@ -51,7 +51,7 @@ public class MemberInformation implements Serializable {
   @Column(name = "identitycard")
   private String identitycard;
   @Column(name = "gender")
-  private Integer gender;
+  private String gender;
 
 
 }

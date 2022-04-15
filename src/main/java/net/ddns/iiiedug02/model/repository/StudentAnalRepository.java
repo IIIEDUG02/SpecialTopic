@@ -14,37 +14,78 @@ public interface StudentAnalRepository extends JpaRepository<StudentAnalysis, In
   public List<StudentAnalysis> findAll();
   
   @Query(
-	      value = "select * ,100*countgender/Sum(countgender) over (partition by cid) as ratio from\r\n"
-	      		+ "(select c.cid ,md.gender, count(md.gender) as countgender\r\n"
-	      		+ "from　classmanagement c \r\n"
-	      		+ "inner join member_details md \r\n"
-	      		+ "on c.uid = md.uid \r\n"
-	      		+ "group by c.cid, md.gender)as a where cid = ?1",
+	      value = "SELECT *,\r\n"
+	      		+ "	100 * countgender / Sum(countgender) OVER (PARTITION BY cid) AS ratio\r\n"
+	      		+ "FROM (\r\n"
+	      		+ "	SELECT c.cid,\r\n"
+	      		+ "		md.gender,\r\n"
+	      		+ "		count(md.gender) AS countgender\r\n"
+	      		+ "	FROM classmanagement c\r\n"
+	      		+ "	INNER JOIN member_details md ON c.uid = md.uid\r\n"
+	      		+ "	WHERE md.gender IS NOT NULL\r\n"
+	      		+ "	GROUP BY c.cid,\r\n"
+	      		+ "		md.gender\r\n"
+	      		+ "	) AS a\r\n"
+	      		+ "WHERE cid = ?1",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getgenderbyID(String cid);
 
   @Query(
-	      value = "select *, floor(100*agecount/Sum(agecount) over (partition by cid)) AS ratio from\r\n"
-	      		+ "(select * ,count(age) as agecount from (select c.cid, floor(DATEDIFF(DY,md.birthday,GETDATE())/365.25) as age  \r\n"
-	      		+ "from classmanagement c join member_details md on c.uid = md.uid) as a group by cid, age) as a where cid= ?1",
+	      value = "SELECT *,\r\n"
+	      		+ "	floor(100 * agecount / Sum(agecount) OVER (PARTITION BY cid)) AS ratio\r\n"
+	      		+ "FROM (\r\n"
+	      		+ "	SELECT *,\r\n"
+	      		+ "		count(age) AS agecount\r\n"
+	      		+ "	FROM (\r\n"
+	      		+ "		SELECT c.cid,\r\n"
+	      		+ "			floor(DATEDIFF(DY, md.birthday, GETDATE()) / 365.25) AS age\r\n"
+	      		+ "		FROM classmanagement c\r\n"
+	      		+ "		JOIN member_details md ON c.uid = md.uid\r\n"
+	      		+ "		WHERE md.birthday IS NOT NULL\r\n"
+	      		+ "		) AS a\r\n"
+	      		+ "	GROUP BY cid,\r\n"
+	      		+ "		age\r\n"
+	      		+ "	) AS a\r\n"
+	      		+ "WHERE cid = ?1",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getAgePercentbyID(String cid);
   
   @Query(
-	      value = "SELECT *, 100*jobcount/Sum(jobcount) over (partition by cid) AS ratio\r\n"
-	      		+ "FROM (select c.cid , md.job, count(md.job) as jobcount\r\n"
-	      		+ "from classmanagement c \r\n"
-	      		+ "inner join member_details md \r\n"
-	      		+ "on c.uid = md.uid \r\n"
-	      		+ "group by c.cid, md.job) as a where cid = ?1",
+	      value = "SELECT *,\r\n"
+	      		+ "	100 * jobcount / Sum(jobcount) OVER (PARTITION BY cid) AS ratio\r\n"
+	      		+ "FROM (\r\n"
+	      		+ "	SELECT c.cid,\r\n"
+	      		+ "		md.job,\r\n"
+	      		+ "		count(md.job) AS jobcount\r\n"
+	      		+ "	FROM classmanagement c\r\n"
+	      		+ "	INNER JOIN member_details md ON c.uid = md.uid\r\n"
+	      		+ "	WHERE md.job IS NOT NULL\r\n"
+	      		+ "	GROUP BY c.cid,\r\n"
+	      		+ "		md.job\r\n"
+	      		+ "	) AS a\r\n"
+	      		+ "WHERE cid = ?1",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getJobPercentbyID(String cid);
   
   @Query(
-	      value = "select date, sum(totalprice) as money from\r\n"
-	      		+ "(select *, price*count(cid) as totalprice \r\n"
-	      		+ "FROM(select convert(nvarchar(7),order_date,120) as date, c.cid , price from classmanagement c join class a on c.cid=a.cid)\r\n"
-	      		+ "as a group by date, price, cid)as a group by date",
+	      value = "SELECT DATE,\r\n"
+	      		+ "	sum(totalprice) AS MONEY\r\n"
+	      		+ "FROM (\r\n"
+	      		+ "	SELECT *,\r\n"
+	      		+ "		price * count(cid) AS totalprice\r\n"
+	      		+ "	FROM (\r\n"
+	      		+ "		SELECT convert(NVARCHAR(7), order_date, 120) AS DATE,\r\n"
+	      		+ "			c.cid,\r\n"
+	      		+ "			price\r\n"
+	      		+ "		FROM classmanagement c\r\n"
+	      		+ "		JOIN class a ON c.cid = a.cid\r\n"
+	      		+ "		WHERE year(c.order_date) = 2022\r\n"
+	      		+ "		) AS a\r\n"
+	      		+ "	GROUP BY DATE,\r\n"
+	      		+ "		price,\r\n"
+	      		+ "		cid\r\n"
+	      		+ "	) AS a\r\n"
+	      		+ "GROUP BY DATE",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getMoney();
   
