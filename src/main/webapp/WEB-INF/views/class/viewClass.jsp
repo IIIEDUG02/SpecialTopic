@@ -34,23 +34,12 @@ h1 {
 <!-- Favicons -->
 <jsp:include page="../incloud/favicons.jsp" />
 
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
-
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
-<!-- 購物車 -->
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
-
-<!-- Animate CSS -->
-<link rel="stylesheet"
-	href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
 </head>
