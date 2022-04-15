@@ -54,7 +54,7 @@
 						</tr>
 						<c:forEach var="ca" items="${classList}">
 							<tr>
-								<td align="center"><c:out value="${ca.get('cid')}" /></td>				
+								<td  id="cid" align="center"><c:out value="${ca.get('cid')}" /></td>				
 								<td align="center"><c:out value="${ca.get('title')}" /></td>				
 								<td align="center"><c:out value="${ca.get('class_type')}" /></td>							
 								<td align="center"><c:out value="共${ca.get('count')}筆" /></td>							
@@ -76,12 +76,10 @@
 									<td><input  class="form-control" placeholder="請輸入ID" type="text" name="id" id="jobid" /></td>
 									<td ><font id="jobmsg" color="red"></font></td>
 								</tr>
-								<tr>
-									<td><input type="button" onclick="checkjob()" class="btn btn-success" value="送出" /></td>
-									<td><font color="red">${errors.jobmsg}</font></td>
-								</tr>
 							</table>
 						</form>
+						<input type="button" onclick="checkjob()" class="btn btn-success" value="送出" />
+									<font id="joberrorID" color="red"></font>
 					</div>
 					<div id="p2">
 						<form action="getgenderbyID" method="get" id="genderform">
@@ -91,12 +89,10 @@
 									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" id="genderid" /></td>
 									<td><font id="gendermsg" color="red"></font></td>
 								</tr>
-								<tr>
-									<td><input type="button" onclick="checkgender()" class="btn btn-success" value="送出" /></td>
-									<td><font color="red">${errors.gendermsg}</font></td>
-								</tr>
 							</table>
 						</form>
+						<input type="button" onclick="checkgender()" class="btn btn-success" value="送出" />
+									<font id="gendererrorID"  color="red"></font>
 					</div>
 					<div id="p3">
 						<form action="getAgePercentbyID" method="get" id="ageform">
@@ -106,12 +102,10 @@
 									<td><input class="form-control" placeholder="請輸入ID" type="text" name="id" id="ageid" /></td>
 									<td><font id="agemsg" color="red"></font></td>
 								</tr>
-								<tr>
-									<td><input type="button" onclick="checkage()" class="btn btn-success" value="送出" /></td>
-									<td><font color="red">${errors.agemsg}</font></td>
-								</tr>
 							</table>
 						</form>
+						<input type="button" onclick="checkage()" class="btn btn-success" value="送出" />
+									<font id="ageerrorID" color="red"></font>
 					</div>
 				</div>
 			</div>
@@ -120,12 +114,25 @@
 	<script>
 	function checkgender() {
 		var genderid = $('input#genderid');
-		
+		$('font#gendererrorID').html('');
 		
 		if (genderid.val() ==='') {
 			$('font#gendermsg').html('請輸入課程ID');
 			return false;
 		}else{
+			$('font#gendermsg').html('');
+			var tdList=$("td#cid");
+			var List =[];
+			var cidListLength=tdList.length;
+			for(let i = 0; i < cidListLength; i++){
+				List.push( tdList[i].innerHTML );
+				
+				}
+			
+			if(List.indexOf($("input#genderid").val())==-1){
+				$('font#gendererrorID').html('請確認課程ID存在於列表');
+				return;
+			}
 			$('form#genderform').submit();
 		}
 
@@ -135,12 +142,25 @@
 	function checkjob() {
 
 		var jobid = $('input#jobid');
-
+		$('font#joberrorID').html('');
 		
 		if (jobid.val() ==='') {
 			$('font#jobmsg').html('請輸入課程ID');
 			return false;
 		}else{
+			$('font#jobmsg').html('');
+			var tdList=$("td#cid");
+			var List =[];
+			var cidListLength=tdList.length;
+			for(let i = 0; i < cidListLength; i++){
+				List.push( tdList[i].innerHTML );
+				
+				}
+			
+			if(List.indexOf($("input#jobid").val())==-1){
+				$('font#joberrorID').html('請確認課程ID存在於列表');
+				return;
+			}
 			$('form#jobform').submit();
 		}
 
@@ -148,13 +168,26 @@
 		
 	}
 	function checkage() {
-
-		var ageid = $('input#ageid');
 		
+		var ageid = $('input#ageid');
+		$('font#ageerrorID').html('');
 		if (ageid.val() ==='') {
 			$('font#agemsg').html('請輸入課程ID');
 			return false;
 		}else{
+			$('font#agemsg').html('');
+			var tdList=$("td#cid");
+			var List =[];
+			var cidListLength=tdList.length;
+			for(let i = 0; i < cidListLength; i++){
+				List.push( tdList[i].innerHTML );
+				
+				}
+			
+			if(List.indexOf($("input#ageid").val())==-1){
+				$('font#ageerrorID').html('請確認課程ID存在於列表');
+				return;
+			}
 			$('form#ageform').submit();
 		}
 
