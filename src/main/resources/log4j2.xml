@@ -1,7 +1,7 @@
 <Configuration status="ALL" monitorInterval="30">
     <Properties>
         <!--路徑依日期分類-->
-        <Property name="LOG_FILE_PATH">./LogFile/${date:yyyy-MM-dd}</Property>
+        <Property name="LOG_FILE_PATH">LogFile/${date:yyyy-MM-dd}</Property>
         <!--設置 Log 輸出格式-->
         <Property name="PATTERN_FORMAT">%d{[yyyy-MM-dd] [HH:mm:ss]} [%-5level] - %msg%xEx%n</Property>
     </Properties>
