@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import net.ddns.iiiedug02.model.bean.ClassBean;
 import net.ddns.iiiedug02.model.bean.StudentAnalysis;
@@ -19,6 +20,7 @@ import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.StudentAnalService;
 
 @Controller
+@SessionAttributes({"classList"})
 public class StudentAnalController {
 
     @Autowired
@@ -33,7 +35,12 @@ public class StudentAnalController {
   private ClassManagementService classMService;
   
   @RequestMapping(path = "/inputmain", method = RequestMethod.GET)
-	public String processMainAction() {
+	public String processMainAction(Model m) {
+	  List<Map<String, Integer>> classList = analyService.getClassList();
+	    
+	    
+		m.addAttribute("classList", classList);
+	  
 		return "success/MainPercentInput";
 	}
 
@@ -103,8 +110,26 @@ public class StudentAnalController {
 	return "success/MainPercentInput";
   }
   
+  @GetMapping("/getMoney")
+  public String getMoney(Model m) {
+    List<Map<String, Integer>> moneyList2022 = analyService.getMoney();
+    
+	m.addAttribute("moneyList2022", moneyList2022);
+	    
+	return "success/MoneyPage";
+  }
   
-
+  @GetMapping("/getMostJob")
+  public String mostjob(Model m) {
+    List<Map<String, Integer>> mostjobList = analyService.mostjob();
+    
+    
+	m.addAttribute("mostjobList", mostjobList);
+	
+    
+	return "success/All";
+  }
+  
 }
 
 

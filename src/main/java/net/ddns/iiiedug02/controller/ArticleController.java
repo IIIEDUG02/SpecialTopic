@@ -44,8 +44,9 @@ public class ArticleController {
   // Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
   private ArticleHelper articleHelper = ArticleHelper.getInstance();
 
-  // 含有 admin 角色的人才能新增文章
-  private String ROLE = "ROLE_admin";
+  // 含有 admin or teacher 角色的人才能新增/編輯/刪除文章
+  private String ADMIN = "admin";
+  private String TEACHER = "teacher";
 
   @GetMapping("")
   public String dispatch(HttpServletRequest request, Principal principal, Model model, String article,
@@ -77,7 +78,7 @@ public class ArticleController {
   @GetMapping("/create")
   public String create(HttpServletRequest request, Principal principal, Model model) {
     // 判斷使用者是否有管理員角色，才可以進入發表文章頁面，否則直接返回文章列表頁面
-    if (articleHelper.hasRole(principal, ROLE)) {
+    if (articleHelper.hasRole(principal, ADMIN) || articleHelper.hasRole(principal, TEACHER)) {
       // 從資料庫撈出所有的標籤
       List<TagBean> tags = tagService.findAll();
 
@@ -98,7 +99,7 @@ public class ArticleController {
     ArticleBean article = null;
 
     // 先判斷是否擁有管理者角色，如果沒有管理者角色則直接返回文章列表頁面
-    if (!articleHelper.hasRole(principal, ROLE))
+    if (!(articleHelper.hasRole(principal, ADMIN) || articleHelper.hasRole(principal, TEACHER)))
       // redirect 是重定向的意思，作用為讓瀏覽器再發一次請求到指定的頁面(在這裡是 articles)
       return "redirect:/articles";
 
@@ -178,7 +179,7 @@ public class ArticleController {
   // 進入編輯文章頁面，用的跟發佈文章是同一個頁面
   @GetMapping("/update/{uuid}")
   public String update(Principal principal, Model model, @PathVariable String uuid) {
-    if (!articleHelper.hasRole(principal, ROLE))
+    if (!(articleHelper.hasRole(principal, ADMIN) || articleHelper.hasRole(principal, TEACHER)))
       return "article/articles";
     
     List<ArticleBean> articles = articleService.findByUuid(uuid);
@@ -207,7 +208,7 @@ public class ArticleController {
   public String updateArticle(HttpServletRequest request, Principal principal, 
       @PathVariable String uuid) {
 
-    if (!articleHelper.hasRole(principal, ROLE))
+    if (!(articleHelper.hasRole(principal, ADMIN) || articleHelper.hasRole(principal, TEACHER)))
       return "article/articles";
     
     List<ArticleBean> articles = articleService.findByUuid(uuid);
@@ -252,7 +253,7 @@ public class ArticleController {
     String httpOk = "{\"response\":\"200\"}";
     
     //判斷是不是ROLE_Admin發過來的請求
-    if (!articleHelper.hasRole(principal, ROLE))
+    if (!(articleHelper.hasRole(principal, ADMIN) || articleHelper.hasRole(principal, TEACHER)))
       return badRequest;
           
     String uuid = params.get("uuid");

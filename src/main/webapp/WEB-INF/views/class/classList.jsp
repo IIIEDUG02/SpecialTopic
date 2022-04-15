@@ -5,21 +5,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/SpecialTopic/js/class.js"></script>
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
-<title>student</title>
 
 <style>
-.position_fixed {
-	position: fixed;
+div.min-vh-100{
+background-color:#F0FFF0	;
+border-radius: 50px;
 }
 
-.height100 {
-	height: 100px;
+div.align-items-center{
+background-color:white;
+border-radius: 50px;
+}
+div#btnwrap{
+text-align: right;
+}
+body {
+	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.65);
+	margin: 10px;
+	padding: 0px;
+	min-height: 100vh;
+}
+
+.row{
+margin: 20px;
 }
 </style>
+<title>student</title>
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -30,19 +47,59 @@
 			<div class="col min-vh-100">
 				<c:choose>
 					<c:when test="${not empty allCbList}">
+
+						<div class="row">
+							<div class="col-2">
+								<h3>課程名稱</h3>
+							</div>
+							<div class="col-2">
+								<h3>課程類型</h3>
+							</div>
+
+						</div>
+						<hr>
 						<c:forEach items="${allCbList}" var="cb">
-							<div id="classDiv${cb.getCid()}" class="card m-3" style="width: 18rem;">
-								<img class="card-img-top" src="${cb.getPhoto()}"
-									alt="Card image cap">
-								<div class="card-body">
-									<h5 class="card-title">${cb.getTitle()}</h5>
-									<p class="card-text">${cb.getClassType()}</p>
-									<a href="/SpecialTopic/class/update/${cb.getCid()}" class="btn btn-primary">編輯課程</a> 
-									<a onclick="deleteClassByCid(${cb.getCid()})" class="btn btn-primary">刪除課程</a> 
-									<a href="/SpecialTopic/class/editCurriculum/${cb.getCid()}" class="btn btn-primary">編輯章節</a>
+							<div id="classDiv${cb.getCid()}"
+								class="row align-items-center ">
+								<div class="col-2">
+									<p class="title">${cb.getTitle()}</p>
+								</div>
+								<div class="col-2">
+									<p class="text">${cb.getClassType()}</p>
+								</div>
+								<div id="btnwrap" class="col justify-content-end">
+									<a href="/SpecialTopic/class/update/${cb.getCid()}"
+										class="btn btn-success">編輯課程</a> <a
+										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
+										class="btn btn-primary">編輯章節</a> <a
+										onclick="deleteClassByCid(${cb.getCid()})"
+										class="btn btn-danger">刪除課程</a>
+									<c:choose>
+										<c:when test="${null==cb.getClassOnlineBean()}">
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-primary">上架課程</a>
+										</c:when>
+										<c:when test="${0==cb.getClassOnlineBean().getOnline()}">
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-primary">上架課程</a>
+										</c:when>
+										<c:otherwise>
+											<a id="onlinebtn${cb.getCid()}"
+												onclick="changeClassOnlineStatus(${cb.getCid()})"
+												class="btn btn-danger">下架課程</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</c:forEach>
+						<div class="row ">
+							<div class="col m-auto">
+								<a href="/SpecialTopic/create"
+									class="btn btn-primary align-items-center">新增課程</a>
+							</div>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -72,7 +129,9 @@
 															<h5 class="card-title">${cb.getTitle()}</h5>
 															<p class="card-text">${cb.getClassType()}</p>
 															<a href="/SpecialTopic/class/curriculums/${cb.getCid()}"
-																class="btn btn-primary">進入課程</a>
+																class="btn btn-primary">進入課程</a> <a
+																onclick="changeStatusToOne(${cb.getCid()})"
+																class="btn btn-danger">移置已封存</a>
 														</div>
 													</div>
 												</c:forEach>
@@ -98,7 +157,9 @@
 															<h5 class="card-title">${cb.getTitle()}</h5>
 															<p class="card-text">${cb.getClassType()}</p>
 															<a href="/SpecialTopic/classCurriculum/${cb.getCid()}"
-																class="btn btn-primary">進入課程</a>
+																class="btn btn-primary">進入課程</a> <a
+																onclick="changeStatusToZero(${cb.getCid()})"
+																class="btn btn-danger">移置未完成</a>
 														</div>
 													</div>
 												</c:forEach>
@@ -126,7 +187,7 @@
 
 	<!-- Templete JS -->
 	<jsp:include page="../incloud/body-js.jsp" />
-	
+
 	<!-- ======= errMsg ======= -->
 	<c:if test="${not empty msg}">
 		<script>alert("${msg}")</script>

@@ -12,7 +12,7 @@ public class RoleNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public RoleNotFoundException() {
-        super("全縣發生錯誤");
+        super("權限發生錯誤");
     }
 
 }

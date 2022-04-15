@@ -9,6 +9,11 @@ import net.ddns.iiiedug02.model.bean.ShoppingCart;
 import net.ddns.iiiedug02.model.repository.ShoppingCartRepository;
 
 @Service
+/*
+ * 購物車清單的Service
+ * 
+ * @author Nilm
+ */
 public class ShoppingCartService {
 
     @Autowired

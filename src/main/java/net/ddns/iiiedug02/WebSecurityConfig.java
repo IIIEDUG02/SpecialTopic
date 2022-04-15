@@ -51,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
                 .logoutSuccessUrl("/");
 
-
         http.cors().and().csrf().disable();
     }
 

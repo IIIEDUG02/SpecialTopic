@@ -45,29 +45,45 @@ class Base {
 
 	// 使用原生(native)的方式(JS)來發 AJAX 請求,async JS 的非同步關鍵字
 	// csrf = Cross Site Request Forgery 跨站請求偽造(防止請求偽造)
-	static async ajax(url, formData = undefined, csrf = undefined) {
+	static async ajax(method, url, payload = undefined, csrf = undefined) {
 		try {
-			// fetch 是一個 JS 的函數，能夠用來發送 AJAX 請求
-			const fetchPro = formData ? fetch(url, {
-				method: "POST",
-				headers: {
+			let fetchPromise;
+			
+			if (method.toUpperCase() === "GET") {
+				fetchPromise = fetch(url);
+			}
+			else if (["POST", "PATCH", "DELETE"].includes(method.toUpperCase())) {
+				const headers = {
 					"Content-Type": "application/json",
-					// 專案目前取消 CSRF，因此先註解
-					//之後上伺服器後，下面那句要解開，向後端傳送一個確認是否偽造請求的驗證碼
-					// 'X-CSRF-TOKEN': csrf,
-				},
+				}
+				
+				// 專案目前取消 CSRF，之後上伺服器後，下面那句要解開，向後端傳送一個確認是否偽造請求的驗證碼
+				if (csrf)
+					headers["X-CSRF-TOKEN"] = csrf;
+				
 				// body 用來放要往後端傳送的資料
-				body: JSON.stringify(formData),
-			}) : fetch(url);
+				if (payload) {
+					fetchPromise = fetch(url, {
+							method: method,
+							headers: headers,
+							body: JSON.stringify(payload)
+					})
+				} else {
+					fetchPromise = fetch(url, {
+							method: method,
+							headers: headers,
+					})
+				}
+			}
 
 			// 等待後端回傳結果
 			const res = await Promise.race([
-				fetchPro,
+				fetchPromise,
 				Base.timeout(Base.TIMEOUT_SEC),
 			]);
 			const data = await res.json();
 
-			if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+			if (!res.ok) console.error(data);
 			return data;
 		} catch (error) {
 			throw error;

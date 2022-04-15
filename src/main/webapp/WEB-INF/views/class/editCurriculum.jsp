@@ -21,6 +21,15 @@
 .height100 {
 	height: 100px;
 }
+
+video{
+width: 854px;
+height: 480px;
+}
+.btn-success{
+margin-bottom: 50px;
+}
+
 </style>
 </head>
 <body>
@@ -29,28 +38,34 @@
 	<div class="height100"></div>
 	<div class="container">
 		<div class="row">
+			<div style="text-align:center">
+			<button onclick='editCurriculum(0)' class="button btn-success">新增章節</button>
+			</div>
 			<div class="col shadow">
-			 	<div id="formDiv">
-			 	
-			 	</div>
+				<div id="formDiv"></div>
 			</div>
 			<div class="col shadow">
 				<c:choose>
 					<c:when test="${not empty cubList}">
 						<ul class="list-group">
-							<c:forEach items="${cubList}" var="cub">						
-								<li id="li${cub.getCuid()}" class="list-group-item"  onclick="editCurriculum(${cub.getCuid()})">
+							<c:forEach items="${cubList}" var="cub">
+								<li id="li${cub.getCuid()}" class="list-group-item"
+									onclick="editCurriculum(${cub.getCuid()})">
 									<div>
-										<a>${cub.getChapter()}</a>
-										<input id="cuid${cub.getCuid()}" type="hidden" value="${cub.getCuid()}"/>
-										<input id="chapter${cub.getCuid()}" type="hidden" value="${cub.getChapter()}"/>
-										<input id="videoPath${cub.getCuid()}" type="hidden" value="${cub.getVideo_path()}"/>
+										<a>${cub.getChapter()}</a> <input id="cuid${cub.getCuid()}"
+											type="hidden" value="${cub.getCuid()}" /> <input
+											id="chapter${cub.getCuid()}" type="hidden"
+											value="${cub.getChapter()}" /> <input
+											id="videoPath${cub.getCuid()}" type="hidden"
+											value="${cub.getVideo_path()}" />
 									</div>
 								</li>
 							</c:forEach>
 						</ul>
-						<button onclick='editCurriculum(0)' class="button btn-success">新增章節</button>
 					</c:when>
+					<c:otherwise>
+					目前尚無章節,請點選新增章節
+					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>

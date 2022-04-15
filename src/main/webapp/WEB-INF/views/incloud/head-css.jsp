@@ -19,6 +19,8 @@
 <!-- Template Main CSS File -->
 <link href="/SpecialTopic/assets/css/style.css" rel="stylesheet">
 
+
+<link href="/SpecialTopic/css/shoppingCart.css" rel="stylesheet">
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -26,11 +28,22 @@
 	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
 <!-- login form modal -->
+
+
 <style>
 .modal-backdrop {
   z-index: -1;
   opacity: 0 !important;
   filter: alpha(opacity=0) !important;
+}
+.position_fixed {
+	position: fixed;
+}
+
+.height100 {
+	margin-top: 40px;
+	padding-top: 60px;
 }
 </style>

@@ -23,34 +23,32 @@ import lombok.Setter;
 @Getter
 public class MemberInformation implements Serializable {
 
-  private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 2L;
 
-  @Id
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "uid", referencedColumnName = "uid")
-  @JsonIgnore
-  private Member member;
+    @Id
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid", referencedColumnName = "uid")
+    @JsonIgnore
+    private Member member;
 
-  @Column(name = "address")
-  private String address = "";
-  @Column(name = "phone")
-  private String phone = "";
-  @Column(name = "fullname")
-  private String fullname = "";
-  @Column(name = "email")
-  private String email = "";
-  @Column(name = "birthday")
-  private String birthday;
-  @Column(name = "job")
-  private String job = "";
-  @Column(name = "photo")
-  private String photo;
-  @Column(name = "passportname")
-  private String passportname;
-  @Column(name = "identitycard")
-  private String identitycard;
-  @Column(name = "gender")
-  private String gender;
-
-
+    @Column(name = "address")
+    private String address = "";
+    @Column(name = "phone")
+    private String phone = "";
+    @Column(name = "fullname")
+    private String fullname = "";
+    @Column(name = "email")
+    private String email = "";
+    @Column(name = "birthday")
+    private String birthday;
+    @Column(name = "job")
+    private String job = "";
+    @Column(name = "photo")
+    private String photo;
+    @Column(name = "passportname")
+    private String passportname;
+    @Column(name = "identitycard")
+    private String identitycard;
+    @Column(name = "gender")
+    private String gender;
 }

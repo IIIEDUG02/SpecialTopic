@@ -4,31 +4,24 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
-import net.ddns.iiiedug02.exception.NotLoginException;
-import net.ddns.iiiedug02.model.bean.ClassBean;
+import net.ddns.iiiedug02.annotation.AspectLogAnnotation;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.EcpayRecord;
 import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.ShoppingCart;
-import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.EcpayRecordService;
-import net.ddns.iiiedug02.model.service.MemberService;
 import net.ddns.iiiedug02.model.service.ShoppingCartService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
@@ -40,10 +33,6 @@ public class TradeController {
     @Autowired
     private ShoppingCartService shoppingCartService;
     @Autowired
-    private MemberService memberService;
-    @Autowired
-    private ClassBeanService classService;
-    @Autowired
     private ClassManagementService classManagementService;
     @Autowired
     private UniversalTool utool;
@@ -52,7 +41,10 @@ public class TradeController {
 
     /*
      * 接收form表單資料，新增交易紀錄
+     * 
+     * @author Nilm
      */
+    @AspectLogAnnotation
     @RequestMapping(value = "ECPayServer", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String processPayment(HttpServletRequest request, Principal p) {
@@ -70,6 +62,8 @@ public class TradeController {
 
     /*
      * 接收form表單資料，呼叫綠界API
+     * 
+     * @author Nilm
      */
     private String genAioCheckOutALL(HttpServletRequest request, String merchantTradeNo) {
         AioCheckOutALL obj = new AioCheckOutALL();
@@ -80,16 +74,20 @@ public class TradeController {
         obj.setTradeDesc(request.getParameter("TradeDesc"));
         obj.setItemName(request.getParameter("ItemName"));
         obj.setNeedExtraPaidInfo("N");
-        obj.setReturnURL("https://iiiedug02.nilm.in/SpecialTopic/ECPayServer2");
-        obj.setOrderResultURL("http://localhost:8080/SpecialTopic/getEcPayResult");
 
+        obj.setReturnURL("https://iiiedug02.nilm.in/SpecialTopic/ECPayServer2132");
+        obj.setOrderResultURL("http://localhost:8080/SpecialTopic/getEcPayResult");
+        // obj.setOrderResultURL("https://iiiedug02.nilm.in/SpecialTopic/getEcPayResult");
         return all.aioCheckOut(obj, null);
     }
 
     /*
-     * 接收綠界回傳的資料
+     * 接收綠界回傳的資料，並導回課程清單畫面
+     * 
+     * @author Nilm
      */
     @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8")
+    @AspectLogAnnotation
     public String processPaymentResult2(HttpServletRequest request, Principal p,
             RedirectAttributes attr) {
 
@@ -121,7 +119,6 @@ public class TradeController {
                 // 刪除購物車 & 寫入ClassManagement
                 for (String cidStr : cidStrList) {
                     int cidInt = Integer.parseUnsignedInt(cidStr);
-
                     ClassManagementBean cmb = new ClassManagementBean();
                     cmb.setCid(cidInt);
                     cmb.setUid(loginBean.getUid());
@@ -140,31 +137,4 @@ public class TradeController {
         }
         return "redirect:/class/list";
     }
-
-    /*
-     * 
-     */
-    @GetMapping("tradeRecord/teacher")
-    public String tradeRecordTeacher(Principal p, Model m) {
-        if (null == p) {
-            throw new NotLoginException();
-        }
-        Member mb = memberService.findByUsername(p.getName());
-
-        List<ClassBean> classList = classService.findAllByUid(mb.getUid());
-        Map<ClassBean, List<ClassManagementBean>> classCmbListMap =
-                new HashMap<ClassBean, List<ClassManagementBean>>();
-
-        for (ClassBean classBean : classList) {
-            List<ClassManagementBean> tradeList =
-                    classManagementService.findByCid(classBean.getCid());
-            classCmbListMap.put(classBean, tradeList);
-        }
-
-        m.addAttribute("class_cmbList_Map", classCmbListMap);
-        return "tradeRecord/teacher";
-    }
-
 }
-
-

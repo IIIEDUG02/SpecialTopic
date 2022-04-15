@@ -87,4 +87,10 @@ public class Comment {
   @UpdateTimestamp
   @Column(name = "edit_time")
   private LocalDateTime editTime;
+  
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private Long timestamp;
+  
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private int likeCount;
 }

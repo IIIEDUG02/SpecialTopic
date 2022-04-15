@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8080/SpecialTopic/mpclassfindtop5",
+		url: "/SpecialTopic/mpclassfindtop5",
 		contentType: "application/json",
 		dataType: "json",
 		success: function(data) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 				div_teacherAndstyle.append(div_teacherinfo);
 				div_teacherAndstyle.append(div_style);
 
-				var h3_title = $('<h3><a href="course-details.html">' + data[i]['class']["title"] + '</a></h3>')
+				var h3_title = $('<h3><a href="/SpecialTopic/viewClass/'+data[i]['class']["cid"]+'">' + data[i]['class']["title"] + '</a></h3>')
 				var p_de = $('<p>' + data[i]["class"]["classDetailsBean"]["descript"] + '</p>')
 
 				var h4_classtype = $("<h4>" + data[i]["class"]["classType"] + "</h4>");
