@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="ALL" monitorInterval="30">
     <Properties>
         <!--路徑依日期分類-->
-        <Property name="DEV_LOG_FILE_PATH">./LogFile/${date:yyyy-MM}</Property>
+        <Property name="DEV_LOG_FILE_PATH">LogFile/${date:yyyy-MM-dd}</Property>
         <Property name="DEPLOY_LOG_FILE_PATH">/var/lib/tomcat9/webapps/SpecialTopic/LogFile/${date:yyyy-MM}</Property>
         <!--設置 Log 輸出格式-->
         <Property name="PATTERN_FORMAT">%d{[yyyy-MM-dd] [HH:mm:ss]} [%-5level] - %msg%xEx%n</Property>
@@ -16,7 +15,7 @@
         
         <!--Info Log-->
         <RollingFile name="SystemLog" fileName="${DEV_LOG_FILE_PATH}/info.log"
-                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyy-MM-dd}-info-%i.log.gz">
+                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
             </PatternLayout>
@@ -28,7 +27,7 @@
                         
         <!--Error Log-->
         <RollingFile name="SystemError" fileName="${DEV_LOG_FILE_PATH}/error.log"
-                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyy-MM-dd}-error-%i.log.gz">
+                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
             </PatternLayout>
