@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.management.MBeanAttributeInfo;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Status;
@@ -451,6 +452,7 @@ public class ClassController {
 			return "redirect:/class/list";
 		}
 		m.addAttribute("classBean", cb);
+		m.addAttribute("instructor", ms.findByUid(cb.getUid()));
 
 		if (p != null) {
 			Member loginBean = ms.findByUsername(p.getName());
