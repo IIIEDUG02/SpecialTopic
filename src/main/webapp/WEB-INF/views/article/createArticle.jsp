@@ -22,8 +22,7 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="../assets/img/favicon.png" rel="icon">
-<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<jsp:include page="../incloud/favicons.jsp" />
 
 <!-- Google Fonts -->
 <link

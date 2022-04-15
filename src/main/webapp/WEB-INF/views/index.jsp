@@ -8,23 +8,17 @@
 <html lang="en_US">
 
 <head>
-
-<title>OOXX</title>
-
+<title>EAZY LEARN 首頁</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="description">
 <meta content="" name="keywords">
-
 <!-- Favicons -->
 <jsp:include page="incloud/favicons.jsp" />
-
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
-
 <!-- Head js -->
 <jsp:include page="incloud/head-js.jsp" />
-
 <!-- JavaScript -->
 <script src="/SpecialTopic/js/ypteacher-section.js"></script>
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
@@ -46,7 +40,7 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container" data-aos="fade-in">
-			<h1>OOXX</h1>
+			<h1>EAZY LEARN</h1>
 			<h2>學習無所不在，隨時、隨地</h2>
 			<img src="/SpecialTopic/assets/img/hero-bg.jpg" alt="Hero Imgs"
 				data-aos="zoom-out" data-aos-delay="100">
@@ -55,219 +49,10 @@
 	<!-- End Hero Section -->
 
 	<main id="main">
-
 		<!-- ======= About Section ======= -->
 		<jsp:include page="incloud/about-section.jsp" />
-
-		<!-- ======= Counts Section ======= -->
-		<section id="counts" class="counts section-bg">
-			<div class="container">
-
-				<div class="row counters">
-
-					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="0"
-							data-purecounter-duration="1" class="purecounter"
-							id="countmember"></span>
-						<p>位學生</p>
-						<!-- ======= TODO:聰賢 ======= -->
-					</div>
-					<script src="/SpecialTopic/js/countmember.js"></script>
-					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="0"
-							data-purecounter-duration="1" class="purecounter" id="classcount"></span>
-						<p>門課程</p>
-					</div>
-					<script src="/SpecialTopic/js/count.js"></script>
-
-					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="42"
-							data-purecounter-duration="1" class="purecounter"></span>
-						<p>個活動</p>
-						<!-- ======= TODO:？？？？ ======= -->
-					</div>
-
-					<div class="col-lg-3 col-6 text-center">
-						<span data-purecounter-start="0" data-purecounter-end="15"
-							data-purecounter-duration="1" class="purecounter"></span>
-						<p>位老師</p>
-						<!-- ======= TODO:聰賢 ======= -->
-					</div>
-
-				</div>
-
-			</div>
-		</section>
-		<!-- End Counts Section -->
-
-		<!-- ======= Why Us Section ======= -->
-		<section id="why-us" class="why-us">
-			<div class="container" data-aos="fade-up">
-
-				<div class="row">
-					<div class="col-lg-4 d-flex align-items-stretch">
-						<div class="content">
-							<h3>Why Choose Mentor?</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Duis aute irure dolor in reprehenderit Asperiores
-								dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel
-								necessitatibus optio ad corporis.</p>
-							<div class="text-center">
-								<a href="about.html" class="more-btn">Learn More <i
-									class="bx bx-chevron-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-8 d-flex align-items-stretch" data-aos="zoom-in"
-						data-aos-delay="100">
-						<div class="icon-boxes d-flex flex-column justify-content-center">
-							<div class="row">
-								<div class="col-xl-4 d-flex align-items-stretch">
-									<div class="icon-box mt-4 mt-xl-0">
-										<i class="bx bx-receipt"></i>
-										<h4>Corporis voluptates sit</h4>
-										<p>Consequuntur sunt aut quasi enim aliquam quae harum
-											pariatur laboris nisi ut aliquip</p>
-									</div>
-								</div>
-								<div class="col-xl-4 d-flex align-items-stretch">
-									<div class="icon-box mt-4 mt-xl-0">
-										<i class="bx bx-cube-alt"></i>
-										<h4>Ullamco laboris ladore pan</h4>
-										<p>Excepteur sint occaecat cupidatat non proident, sunt in
-											culpa qui officia deserunt</p>
-									</div>
-								</div>
-								<div class="col-xl-4 d-flex align-items-stretch">
-									<div class="icon-box mt-4 mt-xl-0">
-										<i class="bx bx-images"></i>
-										<h4>Labore consequatur</h4>
-										<p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus
-											ut maiores omnis facere</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- End .content-->
-					</div>
-				</div>
-
-			</div>
-		</section>
-		<!-- End Why Us Section -->
-
-		<!-- ======= Features Section ======= -->
-		<section id="features" class="features">
-			<div class="container" data-aos="fade-up">
-				<!-- ======= TDDO: 課程標籤？？？？ ======= -->
-				<div class="row" data-aos="zoom-in" data-aos-delay="100">
-					<div class="col-lg-3 col-md-4">
-						<div class="icon-box">
-							<i class="ri-store-line" style="color: #ffbb2c;"></i>
-							<h3>
-								<a href="">Lorem Ipsum</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-						<div class="icon-box">
-							<i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-							<h3>
-								<a href="">Dolor Sitema</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-						<div class="icon-box">
-							<i class="ri-calendar-todo-line" style="color: #e80368;"></i>
-							<h3>
-								<a href="">Sed perspiciatis</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-						<div class="icon-box">
-							<i class="ri-paint-brush-line" style="color: #e361ff;"></i>
-							<h3>
-								<a href="">Magni Dolores</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-database-2-line" style="color: #47aeff;"></i>
-							<h3>
-								<a href="">Nemo Enim</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-							<h3>
-								<a href="">Eiusmod Tempor</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
-							<h3>
-								<a href="">Midela Teren</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-price-tag-2-line" style="color: #4233ff;"></i>
-							<h3>
-								<a href="">Pira Neve</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-anchor-line" style="color: #b2904f;"></i>
-							<h3>
-								<a href="">Dirada Pack</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-disc-line" style="color: #b20969;"></i>
-							<h3>
-								<a href="">Moton Ideal</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-base-station-line" style="color: #ff5828;"></i>
-							<h3>
-								<a href="">Verdo Park</a>
-							</h3>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4">
-						<div class="icon-box">
-							<i class="ri-fingerprint-line" style="color: #29cc61;"></i>
-							<h3>
-								<a href="">Flavor Nivelanda</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- ======= END:TDDO ======= -->
-			</div>
-		</section>
-		<!-- End Features Section -->
-
-		<!-- ======= Trainers Section ======= -->
-		<%--     <jsp:include page="incloud/trainers-section.jsp" /> --%>
+		<!-- ======= Classe Section ======= -->
 		<jsp:include page="incloud/class-section.jsp" />
-
 
 	</main>
 	<!-- End #main -->
@@ -289,7 +74,7 @@
 	</c:if>
 	<!-- ======= param.error ======= -->
 	<c:if test="${param.error != null}">
-			<script>alert("帳號或密碼錯誤")</script>
+		<script>alert("帳號或密碼錯誤")</script>
 	</c:if>
 </body>
 

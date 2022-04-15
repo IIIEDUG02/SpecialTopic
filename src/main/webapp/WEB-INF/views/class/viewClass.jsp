@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -20,11 +22,13 @@
 .height100 {
 	height: 100px;
 }
-div#shoppingcart{
-    text-align: center;
+
+div#shoppingcart {
+	text-align: center;
 }
-h1{
-font-size: 40px;
+
+h1 {
+	font-size: 40px;
 }
 </style>
 <!-- Favicons -->
@@ -40,10 +44,12 @@ font-size: 40px;
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
 
 <!-- Animate CSS -->
-<link rel="stylesheet" href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
+<link rel="stylesheet"
+	href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- courseComment CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/course-comment.css" />
@@ -111,9 +117,15 @@ font-size: 40px;
 														onclick="sc_del(${classBean.getCid()})">從購物車中移出</button>
 												</c:when>
 												<c:otherwise>
-													<button id="sc_btn_${classBean.getCid()}"
+													<sec:authorize access="!isAuthenticated()">
+													  <h4>登入後</h4>
+													  <h4>才可以購買課程</h4>
+													</sec:authorize>
+													<sec:authorize access="isAuthenticated()">
+													   <button id="sc_btn_${classBean.getCid()}"
 														class="btn btn-success"
 														onclick="sc_add(${classBean.getCid()})">加入至購物車</button>
+													</sec:authorize>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>

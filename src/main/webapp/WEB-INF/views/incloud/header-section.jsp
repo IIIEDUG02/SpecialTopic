@@ -10,7 +10,7 @@
 	<div id="header2" class="container d-flex align-items-center">
 
 		<h1 class="logo me-auto">
-			<a href="/SpecialTopic/">OOXX</a>
+			<a href="/SpecialTopic/">EAZY LEARN</a>
 		</h1>
 		<nav id="navbar" class="navbar order-last order-lg-0">
 			<ul>

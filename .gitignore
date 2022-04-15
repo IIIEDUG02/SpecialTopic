@@ -33,6 +33,7 @@ build/
 !**/src/test/**/build/
 **/node_modules/
 ***/_book/
+/LogFile/
 
 ### VS Code ###
 .vscode/
