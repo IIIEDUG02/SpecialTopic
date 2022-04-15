@@ -168,5 +168,3 @@ function addItem(classBean) {
 	li.append("<hr / >");
 	return li;
 }
-
-getShoppingCartList();	

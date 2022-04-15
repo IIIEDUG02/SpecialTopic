@@ -4,3 +4,4 @@
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
 <script src="/SpecialTopic/js/class.js"></script>
+<script src="/SpecialTopic/js/loginjs.js"></script>

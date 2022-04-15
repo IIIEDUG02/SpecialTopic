@@ -208,4 +208,10 @@ public class MemberController {
     //
     // }
 
+    @GetMapping("getMemberPhoto")
+    @ResponseBody
+    public String getMemberBean(HttpServletRequest request, Principal p) {
+        return ut.getLoiginBean(request.getSession(), p).getMemberInformation().getPhoto();
+    }
+
 }
