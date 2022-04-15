@@ -18,7 +18,7 @@ function register1() {
 		contentType: "application/json",
 		success: function(data) {
 			if (data == null) {
-				console.log("no data return");
+				alert("帳號已註冊");
 			} else if (data.result == "ok") {
 				window.location = "/SpecialTopic/"
 			}
@@ -46,8 +46,8 @@ function check() {
 	if (!checkEmail()){
 		return false;
 	}
-	
 	$('form#registerform').submit();
+	alert("成功註冊!");
 }
 function checkEmail() {
 	var email = $('input#email').val();

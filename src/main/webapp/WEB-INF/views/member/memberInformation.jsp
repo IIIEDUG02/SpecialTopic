@@ -31,31 +31,46 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 	margin: 30px;
 	font-size: 1.3em;
 }
+
+div.img1 {
+
+	z-index: 2;
+	margin-left: 37%;
+	margin-top: 25%;
+}
 </style>
 </head>
-<body>
+<body style="background:url(/SpecialTopic/img/register/background.jpg) no-repeat ;background-size:cover;">
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
 
 	<div class="container">
-		<form action="/SpecialTopic/memberUpdateInformation" method="post">
+		<form id="mbiform" enctype="multipart/form-data"
+			action="/SpecialTopic/memberUpdateInformation" method="post">
 			<div class="row">
 				<div class="col-4">
-
-					<img src="/SpecialTopic/img/register/tree.jpg">
+					<div>
+						<div class="img1">
+							<img id="preview_img"
+								src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
+								style="width: 120px; height: 120px; border-radius: 50%">
+						</div>
+<!-- 							<img src="/SpecialTopic/img/register/tree.jpg" -->
+<!-- 								style="width: 347px; height: auto"> -->
+					</div>
 				</div>
 				<div class="col-8">
 
 					<div class="row">
-						<h3>個人資料</h3>
+						<h3 style="margin-left: 50px">個人資料</h3>
 					</div>
 					<div class="row">
 						<div class="col-6">
 							<div class="username">
 								<div class="mb-3">
 									<label for="formFile" class="form-label">上傳照片</label> <input
-										class="form-control" type="file" id="formFile">
+										class="form-control" name="mbphoto" type="file" id="formFile">
 								</div>
 								帳號: <a>${mb.getUsername()}</a> <input type="hidden"
 									name="username" value="${mb.getUsername()}">
@@ -66,7 +81,8 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 									<input id="password" type="hidden" name="password"
 										class="form-control" placeholder="Recipient's username"
 										aria-label="Recipient's username" required="required"
-										aria-describedby="button-addon2" value="${mb.getPassword()}"
+										maxlength="20" aria-describedby="button-addon2"
+										value="${mb.getPassword()}"
 										onkeyup="this.value=this.value.replace(/\s+/g,'')">
 									<button class="btn btn-outline-secondary" type="button"
 										id="button-addon2">編輯</button>
@@ -140,12 +156,12 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 								</div>
 							</div>
 							<div id="publishDateMeta" class="birthday">
-								生日:<a> <!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd --> <fmt:formatDate
-										value="${mb.getMemberInformation().getBirthday()}"
-										pattern="yyyy/MM/dd" />
+								生日:<a> ${mb.getMemberInformation().getBirthday()}<!-- 將文章發佈日期從 yyyy-mm-dd 轉成 yyyy/mm/dd -->
+									<%-- 								<fmt:formatDate --%> <%-- 										value="" --%>
+									<%-- 										pattern="yyyy/MM/dd" /> --%>
 								</a>
 								<div class="input-group mb-3">
-									<input id="check2" type="hidden" name="birthday"
+									<input id="check6" type="text" name="birthday"
 										class="form-control" placeholder="Recipient's username"
 										aria-label="Recipient's username"
 										aria-describedby="button-addon2" required="required"
@@ -171,9 +187,13 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 							</div>
 
 							<div class="gender">
-								性別: 男<a>${mb.getMemberInformation().getGender()}</a> <input
-									id="gender" type="radio" name="gender" value=1 />女<input
-									type="radio" name="gender" value=0 />
+								性別: 男<input id="gender1" type="radio" name="gender" value=1 />
+								女<input id="gender0" type="radio" name="gender" value=0 />
+								<script type="text/javascript">
+									$(
+											'#gender${mb.getMemberInformation().getGender()}')
+											.prop("checked", true);
+								</script>
 							</div>
 							<input id="check" onclick="check3()" type="hidden"
 								class="btn btn-success" value="確認"> <input id="check1"
@@ -195,25 +215,26 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 		$(this).parent().children("a").html("");
 		$(this).parent().children("input").attr("type", "text");
 		$(this).remove();
-		$('input#check').attr("type", "submit");
+		$('input#check').attr("type", "button");
 		$('input#check1').attr("type", "reset");
-		$('input#check2').attr("type", "date");
+		$('input#check6').attr("type", "date");
 	}
 	$('button').click(editMemberInformation);
 
 	function check3() {
-		
+
 		var identitycard = $('input#identitycard')
 		var reg = /^(([0-9]{3,4})|[0-9]{3,4}-)[0-9]{7,8}$/;
-		
+
 		if (!checkID(identitycard.val())) {
 			return false;
-		}		
+		}
 		if (!reg.test($('input#phone').val())) {
 			alert('電話號碼輸入有誤！');
 			return false;
 		}
-		return false;
+		alert("資料更改成功");
+		$('form#mbiform').submit();
 	}
 	function checkID(idStr) {
 		// 依照字母的編號排列，存入陣列備用。
@@ -263,6 +284,20 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 			return false;
 		}
 		return true;
+	}
+
+	$("input#formFile").change(function() {
+		$("#preview_img").attr('src', "");
+		readURL(this);
+	});
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#preview_img").attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
 	}
 </script>
 <!-- ======= Footer ======= -->

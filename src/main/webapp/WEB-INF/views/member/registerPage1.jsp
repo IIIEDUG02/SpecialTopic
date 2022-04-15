@@ -35,16 +35,6 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 	border-radius: 10px;
 	margin: 30px;
 }
-
-/* <style>.main-box { */
-/* 	margin: 50px auto; */
-/* 	width: 400px; */
-/* 	height: 570px; */
-/* 	padding: 50px; */
-/* 	box-shadow: 5px 5px 10px #999; */
-/* 	border: 1px solid #fff text-align:center; */
-/* 	font-size: 1.0em; */
-}
 </style>
 </head>
 <body>
@@ -66,14 +56,14 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 					<div class="form-group1">
 						帳號:<input type="text"
 							onkeyup="this.value=this.value.replace(/\s+/g,'')" id="username"
-							name="username" class="username" placeholder="帳號:"
+							name="username" class="username" placeholder="英文+數字不超過20字"
 							required="required" maxlength="20" />
-							<a>英文+數字不超過20字</a>
+							
 					</div>
 					<div class="form-group1">
 						密碼:<input type="password" id="password" name="password"
 							onkeyup="this.value=this.value.replace(/\s+/g,'')"
-							class="password" placeholder="密碼:" required="required"
+							class="password" placeholder="英文+數字不超過20字" required="required"
 							maxlength="20" />
 					</div>
 					<div class="form-group1">
@@ -90,7 +80,9 @@ form .username, form .password, form .repassword, form .fullname, form .email,
 
 
 					<div class="form-group1">
-						<input type="button" value="送 出" onclick="check()" /> <input
+						<input type="button" value="送 出" onclick="check()" /> 
+						
+						<input
 							type="button" style="margin-left: 160px"
 							onclick="javascript:window.location = '/SpecialTopic/'"
 							value="返 回 首 頁" />
