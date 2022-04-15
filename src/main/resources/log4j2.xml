@@ -15,7 +15,7 @@
         </Console>
         
         <!--Info Log-->
-        <RollingFile name="SystemLog" fileName="${DEV_LOG_FILE_PATH}/info.log"
+        <RollingFile name="SystemLog" fileName="${DEV_LOG_FILE_PATH}/${date:yyyy-MM-dd}/info.log"
                      filePattern="${DEV_LOG_FILE_PATH}/${date:yyyy-MM-dd}/info-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
@@ -27,7 +27,7 @@
         </RollingFile>
                         
         <!--Error Log-->
-        <RollingFile name="SystemError" fileName="${DEV_LOG_FILE_PATH}/error.log"
+        <RollingFile name="SystemError" fileName="${DEV_LOG_FILE_PATH}/${date:yyyy-MM-dd}/error.log"
                      filePattern="${DEV_LOG_FILE_PATH}/${date:yyyy-MM-dd}/error-%i.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
