@@ -111,7 +111,6 @@ function getShoppingCartList() {
 }
 
 function listRender(data) {
-	if (data.length > 0) {
 		var count = Object.keys(data).length;
 		// badge build
 		var a1 = $("<a id='cart' class='position-relative' href='#'></a>");
@@ -142,7 +141,6 @@ function listRender(data) {
 			ul.append(li);
 			
 		}
-	}
 }
 
 function addItem(classBean) {
