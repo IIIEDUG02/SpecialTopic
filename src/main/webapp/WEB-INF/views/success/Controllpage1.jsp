@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <jsp:include page="../incloud/head-css.jsp" />
 <jsp:include page="../incloud/head-css.jsp" />
-<title>年度熱門課程</title>
+<title>年度熱門課程排序設定</title>
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
@@ -39,11 +39,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
+				<h2><font color="success">當年訂單量前五名課程</font></h2>
 				<table class="table2excel width table table-striped">
 					<thead>
 						<tr>
 							<td align="center" style="border-bottom: 5px solid #000">課程ID</td>
-							<td align="center" style="border-bottom: 5px solid #000">月份</td>
+							<td align="center" style="border-bottom: 5px solid #000">課程名稱</td>
+							<td align="center" style="border-bottom: 5px solid #000">年份</td>
 							<td align="center" style="border-bottom: 5px solid #000">數量</td>
 						</tr>
 					</thead>
@@ -52,6 +54,7 @@
 							<tr>
 								<td id="cid" align="center"><c:out
 										value="${th.getClassID()}" /></td>
+								<td align="center"><c:out value="${th.getClassBean().getTitle()}" /></td>
 								<td align="center"><c:out value="${th.getYear()}年" /></td>
 								<td align="center"><c:out value="共${th.getYearAmount()}筆" /></td>
 							</tr>
@@ -72,7 +75,7 @@
 									name="pi1" placeholder="課程ID">
 							</div>
 							<div class="col-auto">
-								<span class="form-text"><font id="errorpi1" color="red"></font></span>
+								<span class="form-text"><font size="3" id="errorpi1" color="red"></font></span>
 							</div>
 						</div>
 
@@ -86,7 +89,7 @@
 									name="pi2" placeholder="課程ID">
 							</div>
 							<div class="col-auto">
-								<span class="form-text"><font id="errorpi2" color="red"></font></span>
+								<span class="form-text"><font size="3" id="errorpi2" color="red"></font></span>
 							</div>
 						</div>
 
@@ -102,7 +105,7 @@
 									name="pi3" placeholder="課程ID">
 							</div>
 							<div class="col-auto">
-								<span class="form-text"><font id="errorpi3" color="red"></font></span>
+								<span class="form-text"><font size="3" id="errorpi3" color="red"></font></span>
 							</div>
 						</div>
 					</div>
@@ -112,7 +115,7 @@
 				</form>
 				<div class="col-auto">
 					<input type="button" onclick="sendRank()" class="btn btn-success"
-						value="送出" /> <span class="form-text"><font id="errorID"
+						value="送出" /> <span class="form-text"><font size="3" id="errorID"
 						color="red">${errors.pimsg}</font></span> <span> <input
 						type="button" onclick="reset()" class="btn btn-danger"
 						value="回復正常排序" /> <span>${errors.resetmsg}</span>
@@ -126,18 +129,25 @@
 		var firstid = $('input#pi1ID');
 		var secondid = $('input#pi2ID');
 		var thirdid = $('input#pi3ID');
+		$('font#errorID').html('');
 
 		if (firstid.val() ==='') {
 			$('font#errorpi1').html('請輸入排序一課程ID');
+		}else{
+			$('font#errorpi1').html('');
 		}
 		if (secondid.val() ==='') {
 			$('font#errorpi2').html('請輸入排序二課程ID');
+		}else{
+			$('font#errorpi2').html('');
 		}
 		if (thirdid.val() ==='') {
 			$('font#errorpi3').html('請輸入排序三課程ID');
+		}else{
+			$('font#errorpi3').html('');
 		}
 		if (thirdid.val() ===''|| firstid.val() ==='' || secondid.val() ==='') {
-			return false;
+			return ;
 		}else{
 			var tdList=$("td#cid");
 			var List =[];
@@ -148,15 +158,15 @@
 				}
 			
 			if(List.indexOf($("input#pi1ID").val())==-1){
-				$('font#errorID').html('找不到課程ID');
+				$('font#errorID').html('請確認課程ID存在於列表');
 				return;
 			}
 			if(List.indexOf($("input#pi2ID").val())==-1){
-				$('font#errorID').html('找不到課程ID');
+				$('font#errorID').html('請確認課程ID存在於列表');
 				return ;
 			}
 			if(List.indexOf($("input#pi3ID").val())==-1){
-				$('font#errorID').html('找不到課程ID');
+				$('font#errorID').html('請確認課程ID存在於列表');
 				return ;
 			}
 			swal("排序成功更新!", "瀏覽器即將跳轉回首頁", "success");

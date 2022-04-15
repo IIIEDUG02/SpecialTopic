@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="../incloud/head-css.jsp" />
-<title>Success</title>
+<title>銷售額統計</title>
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>
 <script src="https://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
@@ -25,6 +25,9 @@
 .width{
 	width: 600px;
 }
+.width2{
+	width: 175px;
+}
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: rgb(210, 244, 224   ); 
@@ -39,6 +42,7 @@
 		<div class="row">
 			<div class="col min-vh-100">
 	<div class="table2excel">
+	<div style="border-width:2px;border-style:dashed;border-color:#DEE2DF;padding:5px; display : inline-block; margin:5px " class="width2">
 	<table style= "display:inline;" class="width table table-striped">
 		<thead>
 			<tr>
@@ -97,10 +101,12 @@
 				</tr>
 		</tbody>
 	</table>
+	</div>
+	<div style="border-width:2px;border-style:dashed;border-color:#DEE2DF;padding:5px; display : inline-block; margin:5px" class="width2">
 	<table style="display:inline;" class="width table table-striped">
 		<thead>
 			<tr>
-				<td>2021 年</td>
+				<td>2022 年</td>
 				<td>銷售額</td>
 			</tr>
 		</thead>
@@ -114,7 +120,8 @@
 		</tbody>
 	</table>
 	</div>
-	<input class="btn btn-success" type="button" value="點選匯出excel">
+	</div>
+	<input class="btn btn-success" type="button" value="點選匯出excel" style=" margin:5px">
 	<div id="container" style="min-width:400px;height:400px"></div>
 	<script>
 
