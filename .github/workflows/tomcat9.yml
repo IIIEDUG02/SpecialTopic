@@ -11,46 +11,31 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Copy application.properties
-      run: mv src/main/resources/application.properties src/main/resources/application.properties.bak
-
-    - name: Git submodule pull 
-      run: git submodule update --init --recursive
+    - name: Replace Properties
+      run: sh .github/workflows/replaceProperties.sh
       
-    - name: Copy submodules
-      run: cp -r src/main/ecpay/ecpay src/main/java/ 
-
-    - name: Replace host url
-      run: sed -i 's/http:\/\/localhost:8080/https:\/\/iiiedug02.nilm.in/g' src/main/java/net/ddns/iiiedug02/controller/TradeController.java
-
-    - name: Replace log file path
-      run: sed -i 's/\${DEV_LOG_FILE_PATH}/\${DEPLOY_LOG_FILE_PATH}/g' src/main/resources/log4j2.xml
-
-    - name: Remove context-path
-      run: sed -e "/server.servlet.context-path=\/*/d" src/main/resources/application.properties.bak > src/main/resources/application.properties
+    - name: Submodule Install
+      run: sh .github/workflows/submoduleInstall.sh
           
-    - name: Build war file
+    - name: Build War File
       run: mvn package
 
-    - name: Copy classVideo
-      run: sh .github/workflows/cpClassVideo.sh
-
-    - name: Copy classPhoto
-      run: sh .github/workflows/cpClassPhoto.sh
+    - name: Copy ClassData
+      run: sh .github/workflows/cpClassData.sh
             
-    - name: Remove old file
+    - name: Remove Old File
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
       
-    - name: Move new file
+    - name: Move New File
       run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpcialTopic.war /var/lib/tomcat9/webapps/SpecialTopic.war
 
-    - name: Sleep for 30 seconds
+    - name: Sleep For 30 Seconds
       uses: jakejarvis/wait-action@master
       with:
         time: '10s'
 
-    - name: Restore classVideo
-      run: sh .github/workflows/rsClassVideo.sh
+    - name: Restore ClassData
+      run: sh .github/workflows/rsClassData.sh
 
-    - name: Restore classPhoto
+    - name: Restore ClassPhoto
       run: sh .github/workflows/rsClassPhoto.sh
