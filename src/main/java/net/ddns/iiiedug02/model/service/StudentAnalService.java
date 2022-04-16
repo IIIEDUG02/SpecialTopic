@@ -54,11 +54,27 @@ public class StudentAnalService {
 		return analRepo.getMoney();
 	}
 	
-	public List<Map<String, Integer>> mostjob(){
-		return analRepo.mostjob();
+	public List<Map<String, Integer>> mostjob(int cid){
+		return analRepo.mostjob(cid);
 	}
 	
 	public List<Map<String, Integer>> getClassList(){
 		return analRepo.getClassList();
+	}
+	
+	public List<Map<String, Integer>> getAllcid(){
+		return analRepo.getAllcid();
+	}
+	
+	public List<Map<String, Integer>> orimostjob(){
+		return analRepo.orimostjob();
+	}
+	
+	public List<Map<String, Integer>> mostgender(){
+		return analRepo.mostgender();
+	}
+	
+	public List<Map<String, Integer>> avgAge(){
+		return analRepo.avgAge();
 	}
 }

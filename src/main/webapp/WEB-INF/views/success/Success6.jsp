@@ -38,8 +38,9 @@
 			<div class="row">
 				<div class="col min-vh-100">
 	
-	
-	
+	<div style="border-bottom:3px black solid; margin:20px">
+	<h1 style="text-align:center;"><font color="success">學員性別統計</font></h1>
+	</div>
 	<table class="table2excel width table table-striped">
 		
 			<tr>
