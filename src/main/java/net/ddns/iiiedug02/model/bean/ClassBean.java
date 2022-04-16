@@ -1,7 +1,9 @@
 package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +46,7 @@ public class ClassBean implements Serializable {
   private ClassOnlineBean classOnlineBean;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
-  private Set<CurriculumBean> curriculumbean = new HashSet<CurriculumBean>(0);
+  private List<CurriculumBean> curriculumbean = new ArrayList<CurriculumBean>(0);
   
 
 public ClassOnlineBean getClassOnlineBean() {
@@ -55,11 +57,11 @@ public void setClassOnlineBean(ClassOnlineBean classOnlineBean) {
 	this.classOnlineBean = classOnlineBean;
 }
 
-public Set<CurriculumBean> getCurriculumbean() {
+public List<CurriculumBean> getCurriculumbean() {
     return curriculumbean;
   }
 
-  public void setCurriculumbean(Set<CurriculumBean> curriculumbean) {
+  public void setCurriculumbean(List<CurriculumBean> curriculumbean) {
     this.curriculumbean = curriculumbean;
   }
 

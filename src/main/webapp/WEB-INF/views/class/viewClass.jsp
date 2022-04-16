@@ -81,10 +81,10 @@ h1 {
 	<jsp:include page="../incloud/header-section.jsp" />
   
   <div class="paid-course-landing-page__container" style="margin-top: 71px">
-    <div class="sidebar-container">
+    <div class="sidebar-container"style="z-index: 9999" >
     <!-- sideba rcontainer block-->
       <div class="course-landing-page_sidebar-container" style="position: fixed; margin-top: 70px;">
-        <div class="sidebar-container--content--gsvyJ">
+        <div class="sidebar-container--content--gsvyJ"style="z-index: 9999">
           <div class="sidebar-container--content-group--1upV8">
             <!-- sidebar container introduction asset -->
             <div class="sidebar-container--introduction-asset--5ckuC">
@@ -112,7 +112,7 @@ h1 {
             </div>
           
             <!-- sidebar container purchase section -->
-            <div class="sidebar-container--purchase-section--17KRp" style="padding: 2.4rem;">
+            <div class="sidebar-container--purchase-section--17KRp" style="padding: 2.4rem ;">
               <div class="purchase-section-container--purchase-section-container--13B-7">
                 <div class="generic-purchase-section--main-cta-container--3xxeM">
                   <div class="generic-purchase-section--buy-box-main--siIXV">
