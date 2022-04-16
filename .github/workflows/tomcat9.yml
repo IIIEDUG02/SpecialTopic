@@ -35,7 +35,7 @@ jobs:
         time: '10s'
 
     - name: Restore ClassData
-      run: sh .github/workflows/rsClassData.sh
+      run: echo ${{ secrets.PASSWORD }} | sudo -S sh .github/workflows/rsClassData.sh
 
     - name: Restore ClassPhoto
       run: sh .github/workflows/rsClassPhoto.sh
