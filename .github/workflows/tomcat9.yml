@@ -14,16 +14,16 @@ jobs:
     - name: Copy application.properties
       run: mv src/main/resources/application.properties src/main/resources/application.properties.bak
 
-    - name: git submodule pull 
+    - name: Git submodule pull 
       run: git submodule update --init --recursive
       
     - name: Copy submodules
       run: cp -r src/main/ecpay/ecpay src/main/java/ 
 
-    - name: replace host url
+    - name: Replace host url
       run: sed -i 's/http:\/\/localhost:8080/https:\/\/iiiedug02.nilm.in/g' src/main/java/net/ddns/iiiedug02/controller/TradeController.java
 
-    - name: replace log file path
+    - name: Replace log file path
       run: sed -i 's/\${DEV_LOG_FILE_PATH}/\${DEPLOY_LOG_FILE_PATH}/g' src/main/resources/log4j2.xml
 
     - name: Remove context-path
@@ -31,9 +31,26 @@ jobs:
           
     - name: Build war file
       run: mvn package
+
+    - name: Copy classVideo
+      run: sh ./github/workflows/cpClassVideo.sh
+
+    - name: Copy classPhoto
+      run: sh ./github/workflows/cpClassPhoto.sh
             
     - name: Remove old file
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
       
     - name: Move new file
       run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpcialTopic.war /var/lib/tomcat9/webapps/SpecialTopic.war
+
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '10s'
+
+    - name: Restore classVideo
+      run: sh ./github/workflows/rsClassVideo.sh
+
+    - name: Restore classPhoto
+      run: sh ./github/workflows/rsClassPhoto.sh
