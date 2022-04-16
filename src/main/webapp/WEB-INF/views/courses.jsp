@@ -15,8 +15,15 @@
 .position_fixed {
 	position: fixed;
 }
+#classdiv{
+background-color:white
+}
+#courses{
+background-color:rgb(243, 243, 241)
+}
 div#header-title{
-background-color:#93FF93	;
+background-color:#5FCF80	;
+border-radius: 30px;
 }
 
 .height100 {
@@ -29,6 +36,8 @@ background-color:#93FF93	;
 
 <!-- Head CSS -->
 <jsp:include page="incloud/head-css.jsp" />
+
+
 
 <!-- jQuery -->
 <script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
@@ -50,9 +59,8 @@ background-color:#93FF93	;
 	<div class="height100"></div>
 
 	<main id="main" data-aos="fade-in">
-	<div id="header-title" class="container">
+	<div id="header-title" class="container "  ">
 	<h2>請自由探索喜歡課程</h2>
-	<div></div>
 	</div>
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">
@@ -66,11 +74,12 @@ background-color:#93FF93	;
 				<h3>尚無此類型課程</h3>
 				</c:when>
 				</c:choose>
-					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+					<div class="col-lg-12 flex-wrap   d-flex align-items-stretch">
 						
 						<c:forEach items="${classOneTypeList}" var="cb">
-							<div class="course-item m-2">
-								<img src="${cb.getPhoto()}" class="img-fluid" alt="...">
+							<div  id="classdiv" class="course-item m-4  col-3 shadow">
+								<img id="classphoto" src="${cb.getPhoto()}" class="img-fluid rounded" alt="...">
+								
 								<div class="course-content">
 									<div
 										class="d-flex justify-content-between align-items-center mb-3">
@@ -102,12 +111,10 @@ background-color:#93FF93	;
 				</div>
 			</div>
 
-		</section>
-		<!-- End Courses Section -->
-
+</section>
 	</main>
 	<!-- End #main -->
-
+	<div class="height100"></div>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="incloud/footer-section.jsp" />
 

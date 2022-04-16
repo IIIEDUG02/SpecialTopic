@@ -15,10 +15,11 @@ div.min-vh-100{
 background-color:#F0FFF0	;
 border-radius: 50px;
 }
-
+#class-title{
+background-color:#F0FFF0
+}
 div.align-items-center{
-background-color:white;
-border-radius: 50px;
+
 }
 div#btnwrap{
 text-align: right;
@@ -33,7 +34,7 @@ body {
 }
 
 .row{
-margin: 20px;
+margin: 15px;
 }
 </style>
 <title>student</title>
@@ -48,11 +49,11 @@ margin: 20px;
 				<c:choose>
 					<c:when test="${not empty allCbList}">
 
-						<div class="row">
-							<div class="col-2">
+						<div id="class-title" class="row">
+							<div class="col-3">
 								<h3>課程名稱</h3>
 							</div>
-							<div class="col-2">
+							<div class="col-3">
 								<h3>課程類型</h3>
 							</div>
 
@@ -61,10 +62,10 @@ margin: 20px;
 						<c:forEach items="${allCbList}" var="cb">
 							<div id="classDiv${cb.getCid()}"
 								class="row align-items-center ">
-								<div class="col-2">
+								<div class="col-3">
 									<p class="title">${cb.getTitle()}</p>
 								</div>
-								<div class="col-2">
+								<div class="col-3">
 									<p class="text">${cb.getClassType()}</p>
 								</div>
 								<div id="btnwrap" class="col justify-content-end">
@@ -120,10 +121,10 @@ margin: 20px;
 								<div>
 									<c:choose>
 										<c:when test="${not empty uncompleteList}">
-											<div class="d-flex flex-row bd-highlight mb-3">
+											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${uncompleteList}" var="cb">
 													<div class="card m-3" style="width: 18rem;">
-														<img class="card-img-top" src="${cb.getPhoto()}"
+														<img class="card-img-top mh-25" src="${cb.getPhoto()}"
 															alt="Card image cap">
 														<div class="card-body">
 															<h5 class="card-title">${cb.getTitle()}</h5>
@@ -148,7 +149,7 @@ margin: 20px;
 								<div>
 									<c:choose>
 										<c:when test="${not empty completeList}">
-											<div class="d-flex flex-row bd-highlight mb-3">
+											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${completeList}" var="cb">
 													<div class="card m-3" style="width: 18rem;">
 														<img class="card-img-top" src="${cb.getPhoto()}"

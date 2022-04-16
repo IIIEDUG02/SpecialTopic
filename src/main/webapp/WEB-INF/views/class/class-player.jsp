@@ -39,10 +39,10 @@
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
-	<div class="container">
-		<div id="video-container" class="player m-3 p-3 shadow">
+	<div class="container ">
+		<div id="video-container" class="player align-items-center m-3 p-3 shadow">
 			<input id="cuid" type="hidden" value="${CurriculumList[0].getCuid()}"/>
-			<video controls controlsList="nodownload">
+			<video controls controlsList="nodownload" >
 				<source src="${CurriculumList[0].getVideo_path()}"
 					type="video/mp4">
 				<!-- fallback content here -->
@@ -54,6 +54,7 @@
 			</div>
 			<input id="cid" type="hidden" value="${cid}"/>
 		</div>
+		
 	</div>
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
 		aria-labelledby="offcanvasRightLabel">
@@ -67,6 +68,8 @@
 			</ul>
 		</div>
 	</div>
+	<div class="height100"></div>
+	<div class="height100"></div>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 
