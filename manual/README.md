@@ -6,9 +6,11 @@
 ## 使用技術
 - 前端: BootStrap5、HTML5、jQuery
 - 後端:Spring Boot
-- 資料庫:MS SQL Server
-- 開發工具:Eclipse、Visual Studio Code、SSMS
+- 資料庫:MS SQL Server、SSMS
+- 開發工具:Eclipse、Visual Studio Code
 - 雲端服務:DigitalOcean(IAAS)
+- 美術編輯:Canva
+- 程式碼版本控制:GitHub
 
 ## 組員
 |學號|姓名|負責項目|備考|
