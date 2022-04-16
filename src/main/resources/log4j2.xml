@@ -15,7 +15,7 @@
         
         <!--Info Log-->
         <RollingFile name="SystemLog" fileName="${DEV_LOG_FILE_PATH}/info.log"
-                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%i.log.gz">
+                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%d{HH-mm-ss}.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
             </PatternLayout>
