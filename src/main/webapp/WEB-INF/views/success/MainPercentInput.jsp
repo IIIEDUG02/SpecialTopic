@@ -47,10 +47,10 @@
 			<div>
 					<table  align="center" class="width table table-striped">
 						<tr>
-							<td align="center" style="border-bottom:5px solid #000">課程ID:</td>
-							<td align="center" style="border-bottom:5px solid #000">課程名稱:</td>
-							<td align="center" style="border-bottom:5px solid #000">課程種類:</td>
-							<td align="center" style="border-bottom:5px solid #000">訂單數量:</td>
+							<td align="center" style="border-bottom:5px solid #000">課程ID</td>
+							<td align="center" style="border-bottom:5px solid #000">課程名稱</td>
+							<td align="center" style="border-bottom:5px solid #000">課程種類</td>
+							<td align="center" style="border-bottom:5px solid #000">訂單數量</td>
 						</tr>
 						<c:forEach var="ca" items="${classList}">
 							<tr>
@@ -64,12 +64,13 @@
 			</div >			
 				<div id="tabs" class="width marg-auto"  >
 					<ul>
-						<li><a href="#p1">學員工作統計</a></li>
+						<li><a href="#p1">學員職業統計</a></li>
 						<li><a href="#p2">學員性別統計</a></li>
 						<li><a href="#p3">學員年齡統計</a></li>
+						<li><a href="#p4">學員總統計</a></li>
 					</ul>
 					<div id="p1">
-						<form action="getJobPercentbyID" method="get" id="jobform">
+						<form action="/SpecialTopic/getJobPercentbyID" method="get" id="jobform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
@@ -82,7 +83,7 @@
 									<font id="joberrorID" color="red"></font>
 					</div>
 					<div id="p2">
-						<form action="getgenderbyID" method="get" id="genderform">
+						<form action="/SpecialTopic/getgenderbyID" method="get" id="genderform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
@@ -95,7 +96,7 @@
 									<font id="gendererrorID"  color="red"></font>
 					</div>
 					<div id="p3">
-						<form action="getAgePercentbyID" method="get" id="ageform">
+						<form action="/SpecialTopic/getAgePercentbyID" method="get" id="ageform">
 							<table>
 								<tr>
 									<td>課程ID:</td>
@@ -107,7 +108,11 @@
 						<input type="button" onclick="checkage()" class="btn btn-success" value="送出" />
 									<font id="ageerrorID" color="red"></font>
 					</div>
+					<div id="p4">
+						<input type="button" onclick="location.href='/SpecialTopic/getAllData'" class="btn btn-success" value="查看清單" />
+					</div>
 				</div>
+				<div class="row" id="mostjob" data-aos="zoom-in" data-aos-delay="100"></div>
 			</div>
 		</div>
 	</div>
