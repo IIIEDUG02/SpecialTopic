@@ -78,7 +78,7 @@ border-radius: 30px;
 						
 						<c:forEach items="${classOneTypeList}" var="cb">
 							<div  id="classdiv" class="course-item m-4  col-3 shadow">
-								<img id="classphoto" src="${cb.getPhoto()}" class="img-fluid rounded" alt="...">
+								<img id="classphoto" src="https://iiiedug02.nilm.in${cb.getPhoto()}" class="img-fluid rounded" alt="...">
 								
 								<div class="course-content">
 									<div

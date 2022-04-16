@@ -98,7 +98,7 @@ img {
 							placeholder="課程圖片">
 					</div>
 					<div class="col">
-						<img id="preview_classphoto" src="${classBean.getPhoto()}" alt="預覽圖片"
+						<img id="preview_classphoto" src="https://iiiedug02.nilm.in${classBean.getPhoto()}" alt="預覽圖片"
 							style="width: 260px; height: 200px; border: solid" />
 					</div>
 				</div>
