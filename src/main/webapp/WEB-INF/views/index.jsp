@@ -24,6 +24,7 @@
 <script src="/SpecialTopic/js/mpteacher-section.js"></script>
 <script src="/SpecialTopic/js/ypclass-section.js"></script>
 <script src="/SpecialTopic/js/mpclass-section.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- =======================================================
   * Template Name: Mentor - v4.7.0
@@ -74,7 +75,7 @@
 	</c:if>
 	<!-- ======= param.error ======= -->
 	<c:if test="${param.error != null}">
-		<script>alert("帳號或密碼錯誤")</script>
+		<script>swal("錯誤","帳號或密碼錯誤!","error",{botton:"ok"});</script>
 	</c:if>
 </body>
 
