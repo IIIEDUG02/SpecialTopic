@@ -33,10 +33,10 @@ jobs:
       run: mvn package
 
     - name: Copy classVideo
-      run: sh ./github/workflows/cpClassVideo.sh
+      run: sh .github/workflows/cpClassVideo.sh
 
     - name: Copy classPhoto
-      run: sh ./github/workflows/cpClassPhoto.sh
+      run: sh .github/workflows/cpClassPhoto.sh
             
     - name: Remove old file
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
@@ -50,7 +50,7 @@ jobs:
         time: '10s'
 
     - name: Restore classVideo
-      run: sh ./github/workflows/rsClassVideo.sh
+      run: sh .github/workflows/rsClassVideo.sh
 
     - name: Restore classPhoto
-      run: sh ./github/workflows/rsClassPhoto.sh
+      run: sh .github/workflows/rsClassPhoto.sh
