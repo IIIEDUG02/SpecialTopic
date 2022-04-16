@@ -18,7 +18,7 @@ function register1() {
 		contentType: "application/json",
 		success: function(data) {
 			if (data == null) {
-				alert("帳號已註冊");
+				console.log("no data return");
 			} else if (data.result == "ok") {
 				window.location = "/SpecialTopic/"
 			}

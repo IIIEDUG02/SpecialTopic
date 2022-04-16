@@ -9,6 +9,8 @@
 <head>
 <!-- ======= Header ======= -->
 <jsp:include page="../member/manageHeader.jsp" />
+<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/SpecialTopic/js/mamermanage.js"></script>
 <meta charset="UTF-8">
 <title>admin</title>
 <style>
@@ -35,7 +37,8 @@ ul.mydropdown {
 .search {
 	margin: 20px 300px;
 }
-i.dropdown{
+
+i.dropdown {
 	color: #5FCF80;
 }
 </style>
@@ -44,19 +47,19 @@ i.dropdown{
 <body style="background-color: rgb(210, 210, 210)">
 
 	<div style="height: 100px"></div>
-	<div class="divtable1">
 		<div>
 			<div class="search">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="搜尋帳戶"
+					<input id="search" type="text" class="form-control"
+						placeholder="搜尋帳戶" name="username"
 						style="background-color: rgb(210, 210, 210); border-color: rgb(60, 60, 60)"
 						aria-label="Recipient's username with two button addons">
-					<button class="btn btn-outline-secondary" type="button">搜尋</button>
-					<button class="btn btn-outline-secondary" type="button">清除</button>
+					<input id="" class="btn btn-outline-secondary" onclick="mamermange()" type="button" value="搜尋">
+					<input class="btn btn-outline-secondary" type="button" value="清除">
 				</div>
 			</div>
 		</div>
-
+	<div class="divtable1">
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -65,8 +68,8 @@ i.dropdown{
 					<th scope="col">啟用</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
+			<tbody id="tbody1">
+				<tr >
 					<th scope="row">1</th>
 					<td>Mark</td>
 					<td>on</td>
@@ -93,6 +96,6 @@ i.dropdown{
 			</tbody>
 		</table>
 	</div>
-	
+
 </body>
 </html>

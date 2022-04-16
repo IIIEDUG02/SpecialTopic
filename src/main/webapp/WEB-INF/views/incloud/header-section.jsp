@@ -53,10 +53,9 @@
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
-						<li><img id="preview_img"
-							src="" alt="預覽圖片"
+						<li><img id="mbphoto1" src="" alt="預覽圖片"
 							style="width: 30px; height: 30px; border-radius: 50%; margin-left: 20px"></li>
-						<script>getMemberPhoto();getShoppingCartList();</script>
+						<script>getMemberPhoto();getShoppingCartList();	</script>
 					</c:when>
 				</c:choose>
 
@@ -135,4 +134,8 @@
 	<!-- 結帳 -->
 	<a class="btn btn-success checkout"
 		href="/SpecialTopic/ShoppingCart/getInfo" class="button">結帳</a>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> Nilm
