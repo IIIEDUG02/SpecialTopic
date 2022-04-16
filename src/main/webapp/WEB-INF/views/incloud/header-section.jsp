@@ -134,8 +134,5 @@
 	<!-- 結帳 -->
 	<a class="btn btn-success checkout"
 		href="/SpecialTopic/ShoppingCart/getInfo" class="button">結帳</a>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> Nilm
+
