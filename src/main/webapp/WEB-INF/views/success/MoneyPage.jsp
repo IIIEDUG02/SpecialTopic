@@ -41,6 +41,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
+			<div style="border-bottom:3px black solid; margin:20px">
+			<h1 style="text-align:center;"><font color="success">銷售額統計</font></h1>
+			</div>
 	<div class="table2excel">
 	<div style="border-width:2px;border-style:dashed;border-color:#DEE2DF;padding:5px; display : inline-block; margin:5px " class="width2">
 	<table style= "display:inline;" class="width table table-striped">
