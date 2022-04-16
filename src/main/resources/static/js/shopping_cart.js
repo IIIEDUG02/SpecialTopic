@@ -77,7 +77,7 @@ function checkout() {
 	$('input#TotalAmount').val($('a#sum').html());
 	$('input#TradeDesc').val("TEST");
 	$('input#ItemName').val("");
-	$('h3#class_title').each(function() {
+	$('h3#class_title a').each(function() {
 		if ($('input#ItemName').val() != "") {
 			$('input#ItemName').val($('input#ItemName').val() + "#")
 		}
