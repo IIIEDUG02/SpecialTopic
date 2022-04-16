@@ -79,7 +79,7 @@ class Base {
 			// 等待後端回傳結果
 			const res = await Promise.race([
 				fetchPromise,
-				Base.timeout(Base.TIMEOUT_SEC),
+				
 			]);
 			const data = await res.json();
 
