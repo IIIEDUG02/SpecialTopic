@@ -133,8 +133,12 @@ public class MemberController {
             mbi.setFullname(params.get("fullname"));
             mbi.setJob(params.get("job"));
             mbi.setIdentitycard(params.get("identitycard"));
+            if(params.get("identitycard").substring(1, 2).equals ("1")) {
+            	mbi.setGender("男");
+            }else {
+            	mbi.setGender("女");
+            }
             mbi.setPassportname(params.get("passportname"));
-            mbi.setGender(params.get("gender"));
             mbi.setPhone(params.get("phone"));
             mbi.setBirthday(params.get("birthday"));
             // 如果輸入值是空白,不應該set password
@@ -143,7 +147,7 @@ public class MemberController {
             }
             mb.setMemberInformation(mbi);
             mbi.setMember(mb);
-
+                  
             if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
                 ms.save(mb);
             } else {
@@ -171,6 +175,11 @@ public class MemberController {
         mbi.setFullname(params.get("fullname"));
         mbi.setJob(params.get("job"));
         mbi.setIdentitycard(params.get("identitycard"));
+        if(params.get("identitycard").substring(1, 2).equals ("1")) {
+        	mbi.setGender("男");
+        }else{
+        	mbi.setGender("女");
+        }
         mbi.setPassportname(params.get("passportname"));
         mbi.setGender(params.get("gender"));
         mbi.setPhone(params.get("phone"));
@@ -192,21 +201,21 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/member/membermanage") // {username}
-    public String MemberDelete() { // @PathVariable("username") String username
-        // ms.deleteByUsername(username);
-
-        // Member mb = ms.findByUsername(params.get("username"));
-        //
-        // String badRequest = "{\"response\":\"405\"}";
-        //
-        // if(!ut.hasRole(principal,"admin")) {
-        // return badRequest;
-        // }else {
+    @GetMapping("/member/membermanage")
+    public String membermanage() {
+    	
         return "/member/membermanage";
     }
-    //
-    // }
+    @PostMapping("/member/membermanage/{username}")
+    @ResponseBody
+    public Member membermanage(@PathVariable("username") String username ,Principal principal) {
+    	if (ut.hasRole(principal, "admin")) {
+    		Member mb = ms.findByUsername(username);
+    		return mb;
+    	}
+        return null;
+    }
+
 
     @GetMapping("getMemberPhoto")
     @ResponseBody

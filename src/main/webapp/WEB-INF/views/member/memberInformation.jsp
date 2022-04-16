@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
 <title>個人資料</title>
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 <!-- Templete JS -->
 <jsp:include page="../incloud/body-js.jsp" />
+
+<jsp:include page="../incloud/head-js.jsp" />
 <style>
 h3 {
 	margin: 15px;
@@ -33,14 +33,14 @@ div .username, div .password, div .fullname, div .phone, div .email, div .addres
 }
 
 div.img1 {
-
 	z-index: 2;
 	margin-left: 37%;
 	margin-top: 25%;
 }
 </style>
 </head>
-<body style="background:url(/SpecialTopic/img/register/background.jpg) no-repeat ;background-size:cover;">
+<body
+	style="background: url(/SpecialTopic/img/register/background.jpg) no-repeat; background-size: cover;">
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
@@ -52,12 +52,12 @@ div.img1 {
 				<div class="col-4">
 					<div>
 						<div class="img1">
-							<img id="preview_img"
+							<img id="mbphoto"
 								src="${mb.getMemberInformation().getPhoto()}" alt="預覽圖片"
 								style="width: 120px; height: 120px; border-radius: 50%">
 						</div>
-<!-- 							<img src="/SpecialTopic/img/register/tree.jpg" -->
-<!-- 								style="width: 347px; height: auto"> -->
+						<!-- 							<img src="/SpecialTopic/img/register/tree.jpg" -->
+						<!-- 								style="width: 347px; height: auto"> -->
 					</div>
 				</div>
 				<div class="col-8">
@@ -185,16 +185,6 @@ div.img1 {
 										id="button-addon2">編輯</button>
 								</div>
 							</div>
-
-							<div class="gender">
-								性別: 男<input id="gender1" type="radio" name="gender" value=1 />
-								女<input id="gender0" type="radio" name="gender" value=0 />
-								<script type="text/javascript">
-									$(
-											'#gender${mb.getMemberInformation().getGender()}')
-											.prop("checked", true);
-								</script>
-							</div>
 							<input id="check" onclick="check3()" type="hidden"
 								class="btn btn-success" value="確認"> <input id="check1"
 								type="hidden" style="margin-left: 50px"
@@ -287,18 +277,18 @@ div.img1 {
 	}
 
 	$("input#formFile").change(function() {
-		$("#preview_img").attr('src', "");
+		$("#mbphoto").attr('src', "");
 		readURL(this);
 	});
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function(e) {
-				$("#preview_img").attr('src', e.target.result);
+				$("#mbphoto").attr('src', e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 		}
-	}
+	}	
 </script>
 <!-- ======= Footer ======= -->
 <jsp:include page="../incloud/footer-section.jsp" />

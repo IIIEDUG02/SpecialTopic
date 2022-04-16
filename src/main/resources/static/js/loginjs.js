@@ -9,7 +9,8 @@ function getMemberPhoto() {
 		success: function(data) {
 			if (data != null) {
 				console.log(data);
-				$('img#preview_img').attr('src',data);
+				
+				$('#mbphoto1').attr('src',data);
 			}
 		},
 		error: function(xhr, status) {

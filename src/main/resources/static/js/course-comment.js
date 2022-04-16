@@ -365,15 +365,15 @@ class CourseComment extends Base {
 		}
 		// 送出編輯留言 button 處理
 		else if(tagName === "button" && obj.hasClass(obj, t, "replySubmitBtn")) {
-			// 取得父元素，有可能是父留言，也可能是子留言，因此要 OR
+			// 取得父元素，有可能是父留言，也可能是子留言，因此要 OR(||或)按"修改"做編輯的動作都找都是搭配哪一則留言
 			const comment = this.closest(".sub-comment") || this.closest(".main-comment");
 			const textarea = this.querySelector("textarea");
 			const url = CourseComment.UPDATE_URL.format(comment.id);
 			
-			// 移除編輯留言框
+			// 移除編輯留言框 //按"修改"完成編輯留言後會使編輯框收起來
 			obj.removeEditComment(this, obj, extraInfoEl, textarea.value);
 			
-			// send PATCH request
+			// send PATCH request //向後端更新編輯後的留言資料
 			const data = await obj.resultHandler("PATCH", url, {content: textarea.value}, obj, undefined, false);
 			
 			if (data)
@@ -381,7 +381,7 @@ class CourseComment extends Base {
 		}
 	}
 	
-  // 從後端回傳的結果統一呼叫這 method
+  // 從後端回傳的結果統一呼叫這 method //統一所有後端的資料傳回前端看要再怎麼處理都使用這個方法
   async resultHandler(method, url, payload, obj, element, spinner = true) {
 		let result;
 		
@@ -454,14 +454,14 @@ class CourseComment extends Base {
 		if (data) {
 			const lastItem = comment.lastElementChild;
 			
-      // 因為是回覆別人留言，因此畫面會添加在父元素的最後
+      // 因為是回覆別人留言，因此畫面會添加在父元素的最後 //指回覆的留言(子留言)會一直往下加
 			lastItem.insertAdjacentHTML('beforebegin', obj.generateSubCommentMarkup(data.result));
 			obj.removeReplyCommentElement(obj, lastItem);
 			obj.showToast(CourseComment.CREATED_MSG);
 		}
 	}
 	
-  // textarea 的 handler
+  // textarea 的 handler //處理確認有沒有做輸入文字的動作，沒輸入文字就不能按按鈕
   textareaKeyUpHandler(obj, e) {
     const comment = e.target.closest(".comment-wrap");
     const replySubmitBtn = obj.getEl("replySubmitBtn", comment);
@@ -479,6 +479,7 @@ class CourseComment extends Base {
 	}
 	
   // 動態創建 Template String，因為會要將後端回傳的資料添加上去，這裡是父留言
+  //在第一個留言框輸入留言後，新增的留言會動態移動到留言框下面
   //502行 fill就是實心愛心、heart-o就是空心愛心判斷使用哪一個
   generateMainCommentMarkup(data, username) {
     const subComments = data.comments;
@@ -533,6 +534,7 @@ class CourseComment extends Base {
   }
 
   // 子留言的 Template String，因可能有多個子留言，所以會在上方的 method 被循環呼叫多次
+  // 留言要回覆很多子留言(一層一層)就會用這個方法，做子留言回覆
   generateSubCommentMarkup(data) {	
     return `
     <div id=${data.uuid} class="sub-comment marg-t-20">
@@ -575,7 +577,7 @@ class CourseComment extends Base {
     `;
   }
 	
-	// 產生 "載入更多留言" button 的 Template String
+	// 產生 "載入更多留言" button 的 Template String //秀載入更多留言的那個按鈕
 	generateFakeCommitItemMarkup() {
 		return `
 			<div class="fake-comment-block marg-t-20">
@@ -601,7 +603,7 @@ class CourseComment extends Base {
 		`;
 	}
 	
-	// 產生 "修改" button 的 Template String
+	// 產生 "修改" button 的 Template String //秀修改的按鈕
 	generateEditBtnMarkup() {
 		return `
     <span class="btn-edit marg-l-10 pseudo-btn">
@@ -611,7 +613,7 @@ class CourseComment extends Base {
 		`;
 	}
 	
-	// 產生 修改留言框 的 Template String
+	// 產生 修改留言框 的 Template String //按修改就會秀(打開)那個編輯框
 	generateEditCommentMarkup(content) {
 		return `
 		<div class="animate__animated animate__fadeIn">
@@ -631,7 +633,7 @@ class CourseComment extends Base {
 		`;
 	}
 	
-	// 產生 留言內容 的 Template String
+	// 產生 留言內容 的 Template String //取消編輯時，就會秀回原留言
 	generateCommentContentMarkup(content) {
 		return `
 		<div>
@@ -640,7 +642,7 @@ class CourseComment extends Base {
 		`;
 	}
 	
-	// 產生 已編輯時間 的 Template String
+	// 產生 已編輯時間 的 Template String //執行修改後，後面會秀出"已編輯"的字樣
 	generateEditdTimeMarkup(time) {
 		return `
 		<a class="edited-time" href="javascript:void(0);" title="最後編輯時間: ${time}">
@@ -658,7 +660,7 @@ class CourseComment extends Base {
 		`;	
 	}
 	
-  // 最後產生的總 Template String 會在這被 join 後回傳
+  // 最後產生的總 Template String 會在這被 join 後回傳 //所有動態產生的元素樣式都用這個方法做(含回覆)，就會組合成一則完整的留言
   generateCommentsMarkup(data) {
 		let markup = data.result.map((x) => this.generateMainCommentMarkup(x, data.username)).join("");
 		
@@ -668,7 +670,9 @@ class CourseComment extends Base {
     return markup;
   }
 	
-	// 第一次做資料載入的動作會執行此方法，主要是設定使用者名撐與顯示訊息
+	// 第一次做資料載入的動作會執行此方法，主要是設定使用者名稱與顯示訊息 
+	//初次進來留言版的畫面，初始化(初次執行)做一些設定 ex補給站站長登入後留言，就會顯示留言者是補給站站長。
+	//顯示訊息=若該留言版沒人留言則會跳提醒視窗"此課程還沒有人做詢問!~"
 	firstTimeLoadPage(data) {
 		const username = data.username
 		const result = data.result
@@ -683,7 +687,7 @@ class CourseComment extends Base {
 		this.addCommentElements(data);
 	}
 	
-  // 後端回傳資料後，要開始產生 Template String 並添加到頁面上
+  // 後端回傳資料後，要開始產生 Template String 並添加到頁面上 //程式的第二個執行點(可寫一個就好 個人習慣)
   addCommentElements(data) {
     const template = this.generateCommentsMarkup(data);
 
@@ -694,7 +698,7 @@ class CourseComment extends Base {
   }
 }
 
-// Entry point
+// Entry point //程式的第一個進入點(執行這個js所有程式的執行點(入口))
 $(document).ready(() => {
   new CourseComment();
 })
