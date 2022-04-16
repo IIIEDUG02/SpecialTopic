@@ -95,14 +95,55 @@ public interface StudentAnalRepository extends JpaRepository<StudentAnalysis, In
 	      		+ "from　classmanagement c \r\n"
 	      		+ "inner join member_details md \r\n"
 	      		+ "on c.uid = md.uid \r\n"
-	      		+ "group by c.cid, md.job) as b) as b where rank = 1",
+	      		+ "group by c.cid, md.job) as b) as b where rank = 1 and cid = ?1 ",
 	      nativeQuery = true)
-  public List<Map<String, Integer>> mostjob();
+  public List<Map<String, Integer>> mostjob(int cid);
   
   @Query(
 	      value = "select c.cid, a.title, a.class_type, count(c.cid) as count from classmanagement c join class a on c.cid=a.cid \r\n"
 	      		+ "group by c.cid, a.title, a.class_type ",
 	      nativeQuery = true)
   public List<Map<String, Integer>> getClassList();
+  
+  @Query(
+	      value = "SELECT c.cid FROM classmanagement c "
+	      		+ "INNER JOIN member_details md ON c.uid = md.uid "
+	      		+ "GROUP BY c.cid",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> getAllcid();
+  
+  @Query(
+	      value = "select cid,job,jobcount from (select cid,job,jobcount, rank() over(partition by cid order by jobcount DESC) as rank from \r\n"
+	      		+ "(select c.cid , md.job, count(md.job) as jobcount\r\n"
+	      		+ "from　classmanagement c \r\n"
+	      		+ "inner join member_details md \r\n"
+	      		+ "on c.uid = md.uid \r\n"
+	      		+ "group by c.cid, md.job) as b) as b where rank = 1 ",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> orimostjob();
+  
+  @Query(
+	      value = "SELECT cid, gender\r\n"
+	      		+ "FROM(SELECT *,rank() over(PARTITION BY cid ORDER BY countgender DESC) AS rank\r\n"
+	      		+ "FROM(SELECT c.cid, md.gender, count(md.gender) AS countgender\r\n"
+	      		+ "FROM classmanagement c\r\n"
+	      		+ "INNER JOIN member_details md ON c.uid = md.uid\r\n"
+	      		+ "WHERE md.gender IS NOT NULL\r\n"
+	      		+ "GROUP BY c.cid, md.gender) AS a) AS a WHERE rank =1",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> mostgender();
+  
+  @Query(
+	      value = "SELECT c.cid,\r\n"
+	      		+ "	Floor(avg(Floor(DATEDIFF(DY, md.birthday, GETDATE()) / 365.25))) AS avgage\r\n"
+	      		+ "FROM classmanagement c\r\n"
+	      		+ "JOIN member_details md ON c.uid = md.uid\r\n"
+	      		+ "GROUP BY c.cid\r\n"
+	      		+ "ORDER BY c.cid",
+	      nativeQuery = true)
+  public List<Map<String, Integer>> avgAge();
 
 }
+
+	
+
