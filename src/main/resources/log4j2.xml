@@ -12,7 +12,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${PATTERN_FORMAT}"/>
         </Console>
-        
+        <param name="MaxFileSize" value="100KB"/>
         <!--Info Log-->
         <RollingFile name="SystemLog" fileName="${DEV_LOG_FILE_PATH}/info.log"
                      filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/info-%d{yyyyMMdd}-%d{HH-mm-ss}.log.gz">
@@ -20,20 +20,20 @@
                 <pattern>${PATTERN_FORMAT}</pattern>
             </PatternLayout>
             <Policies>
-                <OnStartupTriggeringPolicy/>
-                <TimeBasedTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+				<SizeBasedTriggeringPolicy size="250MB"/>
             </Policies>
         </RollingFile>
                         
         <!--Error Log-->
         <RollingFile name="SystemError" fileName="${DEV_LOG_FILE_PATH}/error.log"
-                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%i.log.gz">
+                     filePattern="${DEV_LOG_FILE_PATH}/$${date:yyyyMM}/error-%d{yyyyMMdd}-%d{HH-mm-ss}.log.gz">
             <PatternLayout>
                 <pattern>${PATTERN_FORMAT}</pattern>
             </PatternLayout>
 			<Policies>
-                <OnStartupTriggeringPolicy/>
-                <TimeBasedTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+				<SizeBasedTriggeringPolicy size="250MB"/>
             </Policies>
         </RollingFile>
         
