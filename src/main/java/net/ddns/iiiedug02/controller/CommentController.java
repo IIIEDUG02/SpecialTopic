@@ -113,7 +113,9 @@ public class CommentController {
     result.put("hasNext", (pages.getTotalPages() == pages.getNumber() + 1) ? 0 : 1);
     
     // 找出父留言中，時間最早的那一筆留言，來當作下次查詢的一個時間點依據
-    result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
+    if (comments.size() != 0)
+    	result.put("cbt", comments.get(comments.size() - 1).getTimestamp());
+    
     result.put("result", data);
     
     return new ResponseEntity<Object>(result, HttpStatus.OK);
