@@ -19,9 +19,17 @@
 .position_fixed {
 	position: fixed;
 }
-
+body{
+background-color:rgb(243, 243, 241)
+}
+.col{
+background-color:white
+}
 .height100 {
 	height: 100px;
+}
+.list-group-item:hover{
+background-color: #4F9D9D	
 }
 
 video{
@@ -38,14 +46,14 @@ margin-bottom: 50px;
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
+		<div class="mb-5" style="text-align:center"><h2>編輯課程章節</h2></div>
 	<div class="container">
 		<div class="row ">
-		<div class="mb-5" style="text-align:center"><h2>編輯課程章節</h2></div>
 			
 			<div class="col shadow">
-				<div id="formDiv"></div>
+				<div id="formDiv" class="p-3"></div>
 			</div>
-			<div class="col shadow">
+			<div class="col shadow p-3 ">
 				<c:choose>
 					<c:when test="${not empty cubList}">
 						<ul class="list-group">
@@ -72,7 +80,7 @@ margin-bottom: 50px;
 		</div>
 
 			<div style="text-align:center">
-			<button onclick='editCurriculum(0)' class="button btn-success mt-4">新增章節</button>
+			<button onclick='editCurriculum(0)' class="button btn-success mt-4 ">新增章節</button>
 			</div>
 
 

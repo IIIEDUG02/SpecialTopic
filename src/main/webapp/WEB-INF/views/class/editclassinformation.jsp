@@ -16,8 +16,8 @@ body {
 	min-height: 100vh;
 }
 
-div#title {
-	
+.btn-primary1 {
+background-color: 	
 }
 
 label {
@@ -32,7 +32,7 @@ label {
 .input-wrap {
 	min-width: 380px;
 	margin: 10px;
-	background-color: #F0FFF0;
+	background-color: rgb(243, 243, 241);
 	margin-bottom: 60px;
 	padding: 15px 30px 45px;
 	border-radius: 50px;
@@ -137,7 +137,7 @@ img {
 						value="${classBean.getClassDetailsBean().getVideo()}">
 				</div>
 				<div style="text-align: center">
-					<input type="submit" class="btn btn-primary" value="完成" />
+					<input type="submit" class="btn btn-success" value="完成" />
 				</div>
 			</form>
 

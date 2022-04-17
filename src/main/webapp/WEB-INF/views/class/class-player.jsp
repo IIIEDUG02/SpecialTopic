@@ -19,8 +19,8 @@
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 
 <title>Video player example</title>
 <link rel="stylesheet" type="text/css"
@@ -29,6 +29,11 @@
 .position_fixed {
     position: fixed;
 }
+
+.list-group-item:hover{
+background-color: #4F9D9D	
+}
+
 
 .height100 {
     height: 100px;

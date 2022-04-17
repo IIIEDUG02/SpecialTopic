@@ -79,233 +79,201 @@ h1 {
 <body>
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
-
-	<div class="paid-course-landing-page__container"
-		style="margin-top: 71px">
-		<div class="sidebar-container" style="z-index: 9999">
-			<!-- sideba rcontainer block-->
-			<div class="course-landing-page_sidebar-container"
-				style="position: fixed; margin-top: 70px;">
-				<div class="sidebar-container--content--gsvyJ" style="z-index: 9999">
-					<div class="sidebar-container--content-group--1upV8">
-						<!-- sidebar container introduction asset -->
-						<div class="sidebar-container--introduction-asset--5ckuC">
-							<div class="intro-asset--wrapper--zDTjg"
-								style="background-color: #1c1d1f; width: 100%;">
-								<div class="intro-asset--asset--1eSsi"
-									style="position: relative; background-color: #fff;">
-									<button
-										class="udlite-btn udlite-btn-large udlite-btn-ghost udlite-heading-md udlite-custom-focus-visible intro-asset--placeholder--16yPA">
-										<!-- intro asset img aspect -->
-										<span class="intro-asset--img-aspect--1UbeZ"> <img
-											style="background-size: cover; background-image: url(/SpecialTopic/assets/img/course-1.jpg);" />
-										</span>
-
-										<!-- intro asset img overlay -->
-										<span
-											class="intro-asset--overlay--3Z3co intro-asset--gradient--Od7zs"></span>
-
-										<!-- intro play overlay -->
-										<span class="udlite-play-overlay"> <svg
-												aria-hidden="true" focusable="false"
-												class="udlite-icon udlite-icon-xxlarge udlite-focus-visible-target">
-												<use xlink:href="#icon-play-overlay"></use></svg>
-										</span>
-
-										<!-- intro overlay text -->
-										<span
-											class="udlite-heading-md intro-asset--overlay--3Z3co intro-asset--text--2vUCP">預覽此課程</span>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<!-- sidebar container purchase section -->
-						<div class="sidebar-container--purchase-section--17KRp"
-							style="padding: 2.4rem;">
-							<div
-								class="purchase-section-container--purchase-section-container--13B-7">
-								<div class="generic-purchase-section--main-cta-container--3xxeM">
-									<div class="generic-purchase-section--buy-box-main--siIXV">
-										<div class="buy-box--buy-box--3d_i8">
-											<!-- Buy box item -->
-											<div class="buy-box--buy-box-item--1Qbkl">
-												<div>
-													<!-- Price text container -->
-													<div
-														class="price-text--container--103D9 udlite-clp-price-text">
-														<div
-															class="price-text--price-part--2npPm udlite-clp-discount-price udlite-heading-xxl">
-															<span class="udlite-sr-only">目前價格</span> <span><span>$${classBean.getPrice()}</span></span>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<!-- add to cart button wrapper -->
-											<div
-												class="buy-box--buy-box-item--1Qbkl buy-box--add-to-cart-button-wrapper--1VwJj">
-												<div id="add-to-cart" data-purpose="add-to-cart"
-													style="flex: 1;">
-													<c:choose>
-														<c:when test="${not empty classManagerBean}">
-															<h3>課程已購買</h3>
-														</c:when>
-														<c:otherwise>
-															<c:choose>
-																<c:when test="${not empty ShoppingCart}">
-																	<button id="sc_btn_${classBean.getCid()}"
-																		onclick="sc_del(${classBean.getCid()})"
-																		class="udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
-																		style="background: #3ac162; width: 100%; color: #fff;">
-																		從購物車中移出</button>
-																</c:when>
-																<c:otherwise>
-																	<sec:authorize access="!isAuthenticated()">
-																		<button
-																			class="disabled udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
-																			style="opacity: .65; cursor: not-allowed; background: #3ac162; width: 100%; color: #fff;">
-																			登入後才可加入至購物車</button>
-																	</sec:authorize>
-																	<sec:authorize access="isAuthenticated()">
-																		<button id="sc_btn_${classBean.getCid()}"
-																			onclick="sc_add(${classBean.getCid()})"
-																			class="udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
-																			style="background: #3ac162; width: 100%; color: #fff;">
-																			新增至購物車</button>
-																	</sec:authorize>
-																</c:otherwise>
-															</c:choose>
-														</c:otherwise>
-													</c:choose>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- money-back-guarantee -->
-									<div class="generic-purchase-section--local-incentive--HzlK6">
-										<div class="money-back-guarantee--money-back-guarantee--16UWd"
-											style="margin-top: 1.6rem; margin-bottom: 0.8rem;">
-											<span class="money-back"
-												style="display: block; font-size: 1.2rem; text-align: center;">
-												30 天退款保證 </span>
-										</div>
-									</div>
-
-									<!-- incentives incentives container -->
-									<div class="generic-purchase-section--local-incentive--HzlK6">
-										<div class="incentives--incentives-container--CUQ8q"
-											style="padding-top: 1.6rem;">
-											<h2 class="udlite-heading-md incentives--header--3O_-f"
-												data-purpose="header" style="margin-bottom: 0.8rem;">
-												此課程包括：</h2>
-											<ul class="unstyled-list udlite-block-list">
-												<li>
-													<div
-														class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
-														<svg aria-hidden="true" focusable="false"
-															class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon">
-															<use xlink:href="#icon-video"></use></svg>
-														<div class="udlite-block-list-item-content"
-															style="margin-left: 1.6rem; min-height: 1.96rem;">
-															<span data-purpose="video-content-length">${classBean.getCurriculumbean().size()}
-																小時的隨選影片</span>
-														</div>
-													</div>
-												</li>
-
-												<li>
-													<div
-														class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
-														<svg aria-hidden="true" focusable="false"
-															class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon">
-															<use xlink:href="#icon-lifetime"></use></svg>
-														<div class="udlite-block-list-item-content"
-															style="margin-left: 1.6rem; min-height: 1.96rem;">
-															<span data-purpose="video-content-length">完整終身存取權</span>
-														</div>
-													</div>
-												</li>
-
-												<li>
-													<div
-														class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
-														<svg aria-hidden="true" focusable="false"
-															class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon">
-															<use xlink:href="#icon-mobile"></use></svg>
-														<div class="udlite-block-list-item-content"
-															style="margin-left: 1.6rem; min-height: 1.96rem;">
-															<span data-purpose="video-content-length">透過行動裝置與電視存取</span>
-														</div>
-													</div>
-												</li>
-
-												<li>
-													<div
-														class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
-														<svg aria-hidden="true" focusable="false"
-															class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon">
-															<use xlink:href="#icon-trophy"></use></svg>
-														<div class="udlite-block-list-item-content"
-															style="margin-left: 1.6rem; min-height: 1.96rem;">
-															<span data-purpose="video-content-length">結業證書</span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="top-container dark-background">
-			<div class="dark-background-inner-position-container">
-				<div>
-					<div
-						class="course-landing-page__main-content course-landing-page__topic-menu dark-background-inner-text-container">
-						<!-- breadcrumb block -->
-						<div class="topic-menu topic-menu-condensed udlite-breadcrumb">
-							<a href="/SpecialTopic/courses" class="udlite-heading-sm">所有課程</a>
-							<span class="udlite-breadcrumb-icon">&gt;</span> <a
-								href="/SpecialTopic/courses" class="udlite-heading-sm">程式設計</a>
-						</div>
-					</div>
-
-					<!-- Inner text Block -->
-					<div
-						class="course-landing-page__main-content dark-background-inner-text-container">
-						<!-- Inner text container -->
-						<div class="udlite-text-sm clp-lead">
-							<!-- Course title -->
-							<h1
-								class="udlite-heading-xl clp-lead__title clp-lead__title--small">
-								${classBean.getTitle()}</h1>
-
-							<!-- ratings block -->
-							<div class="clp-lead__badge-ratings-enrollment">
-								<!-- ratings container -->
-								<div class="clp-lead__element-item clp-lead__element-item--row">
-									<!-- stars block -->
-									<a href="javascript:void(0);"
-										class="styles--rating-wrapper--5a0Tr"> <!-- stars container -->
-										<span
-										class="star-rating--star-wrapper--1QyBg star-rating--medium--17tJo star-rating--dark-background--3tENo">
-											<span class="udlite-sr-only">評等︰0.0/5</span> <!-- ratings score text -->
-											<span
-											class="udlite-heading-sm star-rating--rating-number--2o8YM">0.0</span>
-
-											<!-- stars icon --> <svg aria-hidden="true" width="100%"
-												height="100%" viewBox="0 0 70 14" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-                        <mask id="u152-star-rating-mask--28"
-													data-purpose="star-rating-mask">
-                        <rect x="0" y="0" width="0%" height="100%"
-													fill="white"></rect>
+  
+  <div class="paid-course-landing-page__container" style="margin-top: 71px">
+    <div class="sidebar-container" >
+    <!-- sideba rcontainer block-->
+      <div class="course-landing-page_sidebar-container" style="position: fixed; margin-top: 70px;z-index: 9998">
+        <div class="sidebar-container--content--gsvyJ">
+          <div class="sidebar-container--content-group--1upV8">
+            <!-- sidebar container introduction asset -->
+            <div class="sidebar-container--introduction-asset--5ckuC">
+              <div class="intro-asset--wrapper--zDTjg" style="background-color: #1c1d1f; width: 100%;">
+                <div class="intro-asset--asset--1eSsi" style="position: relative; background-color: #fff;">
+                  <button class="udlite-btn udlite-btn-large udlite-btn-ghost udlite-heading-md udlite-custom-focus-visible intro-asset--placeholder--16yPA">
+                    <!-- intro asset img aspect -->
+                    <span class="intro-asset--img-aspect--1UbeZ">
+                      <img style="background-size: cover;background-image: url(/SpecialTopic/assets/img/course-1.jpg);"/>
+                    </span>
+                    
+                    <!-- intro asset img overlay -->
+                    <span class="intro-asset--overlay--3Z3co intro-asset--gradient--Od7zs"></span>
+                    
+                    <!-- intro play overlay -->
+                    <span class="udlite-play-overlay">
+                      <svg aria-hidden="true" focusable="false" class="udlite-icon udlite-icon-xxlarge udlite-focus-visible-target"><use xlink:href="#icon-play-overlay"></use></svg>
+                    </span>
+                    
+                    <!-- intro overlay text -->
+                    <span class="udlite-heading-md intro-asset--overlay--3Z3co intro-asset--text--2vUCP">預覽此課程</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- sidebar container purchase section -->
+            <div class="sidebar-container--purchase-section--17KRp" style="padding: 2.4rem ;">
+              <div class="purchase-section-container--purchase-section-container--13B-7">
+                <div class="generic-purchase-section--main-cta-container--3xxeM">
+                  <div class="generic-purchase-section--buy-box-main--siIXV">
+                    <div class="buy-box--buy-box--3d_i8">
+                      <!-- Buy box item -->
+                      <div class="buy-box--buy-box-item--1Qbkl">
+                        <div>
+                          <!-- Price text container -->
+                          <div class="price-text--container--103D9 udlite-clp-price-text">
+                            <div class="price-text--price-part--2npPm udlite-clp-discount-price udlite-heading-xxl">
+                              <span class="udlite-sr-only">目前價格</span>
+                              <span><span>$${classBean.getPrice()}</span></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                      <!-- add to cart button wrapper -->
+                      <div class="buy-box--buy-box-item--1Qbkl buy-box--add-to-cart-button-wrapper--1VwJj">
+                        <div data-purpose="add-to-cart" style="flex: 1;">
+                          <c:choose>
+                            <c:when test="${not empty classManagerBean}">
+                              <h3>課程已購買</h3>
+                            </c:when>
+                            <c:otherwise>
+                              <c:choose>
+                                <c:when test="${not empty ShoppingCart}">
+                                  <button id="sc_btn_${classBean.getCid()}"
+                                              onclick="sc_del(${classBean.getCid()})"
+                                              class="udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
+                                              style="background: #3ac162; width: 100%; color: #fff;"
+                                      >
+                                        從購物車中移出
+                                  </button>
+                                </c:when>
+                                <c:otherwise>
+                                  <sec:authorize access="!isAuthenticated()">
+                                    <button class="disabled udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
+                                            style="opacity: .65; cursor: not-allowed; background: #3ac162; width: 100%; color: #fff;"
+                                      >
+                                        登入後才可加入至購物車
+                                    </button>
+                                  </sec:authorize>
+                                  <sec:authorize access="isAuthenticated()">
+                                    <button id="sc_btn_${classBean.getCid()}"
+                                            onclick="sc_add(${classBean.getCid()})"
+                                            class="udlite-btn udlite-btn-large udlite-btn-brand udlite-heading-md add-to-cart"
+                                            style="background: #3ac162; width: 100%; color: #fff;"
+                                    >
+                                      新增至購物車
+                                    </button>
+                                  </sec:authorize>
+                                </c:otherwise>
+                              </c:choose>
+                            </c:otherwise>
+                          </c:choose>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- money-back-guarantee -->
+                  <div class="generic-purchase-section--local-incentive--HzlK6">
+                    <div class="money-back-guarantee--money-back-guarantee--16UWd" style="margin-top: 1.6rem; margin-bottom: 0.8rem;">
+                      <span class="money-back" style="display: block; font-size: 1.2rem; text-align: center;">
+                        30 天退款保證
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <!-- incentives incentives container -->
+                  <div class="generic-purchase-section--local-incentive--HzlK6">
+                    <div class="incentives--incentives-container--CUQ8q" style="padding-top: 1.6rem;">
+                      <h2 class="udlite-heading-md incentives--header--3O_-f" data-purpose="header" style="margin-bottom: 0.8rem;">
+                        此課程包括：
+                      </h2>
+                      <ul class="unstyled-list udlite-block-list">
+                        <li>
+                          <div class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
+                            <svg aria-hidden="true" focusable="false" class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon"><use xlink:href="#icon-video"></use></svg>
+                            <div class="udlite-block-list-item-content" style="margin-left: 1.6rem; min-height: 1.96rem;">
+                              <span data-purpose="video-content-length">${classBean.getCurriculumbean().size()} 小時的隨選影片</span>
+                            </div>
+                          </div>
+                        </li>
+                        
+                        <li>
+                          <div class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
+                            <svg aria-hidden="true" focusable="false" class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon"><use xlink:href="#icon-lifetime"></use></svg>
+                            <div class="udlite-block-list-item-content" style="margin-left: 1.6rem; min-height: 1.96rem;">
+                              <span data-purpose="video-content-length">完整終身存取權</span>
+                            </div>
+                          </div>
+                        </li>
+                        
+                        <li>
+                          <div class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
+                            <svg aria-hidden="true" focusable="false" class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon"><use xlink:href="#icon-mobile"></use></svg>
+                            <div class="udlite-block-list-item-content" style="margin-left: 1.6rem; min-height: 1.96rem;">
+                              <span data-purpose="video-content-length">透過行動裝置與電視存取</span>
+                            </div>
+                          </div>
+                        </li>
+                        
+                        <li>
+                          <div class="udlite-block-list-item udlite-block-list-item-small udlite-block-list-item-tight udlite-block-list-item-neutral udlite-text-sm">
+                            <svg aria-hidden="true" focusable="false" class="udlite-icon udlite-icon-xsmall udlite-icon-color-neutral udlite-block-list-item-icon"><use xlink:href="#icon-trophy"></use></svg>
+                            <div class="udlite-block-list-item-content" style="margin-left: 1.6rem; min-height: 1.96rem;">
+                              <span data-purpose="video-content-length">結業證書</span>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="top-container dark-background">
+      <div class="dark-background-inner-position-container">
+        <div>
+          <div class="course-landing-page__main-content course-landing-page__topic-menu dark-background-inner-text-container">
+            <!-- breadcrumb block -->
+            <div class="topic-menu topic-menu-condensed udlite-breadcrumb">
+              <a href="/SpecialTopic/courses" class="udlite-heading-sm">所有課程</a>
+              <span class="udlite-breadcrumb-icon">&gt;</span>
+              <a href="/SpecialTopic/courses" class="udlite-heading-sm">程式設計</a>
+            </div>
+          </div>
+          
+          <!-- Inner text Block -->
+          <div class="course-landing-page__main-content dark-background-inner-text-container">
+            <!-- Inner text container -->
+            <div class="udlite-text-sm clp-lead">
+              <!-- Course title -->  
+              <h1 class="udlite-heading-xl clp-lead__title clp-lead__title--small">
+                ${classBean.getTitle()}
+              </h1>
+                          
+              <!-- ratings block -->
+              <div class="clp-lead__badge-ratings-enrollment">
+                <!-- ratings container -->
+                <div class="clp-lead__element-item clp-lead__element-item--row">
+                  <!-- stars block -->
+                  <a href="javascript:void(0);" class="styles--rating-wrapper--5a0Tr">
+                    <!-- stars container -->
+                    <span class="star-rating--star-wrapper--1QyBg star-rating--medium--17tJo star-rating--dark-background--3tENo">
+                      <span class="udlite-sr-only">評等︰0.0/5</span>
+                      
+                      <!-- ratings score text -->
+                      <span class="udlite-heading-sm star-rating--rating-number--2o8YM">0.0</span>
+                      
+                      <!-- stars icon -->
+                      <svg aria-hidden="true" width="100%" height="100%" viewBox="0 0 70 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="u152-star-rating-mask--28" data-purpose="star-rating-mask">
+                        <rect x="0" y="0" width="0%" height="100%" fill="white"></rect>
                         </mask>
                         <g class="star-rating--star-filled--24lmQ"
 													mask="url(#u152-star-rating-mask--28)"

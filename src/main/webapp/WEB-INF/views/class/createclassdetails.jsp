@@ -18,9 +18,6 @@
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
 <!-- Head js -->
 <jsp:include page="../incloud/head-js.jsp" />
 
@@ -48,7 +45,7 @@ margin-top: 20px;
 .input-wrap {
 	min-width: 380px;
 	margin: 10px;
-	background-color: #F0FFF0;
+	background-color: rgb(243, 243, 241);
 	margin-bottom: 60px;
 	padding: 15px 30px 45px;
 	border-radius: 50px;
@@ -88,20 +85,20 @@ img {
 				<div class="form-group">
 					<label for="length_min">影片長度(分鐘)</label> <input type="text"
 						class="form-control" id="length_min" name="length_min"
-						placeholder="請輸入ID">
+						placeholder="請輸入影片長度">
 				</div>
 				<div class="form-group">
 					<label for="goal">目標</label> <textarea 
 						class="form-control" id="goal" name="goal"
-						placeholder="請輸入ID"></textarea>
+						placeholder="請輸入文字"></textarea>
 				</div>
 				<div class="form-group">
 					<label for="video">影片連結</label> <input type="text"
 						class="form-control" id="video" name="video"
-						placeholder="請輸入ID">
+						placeholder="請輸入影片連結">
 				</div>
 				<div  style="text-align:center">
-				<input type="submit" class="btn btn-primary" value="完成" /> 
+				<input type="submit" class="btn btn-success" value="完成" /> 
 				</div>
 			</form>
 

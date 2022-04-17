@@ -167,7 +167,7 @@ function changeClassOnlineStatus(cid) {
 				$("a#onlinebtn"+cid).html("下架課程")
 				console.log(true)
 			} else {
-				$("a#onlinebtn"+cid).attr("class","btn btn-primary")
+				$("a#onlinebtn"+cid).attr("class","btn btn-primary2")
 				$("a#onlinebtn"+cid).html("上架課程")
 				console.log(false)
 			}

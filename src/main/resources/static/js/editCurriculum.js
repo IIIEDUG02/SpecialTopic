@@ -5,10 +5,10 @@ function editCurriculum(cuid) {
 	}
 	var formDiv = $('div#formDiv');
 	var form1 = $("<form action='/SpecialTopic/createcurriculum' method='post' enctype='multipart/form-data' ></form>")
-	var chapterDiv = $("<div id='chapterDiv'>章節名稱：<input name='chapter' type='text' /></div>");
+	var chapterDiv = $("<div id='chapterDiv' >章節名稱：<input name='chapter' type='text' /></div>");
 	var cuidInput = $("<input value='" + cuid +"' type='hidden' name='cuid'/>");
 	var videoPathDiv = $("<div id='videoPathDiv'>影片網址：<input name='myVideo' type='file'></input></div>");
-	var submitBtn = $("<input id='submitBtn' type='submit' value='送出' />");
+	var submitBtn = $("<input class='mt-2' id='submitBtn' type='submit' value='送出' />");
 	var editBtn = $("<input id='editBtn' type='hidden' onclick='editBtnOnclick()' value='編輯' />");
 	var delBtn = $("<input id='delBtn' type='hidden' onclick='deleteBtnOnclick("+cuid+")' value='刪除' />");
 	
@@ -68,6 +68,8 @@ function deleteBtnOnclick(cuid){
 		}
 	})
 };
+
+
 	
 
 
