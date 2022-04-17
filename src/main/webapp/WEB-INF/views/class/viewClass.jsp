@@ -742,15 +742,27 @@ h1 {
 <script>
 	$.ajax({
 		type: "GET",
-		url: "/SpecialTopic/checkOwned/${classBean.getCid()}",
+		url: "/SpecialTopic/ShoppingCart/api/check/${classBean.getCid()}",
 		success: function(data) {
 			if (data == "true") {
-				$('button#sc_btn_${classBean.getCid()}').remove();
-				$('div#add-to-cart').append("<h3>課程已購買</h3>");
-				$('span.money-back').remove();
+				$('button#sc_btn_${classBean.getCid()}').html("從購物車中移出");
+				$('button#sc_btn_${classBean.getCid()}').attr("onclick","sc_del(${classBean.getCid()})")
+			} else {
+				$.ajax({
+					type: "GET",
+					url: "/SpecialTopic/checkOwned/${classBean.getCid()}",
+					success: function(data) {
+						if (data == "true") {
+							$('button#sc_btn_${classBean.getCid()}').remove();
+							$('div#add-to-cart').append("<h3>課程已購買</h3>");
+							$('span.money-back').remove();
+						} 
+					}
+				})				
 			}
 		}
 	})
+	
 </script>
 </sec:authorize>
 </body>

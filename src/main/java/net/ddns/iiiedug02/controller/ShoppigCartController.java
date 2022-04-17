@@ -120,8 +120,29 @@ public class ShoppigCartController {
         } catch (Exception e) {
             result = new ArrayList<ShoppingCart>(0);
         }
-
         return result;
+    }
+
+    /*
+     * RESTfull API，檢查是否在購物車
+     * 
+     * @author Nilm
+     */
+    @GetMapping("api/check/{cid}")
+    @ResponseBody
+    @AspectLogAnnotation
+    public String checkInShoppingCart(HttpSession session, Principal p, @PathVariable int cid) {
+        List<ShoppingCart> spList;
+        Member loginBean = utool.getLoiginBean(session, p);
+        spList = shoppigCartService.findAllByUid(loginBean.getUid());
+
+        List<Integer> cidList = new ArrayList<Integer>();
+        for (ShoppingCart sp : spList) {
+            cidList.add(sp.getClassBean().getCid());
+        }
+
+        boolean result = cidList.contains(cid);
+        return String.valueOf(result);
     }
 
 }
