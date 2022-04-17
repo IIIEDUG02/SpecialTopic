@@ -32,20 +32,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 頁面權限設定
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/classphoto/**",
-                        "/assets/**", "/*", "/**/api/**")
-                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1").permitAll()
-                .antMatchers(HttpMethod.GET, "/classvideo/**", "class/showClassType/**",
-                        "/viewClass/**")
-                .authenticated();
+                .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/assets/**",
+                        "/*", "/**/api/**")
+                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1").permitAll();
 
-        http.authorizeRequests().anyRequest().authenticated();
+        // 課程
+        http.authorizeRequests()
+                .antMatchers("class/showClassType/**", "/classphoto/**", "/viewClass/**")
+                .permitAll().antMatchers(HttpMethod.GET, "/classvideo/**").authenticated();;
+
         // 登入設定
         http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("username")
                 .passwordParameter("password").defaultSuccessUrl("/").and().logout()
                 .logoutUrl("/logout").invalidateHttpSession(true);
+
         // rememberMe設定
         http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
+
         // 登出設定
         http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
                 .logoutSuccessUrl("/");
