@@ -19,7 +19,7 @@ function mamermange() {
 			var act = $("<td>"+data["activated"]+"</td>");
 			var iputtd = $("<td> </td>");
 			var iput = $('<input type="button" name="input1" class="btn btn-success" value="編輯">');
-			var iput1 = $('<input type="button" style="margin-left: 30px" class="btn btn-secondary" value="重置">');
+			var iput1 = $('<input type="button" style="margin-left: 30px" class="btn btn-danger" value="刪除">');
 									
 			iputtd.append(iput);
 			iputtd.append(iput1);
