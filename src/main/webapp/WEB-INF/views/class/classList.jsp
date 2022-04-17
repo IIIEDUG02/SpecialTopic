@@ -13,47 +13,53 @@
 <jsp:include page="../incloud/head-css.jsp" />
 
 <style>
+.min-vh-100 {
+	background-color: rgb(243, 243, 241)
+}
 
-.min-vh-100{
-background-color:rgb(243, 243, 241)
+.rod {
+	border-radius: 30px;
 }
-.rod{
-border-radius: 30px;
+
+.btn-primary1 {
+	background-color: #7B7B7B;
+	color: white;
 }
-.btn-primary1{
-background-color:#7B7B7B	;
-color: white; 
+
+.btn-success1 {
+	background-color: #003366;
+	color: white;
 }
-.btn-success1{
-background-color:#003366	;
-color: white; 
+
+.btn-primary2 {
+	background-color: #CC9966;
+	color: white;
 }
-.btn-primary2{
-background-color:#CC9966	;
-color: white; 
+
+.btn-danger1 {
+	background-color: #AD5A5A;
+	color: white;
 }
-.btn-danger1{
-background-color:	#AD5A5A;
-color: white; 
+
+div.align-items-center {
+	background-color: white
 }
-div.align-items-center{
-background-color:white
+
+div#btnwrap {
+	text-align: right;
 }
-div#btnwrap{
-text-align: right;
-}
+
 body {
-	background-color:rgb(243, 243, 241)
-	font-family: "PingFang TC", 微軟正黑體, sans-serif;
+	background-color: rgb(243, 243, 241) font-family: "PingFang TC", 微軟正黑體,
+		sans-serif;
 	font-size: 16px;
-	
 	margin: 10px;
 	padding: 0px;
 	min-height: 100vh;
 }
 
-.row{
-margin: 15px;
+.row {
+	margin: 15px;
 }
 </style>
 <title>student</title>
@@ -143,7 +149,8 @@ margin: 15px;
 											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${uncompleteList}" var="cb">
 													<div class="card m-3 shadow" style="width: 18rem;">
-														<img class="card-img-top mh-25" src="https://iiiedug02.nilm.in${cb.getPhoto()}"
+														<img class="card-img-top mh-25"
+															src="https://iiiedug02.nilm.in${cb.getPhoto()}"
 															alt="Card image cap">
 														<div class="card-body">
 															<h5 class="card-title">${cb.getTitle()}</h5>
@@ -171,7 +178,8 @@ margin: 15px;
 											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${completeList}" var="cb">
 													<div class="card m-3" style="width: 18rem;">
-														<img class="card-img-top" src="https://iiiedug02.nilm.in${cb.getPhoto()}"
+														<img class="card-img-top"
+															src="https://iiiedug02.nilm.in${cb.getPhoto()}"
 															alt="Card image cap">
 														<div class="card-body">
 															<h5 class="card-title">${cb.getTitle()}</h5>
