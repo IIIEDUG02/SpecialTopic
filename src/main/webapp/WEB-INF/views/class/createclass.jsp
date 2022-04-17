@@ -102,7 +102,7 @@ img {
 				</div>
 
 
-				<input type="submit" class="btn btn-primary" value="下一步" />
+				<input type="submit" class="btn btn-success" value="下一步" />
 
 			</form>
 

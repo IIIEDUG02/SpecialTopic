@@ -20,7 +20,22 @@ background-color:rgb(243, 243, 241)
 .rod{
 border-radius: 30px;
 }
-
+.btn-primary1{
+background-color:#7B7B7B	;
+color: white; 
+}
+.btn-success1{
+background-color:#003366	;
+color: white; 
+}
+.btn-primary2{
+background-color:#CC9966	;
+color: white; 
+}
+.btn-danger1{
+background-color:	#AD5A5A;
+color: white; 
+}
 div.align-items-center{
 background-color:white
 }
@@ -74,26 +89,26 @@ margin: 15px;
 								</div>
 								<div id="btnwrap" class="col justify-content-end pe-0">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}"
-										class="btn btn-success">編輯課程</a> <a
+										class="btn btn-success1">編輯課程</a> <a
 										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
-										class="btn btn-primary">編輯章節</a> <a
+										class="btn btn-primary1">編輯章節</a> <a
 										onclick="deleteClassByCid(${cb.getCid()})"
-										class="btn btn-danger">刪除課程</a>
+										class="btn btn-danger1">刪除課程</a>
 									<c:choose>
 										<c:when test="${null==cb.getClassOnlineBean()}">
 											<a id="onlinebtn${cb.getCid()}"
 												onclick="changeClassOnlineStatus(${cb.getCid()})"
-												class="btn btn-primary">上架課程</a>
+												class="btn btn-primary2">上架課程</a>
 										</c:when>
 										<c:when test="${0==cb.getClassOnlineBean().getOnline()}">
 											<a id="onlinebtn${cb.getCid()}"
 												onclick="changeClassOnlineStatus(${cb.getCid()})"
-												class="btn btn-primary">上架課程</a>
+												class="btn btn-primary2">上架課程</a>
 										</c:when>
 										<c:otherwise>
 											<a id="onlinebtn${cb.getCid()}"
 												onclick="changeClassOnlineStatus(${cb.getCid()})"
-												class="btn btn-danger">下架課程</a>
+												class="btn btn-danger1">下架課程</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -102,7 +117,7 @@ margin: 15px;
 						<div class="row ">
 							<div class="col m-auto">
 								<a href="/SpecialTopic/create"
-									class="btn btn-primary align-items-center">新增課程</a>
+									class="btn btn-success align-items-center">新增課程</a>
 							</div>
 						</div>
 					</c:when>
@@ -134,9 +149,9 @@ margin: 15px;
 															<h5 class="card-title">${cb.getTitle()}</h5>
 															<p class="card-text">${cb.getClassType()}</p>
 															<a href="/SpecialTopic/class/curriculums/${cb.getCid()}"
-																class="btn btn-primary">進入課程</a> <a
+																class="btn btn-success">進入課程</a> <a
 																onclick="changeStatusToOne(${cb.getCid()})"
-																class="btn btn-danger">移置已封存</a>
+																class="btn btn-danger1">移至已封存</a>
 														</div>
 													</div>
 												</c:forEach>
@@ -162,9 +177,9 @@ margin: 15px;
 															<h5 class="card-title">${cb.getTitle()}</h5>
 															<p class="card-text">${cb.getClassType()}</p>
 															<a href="/SpecialTopic/classCurriculum/${cb.getCid()}"
-																class="btn btn-primary">進入課程</a> <a
+																class="btn btn-success">進入課程</a> <a
 																onclick="changeStatusToZero(${cb.getCid()})"
-																class="btn btn-danger">移置未完成</a>
+																class="btn btn-danger1">移至未完成</a>
 														</div>
 													</div>
 												</c:forEach>

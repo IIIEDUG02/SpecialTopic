@@ -98,7 +98,7 @@ img {
 						placeholder="請輸入影片連結">
 				</div>
 				<div  style="text-align:center">
-				<input type="submit" class="btn btn-primary" value="完成" /> 
+				<input type="submit" class="btn btn-success" value="完成" /> 
 				</div>
 			</form>
 
