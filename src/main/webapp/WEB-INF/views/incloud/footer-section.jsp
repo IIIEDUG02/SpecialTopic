@@ -18,33 +18,34 @@
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>連結</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">首頁</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">關於我們</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">隱私權政策</a></li>
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Join Our Newsletter</h4>
+            <h4>訂閱</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
+              <input type="email" id="submail" name="email"><input id="addSubscript" type="button" value="Subscribe">
+            <script>
+            $(document).ready(function() {
+            	$('input#addSubscript').click(function() {
+            		$.ajax({
+            			type: "GET",
+            			url: "/SpecialTopic/addSubscript?email=" + $('input#submail').val(),
+            			success: function(data) {
+            				if (data == "success") {
+            					alert("感謝訂閱");
+            				}
+            			}
+            		})
+            	})
+            })
+            </script>
           </div>
 
         </div>

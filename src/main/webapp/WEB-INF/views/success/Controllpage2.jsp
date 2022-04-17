@@ -36,7 +36,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
-			<h2><font color="success">當月訂單量前五名課程</font></h2>
+			<div style="border-bottom:3px black solid; margin:20px">
+			<h1 style="text-align:center;"><font color="success">當月熱門課程管理</font></h1>
+			</div>
+			<div  margin:10px">
+			<h3 ><font color="gray">當月排行前五課程</font></h3>
+			</div>
 				<table class="table2excel width table table-striped">
 					<thead>
 						<tr>
@@ -57,7 +62,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<form action="mpclasschangetop5" method="get" id="rankForm">
+				<form action="/SpecialTopic/mpclasschangetop5" method="get" id="rankForm">
 				<div style="border-width:2px;border-style:dashed;border-color:#DEE2DF;padding:5px;" class="width">
 					
 							<div class="row g-3 align-items-center" style="margin:1px;">

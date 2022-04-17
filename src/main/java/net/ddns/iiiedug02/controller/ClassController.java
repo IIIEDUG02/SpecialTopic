@@ -35,7 +35,6 @@ import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.ClassOnlineBean;
 import net.ddns.iiiedug02.model.bean.CurriculumBean;
 import net.ddns.iiiedug02.model.bean.Member;
-import net.ddns.iiiedug02.model.bean.ShoppingCart;
 import net.ddns.iiiedug02.model.service.ClassBeanService;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
@@ -462,8 +461,7 @@ public class ClassController {
      */
     @GetMapping("viewClass/{cid}")
     @AspectLogAnnotation
-    public String viewClass(@PathVariable("cid") int cid, Model m, Principal p,
-            RedirectAttributes attr) {
+    public String viewClass(@PathVariable("cid") int cid, Model m, RedirectAttributes attr) {
 
         // 課程資訊
         ClassBean cb = cbs.findById(cid);
@@ -473,19 +471,6 @@ public class ClassController {
         }
         m.addAttribute("classBean", cb);
         m.addAttribute("instructor", ms.findByUid(cb.getUid()));
-
-        if (p != null) {
-            Member loginBean = ms.findByUsername(p.getName());
-            // 個人購課紀錄
-            ClassManagementBean cmb = cms.findByUidAndCid(loginBean.getUid(), cid);
-            if (null != cmb) {
-                m.addAttribute("classManagerBean", cmb);
-            } else {
-                // 購課車
-                ShoppingCart sc = scs.findByUidAndClassBean(loginBean.getUid(), cb);
-                m.addAttribute("ShoppingCart", sc);
-            }
-        }
 
         return "class/viewClass";
     }
@@ -577,6 +562,27 @@ public class ClassController {
             cos.update(cob);
             return true;
         }
+    }
+
+    /*
+     * 檢查是否購買過
+     *
+     * @author Nilm
+     */
+    @GetMapping("checkOwned/{cid}")
+    @ResponseBody
+    public String checkOwned(@PathVariable int cid, Principal principal,
+            HttpServletRequest request) {
+        try {
+            Member mb = utool.getLoiginBean(request.getSession(), principal);
+            ClassManagementBean cmb = cms.findByUidAndCid(mb.getUid(), cid);
+            if (null != cmb) {
+                return "true";
+            }
+        } catch (Exception e) {
+            return "false";
+        }
+        return "false";
     }
 
 }

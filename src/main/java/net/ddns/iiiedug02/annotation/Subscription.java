@@ -10,10 +10,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 /**
- * 放在METHOD上，用來紀錄Mehtod的log
+ * 放在METHOD上，讓有訂閱的使用者，接收電子郵件
  * 
  * @author nilm
  */
-public @interface AspectLogAnnotation {
+public @interface Subscription {
 
 }

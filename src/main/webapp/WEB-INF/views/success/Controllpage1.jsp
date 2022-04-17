@@ -39,7 +39,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col min-vh-100">
-				<h2><font color="success">當年訂單量前五名課程</font></h2>
+				<div style="border-bottom:3px black solid; margin:20px">
+			<h1 style="text-align:center;"><font color="success">年度熱門課程管理</font></h1>
+			</div>
+			<div  margin:10px">
+			<h3 ><font color="gray">年度排行前五課程</font></h3>
+			</div>
 				<table class="table2excel width table table-striped">
 					<thead>
 						<tr>
@@ -61,7 +66,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<form action="ypclasschangetop5" method="get" id="rankForm">
+				<form action="/SpecialTopic/ypclasschangetop5" method="get" id="rankForm">
 					<div
 						style="border-width: 2px; border-style: dashed; border-color: #DEE2DF; padding: 5px;"
 						class="width">

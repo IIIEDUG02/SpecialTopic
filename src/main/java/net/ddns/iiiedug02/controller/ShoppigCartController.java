@@ -39,26 +39,6 @@ public class ShoppigCartController {
     private ClassBeanService classBeanService;
 
     /*
-     * RESTfull API，取的購物車清單
-     * 
-     * @author Nilm
-     */
-    @GetMapping("api/getList")
-    @ResponseBody
-    @AspectLogAnnotation
-    public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
-        List<ShoppingCart> result;
-        try {
-            Member loginBean = utool.getLoiginBean(session, p);
-            result = shoppigCartService.findAllByUid(loginBean.getUid());
-        } catch (Exception e) {
-            result = new ArrayList<ShoppingCart>(0);
-        }
-
-        return result;
-    }
-
-    /*
      * 導向購物車頁面，傳遞購物車清單、總價
      * 
      * @author Nilm
@@ -123,4 +103,46 @@ public class ShoppigCartController {
         shoppigCartService.save(sci);
         return classBean;
     }
+
+    /*
+     * RESTfull API，取的購物車清單
+     * 
+     * @author Nilm
+     */
+    @GetMapping("api/getList")
+    @ResponseBody
+    @AspectLogAnnotation
+    public List<ShoppingCart> getShoppingCart(HttpSession session, Principal p) {
+        List<ShoppingCart> result;
+        try {
+            Member loginBean = utool.getLoiginBean(session, p);
+            result = shoppigCartService.findAllByUid(loginBean.getUid());
+        } catch (Exception e) {
+            result = new ArrayList<ShoppingCart>(0);
+        }
+        return result;
+    }
+
+    /*
+     * RESTfull API，檢查是否在購物車
+     * 
+     * @author Nilm
+     */
+    @GetMapping("api/check/{cid}")
+    @ResponseBody
+    @AspectLogAnnotation
+    public String checkInShoppingCart(HttpSession session, Principal p, @PathVariable int cid) {
+        List<ShoppingCart> spList;
+        Member loginBean = utool.getLoiginBean(session, p);
+        spList = shoppigCartService.findAllByUid(loginBean.getUid());
+
+        List<Integer> cidList = new ArrayList<Integer>();
+        for (ShoppingCart sp : spList) {
+            cidList.add(sp.getClassBean().getCid());
+        }
+
+        boolean result = cidList.contains(cid);
+        return String.valueOf(result);
+    }
+
 }
