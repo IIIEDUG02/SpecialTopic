@@ -43,8 +43,8 @@ public class SubscriptionAop {
                 MailBean mb = new MailBean();
                 mb.setToAddress(mail.getEmail());
                 mb.setSubject("新課程上線了～～");
-                mb.setMsg("<p>新課程[<a href='http://iiiedug02.nilm.in/SpecialTopic/viewClass/"
-                        + args[0] + "'>" + cb.getTitle() + "</a>]上線了</p>");
+                mb.setMsg("新課程[" + cb.getTitle() + "]]上線了\n"
+                        + "https://iiiedug02.nilm.in/SpecialTopic/viewClass/" + args[0]);
                 mailTool.send(mb);
             }
 
