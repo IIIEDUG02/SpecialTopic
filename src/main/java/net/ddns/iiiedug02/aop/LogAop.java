@@ -1,4 +1,4 @@
-package net.ddns.iiiedug02.log;
+package net.ddns.iiiedug02.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
  *
  * @author Nilm
  */
-public class AspectLog {
+public class LogAop {
 
     @Around("@annotation(net.ddns.iiiedug02.annotation.AspectLogAnnotation)")
     public Object logInfo(ProceedingJoinPoint joinPoint) throws Throwable {

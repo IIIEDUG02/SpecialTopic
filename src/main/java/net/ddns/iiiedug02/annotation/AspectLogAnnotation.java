@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 /**
+ * 放在METHOD上，用來紀錄Mehtod的log
+ * 
  * @author nilm
  */
 public @interface AspectLogAnnotation {
