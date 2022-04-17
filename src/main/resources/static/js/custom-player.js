@@ -53,6 +53,9 @@ function postRecord(duration, sumTime, ended) {
 function changeVideoSrc(url,cuid) {
 	media.src=url;
 	$('input#cuid').attr("value",cuid)
+	var cuidchapter = $("#li"+cuid).html();
+	console.log(cuidchapter);
+	$("#chapter1").html(cuidchapter);
 }
 
 $.ajax({
@@ -62,7 +65,7 @@ $.ajax({
 	contentType: "application/json;charset=utf-8",
 	success: function(data) {
 		for (var i = 0 ; i < data.length ; i++) {
-			let li = $("<li class='list-group-item' onclick=changeVideoSrc(\'" + data[i]['video_path'] + "\',"+data[i]['cuid']+") >章節名稱:" + data[i]['chapter'] + "</li>")
+			let li = $("<li id='li"+data[i]['cuid']+"' class='list-group-item' onclick=changeVideoSrc(\'" + data[i]['video_path'] + "\',"+data[i]['cuid']+") >" + data[i]['chapter'] + "</li>")
 			$('ul.list-group').append(li)
 			
 

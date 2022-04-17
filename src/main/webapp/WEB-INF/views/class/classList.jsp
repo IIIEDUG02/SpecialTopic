@@ -62,7 +62,7 @@ body {
 	margin: 15px;
 }
 </style>
-<title>student</title>
+<title>課程清單</title>
 </head>
 <body>
 	<!-- ======= Header ======= -->
