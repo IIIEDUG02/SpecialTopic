@@ -32,195 +32,202 @@ import net.ddns.iiiedug02.util.UniversalTool;
 @Controller
 public class MemberController {
 
-    @Autowired
-    private MemberService ms;
+	@Autowired
+	private MemberService ms;
 
-    @Autowired
-    private UniversalTool ut;
+	@Autowired
+	private UniversalTool ut;
 
-    @Autowired
-    private ResourceLoader resourceLoader;
+	@Autowired
+	private ResourceLoader resourceLoader;
 
-    @PostMapping(value = "/registerAction1",
-            produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public String registerAction1(@RequestParam Map<String, String> params, HttpSession session,
-            Model m, HttpServletRequest request) throws ParseException {
+	@PostMapping(value = "/registerAction1", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	public String registerAction1(@RequestParam Map<String, String> params, HttpSession session, Model m,
+			HttpServletRequest request) throws ParseException {
 
-        Member mb = ms.findByUsername(params.get("username"));
-        if (null != mb) {
-            m.addAttribute("errMsg", "帳號已註冊");
-            return "member/registerPage1";
-        }
+		Member mb = ms.findByUsername(params.get("username"));
+		if (null != mb) {
+			m.addAttribute("errMsg", "帳號已註冊");
+			return "member/registerPage1";
+		}
+		MemberInformation mbi = new MemberInformation();
+		mbi.setEmail(params.get("email"));
 
-        MemberInformation mbi = new MemberInformation();
-        mbi.setEmail(params.get("email"));
+		mb = new Member();
+		MemberRole mrb = new MemberRole();
+		mrb.setRole("normal");
+		mrb.setMember(mb);
+		List<MemberRole> rs = new ArrayList<>(1);
+		rs.add(mrb);
 
-        mb = new Member();
-        MemberRole mrb = new MemberRole();
-        mrb.setRole("normal");
-        mrb.setMember(mb);
-        List<MemberRole> rs = new ArrayList<>(1);
-        rs.add(mrb);
+		mb.setUsername(params.get("username"));
+		mb.setPassword(params.get("password"));
+		mb.setActivated((short) 0);
+		mb.setRoles(rs);
 
-        mb.setUsername(params.get("username"));
-        mb.setPassword(params.get("password"));
-        mb.setActivated((short) 0);
-        mb.setRoles(rs);
+		mb.setMemberInformation(mbi);
+		mbi.setMember(mb);
+		ms.save(mb);
 
-        mb.setMemberInformation(mbi);
-        mbi.setMember(mb);
-        ms.save(mb);
+		session.setAttribute("registerBean", mb);
+		return "redirect:/";
+	}
+//	@PostMapping(value = "/registerAction1", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+//	@ResponseBody
+//	public boolean registerAction2(@RequestParam Map<String, String> params, HttpSession session, Model m,
+//			HttpServletRequest request) throws ParseException {
+//
+//		Member mb = ms.findByUsername(params.get("username"));
+//		if (null != mb) {
+//			m.addAttribute("errMsg", "帳號已註冊");
+//			return false;
+//		}
+//		return true;
+//	}
 
-        session.setAttribute("registerBean", mb);
-        return "redirect:/";
-    }
+	@GetMapping("/countmember.controller")
+	@ResponseBody
+	public int countMemberAction() {
+		return ms.countMember();
+	}
 
-    @GetMapping("/countmember.controller")
-    @ResponseBody
-    public int countMemberAction() {
-        return ms.countMember();
-    }
+	@GetMapping("/signout/success")
+	public String signout() {
+		return "redirect:/";
+	}
 
-    @GetMapping("/signout/success")
-    public String signout() {
-        return "redirect:/";
-    }
+	@GetMapping("/member/editInformation")
+	public String editInformation(Model m, HttpSession session, Principal principal) {
 
-    @GetMapping("/member/editInformation")
-    public String editInformation(Model m, HttpSession session, Principal principal) {
+		Member mb = ut.getLoiginBean(session, principal);
+		m.addAttribute("mb", mb);
+		return "member/memberInformation";
+	}
 
-        Member mb = ut.getLoiginBean(session, principal);
-        m.addAttribute("mb", mb);
-        return "member/memberInformation";
-    }
+	@GetMapping("/member/editInformation/{uid}")
+	public String editInformationAdmin(Model m, HttpSession session, Principal principal,
+			@PathVariable("uid") int uid) {
 
-    @GetMapping("/member/editInformation/{uid}")
-    public String editInformationAdmin(Model m, HttpSession session, Principal principal,
-            @PathVariable("uid") int uid) {
+		if (ut.hasRole(principal, "admin")) {
 
-        if (ut.hasRole(principal, "admin")) {
+			Member mb = ms.findByUid(uid);
+			m.addAttribute("mb", mb);
 
-            Member mb = ms.findByUid(uid);
-            m.addAttribute("mb", mb);
+			return "member/memberInformation";
+		} else {
+			return null;
+		}
+	}
 
-            return "member/memberInformation";
-        } else {
-            return null;
-        }
-    }
+	@PostMapping(value = "/memberUpdateInformation", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	public String UpdateInformation(@RequestParam Map<String, String> params, @RequestParam("mbphoto") MultipartFile mf,
+			HttpSession session, Model m, HttpServletRequest request) throws IllegalStateException, IOException {
 
-    @PostMapping(value = "/memberUpdateInformation",
-            produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public String UpdateInformation(@RequestParam Map<String, String> params,
-            @RequestParam("mbphoto") MultipartFile mf, HttpSession session, Model m,
-            HttpServletRequest request) throws IllegalStateException, IOException {
+		Member mb = ms.findByUsername(params.get("username"));
 
-        Member mb = ms.findByUsername(params.get("username"));
+		MemberInformation mbi = mb.getMemberInformation();
 
-        MemberInformation mbi = mb.getMemberInformation();
+		String pattern = "yyyy-MM-dd-HH-mm-ss";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-        String pattern = "yyyy-MM-dd-HH-mm-ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Random random = new Random();
+		int rNumber = 10000 + random.nextInt(90000);
+		// 取得後綴
+		String type = FilenameUtils.getExtension(mf.getOriginalFilename());
+		//防止空白檔案覆蓋原本的檔案
+		if (type.isEmpty()) {
 
-        Random random = new Random();
-        int rNumber = 10000 + random.nextInt(90000);
-        // 取得後綴
-        String type = FilenameUtils.getExtension(mf.getOriginalFilename());
-        if (type.isEmpty()) {
+			mbi.setAddress(params.get("address"));
+			mbi.setEmail(params.get("email"));
+			mbi.setFullname(params.get("fullname"));
+			mbi.setJob(params.get("job"));
+			mbi.setIdentitycard(params.get("identitycard"));
+			if (params.get("identitycard").substring(1, 2).equals("1")) {
+				mbi.setGender("男");
+			} else {
+				mbi.setGender("女");
+			}
+			mbi.setPassportname(params.get("passportname"));
+			mbi.setPhone(params.get("phone"));
+			mbi.setBirthday(params.get("birthday"));
+			// 如果輸入值是空白,不應該set password
+			if (params.get("password").length() != 0) {
+				mb.setPassword(params.get("password"));
+			}
+			mb.setMemberInformation(mbi);
+			mbi.setMember(mb);
 
-            mbi.setAddress(params.get("address"));
-            mbi.setEmail(params.get("email"));
-            mbi.setFullname(params.get("fullname"));
-            mbi.setJob(params.get("job"));
-            mbi.setIdentitycard(params.get("identitycard"));
-            if(params.get("identitycard").substring(1, 2).equals ("1")) {
-            	mbi.setGender("男");
-            }else {
-            	mbi.setGender("女");
-            }
-            mbi.setPassportname(params.get("passportname"));
-            mbi.setPhone(params.get("phone"));
-            mbi.setBirthday(params.get("birthday"));
-            // 如果輸入值是空白,不應該set password
-            if (params.get("password").length() != 0) {
-                mb.setPassword(params.get("password"));
-            }
-            mb.setMemberInformation(mbi);
-            mbi.setMember(mb);
-                  
-            if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
-                ms.save(mb);
-            } else {
-                ms.update(mb);
-            }
-            session.setAttribute("registerBean", mb);
-            return "redirect:/";
-        }
+			if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
+				ms.save(mb);
+			} else {
+				ms.update(mb);
+			}
+			session.setAttribute("registerBean", mb);
+			return "redirect:/";
+		}
 
-        String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
+		String fileName = simpleDateFormat.format(new Date()) + "-" + rNumber + "." + type;
 
-        String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString()
-                + "/memberphoto/";
+		String tempDir = resourceLoader.getResource("classpath:static/").getFile().toString() + "/memberphoto/";
 
-        File tempDirFile = new File(tempDir);
-        tempDirFile.mkdirs();
+		File tempDirFile = new File(tempDir);
+		tempDirFile.mkdirs();
 
-        String saveFilePath = tempDir + fileName;
-        File saveFile = new File(saveFilePath);
+		String saveFilePath = tempDir + fileName;
+		File saveFile = new File(saveFilePath);
 
-        mf.transferTo(saveFile);
+		mf.transferTo(saveFile);
 
-        mbi.setAddress(params.get("address"));
-        mbi.setEmail(params.get("email"));
-        mbi.setFullname(params.get("fullname"));
-        mbi.setJob(params.get("job"));
-        mbi.setIdentitycard(params.get("identitycard"));
-        if(params.get("identitycard").substring(1, 2).equals ("1")) {
-        	mbi.setGender("男");
-        }else{
-        	mbi.setGender("女");
-        }
-        mbi.setPassportname(params.get("passportname"));
-        mbi.setGender(params.get("gender"));
-        mbi.setPhone(params.get("phone"));
-        mbi.setBirthday(params.get("birthday"));
-        mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
-        // 如果輸入值是空白,不應該set password
-        if (params.get("password").length() != 0) {
-            mb.setPassword(params.get("password"));
-        }
-        mb.setMemberInformation(mbi);
-        mbi.setMember(mb);
+		mbi.setAddress(params.get("address"));
+		mbi.setEmail(params.get("email"));
+		mbi.setFullname(params.get("fullname"));
+		mbi.setJob(params.get("job"));
+		mbi.setIdentitycard(params.get("identitycard"));
+		if (params.get("identitycard").substring(1, 2).equals("1")) {
+			mbi.setGender("男");
+		} else {
+			mbi.setGender("女");
+		}
+		mbi.setPassportname(params.get("passportname"));
+		mbi.setGender(params.get("gender"));
+		mbi.setPhone(params.get("phone"));
+		mbi.setBirthday(params.get("birthday"));
+		mbi.setPhoto("/SpecialTopic/memberphoto/" + fileName);
+		// 如果輸入值是空白,不應該set password
+		if (params.get("password").length() != 0) {
+			mb.setPassword(params.get("password"));
+		}
+		mb.setMemberInformation(mbi);
+		mbi.setMember(mb);
 
-        if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
-            ms.save(mb);
-        } else {
-            ms.update(mb);
-        }
-        session.setAttribute("registerBean", mb);
-        return "redirect:/";
-    }
+		if (params.get("password").length() <= 20 && params.get("password").length() != 0) {
+			ms.save(mb);
+		} else {
+			ms.update(mb);
+		}
+		session.setAttribute("registerBean", mb);
+		return "redirect:/";
+	}
 
-    @GetMapping("/member/membermanage")
-    public String membermanage() {
-    	
-        return "/member/membermanage";
-    }
-    @PostMapping("/member/membermanage/{username}")
-    @ResponseBody
-    public Member membermanage(@PathVariable("username") String username ,Principal principal) {
-    	if (ut.hasRole(principal, "admin")) {
-    		Member mb = ms.findByUsername(username);
-    		return mb;
-    	}
-        return null;
-    }
+	@GetMapping("/member/membermanage")
+	public String membermanage() {
 
+		return "/member/membermanage";
+	}
 
-    @GetMapping("getMemberPhoto")
-    @ResponseBody
-    public String getMemberBean(HttpServletRequest request, Principal p) {
-        return ut.getLoiginBean(request.getSession(), p).getMemberInformation().getPhoto();
-    }
+	@PostMapping("/member/membermanage/{username}")
+	@ResponseBody
+	public Member membermanage(@PathVariable("username") String username, Principal principal) {
+		if (ut.hasRole(principal, "admin")) {
+			Member mb = ms.findByUsername(username);
+			return mb;
+		}
+		return null;
+	}
 
+	@GetMapping("getMemberPhoto")
+	@ResponseBody
+	public String getMemberBean(HttpServletRequest request, Principal p) {
+		return ut.getLoiginBean(request.getSession(), p).getMemberInformation().getPhoto();
+	}
 }
