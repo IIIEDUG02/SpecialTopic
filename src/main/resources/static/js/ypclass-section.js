@@ -10,11 +10,11 @@ $(document).ready(function() {
 				var i_bxheart = $("<i class='bx bx-heart'></i>");
 				var div_style = $('<div class="trainer-rank d-flex align-items-center"></div>');
 				div_style.append(i_bxuser);
-				div_style.append('&nbsp;' + 50 + '&nbsp;&nbsp;');
+				div_style.append('&nbsp;' + '&nbsp;&nbsp;');
 				div_style.append(i_bxheart);
-				div_style.append('&nbsp;' + 87 + '&nbsp;&nbsp;');
+				div_style.append('&nbsp;' + '&nbsp;&nbsp;');
 
-				var img_teacher = $("<img src='assets/img/trainers/trainer-1.jpg' class='img-fluid' alt='待補' />");
+				var img_teacher = $("<img src='" + data[i]["teacher"]["photo"] + "' class='img-fluid' alt='待補圖'>");
 				img_teacher.addClass("img-fluid");
 				var span_teacherName = $('<span>' + data[i]["teacher"]["fullname"] + '</span>');
 				var div_teacherinfo = $('<div class="trainer-profile d-flex align-items-center">');
@@ -40,7 +40,7 @@ $(document).ready(function() {
 				div_course_content.append(p_de);
 				div_course_content.append(div_teacherAndstyle);
 
-				var img_course_image = $('<img src=' + "assets/img/class.PNG" + ' class="img-fluid" alt="待補圖" >');
+				var img_course_image = $("<img src='" + data[i]["class"]["photo"] + "' class='img-fluid' alt='待補圖'>");
 				var div_courseitem = $('<div class="course-item"></div>');
 				div_courseitem.append(img_course_image);
 				div_courseitem.append(div_course_content);
