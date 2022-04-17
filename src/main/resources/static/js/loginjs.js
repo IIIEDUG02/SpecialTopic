@@ -10,7 +10,7 @@ function getMemberPhoto() {
 			if (data != null) {
 				console.log(data);
 				
-				$('#mbphoto1').attr('src',data);
+				$('#mbphoto123').attr('src',data);
 			}
 		},
 		error: function(xhr, status) {

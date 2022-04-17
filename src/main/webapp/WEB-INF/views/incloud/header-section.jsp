@@ -53,7 +53,7 @@
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
-						<li><img id="mbphoto1" src="" alt="預覽圖片"
+						<li><img id="mbphoto123" src="" alt="預覽圖片"
 							style="width: 30px; height: 30px; border-radius: 50%; margin-left: 20px"></li>
 						<script>getMemberPhoto();getShoppingCartList();	</script>
 					</c:when>
