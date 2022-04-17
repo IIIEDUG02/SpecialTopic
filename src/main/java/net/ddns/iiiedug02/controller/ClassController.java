@@ -571,10 +571,18 @@ public class ClassController {
      */
     @GetMapping("checkOwned/{cid}")
     @ResponseBody
-    public ClassManagementBean checkOwned(@PathVariable int cid, Principal principal,
+    public String checkOwned(@PathVariable int cid, Principal principal,
             HttpServletRequest request) {
-        Member mb = utool.getLoiginBean(request.getSession(), principal);
-        return cms.findByUidAndCid(mb.getUid(), cid);
+        try {
+            Member mb = utool.getLoiginBean(request.getSession(), principal);
+            ClassManagementBean cmb = cms.findByUidAndCid(mb.getUid(), cid);
+            if (null != cmb) {
+                return "true";
+            }
+        } catch (Exception e) {
+            return "false";
+        }
+        return "false";
     }
 
 }

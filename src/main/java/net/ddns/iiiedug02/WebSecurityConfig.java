@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 課程
         http.authorizeRequests()
-                .antMatchers("class/showClassType/**", "/classphoto/**", "/viewClass/**")
+                .antMatchers(HttpMethod.GET, "class/showClassType/**", "/classphoto/**",
+                        "/viewClass/**", "checkOwned/*")
                 .permitAll().antMatchers(HttpMethod.GET, "/classvideo/**").authenticated();;
 
         // 登入設定
