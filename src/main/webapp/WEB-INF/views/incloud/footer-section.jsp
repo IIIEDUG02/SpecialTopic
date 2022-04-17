@@ -29,7 +29,7 @@
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>訂閱</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <p>訂閱我們，有任何好康活動，我們會寄E-mail通知您。</p>
               <input type="email" id="submail" name="email"><input id="addSubscript" type="button" value="Subscribe">
             <script>
             $(document).ready(function() {
