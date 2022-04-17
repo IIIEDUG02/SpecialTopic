@@ -14,7 +14,7 @@ $(document).ready(function() {
 				div_style.append(i_bxheart);
 				div_style.append('&nbsp;' + 87 + '&nbsp;&nbsp;');
 
-				var img_teacher = $("<img src='assets/img/teacher.png' class='img-fluid' alt='待補' />");
+				var img_teacher = $("<img src='assets/img/trainers/trainer-1.jpg' class='img-fluid' alt='待補' />");
 				img_teacher.addClass("img-fluid");
 				var span_teacherName = $('<span>' + data[i]["teacher"]["fullname"] + '</span>');
 				var div_teacherinfo = $('<div class="trainer-profile d-flex align-items-center">');
