@@ -18,8 +18,8 @@
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 
 <style>
 body {
@@ -43,7 +43,7 @@ label {
 .input-wrap {
 	min-width: 380px;
 	margin: 10px;
-	background-color: #F0FFF0;
+	background-color: rgb(243, 243, 241);
 	margin-bottom: 60px;
 	padding: 15px 30px 45px;
 	border-radius: 50px;

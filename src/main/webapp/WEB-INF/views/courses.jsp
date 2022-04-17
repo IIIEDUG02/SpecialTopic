@@ -24,6 +24,7 @@ background-color:rgb(243, 243, 241)
 div#header-title{
 background-color:#5FCF80	;
 border-radius: 30px;
+
 }
 
 .height100 {
@@ -59,8 +60,8 @@ border-radius: 30px;
 	<div class="height100"></div>
 
 	<main id="main" data-aos="fade-in">
-	<div id="header-title" class="container "  ">
-	<h2>請自由探索喜歡課程</h2>
+	<div id="header-title" class="container p-2 ">
+	<h2 class="m-0 ms-2 ">請自由探索喜歡課程</h2>
 	</div>
 		<!-- ======= Courses Section ======= -->
 		<section id="courses" class="courses">
@@ -74,7 +75,7 @@ border-radius: 30px;
 				<h3>尚無此類型課程</h3>
 				</c:when>
 				</c:choose>
-					<div class="col-lg-12 flex-wrap   d-flex align-items-stretch">
+					<div class="col-lg-12 flex-wrap d-flex align-items-stretch">
 						
 						<c:forEach items="${classOneTypeList}" var="cb">
 							<div  id="classdiv" class="course-item m-4  col-3 shadow">

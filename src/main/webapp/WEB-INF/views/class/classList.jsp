@@ -5,29 +5,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
 <!-- Head js -->
 <jsp:include page="../incloud/head-js.jsp" />
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
 
 <style>
-div.min-vh-100{
-background-color:#F0FFF0	;
-border-radius: 50px;
-}
-#class-title{
-background-color:#F0FFF0
-}
-div.align-items-center{
 
+.min-vh-100{
+background-color:rgb(243, 243, 241)
+}
+.rod{
+border-radius: 30px;
+}
+
+div.align-items-center{
+background-color:white
 }
 div#btnwrap{
 text-align: right;
 }
 body {
+	background-color:rgb(243, 243, 241)
 	font-family: "PingFang TC", 微軟正黑體, sans-serif;
 	font-size: 16px;
-	color: rgba(0, 0, 0, 0.65);
+	
 	margin: 10px;
 	padding: 0px;
 	min-height: 100vh;
@@ -61,14 +65,14 @@ margin: 15px;
 						<hr>
 						<c:forEach items="${allCbList}" var="cb">
 							<div id="classDiv${cb.getCid()}"
-								class="row align-items-center ">
+								class="row align-items-center shadow rod">
 								<div class="col-3">
-									<p class="title">${cb.getTitle()}</p>
+									<p class="title m-0 m-auto">${cb.getTitle()}</p>
 								</div>
 								<div class="col-3">
-									<p class="text">${cb.getClassType()}</p>
+									<p class="text m-0 m-auto">${cb.getClassType()}</p>
 								</div>
-								<div id="btnwrap" class="col justify-content-end">
+								<div id="btnwrap" class="col justify-content-end pe-0">
 									<a href="/SpecialTopic/class/update/${cb.getCid()}"
 										class="btn btn-success">編輯課程</a> <a
 										href="/SpecialTopic/class/editCurriculum/${cb.getCid()}"
@@ -123,8 +127,8 @@ margin: 15px;
 										<c:when test="${not empty uncompleteList}">
 											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${uncompleteList}" var="cb">
-													<div class="card m-3" style="width: 18rem;">
-														<img class="card-img-top mh-25" src="${cb.getPhoto()}"
+													<div class="card m-3 shadow" style="width: 18rem;">
+														<img class="card-img-top mh-25" src="https://iiiedug02.nilm.in${cb.getPhoto()}"
 															alt="Card image cap">
 														<div class="card-body">
 															<h5 class="card-title">${cb.getTitle()}</h5>
@@ -152,7 +156,7 @@ margin: 15px;
 											<div class="d-flex flex-wrap bd-highlight ">
 												<c:forEach items="${completeList}" var="cb">
 													<div class="card m-3" style="width: 18rem;">
-														<img class="card-img-top" src="${cb.getPhoto()}"
+														<img class="card-img-top" src="https://iiiedug02.nilm.in${cb.getPhoto()}"
 															alt="Card image cap">
 														<div class="card-body">
 															<h5 class="card-title">${cb.getTitle()}</h5>

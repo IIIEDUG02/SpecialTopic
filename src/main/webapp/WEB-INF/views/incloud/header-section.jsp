@@ -5,9 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<header id="header" class="fixed-top">
+<header id="header" class="fixed-top" style="z-index: 9999">
 
-	<div id="header2" class="container d-flex align-items-center">
+	<div id="header2" class="container d-flex align-items-center" >
 
 		<h1 class="logo me-auto">
 			<a href="/SpecialTopic/">EAZY LEARN</a>
