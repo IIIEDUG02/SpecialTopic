@@ -564,4 +564,17 @@ public class ClassController {
         }
     }
 
+    /*
+     * 檢查是否購買過
+     *
+     * @author Nilm
+     */
+    @GetMapping("checkOwned/{cid}")
+    @ResponseBody
+    public ClassManagementBean checkOwned(@PathVariable int cid, Principal principal,
+            HttpServletRequest request) {
+        Member mb = utool.getLoiginBean(request.getSession(), principal);
+        return cms.findByUidAndCid(mb.getUid(), cid);
+    }
+
 }
