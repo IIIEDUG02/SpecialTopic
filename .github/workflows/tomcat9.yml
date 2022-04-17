@@ -1,14 +1,11 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Deploy
+name: 'Tomcat Deploy'
 
 on:
   push:
     branches: [ deploy ]
 
 jobs:
-  build_and_deploy:
+  Tomcat_Deploy:
     runs-on: self-hosted
     
     steps:
@@ -25,6 +22,9 @@ jobs:
 
     - name: replace host url
       run: sed -i 's/http:\/\/localhost:8080/https:\/\/iiiedug02.nilm.in/g' src/main/java/net/ddns/iiiedug02/controller/TradeController.java
+
+    - name: replace log file path
+      run: sed -i 's/\${DEV_LOG_FILE_PATH}/\${DEPLOY_LOG_FILE_PATH}/g' src/main/resources/log4j2.xml
 
     - name: Remove context-path
       run: sed -e "/server.servlet.context-path=\/*/d" src/main/resources/application.properties.bak > src/main/resources/application.properties

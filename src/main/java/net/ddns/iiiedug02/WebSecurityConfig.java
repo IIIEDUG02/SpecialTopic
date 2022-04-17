@@ -1,7 +1,6 @@
 package net.ddns.iiiedug02;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import net.ddns.iiiedug02.exception.LoginSuccessHandler;
 import net.ddns.iiiedug02.model.service.MemberService;
 
 @EnableWebSecurity
@@ -32,30 +30,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 頁面權限設定
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/", "/js/**", "/css/**", "/img/**", "/classphoto/**",
-                        "/classvideo/**", "/assets/**", "/viewClass/**", "/*",
-                        "/getCertByCertId/**", "/**/api/**")
-                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1", "/registerAction2").permitAll();
-                
+                        "/assets/**", "/*", "/**/api/**")
+                .permitAll().antMatchers(HttpMethod.POST, "/registerAction1").permitAll()
+                .antMatchers(HttpMethod.GET, "/classvideo/**", "class/showClassType/**",
+                        "/viewClass/**")
+                .authenticated();
 
         http.authorizeRequests().anyRequest().authenticated();
-
-        http.formLogin().loginPage("/").loginProcessingUrl("/login")
-                .successHandler(mySuccessHandler()).usernameParameter("username")
+        // 登入設定
+        http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("username")
                 .passwordParameter("password").defaultSuccessUrl("/").and().logout()
                 .logoutUrl("/logout").invalidateHttpSession(true);
-
+        // rememberMe設定
         http.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key");
-
+        // 登出設定
         http.logout().logoutUrl("/logout_page").deleteCookies("JESSIONID", "rememberMe-key")
                 .logoutSuccessUrl("/");
 
         http.cors().and().csrf().disable();
-    }
-
-    @Bean
-    public LoginSuccessHandler mySuccessHandler() {
-        return new LoginSuccessHandler();
     }
 }

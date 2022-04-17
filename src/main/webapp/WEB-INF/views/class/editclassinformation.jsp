@@ -98,7 +98,7 @@ img {
 							placeholder="課程圖片">
 					</div>
 					<div class="col">
-						<img id="preview_img" src="${classBean.getPhoto()}" alt="預覽圖片"
+						<img id="preview_classphoto" src="https://iiiedug02.nilm.in${classBean.getPhoto()}" alt="預覽圖片"
 							style="width: 260px; height: 200px; border: solid" />
 					</div>
 				</div>
@@ -152,14 +152,14 @@ img {
 
 	<script>
 		$("#photopath").change(function() {
-			$("#preview_img").attr('src', "");
+			$("#preview_classphoto").attr('src', "");
 			readURL(this);
 		});
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					$("#preview_img").attr('src', e.target.result);
+					$("#preview_classphoto").attr('src', e.target.result);
 				}
 				reader.readAsDataURL(input.files[0]);
 			}

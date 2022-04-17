@@ -9,10 +9,12 @@
 <meta charset="UTF-8">
 <script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="/SpecialTopic/js/editCurriculum.js"></script>
+<!-- favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
 <!-- Head CSS -->
 <jsp:include page="../incloud/head-css.jsp" />
-
-
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 <style>
 .position_fixed {
 	position: fixed;
@@ -37,10 +39,9 @@ margin-bottom: 50px;
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
 	<div class="container">
-		<div class="row">
-			<div style="text-align:center">
-			<button onclick='editCurriculum(0)' class="button btn-success">新增章節</button>
-			</div>
+		<div class="row ">
+		<div class="mb-5" style="text-align:center"><h2>編輯課程章節</h2></div>
+			
 			<div class="col shadow">
 				<div id="formDiv"></div>
 			</div>
@@ -70,12 +71,16 @@ margin-bottom: 50px;
 			</div>
 		</div>
 
-
+			<div style="text-align:center">
+			<button onclick='editCurriculum(0)' class="button btn-success mt-4">新增章節</button>
+			</div>
 
 
 
 
 	</div>
+		<div class="height100"></div>
+			<div class="height100"></div>
 	<!-- ======= Footer ======= -->
 	<jsp:include page="../incloud/footer-section.jsp" />
 

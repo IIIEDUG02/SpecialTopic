@@ -30,8 +30,7 @@
 								class="bi bi-chevron-down"></i>
 						</a>
 							<ul>
-								<li class="dropdown">
-								<a href="/SpecialTopic/class/list"><span>課程管理</span></a>
+								<li class="dropdown"><a href="/SpecialTopic/class/list"><span>課程管理</span></a>
 								</li>
 								<sec:authorize
 									access="isAuthenticated() and hasRole('ROLE_admin')">
@@ -54,8 +53,12 @@
 								<li><a href="/SpecialTopic/logout_page">登出</a></li>
 							</ul> <i class="bi bi-list mobile-nav-toggle"></i></li>
 						<li id="scl"></li>
+						<li><img id="mbphoto1" src="" alt="預覽圖片"
+							style="width: 30px; height: 30px; border-radius: 50%; margin-left: 20px"></li>
+						<script>getMemberPhoto();getShoppingCartList();	</script>
 					</c:when>
 				</c:choose>
+
 			</ul>
 		</nav>
 		<!-- .navbar -->
@@ -132,3 +135,4 @@
 	<a class="btn btn-success checkout"
 		href="/SpecialTopic/ShoppingCart/getInfo" class="button">結帳</a>
 </div>
+

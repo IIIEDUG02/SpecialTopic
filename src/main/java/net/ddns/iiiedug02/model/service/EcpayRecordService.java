@@ -7,6 +7,11 @@ import net.ddns.iiiedug02.model.bean.EcpayRecord;
 import net.ddns.iiiedug02.model.repository.EcpayRecordRepository;
 
 @Service
+/*
+ * 綠界交易紀錄的Service
+ * 
+ * @author Nilm
+ */
 public class EcpayRecordService {
 
     @Autowired

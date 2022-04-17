@@ -77,7 +77,7 @@ function checkout() {
 	$('input#TotalAmount').val($('a#sum').html());
 	$('input#TradeDesc').val("TEST");
 	$('input#ItemName').val("");
-	$('h3#class_title').each(function() {
+	$('h3#class_title a').each(function() {
 		if ($('input#ItemName').val() != "") {
 			$('input#ItemName').val($('input#ItemName').val() + "#")
 		}
@@ -111,7 +111,6 @@ function getShoppingCartList() {
 }
 
 function listRender(data) {
-	if (data.length > 0) {
 		var count = Object.keys(data).length;
 		// badge build
 		var a1 = $("<a id='cart' class='position-relative' href='#'></a>");
@@ -142,7 +141,6 @@ function listRender(data) {
 			ul.append(li);
 			
 		}
-	}
 }
 
 function addItem(classBean) {
@@ -168,5 +166,3 @@ function addItem(classBean) {
 	li.append("<hr / >");
 	return li;
 }
-
-getShoppingCartList();	

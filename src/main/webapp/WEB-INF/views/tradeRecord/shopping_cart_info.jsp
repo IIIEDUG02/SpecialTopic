@@ -24,16 +24,15 @@ body {
 	background-color: rgb(243, 243, 241);
 }
 
-#amount{
-	background-color: rgb(255,255,255);
+#amount {
+	background-color: rgb(255, 255, 255);
 }
 
-img{
-	background-color: rgb(255,255,255);
-	padding:5px;
-	border: 1px rgb(0,0,0) solid;
+img {
+	background-color: rgb(255, 255, 255);
+	padding: 5px;
+	border: 1px rgb(0, 0, 0) solid;
 }
-
 </style>
 
 <!-- JavaScript -->
@@ -68,12 +67,16 @@ img{
 				</div>
 				<hr class="border-2 border-top border-black">
 				<c:forEach var="item" items="${shoppingCartList}">
-					<div id="item${item.getClassBean().getCid()}" class="row item m-3 p-1">
+					<div id="item${item.getClassBean().getCid()}"
+						class="row item m-3 p-1">
 						<div class="col-2 d-inline-flex">
 							<img width=100 height=100 src="${item.getClassBean().getPhoto()}">
 						</div>
 						<div class="col-6 d-inline-flex">
-							<h3 id="class_title" class="p-2">${item.getClassBean().getTitle()}</h3>
+							<h3 id="class_title" class="p-2">
+								<a
+									href="/SpecialTopic/viewClass/${item.getClassBean().getCid()}">${item.getClassBean().getTitle()}</a>
+							</h3>
 						</div>
 						<div class="col-2 d-inline-flex">
 							<h3 id="price${item.getClassBean().getCid()}" class="p-2">${item.getClassBean().getPrice()}</h3>

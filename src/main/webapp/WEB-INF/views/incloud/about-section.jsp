@@ -14,7 +14,7 @@
 				<ul>
 					<li><i class="bi bi-check-circle"></i> 學習時間彈性</li>
 					<li><i class="bi bi-check-circle"></i> 可以反覆觀看影片複習</li>
-					<li><i class="bi bi-check-circle"></i> 不受環境限制自行規畫學習進度。</li>
+					<li><i class="bi bi-check-circle"></i> 不受環境限制自行規畫學習進度</li>
 				</ul>
 			</div>
 		</div>
