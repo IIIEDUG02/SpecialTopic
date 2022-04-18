@@ -1,6 +1,6 @@
-photoDIR="./classphoto"
 staticDIR="/var/lib/tomcat9/webapps/SpecialTopic/WEB-INF/classes/static/"
 
+photoDIR="./classphoto"
 if [ -d "$photoDIR" ]; then
   mv "${photoDIR}" "${staticDIR}"
 fi
