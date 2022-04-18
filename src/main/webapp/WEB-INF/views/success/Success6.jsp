@@ -56,7 +56,7 @@
 				<tr>
 					<td align="center"><c:out value="${th.get('cid')}" /></td>				
 					<td align="center"><c:out value="${th.get('gender')}" /></td>				
-					<td align="center"><c:out value="共${th.get('countgender')}筆" /></td>				
+					<td align="center"><c:out value="共${th.get('countgender')}位" /></td>				
 					<td align="center"><c:out value="${th.get('ratio')} %" /></td>				
 				</tr>
 			</c:forEach>	
