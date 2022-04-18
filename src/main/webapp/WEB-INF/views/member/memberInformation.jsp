@@ -44,7 +44,7 @@ div.img1 {
 </style>
 </head>
 <body
-	style="background: url(/SpecialTopic/img/register/background.jpg) no-repeat; background-size: cover;">
+	style="background:rgb(230, 255, 204)">
 	<!-- ======= Header ======= -->
 	<jsp:include page="../incloud/header-section.jsp" />
 	<div class="height100"></div>
