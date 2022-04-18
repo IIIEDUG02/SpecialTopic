@@ -394,6 +394,7 @@ public class ClassController {
         List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
         m.addAttribute("CurriculumList", cusList);
         m.addAttribute("cid", cid);
+        m.addAttribute("cb",cb);
         return "class/class-player";
     }
 

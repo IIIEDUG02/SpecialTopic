@@ -163,7 +163,7 @@ function changeClassOnlineStatus(cid) {
 		url: "/SpecialTopic/class/api/postToOnline/"+cid,
 		success: function(data) {
 			if (data) {
-				$("a#onlinebtn"+cid).attr("class","btn btn-danger")
+				$("a#onlinebtn"+cid).attr("class","btn btn-danger1")
 				$("a#onlinebtn"+cid).html("下架課程")
 				console.log(true)
 			} else {
