@@ -21,7 +21,7 @@ class CourseComment extends Base {
       <div>
         <div class="sub-comment__img profile-image profile-image-xs">
           <a class="" href="javascript:void(0);">
-            <img src="/SpecialTopic/img/default_avatar.png" width="" class="sc-cx4oas-0 aratar--img loaded">
+            <img src="{0}" width="" class="sc-cx4oas-0 aratar--img loaded">
           </a>
         </div>
     
@@ -97,6 +97,7 @@ class CourseComment extends Base {
 
     this.commentsWrapper = document.querySelector(this.elements.commentsWrapper);
     this.username = "";
+	this.avatar = "";
     
     // Created Before Timestamp，某個時間點，由後端回傳，詳見 CommentController
     this.cbt = parseInt(new Date().getTime() / 1000);
@@ -253,7 +254,7 @@ class CourseComment extends Base {
     obj.getEl("replyBtn", div).remove();
 
     // 將回覆框動態添加到頁面上
-    div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate);
+    div.insertAdjacentHTML("beforeend", obj.replyCommentTemplate.format(obj.avatar));
     
     // 之後為回覆框上面的元素添加事件
     const replyComment = obj.getEl("replyCommentEl", comment);
@@ -491,7 +492,7 @@ class CourseComment extends Base {
 
           <div class="avatar profile-image profile-image-sm">
             <a class="" href="javascript:void(0);">
-            	<img src="/SpecialTopic/img/default_avatar.png" width="" class=" aratar--img loaded">
+            	<img src="${data.member.avatar}" width="" class=" aratar--img loaded">
           	</a>
           </div>
 
@@ -541,7 +542,7 @@ class CourseComment extends Base {
       <div>
         <div class="sub-comment__img profile-image profile-image-xs" size="40">
           <a href="iavascript:void(0);">
-            <img src="/SpecialTopic/img/default_avatar.png" width="" class=" aratar--img loaded">
+            <img src="${data.member.avatar}" width="" class=" aratar--img loaded">
           </a>
         </div>
 
@@ -676,6 +677,9 @@ class CourseComment extends Base {
 	firstTimeLoadPage(data) {
 		const username = data.username
 		const result = data.result
+		
+		data.avatar ? this.avatar = data.avatar : "";
+		data.avatar ? document.querySelector('#avatar').src = data.avatar : "";
 		
 		this.setFirstItemUsername(username);
 		

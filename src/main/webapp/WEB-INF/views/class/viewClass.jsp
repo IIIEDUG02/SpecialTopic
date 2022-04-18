@@ -549,10 +549,10 @@ h1 {
 						<div class="instructor--instructor__image-and-stats--1IqE7">
 							<!-- instructor image link -->
 							<a class="instructor--instructor__image-link--9e3fA"> <!-- instructor avatar -->
-								<img alt="Frank BAI"
+								<img
 								class="instructor--instructor__image--va-P5 udlite-avatar udlite-avatar-image"
 								width="64" height="64"
-								src="/SpecialTopic/img/default_avatar.png"
+								src="${instructor.getMemberInformation().getPhoto()}"
 								style="width: 6.4rem; height: 6.4rem;">
 							</a>
 
