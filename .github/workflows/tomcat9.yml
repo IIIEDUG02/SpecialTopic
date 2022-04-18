@@ -20,8 +20,8 @@ jobs:
     - name: Build War File
       run: mvn package
 
-    - name: Copy ClassData
-      run: sh .github/workflows/cpClassData.sh
+    - name: Copy Data
+      run: echo ${{ secrets.PASSWORD }} | sudo -S sh .github/workflows/copyData.sh
             
     - name: Remove Old File
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
@@ -35,4 +35,7 @@ jobs:
         time: '10s'
 
     - name: Restore ClassData
-      run: echo ${{ secrets.PASSWORD }} | sudo -S sh .github/workflows/rsClassData.sh
+      run: echo ${{ secrets.PASSWORD }} | sudo -S sh .github/workflows/restoreData.sh
+
+    - name: Change Files Permissions
+      run: echo ${{ secrets.PASSWORD }} | sudo -S chown -R tomcat:tomcat /var/lib/tomcat9/webapps/SpecialTopic/WEB-INF/classes/static/
