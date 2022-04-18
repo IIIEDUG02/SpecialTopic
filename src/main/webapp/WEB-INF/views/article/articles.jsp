@@ -33,8 +33,8 @@
 <!-- article CSS -->
 <link rel="stylesheet" href="css/articles.css" />
 
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 
 <style>
 /* 自定義一些樣式 */
