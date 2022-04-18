@@ -29,8 +29,8 @@
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>訂閱</h4>
-            <p>訂閱我們，有任何好康活動，我們會寄E-mail通知您。</p>
-              <input type="email" id="submail" name="email"><input id="addSubscript" type="button" value="Subscribe">
+            <p>訂閱我們，任何最新消息都會寄E-mail通知您。</p>
+              <input type="email" id="submail" name="email"><input id="addSubscript" type="button" value="開始訂閱">
             <script>
             $(document).ready(function() {
             	$('input#addSubscript').click(function() {

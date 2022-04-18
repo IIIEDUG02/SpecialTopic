@@ -57,7 +57,7 @@ function sc_add(cid) {
 				$('button#sc_btn_' + cid).removeClass("btn-success");
 				$('button#sc_btn_' + cid).addClass("btn-danger");
 				$('button#sc_btn_' + cid).attr('onclick', "sc_del(" + cid + ")");
-				$('button#sc_btn_' + cid).html('<i class="fa fa-trash fa-2x"></i></a>');
+				$('button#sc_btn_' + cid).html('移除購物車');
 				$('a.checkout').attr("href", CHECKOUTUTL);
 				$('span#shoppingcart_count').attr("style","display: inline-block")
 				var ul = $('ul.shopping-cart-items');
