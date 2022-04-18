@@ -39,3 +39,6 @@ jobs:
 
     - name: Change Files Permissions
       run: echo ${{ secrets.PASSWORD }} | sudo -S chown -R tomcat:tomcat /var/lib/tomcat9/webapps/SpecialTopic/WEB-INF/classes/static/
+
+    - name: Restart Tomcat
+      run: echo ${{ secrets.PASSWORD }} | sudo service tomcat9 restart
