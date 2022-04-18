@@ -41,35 +41,11 @@
 			<thead>
 				<tr>
 					<th scope="col">編號</th>
-					<th scope="col">姓名</th>
+					<th scope="col">帳號</th>
 					<th scope="col">啟用</th>
 				</tr>
 			</thead>
 			<tbody id="tbody1">
-				<tr >
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>on</td>
-					<td><input type="submit" class="btn btn-success" value="編輯">
-						<input type="button" style="margin-left: 30px"
-						class="btn btn-danger" value="刪除"></td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>on</td>
-					<td><input type="submit" class="btn btn-success" value="編輯">
-						<input type="button" style="margin-left: 30px"
-						class="btn btn-danger" value="刪除"></td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry the Bird</td>
-					<td>off</td>
-					<td><input type="submit" name="input1" class="btn btn-success"
-						value="編輯"> <input type="button" style="margin-left: 30px"
-						class="btn btn-danger" value="刪除"></td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
