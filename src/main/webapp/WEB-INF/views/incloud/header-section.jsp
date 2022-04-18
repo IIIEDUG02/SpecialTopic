@@ -126,7 +126,7 @@
 </header>
 <!-- End Header -->
 <!-- 購物車 -->
-<div class="shopping-cart shadow" style="z-index: 1002">
+<div class="shopping-cart shadow" style="z-index: 1002 ;background-color: hsla(89, 43%, 51%, 0.5)">
 	<!-- 購物車清單 -->
 	<ul class="shopping-cart-items">
 

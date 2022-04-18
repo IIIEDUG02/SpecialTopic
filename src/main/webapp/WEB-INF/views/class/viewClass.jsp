@@ -83,7 +83,7 @@ h1 {
   <div class="paid-course-landing-page__container" style="margin-top: 71px">
     <div class="sidebar-container" >
     <!-- sideba rcontainer block-->
-      <div class="course-landing-page_sidebar-container" style="position: fixed; margin-top: 70px;z-index: 1001">
+      <div class="course-landing-page_sidebar-container" style="position: fixed; margin-top: 70px;z-index: 100">
         <div class="sidebar-container--content--gsvyJ">
           <div class="sidebar-container--content-group--1upV8">
             <!-- sidebar container introduction asset -->
