@@ -9,7 +9,6 @@ function register1() {
 	mb["birthday"] = $("#birthday").val();
 	mb["job"] = $("#job").val();
 	mb["identitycard"] = $("#identitycard").val();
-	mb["passportname"] = $("#passportname").val();
 	$.ajax({
 		type: "POST",
 		url: "/SpecialTopic/registerAction1",

@@ -135,7 +135,6 @@ public class MemberController {
 			} else {
 				mbi.setGender("女");
 			}
-			mbi.setPassportname(params.get("passportname"));
 			mbi.setPhone(params.get("phone"));
 			mbi.setBirthday(params.get("birthday"));
 			// 如果輸入值是空白,不應該set password
@@ -176,7 +175,6 @@ public class MemberController {
 		} else {
 			mbi.setGender("女");
 		}
-		mbi.setPassportname(params.get("passportname"));
 		mbi.setGender(params.get("gender"));
 		mbi.setPhone(params.get("phone"));
 		mbi.setBirthday(params.get("birthday"));
