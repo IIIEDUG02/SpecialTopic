@@ -72,18 +72,6 @@ public class MemberController {
 		session.setAttribute("registerBean", mb);
 		return "redirect:/";
 	}
-//	@PostMapping(value = "/registerAction1", produces = "application/x-www-form-urlencoded;charset=UTF-8")
-//	@ResponseBody
-//	public boolean registerAction2(@RequestParam Map<String, String> params, HttpSession session, Model m,
-//			HttpServletRequest request) throws ParseException {
-//
-//		Member mb = ms.findByUsername(params.get("username"));
-//		if (null != mb) {
-//			m.addAttribute("errMsg", "帳號已註冊");
-//			return false;
-//		}
-//		return true;
-//	}
 
 	@GetMapping("/countmember.controller")
 	@ResponseBody
@@ -224,6 +212,28 @@ public class MemberController {
 		}
 		return null;
 	}
+	
+	@PostMapping("/member/activated/{username}")
+	@ResponseBody
+	public int activated(@PathVariable("username") String username, Principal principal) {
+		if (ut.hasRole(principal, "admin")) {
+			Member mb = ms.findByUsername(username);
+			mb.setActivated((short) 1);
+			return 1;
+		}
+		return 0;
+	} 
+	
+	@PostMapping("/member/deactivated/{username}")
+	@ResponseBody
+	public int deactivated(@PathVariable("username") String username, Principal principal) {
+		if (ut.hasRole(principal, "admin")) {
+			Member mb = ms.findByUsername(username);
+			mb.setActivated((short) 0);
+			return 0;
+		}
+		return 1;
+	}	
 
 	@GetMapping("getMemberPhoto")
 	@ResponseBody
