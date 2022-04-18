@@ -17,7 +17,7 @@
               <!-- Profile avatar -->
               <div class="avatar profile-image profile-image-sm ">
                 <a class="" href="javascript:void(0);">
-                  <img src="/SpecialTopic/img/default_avatar.png" width="" class="aratar--img loaded">
+                  <img id="avatar" src="/SpecialTopic/img/default_avatar.png" width="" class="aratar--img loaded">
                 </a>
               </div>
   
