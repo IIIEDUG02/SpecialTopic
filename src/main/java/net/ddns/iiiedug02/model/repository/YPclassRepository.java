@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -31,4 +32,7 @@ public interface YPclassRepository extends JpaRepository<YPclass, Integer> {
 	
 	@Query(value = "select top (3) * from ypclass order by yearAmount DESC, classID", nativeQuery = true)
 	public List<YPclass> findRow();
+	
+	@Query(value = "select title, photo from class where cid = ?1", nativeQuery = true)
+	public List<Map<String, String>> findPicByID(int cid);
 }

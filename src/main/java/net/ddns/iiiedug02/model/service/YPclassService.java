@@ -1,6 +1,7 @@
 package net.ddns.iiiedug02.model.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class YPclassService {
 	
 	public void resetypclass(){
 		YPRepo.resetypclass();
+	}
+	
+	public List<Map<String, String>> findPicByID(int cid){
+		return YPRepo.findPicByID(cid);
 	}
 }
