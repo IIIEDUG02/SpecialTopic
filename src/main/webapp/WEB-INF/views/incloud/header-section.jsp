@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<header id="header" class="fixed-top" style="z-index: 9999">
+<header id="header" class="fixed-top" style="z-index: 1000">
 
 	<div id="header2" class="container d-flex align-items-center" >
 
@@ -126,7 +126,7 @@
 </header>
 <!-- End Header -->
 <!-- 購物車 -->
-<div class="shopping-cart shadow">
+<div class="shopping-cart shadow" style="z-index: 1002">
 	<!-- 購物車清單 -->
 	<ul class="shopping-cart-items">
 
