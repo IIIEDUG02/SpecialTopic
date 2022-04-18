@@ -13,5 +13,6 @@ fi
 memberphoto="./memberphoto"
 if [ -d "$memberphoto" ]; then
   mv "${memberphoto}" "${staticDIR}"
+fi
 
 
