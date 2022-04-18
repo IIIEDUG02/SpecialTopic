@@ -20,7 +20,7 @@
 }
 
 .width {
-	width: 400px;
+	width: 500px;
 }
 
 .twidth {
@@ -42,9 +42,11 @@
 				<div style="border-bottom:3px black solid; margin:20px">
 			<h1 style="text-align:center;"><font color="success">年度熱門課程管理</font></h1>
 			</div>
-			<div  margin:10px">
+			<div style="margin:10px">
 			<h3 ><font color="gray">年度排行前五課程</font></h3>
 			</div>
+			<div class="row">
+			<div class="col">
 				<table class="table2excel width table table-striped">
 					<thead>
 						<tr>
@@ -52,6 +54,7 @@
 							<td align="center" style="border-bottom: 5px solid #000">課程名稱</td>
 							<td align="center" style="border-bottom: 5px solid #000">年份</td>
 							<td align="center" style="border-bottom: 5px solid #000">數量</td>
+							<td align="center" style="border-bottom: 5px solid #000">圖片預覽</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -62,10 +65,19 @@
 								<td align="center"><c:out value="${th.getClassBean().getTitle()}" /></td>
 								<td align="center"><c:out value="${th.getYear()}年" /></td>
 								<td align="center"><c:out value="共${th.getYearAmount()}筆" /></td>
+								<td align="center" ><input type="button" 
+								onclick="checkPicByID('${th.getClassID()}')" class="btn btn-success" value="點擊查看" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
+				<div class="col twidth" style="padding:70px; border-width: 2px; border-style: dashed; border-color: #DEE2DF; padding: 5px;">
+					<font  style="font-size:30px;" color="#DEE2DF">圖片預覽</font>
+					<div id="picByID"  style="margin:200 px; "></div>
+				</div>
+				</div>
+				
 				<form action="/SpecialTopic/ypclasschangetop5" method="get" id="rankForm">
 					<div
 						style="border-width: 2px; border-style: dashed; border-color: #DEE2DF; padding: 5px;"
@@ -125,7 +137,10 @@
 						type="button" onclick="reset()" class="btn btn-danger"
 						value="回復正常排序" /> <span>${errors.resetmsg}</span>
 					</span>
+				
+					
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -183,6 +198,28 @@
 		window.location.href="/SpecialTopic/resetypclass";
 
 	}
+
+	function checkPicByID(cid) {
+		$.ajax({
+			type: "GET",
+			url: "/SpecialTopic/findPicByID/"+cid,
+			contentType: "application/json",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				$('div#picByID').empty();
+				var img_class = $("<img src='" + data[0]["photo"] + "' class='img-fluid' alt='待補圖' style='display:block; margin:auto;' width='400'> ");
+			
+			
+
+				$('div#picByID').append(img_class);
+
+			},
+			error: function(xhr, status) {
+				console.log("Error")
+			}
+		})
+	};
 	
 	</script>
 	<jsp:include page="../incloud/footer-section.jsp" />

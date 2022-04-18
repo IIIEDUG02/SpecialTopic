@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -140,7 +141,6 @@ public class YPclassController {
 
 	@GetMapping("/ypclassfindtop5")
 	@ResponseBody
-	// public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
 	public List<Map<String, Object>> processFindTop5(Model m) {
 
 		List<YPclass> YPclassList = ypclassService.findAll();
@@ -173,8 +173,17 @@ public class YPclassController {
 			}
 		}
 
-		// return ResponseEntity.ok(result);
 		return result;
+
+	}
+	
+	@GetMapping("/findPicByID/{cid}")
+	@ResponseBody
+	public List<Map<String, String>> findPicByID(@PathVariable("cid")int cid) {
+
+		List<Map<String, String>> picList = ypclassService.findPicByID(cid);
+
+		return picList;
 
 	}
 
