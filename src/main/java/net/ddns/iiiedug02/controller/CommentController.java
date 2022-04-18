@@ -243,17 +243,33 @@ public class CommentController {
             .build();
         
         likeService.create(l);
+        commentService.updateLikeCountById(comment.getLikeCount() + 1, comment.getId());
       } else {
         // 更新點讚，原本可能收回讚，現在又點讚
-        likeService.updateByCommentIdAndMembersUid(1, comment.getId(), member.getUid());
+    	List<Like> list = likeService.findByCommentIdAndMembersUid(comment.getId(), member.getUid());
+    	
+    	if (list.size() != 0) {
+  		  Like l = list.get(0);
+  		  
+  		  if (l.getLiked() == 0) {
+  			likeService.updateByCommentIdAndMembersUid(1, comment.getId(), member.getUid());
+        	commentService.updateLikeCountById(comment.getLikeCount() + 1, comment.getId());
+  		  }
+    	}
       }
-      
-      commentService.updateLikeCountById(comment.getLikeCount() + 1, comment.getId());
     }
     // 收回讚
     else if (like.equals("unlike")) {
-      likeService.updateByCommentIdAndMembersUid(0, comment.getId(), member.getUid());
-      commentService.updateLikeCountById(comment.getLikeCount() - 1, comment.getId());
+      List<Like> list = likeService.findByCommentIdAndMembersUid(comment.getId(), member.getUid());
+	  
+	  if (list.size() != 0) {
+		  Like l = list.get(0);
+		  
+		  if (l.getLiked() == 1) {
+			  likeService.updateByCommentIdAndMembersUid(0, comment.getId(), member.getUid());
+		      commentService.updateLikeCountById(comment.getLikeCount() - 1, comment.getId());  
+		  }
+	  }
     }
     
     Map<String, Object> body = new LinkedHashMap<>();
