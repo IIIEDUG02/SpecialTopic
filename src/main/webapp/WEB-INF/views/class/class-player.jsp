@@ -348,6 +348,7 @@ h1 {
 					</div>
 				</div>
 			</div>
+			</div>
 			<svg
 				style="position: absolute; width: 0; height: 0; overflow: hidden;"
 				version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
