@@ -75,7 +75,7 @@ public class TradeController {
         obj.setItemName(request.getParameter("ItemName"));
         obj.setNeedExtraPaidInfo("N");
 
-        obj.setReturnURL("https://localhost:8080/SpecialTopic/ECPayServer");
+        obj.setReturnURL("http://localhost:8080/SpecialTopic/ECPayServer");
         obj.setOrderResultURL("http://localhost:8080/SpecialTopic/getEcPayResult");
         // obj.setOrderResultURL("https://iiiedug02.nilm.in/SpecialTopic/getEcPayResult");
         return all.aioCheckOut(obj, null);
