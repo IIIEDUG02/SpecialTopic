@@ -5,10 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../incloud/head-css.jsp" />
-<jsp:include page="../incloud/head-css.jsp" />
 <title>當月熱門課程排序設定</title>
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
+<!-- JavaScript -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .position_fixed {
