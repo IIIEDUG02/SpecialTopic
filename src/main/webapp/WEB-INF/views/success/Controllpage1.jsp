@@ -193,12 +193,12 @@
 				$('font#errorID').html('請確認課程ID存在於列表');
 				return ;
 			}
-			swal("排序成功更新!", "瀏覽器即將跳轉回首頁", "success");
+			swal("排序成功更新!", "點OK跳轉回首頁", "success");
 			$('form#rankForm').submit();
 		}
 	};
 	function reset() {				
-		swal("成功回復排序!", "瀏覽器即將跳轉回首頁", "success");
+		swal("成功回復排序!", "點OK跳轉回首頁", "success");
 		window.location.href="/SpecialTopic/resetypclass";
 
 	}
