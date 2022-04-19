@@ -27,7 +27,7 @@ jobs:
       run: echo ${{ secrets.PASSWORD }} | sudo -S rm -rf /var/lib/tomcat9/webapps/SpecialTopic*
       
     - name: Move New File
-      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpcialTopic.war /var/lib/tomcat9/webapps/SpecialTopic.war
+      run: echo ${{ secrets.PASSWORD }} | sudo -S cp target/SpecialTopic.war /var/lib/tomcat9/webapps/SpecialTopic.war
 
     - name: Sleep For 30 Seconds
       uses: jakejarvis/wait-action@master
