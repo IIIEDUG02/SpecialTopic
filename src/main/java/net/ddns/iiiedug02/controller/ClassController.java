@@ -40,7 +40,6 @@ import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.ClassOnlineService;
 import net.ddns.iiiedug02.model.service.CurriculumService;
 import net.ddns.iiiedug02.model.service.MemberService;
-import net.ddns.iiiedug02.model.service.ShoppingCartService;
 import net.ddns.iiiedug02.util.UniversalTool;
 
 @Controller
@@ -66,9 +65,6 @@ public class ClassController {
 
     @Autowired
     private UniversalTool utool;
-
-    @Autowired
-    private ShoppingCartService scs;
 
     /*
      * 進入後臺管理課程，區分admin跟normal身份
@@ -394,7 +390,7 @@ public class ClassController {
         List<CurriculumBean> cusList = cus.findAllByClassbean(cb);
         m.addAttribute("CurriculumList", cusList);
         m.addAttribute("cid", cid);
-        m.addAttribute("cb",cb);
+        m.addAttribute("cb", cb);
         return "class/class-player";
     }
 

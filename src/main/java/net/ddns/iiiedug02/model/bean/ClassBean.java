@@ -2,9 +2,7 @@ package net.ddns.iiiedug02.model.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,103 +20,103 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClassBean implements Serializable {
 
-	  private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 2L;
 
-  @Id
-  @Column(name = "CID")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int cid;
-  @Column(name = "price")
-  private int price;
-  @Column(name = "uid")
-  private int uid;
-  @Column(name = "title")
-  private String title;
-  @Column(name = "class_type")
-  private String classType;
-  @Column(name = "photo")
-  private String photo;
+    @Id
+    @Column(name = "CID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int cid;
+    @Column(name = "price")
+    private int price;
+    @Column(name = "uid")
+    private int uid;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "class_type")
+    private String classType;
+    @Column(name = "photo")
+    private String photo;
 
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
-  private ClassDetailsBean classDetailsBean;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
+    private ClassDetailsBean classDetailsBean;
 
-  @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
-  private ClassOnlineBean classOnlineBean;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
+    private ClassOnlineBean classOnlineBean;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
-  private List<CurriculumBean> curriculumbean = new ArrayList<CurriculumBean>(0);
-  
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classbean", cascade = CascadeType.ALL)
+    private List<CurriculumBean> curriculumbean = new ArrayList<CurriculumBean>(0);
 
-public ClassOnlineBean getClassOnlineBean() {
-	return classOnlineBean;
-}
 
-public void setClassOnlineBean(ClassOnlineBean classOnlineBean) {
-	this.classOnlineBean = classOnlineBean;
-}
+    public ClassOnlineBean getClassOnlineBean() {
+        return classOnlineBean;
+    }
 
-public List<CurriculumBean> getCurriculumbean() {
-    return curriculumbean;
-  }
+    public void setClassOnlineBean(ClassOnlineBean classOnlineBean) {
+        this.classOnlineBean = classOnlineBean;
+    }
 
-  public void setCurriculumbean(List<CurriculumBean> curriculumbean) {
-    this.curriculumbean = curriculumbean;
-  }
+    public List<CurriculumBean> getCurriculumbean() {
+        return curriculumbean;
+    }
 
-  public ClassDetailsBean getClassDetailsBean() {
-    return classDetailsBean;
-  }
+    public void setCurriculumbean(List<CurriculumBean> curriculumbean) {
+        this.curriculumbean = curriculumbean;
+    }
 
-  public void setClassDetailsBean(ClassDetailsBean classDetailsBean) {
-    this.classDetailsBean = classDetailsBean;
-  }
+    public ClassDetailsBean getClassDetailsBean() {
+        return classDetailsBean;
+    }
 
-  public int getCid() {
-    return cid;
-  }
+    public void setClassDetailsBean(ClassDetailsBean classDetailsBean) {
+        this.classDetailsBean = classDetailsBean;
+    }
 
-  public void setCid(int cid) {
-    this.cid = cid;
-  }
+    public int getCid() {
+        return cid;
+    }
 
-  public int getPrice() {
-    return price;
-  }
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
 
-  public void setPrice(int price) {
-    this.price = price;
-  }
+    public int getPrice() {
+        return price;
+    }
 
-  public int getUid() {
-    return uid;
-  }
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
-  public void setUid(int uid) {
-    this.uid = uid;
-  }
+    public int getUid() {
+        return uid;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public String getClassType() {
-    return classType;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setClassType(String classType) {
-    this.classType = classType;
-  }
+    public String getClassType() {
+        return classType;
+    }
 
-  public String getPhoto() {
-    return photo;
-  }
+    public void setClassType(String classType) {
+        this.classType = classType;
+    }
 
-  public void setPhoto(String photo) {
-    this.photo = photo;
-  }
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
 }

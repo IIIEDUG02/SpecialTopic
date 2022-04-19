@@ -3,8 +3,6 @@ package net.ddns.iiiedug02.model.bean;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,99 +21,96 @@ import org.springframework.stereotype.Component;
 @Table(name = "article")
 public class ArticleBean {
 
-	@Id
-	@Column(name = "Id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@Column(name = "uuid")
-	private String uuid;
+    @Column(name = "uuid")
+    private String uuid;
 
-	@Column(name = "title")
-	private String title;
+    @Column(name = "title")
+    private String title;
 
-	@Column(name = "content")
-	private String content;
+    @Column(name = "content")
+    private String content;
 
-	@Column(name = "publish_time")
-	private Date publishTime;
+    @Column(name = "publish_time")
+    private Date publishTime;
 
-	@Column(name = "page_views")
-	private int pageViews;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		name = "article_tag",
-		joinColumns = { @JoinColumn(name = "article_id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "tag_id") }
-	)
-	Set<TagBean> tags = new HashSet<>();
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "members_uid", referencedColumnName = "uid")
-	private Member member;
+    @Column(name = "page_views")
+    private int pageViews;
 
-	public int getId() {
-		return id;
-	}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "article_tag", joinColumns = {@JoinColumn(name = "article_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
+    Set<TagBean> tags = new HashSet<>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "members_uid", referencedColumnName = "uid")
+    private Member member;
 
-	public String getTitle() {
-		return title;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getUuid() {
+        return uuid;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public Date getPublishTime() {
-		return publishTime;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setPublishTime(Date publishTime) {
-		this.publishTime = publishTime;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public int getPageViews() {
-		return pageViews;
-	}
+    public Date getPublishTime() {
+        return publishTime;
+    }
 
-	public void setPageViews(int pageViews) {
-		this.pageViews = pageViews;
-	}
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
+    }
 
-	public Set<TagBean> getTags() {
-		return tags;
-	}
+    public int getPageViews() {
+        return pageViews;
+    }
 
-	public void setTags(Set<TagBean> tags) {
-		this.tags = tags;
-	}
+    public void setPageViews(int pageViews) {
+        this.pageViews = pageViews;
+    }
 
-	public Member getMember() {
-		return member;
-	}
+    public Set<TagBean> getTags() {
+        return tags;
+    }
 
-	public void setMember(Member member) {
-		this.member = member;
-	}
+    public void setTags(Set<TagBean> tags) {
+        this.tags = tags;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 }
