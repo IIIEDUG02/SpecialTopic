@@ -53,8 +53,7 @@ img {
 	margin-top: 20px;
 }
 </style>
-<!-- Head js -->
-<jsp:include page="../incloud/head-js.jsp" />
+
 
 </head>
 <body>
