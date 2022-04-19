@@ -60,24 +60,6 @@ public class YPclassController {
         return "success/Success3";
     }
 
-    // @GetMapping("/ypclassfindtop5")
-    // @ResponseBody
-    // public List<ClassBean> processFindTop5(Model m) {
-    // List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-    //
-    // List<YPclass> YPclassList = ypclassService.findAll();
-    // for (YPclass c : YPclassList) {
-    // ClassBean classbean = classBeanService.findById(c.getClassID());
-    //// classbean.setClassDetailsBean(null);
-    // classbean.setCurriculumbean(null);
-    //
-    // classBeanList.add(classbean);
-    // }
-    //
-    // return classBeanList;
-    //
-    // }
-
     @GetMapping("/ypclasscontrolltop5")
     // public ResponseEntity<List<Map<String, Object>>> processFindTop5(Model m) {
     public String controllFindTop5(Model m) {
