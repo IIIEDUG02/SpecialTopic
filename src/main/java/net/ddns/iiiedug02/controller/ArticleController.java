@@ -38,8 +38,8 @@ public class ArticleController {
     @Autowired
     private MemberService memberService;
 
-    // Singleton pattern(單例模式): 保證物件只會 new 一次(不會有多個物件)
-    private ArticleHelper articleHelper = ArticleHelper.getInstance();
+    @Autowired
+    private ArticleHelper articleHelper;
 
     // 含有 admin or teacher 角色的人才能新增/編輯/刪除文章
     private String ADMIN = "admin";

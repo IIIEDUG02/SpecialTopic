@@ -21,23 +21,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.ddns.iiiedug02.model.bean.ArticleBean;
 import net.ddns.iiiedug02.util.UniversalTool;
 
+@Component
 public class ArticleHelper {
-    private static ArticleHelper instance;
 
     @Autowired
     private UniversalTool utool;
-
-    public static synchronized ArticleHelper getInstance() {
-        if (instance == null)
-            instance = new ArticleHelper();
-
-        return instance;
-    }
 
     public boolean hasRole(Principal principal, String role) {
         String prefix = "ROLE_";
