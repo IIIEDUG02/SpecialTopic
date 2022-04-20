@@ -8,7 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="../incloud/head-css.jsp" />
 <title>銷售額統計</title>
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
+<!-- JavaScript -->
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>
 <script src="https://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
 <script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>

@@ -5,10 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../incloud/head-css.jsp" />
 <title>MainPercentInput</title>
 <link href="/SpecialTopic/css/jquery-ui.css" rel="stylesheet" />
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
+<!-- JavaScript -->
 <script src="/SpecialTopic/js/jquery-ui.min.js"></script>
 <script>
 	$(function() {

@@ -5,10 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../incloud/head-css.jsp" />
-<jsp:include page="../incloud/head-css.jsp" />
 <title>當月熱門課程排序設定</title>
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
+<!-- JavaScript -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .position_fixed {
@@ -175,12 +179,12 @@
 				$('font#errorID').html('請確認課程ID存在於列表');
 				return ;
 			}
-			swal("排序成功更新!", "瀏覽器即將跳轉回首頁", "success");
+			swal("排序成功更新!", "點OK跳轉回首頁", "success");
 			$('form#rankForm').submit();
 		}
 	};
 	function reset() {				
-		swal("成功回復排序!", "瀏覽器即將跳轉回首頁", "success");
+		swal("成功回復排序!", "點OK跳轉回首頁", "success");
 		window.location.href="/SpecialTopic/resetmpclass";
 
 	}

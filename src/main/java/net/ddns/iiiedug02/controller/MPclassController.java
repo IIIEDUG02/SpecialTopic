@@ -62,41 +62,6 @@ public class MPclassController {
         return "success/Success4";
     }
 
-    // @GetMapping("/ypclassfindtop5")
-    // @ResponseBody
-    // public List<ClassBean> processFindTop5(Model m) {
-    // List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-    //
-    // List<YPclass> YPclassList = ypclassService.findAll();
-    // for (YPclass c : YPclassList) {
-    // ClassBean classbean = classBeanService.findById(c.getClassID());
-    //// classbean.setClassDetailsBean(null);
-    // classbean.setCurriculumbean(null);
-    //
-    // classBeanList.add(classbean);
-    // }
-    //
-    // return classBeanList;
-    //
-    // }
-
-    // @GetMapping("/mpclassfindtop5")
-    // @ResponseBody
-    // public List<ClassBean> processFindTop5(Model m) {
-    // List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-    //
-    // List<MPclass> mpclassList = mpclassService.findAll();
-    // for (MPclass c : mpclassList) {
-    // ClassBean classBean = c.getClassBean();
-    // classBean.setCurriculumbean(null);
-    //
-    // classBeanList.add(classBean);
-    // }
-    //
-    // return classBeanList;
-    //
-    // }
-
     @GetMapping("/mpclasscontrolltop5")
     public String controllFindTop5(Model m) {
 

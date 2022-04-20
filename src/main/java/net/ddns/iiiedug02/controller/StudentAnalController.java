@@ -46,7 +46,7 @@ public class StudentAnalController {
 
         if (GenderList != null && !GenderList.isEmpty()) {
             m.addAttribute("genderList", GenderList);
-            return "success/Success6";
+            return "success/GenderPage";
         }
         errors.put("gendermsg", "訂單中無此課程");
         return "success/MainPercentInput";
@@ -67,7 +67,7 @@ public class StudentAnalController {
 
         if (agePercentList != null && !agePercentList.isEmpty()) {
             m.addAttribute("agePercentList", agePercentList);
-            return "success/Success7";
+            return "success/AgePage";
         }
         errors.put("agemsg", "訂單中無此課程");
         return "success/MainPercentInput";
@@ -88,7 +88,7 @@ public class StudentAnalController {
 
         if (jobPercentList != null && !jobPercentList.isEmpty()) {
             m.addAttribute("jobPercentList", jobPercentList);
-            return "success/Success8";
+            return "success/JobPage";
         }
         errors.put("jobmsg", "訂單中無此課程");
         return "success/MainPercentInput";
@@ -140,62 +140,3 @@ public class StudentAnalController {
         return "success/AllAnal";
     }
 }
-
-// @GetMapping("/ypclassfindtop5")
-// @ResponseBody
-// public List<ClassBean> processFindTop5(Model m) {
-// List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-//
-// List<YPclass> YPclassList = ypclassService.findAll();
-// for (YPclass c : YPclassList) {
-// ClassBean classbean = classBeanService.findById(c.getClassID());
-//// classbean.setClassDetailsBean(null);
-// classbean.setCurriculumbean(null);
-//
-// classBeanList.add(classbean);
-// }
-//
-// return classBeanList;
-//
-// }
-
-// @GetMapping("/ypclassfindtop5")
-// @ResponseBody
-// public List<ClassBean> processFindTop5(Model m) {
-// List<ClassBean> classBeanList = new ArrayList<ClassBean>();
-//
-// List<YPclass> YPclassList = ypclassService.findAll();
-// for (YPclass c : YPclassList) {
-// ClassBean classBean = c.getClassBean();
-// classBean.setCurriculumbean(null);
-//
-// classBeanList.add(classBean);
-// }
-//
-// return classBeanList;
-//
-// }
-// @GetMapping("/calAverageAge")
-// public String processSaveTop5(Model m) {
-// List<Map<String, Integer>> averageAgeList = classMService.getAverageAge();
-// List<StudentAnalysis> studentAnalList = new ArrayList<StudentAnalysis>();
-//
-// for (Map<String, Integer> a : averageAgeList) {
-// StudentAnalysis stuanal = new StudentAnalysis();
-//
-// ClassBean cb = classBeanService.findById(a.get("cid"));
-// stuanal.setAverageAge(a.get("avgAge"));
-// stuanal.setClasstitle(cb.getTitle());
-// stuanal.setJob(null);
-//
-// stuanal.setClassBean(cb);
-// analyService.insert(stuanal);
-//
-// studentAnalList.add(stuanal);
-//
-// }
-//
-//
-// m.addAttribute("studentAnalList", studentAnalList);
-// return "success/Success5";
-// }

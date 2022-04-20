@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="../incloud/head-css.jsp" />
 <title>統計結果</title>
-<link rel="stylesheet" href="/css/ordersystem.css">
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
+<!-- JavaScript -->
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" ></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>
@@ -29,38 +34,44 @@
    background-color: rgb(210, 244, 224   ); 
  }
 </style>
+
 </head>
 <body>
 	<jsp:include page="../incloud/header-section.jsp" />
-	<div class="height100"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col min-vh-100">
-			<div style="border-bottom:3px black solid; margin:20px">
-			<h1 style="text-align:center;"><font color="success">學員年齡統計</font></h1>
-			</div>
+		<div class="height100"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col min-vh-100">
+	
+	<div style="border-bottom:3px black solid; margin:20px">
+	<h1 style="text-align:center;"><font color="success">學員性別統計</font></h1>
+	</div>
 	<table class="table2excel width table table-striped">
-		<thead>
+		
 			<tr>
 				<td align="center" style="border-bottom:5px solid #000">課程ID</td>
-				<td align="center" style="border-bottom:5px solid #000">年齡</td>
-				<td align="center" style="border-bottom:5px solid #000">該年齡數量</td>
-				<td align="center" style="border-bottom:5px solid #000">該年齡占比</td>
+				<td align="center" style="border-bottom:5px solid #000">性別</td>
+				<td align="center" style="border-bottom:5px solid #000">該性別數量</td>
+				<td align="center" style="border-bottom:5px solid #000">該性別占比</td>
+
 			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="th" items="${agePercentList}">
+		
+			
+			<c:forEach var="th" items="${genderList}">
 				<tr>
 					<td align="center"><c:out value="${th.get('cid')}" /></td>				
-					<td align="center"><c:out value="${th.get('age')}歲" /></td>				
-					<td align="center"><c:out value="共${th.get('agecount')}位" /></td>				
+					<td align="center"><c:out value="${th.get('gender')}" /></td>				
+					<td align="center"><c:out value="共${th.get('countgender')}位" /></td>				
 					<td align="center"><c:out value="${th.get('ratio')} %" /></td>				
 				</tr>
-			</c:forEach>
-		</tbody>
+			</c:forEach>	
+				
+		
 	</table>
 	<input class="btn btn-success" class="btn" type="button"  value="點選匯出excel">
+	
 	<div id="container" style="height: 400px"></div>
+	
 	<script>
 
 	Highcharts.chart('container',{
@@ -73,7 +84,7 @@
 			    }
 			  },
 			  title: {
-			    text: '學員年齡分布比例'
+			    text: '學員性別比例'
 			  },
 			  tooltip: {
 			    pointFormat: '{series.name}: <b>{point.mycustomLabel}</b>'
@@ -99,12 +110,12 @@
 			      
 			      
 			    	<c:set var="count" scope="page" value="${0}"/>
-			    	<c:forEach var="age" items="${agePercentList}">
+			    	<c:forEach var="gen" items="${genderList}">
 				    	<c:choose>
 					        <c:when test="${count==0}">
 					        {
-						        name: `${age.get("age")}歲 `+`(${age.get("ratio")}%)`,
-						        y: ${age.get("ratio")},
+						        name: `${gen.get("gender")} `+`(${gen.get("ratio")}%)`,
+						        y: ${gen.get("ratio")},
 						        sliced: true,
 						        selected: true,
 						        mycustomLabel: 'ithelp-ithelp-ithelp-ithelp'
@@ -113,7 +124,7 @@
 					    	 </c:when>
 					    	    
 					    	 <c:otherwise>
-					    	 	[`${age.get("age")}歲 `+`(${age.get("ratio")}%)`,   ${age.get("ratio")}],
+					    	 	[`${gen.get("gender")} `+`(${gen.get("ratio")}%)`,   ${gen.get("ratio")}],
 					    	 </c:otherwise>
 				    	</c:choose>
 			    	</c:forEach>	
@@ -155,7 +166,6 @@
 
 				<!-- Templete JS -->
 				<jsp:include page="../incloud/body-js.jsp" />
-	
 
 </body>
 </html>
