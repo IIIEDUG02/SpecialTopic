@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import net.ddns.iiiedug02.annotation.AspectLogAnnotation;
@@ -88,10 +87,9 @@ public class TradeController {
      */
     @PostMapping(value = "/getEcPayResult", produces = "text/html;charset=utf-8")
     @AspectLogAnnotation
-    public String processPaymentResult2(HttpServletRequest request, Principal p,
-            RedirectAttributes attr) {
+    public String processPaymentResult2(HttpServletRequest request) {
 
-        Member loginBean = utool.getLoiginBean(request.getSession(), p);
+        Member loginBean = utool.getLoiginBean(request.getSession(), request.getUserPrincipal());
         Hashtable<String, String> dict = new Hashtable<String, String>();
         Enumeration<String> enumeration = request.getParameterNames();
         while (enumeration.hasMoreElements()) {
@@ -128,12 +126,9 @@ public class TradeController {
                 }
                 shoppingCartService.deleteByList(scList);
                 classManagementService.insertByList(cmbList);
-                attr.addAttribute("msg", "交易成功");
             } else {
-                attr.addAttribute("msg", "交易失敗");
             }
         } else {
-            attr.addAttribute("msg", "交易發生錯誤");
         }
         return "redirect:/class/list";
     }

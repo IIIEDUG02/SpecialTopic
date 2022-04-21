@@ -17,9 +17,10 @@ function sc_del(cid) {
 					$('a#total').html("");
 					$('a.checkout').attr("href", "")
 				}
+				
 				$('li.scitem' + cid).remove();
 
-				if (typeof ($('div#item1')[0]) != 'undefined') {
+				if (typeof ($('div#item' + cid)[0]) != 'undefined') {
 					$('div#item' + cid).remove();
 				} else {
 					$('button#sc_btn_' + cid).attr('onclick', "sc_add(" + cid + ")");
@@ -27,11 +28,20 @@ function sc_del(cid) {
 					$('button#sc_btn_' + cid).removeClass("btn-danger");
 					$('button#sc_btn_' + cid).html("加入購物車");
 				}
+
+				
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 				if (parseInt($('span#shoppingcart_count').html()) == 0) {
-					$('div.shopping-cart').attr("style","display: none")
-					$('span#shoppingcart_count').attr("style","display: none")
+					$('div.shopping-cart').attr("style","display: none");
+					$('span#shoppingcart_count').attr("style","display: none");
+					if (typeof ($('checkout_btn')) != 'undefined') {
+						$('#checkout_btn').remove();
+					}
+
 				}
+				
+				
+				
 			} else {
 				alert("網頁發生錯誤");
 			}

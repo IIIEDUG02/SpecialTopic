@@ -458,7 +458,8 @@ public class ClassController {
      */
     @GetMapping("viewClass/{cid}")
     @AspectLogAnnotation
-    public String viewClass(@PathVariable("cid") int cid, Model m, RedirectAttributes attr) {
+    public String viewClass(@PathVariable("cid") int cid, Model m, RedirectAttributes attr,
+            HttpServletRequest request) {
 
         // 課程資訊
         ClassBean cb = cbs.findById(cid);
@@ -568,10 +569,9 @@ public class ClassController {
      */
     @GetMapping("checkOwned/{cid}")
     @ResponseBody
-    public String checkOwned(@PathVariable int cid, Principal principal,
-            HttpServletRequest request) {
+    public String checkOwned(@PathVariable int cid, HttpServletRequest request) {
         try {
-            Member mb = utool.getLoiginBean(request.getSession(), principal);
+            Member mb = utool.getLoiginBean(request.getSession(), request.getUserPrincipal());
             ClassManagementBean cmb = cms.findByUidAndCid(mb.getUid(), cid);
             if (null != cmb) {
                 return "true";

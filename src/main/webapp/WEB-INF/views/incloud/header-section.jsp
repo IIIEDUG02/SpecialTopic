@@ -99,7 +99,7 @@
 									<!-- checkbox -->
 									<div class="form-group">
 										<input type="checkbox" id="rememberMe-key"
-											name="rememberMe-key" class="remember">記住我的密碼 <a
+											name="rememberMe-key" class="remember" checked='checked'>記住我的密碼 <a
 											href="registerPage1" type="button" class="memberregister"
 											style="float: right; font-size: 20px">點擊註冊</a> <span
 											style="float: right; font-size: 20px">尚未成為學員?</span>

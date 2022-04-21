@@ -28,7 +28,7 @@ body {
 	background-color: rgb(255, 255, 255);
 }
 
-img {
+img#sc_class_photo {
 	background-color: rgb(255, 255, 255);
 	padding: 5px;
 	border: 1px rgb(0, 0, 0) solid;
@@ -70,7 +70,7 @@ img {
 					<div id="item${item.getClassBean().getCid()}"
 						class="row item m-3 p-1">
 						<div class="col-2 d-inline-flex">
-							<img width=100 height=100 src="${item.getClassBean().getPhoto()}">
+							<img id="sc_class_photo" width=100 height=100 src="https://iiiedug02.nilm.in/${item.getClassBean().getPhoto()}">
 						</div>
 						<div class="col-6 d-inline-flex">
 							<h3 id="class_title" class="p-2">
@@ -109,7 +109,7 @@ img {
 								type="hidden" name="CidList" id="CidList" />
 
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-success"
+							<button id="checkout_btn" type="button" class="btn btn-success"
 								data-bs-toggle="modal" data-bs-target="#checkoutModal">
 								結帳</button>
 

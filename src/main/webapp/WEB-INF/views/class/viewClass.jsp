@@ -54,17 +54,6 @@ h1 {
 <!-- Head js -->
 <jsp:include page="../incloud/head-js.jsp" />
 
-
-<!-- jQuery -->
-<script src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-
-<!-- 購物車 -->
-<script src="/SpecialTopic/js/shopping_cart.js"></script>
-
-<!-- Animate CSS -->
-<link rel="stylesheet"
-	href="/SpecialTopic/assets/vendor/animate.css/animate.min.css" />
-
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -132,7 +121,7 @@ h1 {
                     
                       <!-- add to cart button wrapper -->
                       <div class="buy-box--buy-box-item--1Qbkl buy-box--add-to-cart-button-wrapper--1VwJj">
-                        <div data-purpose="add-to-cart" style="flex: 1;">
+                        <div id="add-to-cart" data-purpose="add-to-cart" style="flex: 1;">
                           <c:choose>
                             <c:when test="${not empty classManagerBean}">
                               <h3>課程已購買</h3>
