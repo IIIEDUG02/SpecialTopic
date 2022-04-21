@@ -10,7 +10,7 @@ function getMemberPhoto() {
 			if (data != null) {
 				console.log(data);
 				
-				$('#mbphoto123').attr('src',"https://iiiedug02.nilm.in/SpecialTopic/" + data);
+				$('#mbphoto123').attr('src',"https://iiiedug02.nilm.in" + data);
 			}
 		},
 		error: function(xhr, status) {
