@@ -17,7 +17,6 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 import net.ddns.iiiedug02.annotation.AspectLogAnnotation;
 import net.ddns.iiiedug02.model.bean.ClassManagementBean;
 import net.ddns.iiiedug02.model.bean.EcpayRecord;
-import net.ddns.iiiedug02.model.bean.Member;
 import net.ddns.iiiedug02.model.bean.ShoppingCart;
 import net.ddns.iiiedug02.model.service.ClassManagementService;
 import net.ddns.iiiedug02.model.service.EcpayRecordService;
@@ -73,10 +72,10 @@ public class TradeController {
         obj.setTradeDesc(request.getParameter("TradeDesc"));
         obj.setItemName(request.getParameter("ItemName"));
         obj.setNeedExtraPaidInfo("N");
+        obj.setCustomField1(request.getParameter("CustomField1"));
 
         obj.setReturnURL("http://localhost:8080/SpecialTopic/ECPayServer");
         obj.setOrderResultURL("http://localhost:8080/SpecialTopic/getEcPayResult");
-        // obj.setOrderResultURL("https://iiiedug02.nilm.in/SpecialTopic/getEcPayResult");
         return all.aioCheckOut(obj, null);
     }
 
@@ -89,7 +88,6 @@ public class TradeController {
     @AspectLogAnnotation
     public String processPaymentResult2(HttpServletRequest request) {
 
-        Member loginBean = utool.getLoiginBean(request.getSession(), request.getUserPrincipal());
         Hashtable<String, String> dict = new Hashtable<String, String>();
         Enumeration<String> enumeration = request.getParameterNames();
         while (enumeration.hasMoreElements()) {
@@ -112,14 +110,15 @@ public class TradeController {
 
             if ("Succeeded".equals(dict.get("RtnMsg"))) {
                 String[] cidStrList = er.getCids().split("#");
-                List<ShoppingCart> scList = shoppingCartService.findAllByUid(loginBean.getUid());
+                List<ShoppingCart> scList = shoppingCartService
+                        .findAllByUid(Integer.parseInt(dict.get("CustomField1")));
                 List<ClassManagementBean> cmbList = new ArrayList<ClassManagementBean>();
                 // 刪除購物車 & 寫入ClassManagement
                 for (String cidStr : cidStrList) {
                     int cidInt = Integer.parseUnsignedInt(cidStr);
                     ClassManagementBean cmb = new ClassManagementBean();
                     cmb.setCid(cidInt);
-                    cmb.setUid(loginBean.getUid());
+                    cmb.setUid(Integer.parseInt(dict.get("CustomField1")));
                     cmb.setOrderDate(orderDate);
                     cmb.setTid(dict.get("MerchantTradeNo"));
                     cmbList.add(cmb);

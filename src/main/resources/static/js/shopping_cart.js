@@ -32,7 +32,7 @@ function sc_del(cid) {
 				
 				$('span#shoppingcart_count').html(parseInt($('span#shoppingcart_count').html()) - 1);
 				if (parseInt($('span#shoppingcart_count').html()) == 0) {
-					$('div.shopping-cart').attr("style","display: none");
+					$('div.shopping-cart').attr("style","display: none z-index: 1002");
 					$('span#shoppingcart_count').attr("style","display: none");
 					if (typeof ($('checkout_btn')) != 'undefined') {
 						$('#checkout_btn').remove();
@@ -69,7 +69,7 @@ function sc_add(cid) {
 				$('button#sc_btn_' + cid).attr('onclick', "sc_del(" + cid + ")");
 				$('button#sc_btn_' + cid).html('移除購物車');
 				$('a.checkout').attr("href", CHECKOUTUTL);
-				$('span#shoppingcart_count').attr("style","display: inline-block")
+				$('span#shoppingcart_count').attr("style","display: inline-block z-index: 1002")
 				var ul = $('ul.shopping-cart-items');
 				var li = addItem(data);
 				ul.append(li);
@@ -86,7 +86,7 @@ function sc_add(cid) {
 
 function checkout() {
 	$('input#TotalAmount').val($('a#sum').html());
-	$('input#TradeDesc').val("TEST");
+	//$('input#TradeDesc').val("TEST");
 	$('input#ItemName').val("");
 	$('h3#class_title a').each(function() {
 		if ($('input#ItemName').val() != "") {

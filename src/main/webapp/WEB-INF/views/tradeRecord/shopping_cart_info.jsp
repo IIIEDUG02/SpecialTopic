@@ -104,9 +104,9 @@ img#sc_class_photo {
 						<form id="idFormAioCheckOut" method="post"
 							action="/SpecialTopic/ECPayServer">
 							<input type="hidden" name="TotalAmount" id="TotalAmount" /> <input
-								type="hidden" name="TradeDesc" id="TradeDesc" /> <input
+								type="hidden" name="TradeDesc" id="TradeDesc" value="TEST"/> <input
 								type="hidden" name="ItemName" id="ItemName" /> <input
-								type="hidden" name="CidList" id="CidList" />
+								type="hidden" name="CidList" id="CidList" /> <input type="hidden" name="CustomField1" value="${uid}"/>
 
 							<!-- Button trigger modal -->
 							<button id="checkout_btn" type="button" class="btn btn-success"

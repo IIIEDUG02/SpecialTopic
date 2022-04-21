@@ -54,6 +54,7 @@ public class ShoppigCartController {
         }
         m.addAttribute("shoppingCartList", scl);
         m.addAttribute("sum", sum);
+        m.addAttribute("uid", loginBean.getUid());
 
         return "tradeRecord/shopping_cart_info";
     }

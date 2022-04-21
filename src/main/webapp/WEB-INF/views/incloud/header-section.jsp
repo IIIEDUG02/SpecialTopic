@@ -55,6 +55,7 @@
 						<li id="scl"></li>
 						<li><img id="mbphoto123" src="" alt="預覽圖片"
 							style="width: 30px; height: 30px; border-radius: 50%; margin-left: 20px"></li>
+							<input id="uid" type="hidden" >
 						<script>getMemberPhoto();getShoppingCartList();	</script>
 					</c:when>
 				</c:choose>
