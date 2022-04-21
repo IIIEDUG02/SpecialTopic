@@ -26,10 +26,9 @@ public class BeanConfig {
     public AllInOne allInOne() {
         return new AllInOne("");
     }
-
     @Bean
     public ArticleHelper articleHelper() {
-        return new ArticleHelper();
+    	return new ArticleHelper();
     }
-
+ 
 }
