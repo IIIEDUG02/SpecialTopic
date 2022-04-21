@@ -5,3 +5,4 @@
 <script src="/SpecialTopic/js/shopping_cart.js"></script>
 <script src="/SpecialTopic/js/class.js"></script>
 <script src="/SpecialTopic/js/loginjs.js"></script>
+<script type="text/javascript" src="/SpecialTopic/js/membermanage.js"></script>

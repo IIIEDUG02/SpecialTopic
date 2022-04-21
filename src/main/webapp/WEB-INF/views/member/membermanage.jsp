@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- Head CSS -->
-<jsp:include page="../incloud/head-css.jsp" />
-<!-- Templete JS -->
-<jsp:include page="../incloud/body-js.jsp" />
 <html>
 <head>
 <!-- ======= Header ======= -->
-<jsp:include page="../incloud/header-section.jsp" />
-<script type="text/javascript" src="/SpecialTopic/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/SpecialTopic/js/mamermanage.js"></script>
+<!-- Favicons -->
+<jsp:include page="../incloud/favicons.jsp" />
+<!-- Head CSS -->
+<jsp:include page="../incloud/head-css.jsp" />
+<!-- Head js -->
+<jsp:include page="../incloud/head-js.jsp" />
 <meta charset="UTF-8">
 <title>admin</title>
 <style>
@@ -24,6 +23,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../incloud/header-section.jsp" />
 	<div style="height: 100px"></div>
 		<div>
 			<div class="search">
