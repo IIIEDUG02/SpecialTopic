@@ -35,8 +35,8 @@ body {
 	height: 100px;
 }
 
-div#shoppingcart {
-	text-align: center;
+div.shopping-cart {
+	z-index: 1002;
 }
 
 h1 {
@@ -53,10 +53,6 @@ h1 {
 
 <!-- Head js -->
 <jsp:include page="../incloud/head-js.jsp" />
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- viewClass CSS -->
 <link rel="stylesheet" href="/SpecialTopic/css/view-class.css" />
